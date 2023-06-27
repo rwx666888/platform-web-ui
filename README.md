@@ -1,1 +1,250 @@
-# platform-web-ui
+# platform-web-ui (平台前端框架)
+[演示DEMO](htmldemo/iframe-demo/){:target="_blank"}  
+[使用手册](htmldemo/){:target="_blank"}
+
+## 更新日志
+
+- [5.11.6] 2020-11-27
+  - 【BUG】组件bootstrap-dropdown-on-hover-plugin，修正触发节点中含有子节点时，高概率失效的BUG；
+  - 【更新】新增websocket协议的即时通讯组件；用于消息通知服务；
+  - 【功能】新增帮助中心模块，可独立部署子系统；
+  - 【更新】富文本编辑器新增对bootstrap-table基础样式，在编辑及预览状态下的兼容支持；
+  - 【更新】修改富文本编辑器自定义占位符组件的识别结构为'${name}'格式，与各数据模板保持统一；
+
+- [5.6.1] 2020-06-11
+  - 【更新】因系统拆分需要，解决部分场景下跨系统调用交互跨域的问题，通过cumCheckPwin方法，自动将跨域嵌套的对象降级为self处理，弹窗系列方法已默认兼容；
+    - PS：parent.COM_TOOLS.alert(123) 需要更换为 cumCheckPwin(parent).COM_TOOLS.alert(123)；
+    - PS：parent => cumCheckPwin(parent);
+    - PS：top => cumCheckPwin(top);
+
+
+- [5.5.1] 2020-05-27
+  - 添加在线人数显示；
+- [5.1.2] 2020-01-19
+  - 【功能】数据表格datatable 添加自定义排序功能；提交到服务器的数据中新增sort字段，类型array; (@LL)
+    - 形式：[{ colData: "column.data", colName: "column.name", dir: "asc/desc" }]；
+    - 使用方法：后台按照form-checkbox方式接收处理数据
+
+- [5.1.1] 2020-01-16
+  - 【BUG】修正cusdaterangepicker组件，非input元素初始化时存在的各种异常；(@LL)
+  - 【BUG】修正cusdaterangepicker组件，与dropdown混用时，点击左右按钮，导致dropdown关闭的问题；(@LL)
+- [4.8.5] 2019-8-13
+  - 【组件】升级ckeditor 树形结构组件（V4.9.2 -> 4.12.1），添加内部ajax控件、自动高度调节控件、block模块、表格拖拽控件；(@LL)
+  - 【更新】扩展COM_TOOLS.fnTabPage，以支持iframe模式初始化；(@LL)
+- [4.8.3] 2019-8-8
+  - 【组件】升级jstree 树形结构组件（V3.3.3 -> 3.3.8），解决浏览器即将废除document.registerElement方法的风险；(@LL)
+- [4.8.2] 2019-8-4
+  - 【BUG】修正select2_init方法的已知BUG；(@LL)
+  - 【更新】重构并修正select2 demo页面，合并数据字典组件模板(@LL)
+
+- [4.7.3] 2019-7-30
+  - 【组件】扩展select2组件支持本地数据源；(@LL)
+  - 【组件】修改daterangepicker-双日历组件，使其支持在单日历且无时间框模式下，支持显示取消与确定按钮；(@LL)
+  - 【功能】新增JSP页面代码生成器（包括表单页、列表页、详情页；如后台服务支持，可同时生成对应的建表语句和java类；）(@LL)
+  - 【组件】升级daterangepicker-双日历组件（V3.0.3 -> V3.0.5），解决不可设置可选截止日期为当日的BUG；(@LL)
+- [4.6.1] 2019-6-11
+  - 【BUG】修正强制退出配置项因参数类型导致的BUG，改为字符串类型；(@LL)
+  - 【BUG】修正国际化配置组件中，当key为纯数字时，产生的兼容性BUG；(@LL)
+- [4.3.1] 2019-3-7
+  - 【功能】针对jq-ajax添加全局监听器，如登录会话失效则跳转到登录页；（注：真对基于jquery的ajax有效，dataFilter 未被覆盖）(@LL)
+- [4.1.4re05 --] 2019-1-30
+  - 【功能】添加强制退出功能，支持设置累计使用时长与指定时间两种形式；(@LL)
+  - 【模块】新增通讯录模块；(@LL)
+  - 【功能面板】新增通讯录管理功能面板；
+  - 【功能面板】新增应用及接口服务管理功能面板；
+  - 【功能面板】新增邮件服务管理功能面板；
+  - 【组件】新增附件上传组件（webuploader的多文件上传）；(@LL)
+  - 【BUG】修正帮助手册大纲层级构造异常的BUG（2级及以上大纲层级回归时，层级计算错误）；(@LL)
+  - 【功能面板】新增操作日志采集与查询功能面板；(@hjq)
+  - 【组件】新增双日历组件（cusdaterangepicker）；(@CCJ)
+  - 【BUG】修正嵌套（逻辑）弹窗获取父页面（物理）大小计算错误的兼容问题（parent.$(window).width() ==》 $(parent).width()）；(@LL)
+  - 【组件】新增密码框组件；(@CCJ)
+  - 【布局】新增flex布局；(@LL)
+- [3.9.3] 2018-9-9
+  - 【BUG】系统消息模块添加对下兼容补丁（后台接口数据格式有变更），并修复已知BUG；(@LL)
+  - 【BUG】对优化后的首页标签导航代码添加对下兼容补丁；(@LL)
+  - 【更新】优化自定义面板组件按钮区配置方式；提高容错兼容性；(@LL)
+- [3.9.1] 2018-9-5
+  - 【BUG】修复IE浏览器下部分因为ajax缓存造成的BUG，改为不使用缓存；涉及ajaxFn, select2, jstree, echart(@LL)
+- [3.8.6] 2018-8-29
+  - 【组件】新增jQuery插件cuspanel，使用方法：$(selector).cuspanel();使用说明,还没写呢，详见源码("comTools-公共方法库" => _CUSPANEL_)(@LL)
+  - 【模块】新增首页定制化功能(@LL) ==> 查看 [demo](htmldemo/iframe-demo/index_make.html)
+  - 【更新】全新改版系统消息功能；(@LL)
+  - 【BUG】优化平台首页标签页相关方法并修正已知BUG；(@XXW)
+- [3.8.5] 2018-8-8
+  - 【更新】layer组件修改，将原型绑定到实例化后的组件上，使外部可以调用内部原型方法（慎用）；(@LL)
+  - 【更新】添加API:cumResizeWin,可根据内容自适应，调整窗口的大小及位置 （暂不适用于iframe层）【3.8.1+】(@LL)
+  - 【更新】修改系统消息弹窗，新增强制模式；内容列表改为追加方式；添加消息列表页、详情页等；(@LL)
+  - 【BUG】修正组织机构页面左右伸缩BUG；(@LL)
+- 2018-5-20
+  - 修正 select2_init 方法中多选初始化配置异常 BUG，及启用拼音检索配置项拼写错误问题(ispinyi => ispinyin),已兼容处理；(@LL)
+  - 添加公告方法 getPosition（获取元素的大小及位置）、get_GUID（生成 guid）(@LL)
+  - 新增平台树形组件初始化方法 jstree_init，支持数据源共享机制；(@LL)
+  - 修改国际化模块针对 key 忽略大小写敏感；已对历史数据进行兼容处理；(@LL)
+  - 新增自定义下拉框组件 cus_dropdown；(@LL)
+  - 新增树形下拉框组件 cus_drop_jstree（支持数据源共享机制，与拼音检索）；(@LL)
+  - 修正部分场景下 input 的 defaultValueMsg 不生效的问题；(@LL)
+- 2018-3-30
+  - 新增使用 webupload 进行二次封装的多文件上传（使用单独的 js 及 css 文件）；(@CCJ)
+  - 单文件上传方法 COM_TOOLS._view.cusFileUpload 修改为 DOM 节点动态构造形式；(@CCJ)
+  - 数据表格添加动态列显隐控件；(@LL)
+  - 修改数据表格（dataTables.bootstrap.js）组件源码，新增 2 种跳页解析器；并新增 3 个分页插件（subindex.js）；【使用方法：opt=>other=>pagingType: 'simple_inputAndPages'】(@LL)
+    - simple_numbers_input 上一页和下一页两个按钮，加上页数按钮，加跳页按钮(不带总页数：page => go)
+    - simple_numbers_inputAndPages 上一页和下一页两个按钮，加上页数按钮，加跳页按钮(带总页数：page/pages => go)
+    - simple_inputAndPages 上一页和下一页两个按钮，加跳页按钮(带总页数：page/pages => go)
+- 2018-3-22
+  - 修正 select2 IE11 下拉菜单自动触发的 BUG，修正菜单位置异常的 BUG；(@LL)
+  - 修正弹窗关闭方法，非嵌套使用时会报警告的问题；(@LL)
+  - 修正 select2 组件，自定义 api 在部分组合使用时，不能自动触发的 BUG；及部分场景下的样式兼容问题(@LL)
+  - 变更组件级国际化信息 key，与业务资源分离；（@LTY）
+  - 添加自定义模块——国际化；(@LL)
+  - 添加富文本编辑器（ckeditor）初始化 api:docEditor，封装上传接口（应用配置文件）及默认参数；添加数据锚点插件；(@CCJ)
+  - 添加文件上传 UI 组件；(@CCJ)
+  - 添加延时信息框组件 delayPopover；并修改帮助系统提示信息交互形式为 delayPopover；(@LL)
+- 2018-2-23
+  - 修正日历组件（datatimepicker）重置起始时间无效的问题；(@LL)
+- 2018-1-18
+  - 新增外部设置平台默认配置信息（功能、组件）的方法；(@LL)
+  - 修改数据表格错误信息提示方式为控制台输出，并新增该类型错误可能导致的原因；(@LL)
+- 2017-12-12
+  - 数字格式化插件 jquery.number.js（修复 BUG）；(@LL)
+    - 修正应用于非 input 元素且为负数时，负号丢失的问题；
+    - 修正 Safari 浏览器应用 $.number() 时，千分位不能正确显示的问题；
+    - 修正应用 $([]).val('')，时输出 0.00，而不能输出预期值 '' 的问题；（该问题来源于 github）
+- 2017-09-25
+  - 添加加载中遮罩层 COM_TOOLS.loadingShade.open()||close(); (@LL)
+  - 新增新手引导DEMO；示例：ajax-demo/index.html(@LL)
+  - 新增详情信息气泡窗口，并支持内部图片缩放；(@LL)
+  - 修正cus-popover方法与已知的第三方基于原生popover组件的已知的兼容问题；(@LL)
+  - 修正弹窗后焦点还保留在原触发按钮元素的问题（使新窗口iframe获得焦点），以解决回车、空格键会再次触发弹窗事件的问题；(@LL)
+
+- 2017-09-14
+  - 自定义封装datatable =》fn:DT_init（支持接口无权限时数据格式转换）及相关API； (@LL)
+  - 自定义封装select2 =》 fn:select2_init 支持实时数据检索、ajax本地缓存数据、html数据初始化及相关API；(@LL)
+  - 修改弹窗交互demo,统一交互方式为匿名回调函数方式；(@LL)
+  - 新增自定义单选框、复选框组件icheck组件范例 (@LL)
+  - 新增自定义下拉框（更多搜索条件下拉框demo）、优化高级搜索实现方法(@CCJ)
+  - 升级layer弹窗组件（源码有定制修改）【修复在最新版 Chrome（61.0.3163.79）下遮罩层出现的奇异花屏现象】，3.0.1=》3.1.0版本，更新内容见官方说明http://fly.layui.com/jie/4827/；(@LL)
+  - layer弹窗组件新增左侧偏移量定位属性：cusOffsetLeft；默认0，如果是右侧定位，请使用负数；(@LL)
+
+- 2017-08-31
+  - 修改国际化组件规则 (@LL)2017-08-28
+    - 引入新国际化资源包i18n/xxxx.json文件（必须）；
+    - 修改tedu-languge.js、zdy-validate.js中相关方法；
+    - 备注：如使用2017-8-28（+）版本的文件tedu-languge.js和zdy-validate.js；则必须引入i18n/xxxx.json文件；新、旧语言包共存状态下，优先使用新语言包资源，并可自动对下兼容为旧语言包key;未加载新国际化组件资源的项目禁止单独升级tedu-languge.js和zdy-validate.js文件
+  - 所有demo页套用新国际化组件 (@LL)
+  - 修改、扩充select2-demo；(@LL)
+
+- 2017-05-24
+  - zdy-validate新增两个校验方法 (@CCJ)
+    - 表单内至少N项被填写
+    - 表单内至少N项被填写 或者 都不填写
+  - validate-demo里新增对应的实例 (@CCJ)
+
+- 2017-05-18
+  - 新增datatimepicker实例 (@CCJ)
+    - 简单的可视化配置
+    - 自动生成对应代码片段
+  - layer 添加按钮组自定义样式扩展 config.btnStyleArr['class1','class2']
+
+- 2017-05-12
+  - 添加CKeditor-DEMO例子 (@CCJ)
+    - 包含两种不同初始化方法的演示实例
+    - 多种初始化方式的详细说明
+    - 配置项 config.js 说明
+    - 基础API方法说明
+    - 图片上传及返回信息说明
+  - 废弃 组件jquery-validate.bootstrap-tooltip.min.js（当存在两个以上远程验证，且第一次触发时存在错误提示信息闪退的BUG），已重写类似交互方法并加入到subindex.js中 (@LL)
+  - 从2017-5-10版本开始font-awesome.css文件为可选包 (@LX)
+    - fa fa-search --> glyphicon glyphicon-search
+    - fa fa-plus --> glyphicon glyphicon-plus
+    - fa fa-pencil --> glyphicon glyphicon-pencil
+    - fa fa-trash --> glyphicon glyphicon-trash
+    - fa fa-road --> glyphicon glyphicon-road
+    - fa fa-cog --> glyphicon glyphicon-cog
+    - fa fa-calendar --> glyphicon glyphicon-calendar
+    - fa fa-check --> glyphicon glyphicon-ok
+    - fa fa-download --> glyphicon glyphicon-download-alt
+    - fa fa-minus --> glyphicon glyphicon-minus
+    - fa fa-info --> tedufont tedu-icon72
+    - fa fa-file-text-o --> tedufont tedu-icon85
+    - fa fa-file-code-o --> tedufont tedu-icon81
+    - fa fa-list-ul --> glyphicon glyphicon-th-list
+  - 添加多级下拉菜单功能；(@CCJ)
+  - 废弃 bootstrap-hover-dropdown.min-ajax.js 复用 bootstrap-hover-dropdown.min.js；
+  - 修改subindex.js 与 subindex-ajax.js文件差异部分，准备弃用subindex-ajax.js；(@LL)
+  - 新增“数字显示插件”及“日期处理类库”范例；(@LL)
+  - 修改callParentWinCacheFn方法，用于支持直接回调匿名函数；(@LL)
+  - 在其它组件范例里新增下拉菜单示例 (@CCJ)
+
+- 2017-05-09
+  - 添加数据表格DT 分页组件（pager.simple_numbers_no_totalpage：不显示总页数）; (@LL)
+  - 新增全局组件对象CUS_PLUGINS，用于定义组件方法；(@LL)
+  - 修改数据表格配置及初始化信息，并删除自适应行数方法（未使用，不具备价值），新增行背景颜色；(@LL)
+  - 公共方法库中，新增数组去重（arrayUniqueFn）、数组去重插入（arrayUniquePushFn）方法；(@LL)
+  - 公共方法库，新增自定义验证类-自定义特殊字符验证（specialChars）（@CCJ）
+
+- 2017-04-25
+  - 添加加载中遮罩层 COM_TOOLS.loadingShade.open()||close(); (@LL)
+  - 新增新手引导DEMO；示例：ajax-demo/index.html(@LL)
+  - 新增详情信息气泡窗口，并支持内部图片缩放；(@LL)
+  - 修正cus-popover方法与已知的第三方基于原生popover组件的已知的兼容问题；(@LL)
+  - 修正弹窗后焦点还保留在原触发按钮元素的问题（使新窗口iframe获得焦点），以解决回车、空格键会再次触发弹窗事件的问题；(@LL)
+  - 优化fnInitInputHelpVal（）【input[text]框默认提示信息；placeholder】方法在某些已知场景下会多次初始化值得问题；(@LL)
+  - 重写原“DT_sumInps”方法（生产环境未正式使用），并更名为 DT_getInputSum；(@LL)
+  - 新增DT_getSelectRowsSourceData方法，用于DT获取指定行的底层数据；(@LL)
+  - 新增DT_getColumnSum方法，用于DT获取指定列的汇总和(@LL)
+- 2017-03-21
+  - 添加echarts图表DEMO，及数据结构转换方法：COM_TOOLS.eChartsTools.initOpt；详见手册相关单元(@LL)
+  - 添加echarts图表更新数据方法：COM_TOOLS.eChartsTools.updateData；详见手册相关单元(@LL)
+  - 新增echarts图表iframe嵌入方式DEMO（可外部配置，自适应大小）；(@LL)
+  - 修改ueditor部分已知BUG；(@LL)
+- 2017-03-07
+  - subindex.js/-ajax.js 修改 cumGetParentWinGlobel()/cumGetParentBodyGlobel() 方法以支持童程crm特殊情况；(@ccj)
+  - datatable-demo 行内计算实例修改（新增不选中行时，可实现表格内自动计算）,DT_sumInps方法添加新的传参；(@ccj)
+  - 升级第三方组件datatimepicker.js，并扩展框架初始化配置信息，修复兼容BUG，新增“清除”按钮；（@LL）
+  - 扩展提示信息与表单验证信息模型；
+  - 修改select2全局初始化配置，及相关样式；增强兼容性；
+- 2017-02-23
+  - 弹窗组件中新增“callback（回调函数对象列表）”属性，及callParentWinCacheFn()与setCacheFnForChildWin方法；用于实现子弹窗（模板类）回调父窗口中的相关方法 ；(@LL)
+- 2017-02-17
+  - 新增webuploader组件DEMO页 (@CCJ)
+    - 选择文件并上传实例
+    - 选择文件自动上传实例
+    - 表单内的选择文件自动上传，并包含隐藏域
+  - 新增select2语言自动初始化配置，修改demo (@LL)
+- 2017-02-10
+  - 新增datatable行内编辑，传参table/name(arr);注：需在columns中维护一个name字段。(@CCJ)
+  - 新增datatable实现input转td并保存数据，传参table/name(arr)/param；注：需在columns中维护一个name字段，param默认true，false时只获取数据，不转化td。(@CCJ)
+  - 新增datatable选中行间的计算,传参table/name(arr)/id；注：需在columns中维护一个name字段，id为要显示结果的DOM元素ID。(@CCJ)
+  - 新增JS加法运算方法，用于纠正浮点运算错误。(@CCJ)
+- 2017-02-03
+  - 修改弹窗组件 layer.js 新增配置信息："helpBtn":false, /* 帮助按（ ？） 按钮 -url地址或锚链接; false:不启用 */；(@LL)
+  - subindex[-ajax].js； 新增自定义提示信息，使用方法 将需要添加提示信息的元素 class中 加入”js-helpmsg“，然后设置 data-helpmsg="msgkey"； msgkey = TEDU_MESSAGE[key];（@LL）
+  - subindex[-ajax].js； 新增帮助按钮事件（页面元素类）,使用规则与弹窗帮助一致； .js-helpbtn data-helpbtn="#dom2"；(@LL)
+- 2017-01-23
+  - 修改jquery-validate.bootstrap-tooltip.min.js 配置信息['container','template'],用于支持自定义样式区分，以及组件可能的定位兼容问题;(@LL)
+  - 修改 styie[-ajax].css tooltip自定义样式；用于解决，和select2、validate等组件共同使用时，可能产生的样式问题；（@LL）
+  - subindex[-ajax].js 新增“ajax 加载tab标签页”公共方法，支持强制reload标签内容扩展属性，全局开始、结束回调方法，以及各标签结束回调方法；（@LL）
+  - 修正subindex-ajax.js 中左右布局滑动动画，导致的部分组件监听丢失、渲染兼容BUG；（@LL）
+  - subindex[-ajax].js 新增COM_TOOLS.requireJsFn(['需要加载的组件数组'],['所需加载组件所依赖的组件数组'],function(){ //TODO; });方法，用于ajaxLoad方式加载的页面如果有新的组件被同时引入时，动态加载所需JS并执行,并完成所加载组件的默认配置信息初始化；（@LL）
+- 2017-01-09
+  - 新增中文语言统一扩展变量 TEDU_LANGUAGE,使用COM_TOOLS['_language']='zh-CN'统一配置(包含dataTable,validate,datetimepicker,select2); 新增datetimepicker全局默认缺省配置;(@CCJ)
+  - 修改subindex[-ajax].js新增contentPATH='/'配置属性，项目包名、路径；（@LL）
+  - 修改tedu-languge.js文件，添加“错误提示信息”对象 TEDU_MESSAGE； 使用方法 COM_TOOLS.alert(TEDU_MESSAGE.get('<span class="text-danger">noGetPermission</span>')); 只修改红色字体；详见该文件；（@LL）
+  - 新增按钮鉴权管理方法与本地会话级数据存储方法；（@LL）
+- 2017-01-05 @LL
+  - 新增jquery-number组件,用于格式化数字； input实时录入格式化； 数字回显格式化 $(select).number(true,2); $.number(123456,2)，参见datatable-demo#1;
+  - 新增jstree data[jsonObj\listMap]、ajax节点异步等数据源格式及DEMO；
+  - 修改subindex[-ajax].js中datatable-option => scrollX: true, //默认显示水平滚动条；
+- 2016-12-29 @LL
+  - 修改 subindex[-ajax].js 添加datatable（右侧列表）自适应行数，其它页面必须指定行数；
+  - 修改 layer.js end 回调方法，添加 额外 自定义配置属性：other:{"noTriEnd":true}；从而控制点击右上角的X关闭弹出时（cancel）不执行end回调方法；
+  - 修改 dataTables.select.min.js ，添加对模拟复选框添加过滤，解决有文字选中状态下，不能点击选中行的问题
+  - 修改style[-ajax].css文件，新增、修改datatable模拟复选框样式；
+  - 修改修改datatable-demo 复选框（input-checkbox）为模拟复选框(className)；
+  - 修改组件 layer.close(index,noTriEnd_); ADD::[cumCloseWin(index,noTriEnd_)]方法, 新增状态noTriEnd_ 是否阻止触发END回调方法；true；
+- 2016-12-21 @LL
+  - 创建：
+  - 更新 datapicker—— CSS/js(配置属性)、 subindex[-ajax].js、 style[-ajax].css
+  - 新建/更新  ajax-demo/ 中demopage（参照platform,线上不包含此目录）
