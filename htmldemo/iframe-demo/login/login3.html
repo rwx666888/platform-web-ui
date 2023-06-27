@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../../../css/iconfont.css">
+    <title>达内教学支撑管理平台</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-family:"微软雅黑";
+        }
+        .fl-input{float:left;}
+        .fr-input{float:right;}
+        html,body{
+            height:100%;
+            width:100%;
+            background:url("login3/ts-login-bg.jpg") center center;
+            background-size:cover;
+            min-width:915px;
+            min-height:486px;
+            position:relative;
+        }
+        @media screen and (min-width:1600px){
+            html,body{
+                min-height:623px;
+            }
+            .login-box{
+                transform:scale(1.3);
+                -ms-transform:scale(1.3);     /* IE 9 */
+                -moz-transform:scale(1.3);    /* Firefox */
+                -webkit-transform:scale(1.3); /* Safari 和 Chrome */
+                -o-transform:scale(1.3); 
+            }
+        }
+          .copy-right{
+            color:#fff;
+            position:absolute;
+            bottom:5px;
+            left:50%;
+            margin-left:-267px;
+        }
+         .login-box{
+            width:915px;
+            height:455px;
+            position:absolute;
+            left:50%;
+            top:50%;
+            margin-left:-457.5px;
+            margin-top:-227.5px;
+            background:url("login3/ts-login-content.png") no-repeat center center;
+        }
+        .login-box .login-form{
+            width: 303px;
+            height: 285px;
+            position: absolute;
+            top: 113px;
+            right: 39px;
+            background: #fff;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+         .login-box .login-form:before{
+             content:'';
+             display:table;
+        }
+        .login-box .login-form p{
+            position:relative;
+            margin-bottom:15px;
+        }
+        .login-box .login-form .yz{
+            width:189px;
+            margin-right:7px;
+        }
+        .login-box .login-form .yzm{
+            width:107px;
+            text-align:center;
+            overflow:hidden;
+        }
+        .login-box .login-form .yz .lg-usern{
+            padding-left:10px;
+            width:162px;
+            margin:0 0 0 26.5px;
+        }
+        .login-box .login-form .yzm .yzm-lty{
+            display:block;
+            width:80px;
+            height:40px;
+            border:1px solid #adadad;
+        }
+        .login-box .login-form .yzm .yzm-lty>img{
+            width:100%;
+            height:100%;
+        }
+        .login-box .login-form .m-t-26{
+             margin-top:26px;
+         }
+        .login-box .login-form .lg-usern{
+            display:block;
+            width:250px;
+            height:40px;
+            border:1px solid #adadad;
+            margin:0 auto;
+            padding-left:25px;
+            font-family:"微软雅黑";
+        }
+        .login-box .login-form .lg-usern:focus{
+            border:1px solid #299be4;
+        }
+        .login-box .login-form .lg-usern:focus+i{
+            color:#299be4;
+        }
+        
+        .login-box .login-form i{
+            color:#b4b4b4;
+            font-size:16px;
+            position:absolute;
+            left:32px;
+            top:12px;
+        }
+        .login-box .login-form .lg-login{
+            display:block;
+            width:250px;
+            height:40px;
+            background:#2b9be3;
+            color:#fff;
+            font-size:16px;
+            text-align:center;
+            line-height:40px;
+            margin:0 auto;
+            border-radius:5px;
+            clear:both;
+            cursor:pointer;
+            transition:background .2s ease-in-out;
+        }
+         .login-box .login-form .lg-login:hover{
+            background:#1a8fda;
+        }
+        .login-box .login-tit{
+            width:305px;
+            height:45px;
+            line-height:45px;
+            color:#c1c1c3;
+            font-size:20px;
+            position:absolute;
+            right:39px;
+            top:67px;
+            text-align:center;
+            
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <p class="login-tit">达内教学支撑管理平台</p>
+        <div class="login-form">
+                <p class="m-t-26">
+                    <input class="lg-usern" placeholder="用户名/手机号/邮箱" type="text">
+                    <i class="tedufont tedu-icon50"></i>
+                </p>
+                <p>
+                    <input class="lg-usern" placeholder="请输入登录密码" type="password">
+                    <i class="tedufont tedu-icon49"></i>
+                </p>
+                <p class="fl-input yz">
+                    <input class="lg-usern" placeholder="请输入验证码" class="last-yanzheng" type="text">  
+                </p>
+                <p class="fr-input yzm">
+                    <span class="yzm-lty"><img src="login3/ts-login-yzm.jpg"  alt="" /></span>
+                </p>
+            <span class="lg-login">登录</span>
+        </div>
+    </div>
+<p class="copy-right">Copyright © 2017 Tedu.cn All Rights Reserved 京ICP备08000853号-56</p>
+<script>
+	if (top != self){
+        top.window.beforeunload_flag = false;
+        top.location = self.location;
+    }
+</script>
+</body>
+</html>

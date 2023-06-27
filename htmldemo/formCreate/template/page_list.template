@@ -1,0 +1,167 @@
+<!-- 列表页模板  -->
+<template id="listpage_codebox">
+  <div class="container-fluid this-event-page ">
+    <div class="row">
+      <div class="col-sm-12 m-b-sm m-t-sm clearfix">
+        <div class="pull-left">
+          <div class="form-inline" id="listpage_searchbox">
+            {{each searchlist}}
+            <div class="form-group form-group-sm">
+              <label for="formdemo1">{{$value.label_name}}：</label>
+              <input type="text" name="{{$value.column_name}}" class="form-control js-search-param" value="">
+            </div>
+            {{/each}}
+            {{if $imports._HASJAVACODE_}}
+            <shiro:hasPermission name="button_{{$imports._DBCOM_.className}}:query">{{/if}}
+              <button type="button" class="btn btn-success btn-sm" id="demoSearchBtn">搜索</button>
+              {{if $imports._HASJAVACODE_}}
+            </shiro:hasPermission>{{/if}}
+          </div>
+        </div>
+        <div class="pull-right">
+          {{if $imports._HASJAVACODE_}}
+          <shiro:hasPermission name="button_{{$imports._DBCOM_.className}}:add">{{/if}}
+            <button class="btn btn-primary btn-sm" type="button" id="cumBtn_add"><i
+                class="glyphicon glyphicon-plus"></i> 新建</button>
+            {{if $imports._HASJAVACODE_}}
+          </shiro:hasPermission>{{/if}}
+          {{if $imports._HASJAVACODE_}}
+          <shiro:hasPermission name="button_{{$imports._DBCOM_.className}}:update">{{/if}}
+            <button class="btn btn-success btn-sm" type="button" id="cumBtn_edit"><i
+                class="glyphicon glyphicon-pencil"></i> 修改</button>
+            {{if $imports._HASJAVACODE_}}
+          </shiro:hasPermission>{{/if}}
+          {{if $imports._HASJAVACODE_}}
+          <shiro:hasPermission name="button_{{$imports._DBCOM_.className}}:del">{{/if}}
+            <button class="btn btn-success btn-sm" type="button" id="cumBtn_del"><i
+                class="glyphicon glyphicon-remove"></i> 删除</button>
+            {{if $imports._HASJAVACODE_}}
+          </shiro:hasPermission>{{/if}}
+          <!-- 更多按钮样例，没用就删 -->
+          <div class="dropdown" style="position: relative; display: inline-block;">
+            <button class="btn btn-warning btn-sm" type="button" data-hover="dropdown"><i class="glyphicon glyphicon-th-list"></i> 更多</button>
+            <div class="dropdown-menu p-sm dropdown-menu-right " role="menu">
+              <button class="btn btn-primary btn-sm btn-block" type="button"><i class="glyphicon glyphicon-plus"></i> 样例1</button>
+              <button class="btn btn-success btn-sm btn-block" type="button"><i class="glyphicon glyphicon-pencil"></i> 样例2</button>
+              <button class="btn btn-info btn-sm btn-block" type="button"><i class="tedufont tedu-icon72"></i> 样例3</button>
+            </div>
+          </div>
+          <!-- 更多按钮样例，没用就删 -->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="demotable1" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {{if $imports._HASJAVACODE_}}{{@$imports._COM_OPT_.footerjsp}}{{/if}}
+  <script>
+    $(function() {
+      var searchParemOBj_ = COM_TOOLS.serializeObject('#listpage_searchbox .js-search-param') || {};
+
+      var DT_ = COM_TOOLS.DT_init('demotable1', [{ // 显示行号
+        "data": null,
+        "className": "text-center",
+        "width": "30px",
+        "title": '序号',
+        render: function(data, type, row, meta) {
+          return 1 + meta.row;
+        }
+      },
+      { //选择框
+        "data": null,
+        "title": '<span class="cus-checkbox-all"></span>',
+        "width": "30px",
+        "className": "select-checkbox",
+        "defaultContent": ''
+      },
+      {{each columnlist}} 
+      {
+        "data": "{{$value.java_datatype == 'Date' ? $value.column_name + 'Str' : $value.column_name}}",
+        "title": '{{$value.label_name}}'
+      }
+      {{if $index + 1 != columnlist.length}},{{/if}} 
+      {{/each}}
+      ],
+      '${contextPath}/${action}',
+      'post',
+      searchParemOBj_, {
+        jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象；
+          var id_ = trdata['id'];
+          if (id_) {
+            cumParentWinModal('详情', '${contextPath}/${detailAction}?id=' + id_);
+          }
+        }
+      });
+      /* 新建按钮 */
+      $('#cumBtn_add').click(function() {
+        cumParentWinModal('新建', '${contextPath}/${creactAction}', {
+          "scrollbar": true,
+          end: function() { //窗口关闭 
+            COM_TOOLS.DT_ajaxReload(DT_.table); //刷新表格，并重置页码到第一页；
+          },
+          other: {
+            "noTriEnd": true //点击弹窗右上角的“X”不触发end事件，不刷新表格
+          }
+        });
+      });
+      /* 编辑按钮 */
+      $('#cumBtn_edit').click(function() {
+        var ids_ = DT_.getSelectRowsData('id');
+        if (ids_.length != 1) {
+          COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.choose_data')); // 请选择一条数据
+          return false;
+        }
+        cumParentWinModal('修改', '${contextPath}/{{$imports._DBCOM_.className}}/update', {
+          "scrollbar": true,
+          end: function() {
+            COM_TOOLS.DT_ajaxReload(DT_.table, false); //刷新表格，并保留当前分页信息；
+          },
+          other: {
+            "noTriEnd": true //点击弹窗右上角的“X”不触发end事件，不刷新表格
+          }
+        });
+      });
+      /* 删除按钮 */
+      $('#cumBtn_delete').click(function() {
+        var $this = $(this);
+        var ids = DT_.getSelectRowsData('id');
+        if (ids.length < 1) {
+          COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.choose_data')); // 至少选择一条数据
+          return false;
+        }
+        COM_TOOLS.confirm('确认删除这' + ids.length + '条数据吗？', function() { // 确认删除吗？
+          COM_TOOLS.ajaxFn({
+            type: "post",
+            url: "${contextPath}/{{$imports._DBCOM_.className}}/delete",
+            data: {
+              'ids': ids
+            },
+            success: function(data) {
+              if (data >= 1) {
+                COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.com_msg.success')); // 操作成功
+                COM_TOOLS.DT_ajaxReload(table); //刷新表格，并重置页码到第一页；
+              } else {
+                COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.com_msg.defeated')); // 操作失败
+              }
+            },
+            error: function() {
+              COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.exception'));
+            }
+          }, 2, $this);
+        });
+      });
+      /* 搜索按钮方案 */
+      $('#demoSearchBtn').click(function() {
+        searchParemOBj_ = COM_TOOLS.serializeObject('#listpage_searchbox .js-search-param');
+        DT_.setAjaxData(searchParemOBj_); //执行搜索并刷新表格
+      });
+    }); 
+  </script>
+
+</template>

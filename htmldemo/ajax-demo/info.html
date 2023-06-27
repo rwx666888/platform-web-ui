@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<title>info</title>
+
+		<link href="../../css/bootstrap.min.css" rel="stylesheet">
+		<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+
+		<link href="../../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css" rel="stylesheet">
+		<link href="../../js/plugins/datatables/Select-1.2.0/css/select.bootstrap.min.css" rel="stylesheet">
+
+		<link href="../../css/animate.css" rel="stylesheet">
+		<link href="../../css/style-ajax.css" rel="stylesheet">
+		<link href="../../css/style.css" rel="stylesheet">
+		<style>
+			.form-group {
+				margin-bottom: 0;
+			}
+			.tab-content .tab-pane {
+				padding-top: 15px;
+			}
+			/* 标签栏滚动 */
+			.tab-list-box {
+				position: relative;
+				overflow: hidden;
+				margin-bottom: -1px;
+				/*放置按钮*/
+				margin-right: 372px;
+			}
+			.tab-list-box>button {
+				outline: none;
+				border: 0;				
+				border-bottom: 1px solid #eee;
+				background: #fff;
+			}
+			.tab-list-box>button:hover {
+				color: #fff;
+				background: #eee;
+				cursor: pointer;
+			}
+			.tab-list-box .roll-nav,
+			.page-tabs-list {
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				text-align: center;
+				color: #999;
+				z-index: 222;
+				top: 0;
+			}
+			.roll-left{
+				left: 0;
+				border-right: solid 1px #eee;
+			}
+			.roll-right {
+				right: 0;
+				border-right: solid 1px #eee;
+			}
+			.tab-list-bar {
+				margin-left: 40px;
+				margin-right: 40px;
+				width: 100000px;
+				height: 40px;
+				overflow: hidden;
+			}
+			.nav-tabs{border-bottom: 0;}
+			.tab-content{border-top: 1px solid #eee;}
+			/* 标签栏滚动-end */
+		</style>
+	</head>
+
+	<body class="info-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 form-horizontal p-sm">
+					<div id="tab_list_box" class="tab-list-box">
+						<button class="roll-nav roll-left tab-left-btn"><i class="glyphicon glyphicon-backward"></i></button>
+						<div class="tab-list-bar">
+							<ul class="nav nav-tabs tab-list-ul pull-left" role="tablist" id="info_tab">
+								<li role="presentation" class="active">
+									<a href="#tab1" aria-controls="tab1" role="tab" data-itemurl="" data-isreload="" data-toggle="tab">基本信息</a>
+								</li>
+								<li role="presentation">
+									<a href="#tab2" aria-controls="tab2" role="tab" data-itemurl="info_include1.html" data-isreload="" data-toggle="tab">市场信息</a>
+								</li>
+								<li role="presentation">
+									<a href="#tab3" aria-controls="tab3" role="tab" data-itemurl="info_include2.html" data-isreload="" data-toggle="tab">报名信息</a>
+								</li>
+								<li role="presentation">
+									<a href="#tab4" aria-controls="tab4" role="tab" data-itemurl="info_include3.html" data-isreload="" data-toggle="tab">回访信息</a>
+								</li>
+								<li role="presentation">
+									<a href="#tab5" aria-controls="tab5" role="tab" data-itemurl="info_include4.html" data-isreload="" data-toggle="tab">测评信息</a>
+								</li>
+								<li role="presentation">
+                                    <a href="#tab6" aria-controls="tab6" role="tab" data-itemurl="info_include5.html" data-isreload="" data-toggle="tab">班级信息</a>
+                                </li>
+							</ul>
+						</div>
+						<button class="roll-nav roll-right tab-right-btn"><i class="glyphicon glyphicon-forward"></i></button>
+					</div>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="tab1">
+							<!-- 基本信息开始 -->
+							<div class="form-group">
+								<label class="col-sm-2 control-label">中心</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">中关村中心</p>
+								</div>
+								<label class="col-sm-2 control-label">咨询顾问</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">张三</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">姓名</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">张习好</p>
+								</div>
+								<label class="col-sm-2 control-label">性别</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">女</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">手机</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">123442334433</p>
+								</div>
+								<label class="col-sm-2 control-label">QQ</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">邮箱</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">微信</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">证件号码</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">证件地址</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">学校</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">院系</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">学历</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">专业</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">客户类型</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">下次回访时</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">学习方向</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">创建时间</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<!-- 基本信息结束 -->
+						</div>
+						<div role="tabpanel" class="tab-pane" id="tab2"></div>
+						<div role="tabpanel" class="tab-pane" id="tab3"></div>
+						<div role="tabpanel" class="tab-pane" id="tab4"></div>
+						<div role="tabpanel" class="tab-pane" id="tab5"></div>
+						<div role="tabpanel" class="tab-pane" id="tab6"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Mainly scripts -->
+		<script src="../../js/jquery-2.1.1.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>
+		<script src="../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="../../js/plugins/layer/layer.js"></script>
+
+		<!-- Custom and plugin javascript -->
+		<script src="../../js/bootstrap-plugins-custom.js"></script>
+
+		<script src="../../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js"></script>
+		<script src="../../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js"></script>
+		<script src="../../js/plugins/datatables/FixedColumns-3.2.2/js/dataTables.fixedColumns.min.js"></script>
+		<script src="../../js/plugins/datatables/Select-1.2.0/js/dataTables.select.min.js"></script>
+
+		<script src="../../js/jquery.hash.min.js"></script>
+		<script src="../../i18n/zh-CN.js"  type="text/javascript"></script>
+		<script src="../../js/tedu-languge.js"></script>
+		<script src="../../js/subindex-ajax.js"></script>
+		<script>
+			$(function() {
+				COM_TOOLS.fnTabPage('info_tab');
+
+				//计算元素集合的总宽度
+				function calSumWidth(elements) {
+					var width = 0;
+					$(elements).each(function() {
+						width += $(this).outerWidth();
+					});
+					return width;
+				}
+				
+				/* tab滚动方法类 */
+				var TAB_SCROLL = {
+					sumWidth: function(ele) {//计算元素总宽度
+						var width_ = 0;
+						$(ele).each(function() {
+							width_ += $(this).outerWidth();
+						});
+						return width_;
+					},
+					scrollTabLeft: function() {//往左按钮
+						var marginLeftVal = Math.abs(parseInt($('.tab-list-ul').css('margin-left'))),
+							tabOuterWidth = TAB_SCROLL.sumWidth($(".tab-list-box").children().not(".tab-list-bar")),
+							visibleWidth = $(".tab-list-box").outerWidth() - tabOuterWidth,
+							scrollVal = 0;
+						if($(".tab-list-ul").width() < visibleWidth) { //内容宽度 小于 可视宽度
+							return false;
+						} else {
+							var tabEle = $(".tab-list-ul li:first"),
+								offsetVal = 0; //计算距离用的
+							while((offsetVal + $(tabEle).outerWidth()) <= marginLeftVal) { //离 mar 的距离，最近的那个 dom 元素
+								offsetVal += $(tabEle).outerWidth();
+								tabEle = $(tabEle).next(); //大于 marginLeftVal 的那个
+							} //所以 tabElement 的最后结果是 >= marginLeftVal 的那个
+							offsetVal = 0;
+							if(TAB_SCROLL.sumWidth($(tabEle).prevAll()) > visibleWidth) { //滚动距离大于一页时
+								while((offsetVal + $(tabEle).outerWidth()) < (visibleWidth) && tabEle.length > 0) {
+									offsetVal += $(tabEle).outerWidth();
+									tabEle = $(tabEle).prev(); //
+								} //所以 tabElement 的最后结果是 > visibleWidth 的那个
+								scrollVal = TAB_SCROLL.sumWidth($(tabEle).prevAll()); ////找到临界值的那个 dom 并计算它之前的距离，所有会包含它本身
+							}
+						}
+						$('.tab-list-ul').animate({
+							marginLeft: 0 - scrollVal + 'px'
+						}, "fast");
+					},
+					scrollTabRight: function() {//往右按钮
+						var marginLeftVal = Math.abs(parseInt($('.tab-list-ul').css('margin-left'))),
+							tabOuterWidth = calSumWidth($(".tab-list-box").children().not(".tab-list-bar")),
+							visibleWidth = $(".tab-list-box").outerWidth() - tabOuterWidth,
+							scrollVal = 0;
+						if($(".tab-list-ul").width() < visibleWidth) {
+							return false;
+						} else {
+							var tabEle = $(".tab-list-ul li:first"),
+								offsetVal = 0;
+							while((offsetVal + $(tabEle).outerWidth()) <= marginLeftVal) { //离 mar 的距离，最近的那个 dom 元素
+								offsetVal += $(tabEle).outerWidth();
+								tabEle = $(tabEle).next();
+							}
+							if(offsetVal < ($(".tab-list-ul").outerWidth() - visibleWidth)) { //防止最后一个dom元素已经显示出来，还继续滚动
+								offsetVal = 0;
+								while((offsetVal + $(tabEle).outerWidth()) < (visibleWidth) && tabEle.length > 0) {
+									offsetVal += $(tabEle).outerWidth();
+									tabEle = $(tabEle).next();
+								}
+							}
+							scrollVal = TAB_SCROLL.sumWidth($(tabEle).prevAll()); //找到临界值的那个 dom 并计算它之前的距离，所有会包含它本身
+							if(scrollVal > 0) {
+								$('.tab-list-ul').animate({
+									marginLeft: 0 - scrollVal + 'px'
+								}, "fast");
+							}
+						}
+					},
+					scrollToTab: function(ele) {//点击tab标签
+						var marginLeftVal = TAB_SCROLL.sumWidth($(ele).prevAll()),
+							marginRightVal = TAB_SCROLL.sumWidth($(ele).nextAll()),
+							tabOuterWidth = TAB_SCROLL.sumWidth($(".tab-list-box").children().not(".tab-list-bar")),
+							visibleWidth = $(".tab-list-box").outerWidth() - tabOuterWidth,
+							scrollVal = 0;
+						if($(".tab-list-ul").outerWidth() < visibleWidth) {
+							return false;
+						} else if(marginRightVal <= (visibleWidth - ($(ele).outerWidth() + $(ele).next().outerWidth()))) { //靠右边
+							if((visibleWidth - $(ele).next().outerWidth()) > marginRightVal) {
+								scrollVal = marginLeftVal; //注意这里
+								var tabEle = ele;
+								while((scrollVal - $(tabEle).outerWidth()) >= ($(".tab-list-ul").outerWidth() - visibleWidth) /* 被隐藏的部分距离 */ ) {
+									scrollVal -= $(tabEle).prev().outerWidth();
+									tabEle = $(tabEle).prev();
+								}
+							}
+						} else if(marginLeftVal > (visibleWidth - ($(ele).outerWidth() + $(ele).prev().outerWidth()))) { //靠左边,包括中间
+							scrollVal = marginLeftVal - $(ele).prev().outerWidth();
+						}
+						$('.tab-list-ul').animate({
+							marginLeft: 0 - scrollVal + 'px'
+						}, "fast");
+					},
+					scrollTabInit: function(id) {//绑定及初始化
+						$('#'+ id).on('click', '.tab-list-ul li', function() {
+							TAB_SCROLL.scrollToTab($(this));
+						}).on('click', '.tab-left-btn', function() {
+							TAB_SCROLL.scrollTabLeft();
+						}).on('click', '.tab-right-btn', function() {
+							TAB_SCROLL.scrollTabRight();
+						});
+					}
+				};
+
+				TAB_SCROLL.scrollTabInit('tab_list_box');
+			});
+		</script>
+
+	</body>
+
+</html>

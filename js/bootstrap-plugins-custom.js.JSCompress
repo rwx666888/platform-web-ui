@@ -1,0 +1,7 @@
+﻿<jscompress public="http://www.jscompress.cn/" command="import-combineset">
+<combinefile path="bootstrap-plugins-custom.js">
+    <auto value="1" />
+    <sourcefile path=".\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.js" />
+    <sourcefile path=".\plugins\bootstrap-submenu\bootstrap-submenu.js" />
+</combinefile>
+</jscompress>

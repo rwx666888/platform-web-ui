@@ -1,0 +1,470 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>创建试题</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../../css/iconfont.css" rel="stylesheet">
+
+    <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../../css/plugins/select2/select2.min.css" rel="stylesheet">
+
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <style>
+        .text-left {
+            text-align: left !important;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .xxw-tab-content .xxw-cont {
+            display: none;
+        }
+
+        .xxw-tab-content .xxw-cont.active {
+            display: block;
+        }
+
+        #sel2_xxw {
+            display: none;
+        }
+
+        .select2-xxw {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row" style="min-height: 50px;">
+        <div class="p-xs col-xs-12 text-center" id="demoaffix1" data-spy="affix" data-offset-top="50">
+            <button class="btn btn-primary btn-sm" type="button" id="btn_save">完成创建</button>
+            <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+        </div>
+    </div>
+    <div class="form-box-xxw form-horizontal">
+        <div class=" form-group ">
+            <label class="control-label col-sm-1 text-left"><span class="text-danger">*</span>渠道</label>
+            <div class="col-sm-2">
+                <select id="sel1_xxw" class="form-control input-sm" name="">
+                    <option value="-1">选择渠道</option>
+                    <option value="1">阿大范甘迪发</option>
+                    <option value="2">啊啊所多</option>
+                    <option value="3">是大法官</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select id="sel2_xxw" class="form-control input-sm" name="">
+                </select>
+            </div>
+        </div>
+        <div class=" form-group ">
+            <label class="control-label col-sm-1 text-left"><span class="text-danger">*</span>题型</label>
+            <div id="ti_type" class="col-sm-11">
+                <label class="checkbox-inline i-checks"><input data-tabid="1" type="radio" checked value="option1"
+                                                               name="name1"> 单选题 </label>
+                <label class="checkbox-inline i-checks"><input data-tabid="2" type="radio" value="option2" name="name1">
+                    多选题</label>
+                <label class="checkbox-inline i-checks"><input data-tabid="3" type="radio" value="option2" name="name1">
+                    填空题</label>
+                <label class="checkbox-inline i-checks"><input data-tabid="4" type="radio" value="option2" name="name1">
+                    简答题</label>
+            </div>
+        </div>
+        <div class=" form-group">
+            <label class="col-sm-1 control-label text-left"><span class="text-danger">*</span>难度</label>
+            <div class="inline col-sm-11">
+                <label class="checkbox-inline i-checks"><input type="radio" checked value="option1" name="name2"> 简单
+                </label>
+                <label class="checkbox-inline i-checks"><input type="radio" value="option2" name="name2"> 中等</label>
+                <label class="checkbox-inline i-checks"><input type="radio" value="option2" name="name2"> 困难</label>
+            </div>
+        </div>
+        <div class="xxw-tab-content">
+            <div data-tabid="1" class="xxw-cont active">
+                <div class="form-group">
+                    <label class="col-sm-12"><span class="text-danger">*</span>标题</label>
+                    <div class="col-sm-12"><input type="text" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-12">题目描述</label>
+                    <div class="col-sm-12"><textarea class="form-control" id="t_cke_01" name="t_cke_01_n"></textarea>
+                    </div>
+                </div>
+                <div class="row m-t-md">
+                    <div class="col-sm-6">
+                        <lable><span class="text-danger">*</span>选项<span
+                                class="text-danger">（ 不同选项之间请用@@#￥分割，系统会自动解析）</span></lable>
+                        <textarea class="form-control m-t-md" style="min-height: 150px;"></textarea>
+                        <div class="btn btn-success m-t-md">开始解析</div>
+                    </div>
+                    <div class="col-sm-6 border-left">
+                        <lable><span class="text-danger">*</span>选项<span class="text-danger">（请在正确选项前打勾）</span></lable>
+                        <div class="js-ti-list m-t-md">
+                            <div class="form-group">
+                                <div class="col-sm-12 clearfix">
+                                    <input type="radio" class="i-checks" name="name333">
+                                    <span class="js-selection">A</span>
+                                    <i class="glyphicon-trash glyphicon text-danger pull-right js-del-btnx"></i>
+                                </div>
+                                <div class="col-sm-12"><input type="text" class="form-control"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 clearfix">
+                                    <input type="radio" class="i-checks" name="name333">
+                                    <span class="js-selection">B</span>
+                                    <i class="glyphicon-trash glyphicon text-danger pull-right js-del-btnx"></i>
+                                </div>
+                                <div class="col-sm-12"><input type="text" class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="btn btn-success m-t-md js-add-itemx">增加一个选项</div>
+                    </div>
+                </div>
+                <div class="form-group m-t-lg">
+                    <label class="col-sm-12">该题目解析</label>
+                    <div class="col-sm-12" ><textarea class="form-control" id="t_cke_02" name="t_cke_01_n"></textarea>
+                    </div>
+                </div>
+                <!--  <div class="form-group m-t-lg form-inline">
+                     <label class="m-l-md">课程标签</label>
+                     <select name="name8" class="form-control">
+                         <option value="1">asdf</option>
+                         <option value="2">asdf4456</option>
+                     </select>
+                     <label class="m-l-md">知识点标签</label>
+                     <select name="name8" class="form-control">
+                         <option value="1">asdf</option>
+                         <option value="2">asdf4456</option>
+                     </select>
+                 </div>
+                <div class="form-group  text-center ">
+                     <button class="btn btn-primary btn-lg m-b-lg">完成创建</button>
+                 </div>-->
+            </div>
+            <div data-tabid="2" class="xxw-cont">
+                <div class="form-group">
+                    <label class="col-sm-12"><span class="text-danger">*</span>标题</label>
+                    <div class="col-sm-12"><input type="text" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-12">题目描述</label>
+                    <div class="col-sm-12"><textarea class="form-control" id="t_cke_03" name="asdf"></textarea></div>
+                </div>
+                <div class="row m-t-md">
+                    <div class="col-sm-12 border-left">
+                        <lable><span class="text-danger">*</span>选项及答案解析<span
+                                class="text-danger">（请在正确选项前打勾,至少勾选2个选项）</span></lable>
+                        <div class="js-ti-list m-t-md">
+                            <div class="form-group">
+                                <div class="col-sm-12 clearfix"><input type="checkbox" class="i-checks" name="name3">
+                                    <i class="glyphicon-trash glyphicon text-danger pull-right js-del-btnx"></i>
+                                </div>
+                                <div class="col-sm-12"><input type="text" class="form-control"></div>
+                            </div>
+                        </div>
+                        <div class="btn btn-success m-t-md js-add-itemx">增加一个选项</div>
+                    </div>
+                </div>
+                <div class="form-group m-t-lg">
+                    <label class="col-sm-12">该题目解析</label>
+                    <div class="col-sm-12"><textarea class="form-control" id="t_34" name="t_cke_01_n"></textarea></div>
+                </div>
+                <!-- <div class="form-group m-t-lg form-inline">
+                    <label class="m-l-md">课程标签</label>
+                    <select name="name8" class="form-control">
+                        <option value="1">asdf</option>
+                        <option value="2">asdf4456</option>
+                    </select>
+                    <label class="m-l-md">知识点标签</label>
+                    <select name="name8" class="form-control">
+                        <option value="1">asdf</option>
+                        <option value="2">asdf4456</option>
+                    </select>
+                </div>
+               <div class="form-group  text-center ">
+                    <button class="btn btn-primary btn-lg m-b-lg">完成创建</button>
+                </div>-->
+            </div>
+            <div data-tabid="3" class="xxw-cont">
+                <div class="form-group">
+                    <div class="col-sm-1"><span class="text-danger">*</span>标题
+                    </div>
+                    <div class="col-sm-5">
+                        <button id="add_kong" class="btn btn-success btn-sm m-b-md">添加一个空</button>
+                    </div>
+                    <div class="col-sm-12"><input id="kong_input" type="text" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-12">题目描述</label>
+                    <div class="col-sm-12"><textarea class="form-control" id="t_cke_04" name="asdf"></textarea></div>
+                </div>
+                <div class="row m-t-md">
+                    <div class="col-sm-12">
+                        <div class="js-ti-list m-t-md">
+                            <!-- <div class="form-group">
+                                 <div class="col-sm-12 clearfix"><span class="text-danger">*</span>第1个空的答案 <i class="glyphicon-trash glyphicon text-danger pull-right js-del-btnx"></i></div>
+                                 <div class="col-sm-12"><input type="text" class="form-control"></div>
+                             </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group m-t-lg">
+                    <label class="col-sm-12">该题目解析</label>
+                    <div class="col-sm-12"><textarea class="form-control" id="t_345" name="t_cke_01_n"></textarea></div>
+                </div>
+                <!--<div class="form-group m-t-lg form-inline">
+                    <label class="m-l-md">课程标签</label>
+                    <select name="name8" class="form-control">
+                        <option value="1">asdf</option>
+                        <option value="2">asdf4456</option>
+                    </select>
+                    <label class="m-l-md">知识点标签</label>
+                    <select name="name8" class="form-control">
+                        <option value="1">asdf</option>
+                        <option value="2">asdf4456</option>
+                    </select>
+                </div>
+                <div class="form-group  text-center ">
+                    <button class="btn btn-primary btn-lg m-b-lg">完成创建</button>
+                </div>-->
+            </div>
+            <div data-tabid="4" class="xxw-cont">
+                <div class="form-group">
+                    <div class="col-sm-12 m-b"><span class="text-danger">*</span>标题
+                    </div>
+                    <div class="col-sm-12"><input type="text" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-12">题目描述</label>
+                    <div class="col-sm-12"><textarea class="form-control" id="t_cke_05" name="asdf"></textarea></div>
+                </div>
+                <div class="form-group m-t-lg">
+                    <label class="col-sm-12">该题目解析</label>
+                    <div class="col-sm-12"><textarea class="form-control" id="t_3456" name="t_cke_01_n"></textarea>
+                    </div>
+                </div>
+                <!-- <div class="form-group m-t-lg form-inline">
+                     <label class="m-l-md">课程标签</label>
+                     <select name="name8" class="form-control">
+                         <option value="1">asdf</option>
+                         <option value="2">asdf4456</option>
+                     </select>
+                     <label class="m-l-md">知识点标签</label>
+                     <select name="name8" class="form-control">
+                         <option value="1">asdf</option>
+                         <option value="2">asdf4456</option>
+                     </select>
+                 </div>
+                 <div class="form-group  text-center ">
+                     <button class="btn btn-primary btn-lg m-b-lg">完成创建</button>
+                 </div>-->
+            </div>
+        </div>
+        <div class="form-group m-t-lg">
+            <label class="pull-left m-l-md">课程标签</label>
+            <div class="col-sm-3">
+                <select multiple id="select2_1" name="name8" class="c form-control">
+                    <option value="1">asdf</option>
+                    <option value="2">asdf4456</option>
+                </select>
+            </div>
+            <label class="pull-left m-l-lg">知识点标签</label>
+            <div class="col-sm-3">
+                <select multiple id="select2_2" name="name8" class="c form-control">
+                    <option value="1">asdf</option>
+                    <option value="2">asdf4456</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group  text-center ">
+            <button class="btn btn-primary btn-lg m-b-lg">完成创建</button>
+        </div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/plugins/layer/layer.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="../../js/plugins/pace/pace.min.js"></script>
+<script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+<script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+<script src="../../js/plugins/ckeditor/ckeditor.js"></script>
+<script src="../../js/plugins/select2/select2.full.min.js"></script>
+<script src="../../js/subindex.js"></script>
+<script src="../../js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(function () {
+        $('#btn_save').click(function(){
+            var arr = [];
+            var arr2 = [];
+            $('.xxw-cont.active .js-ti-list .form-group').each(function(){
+                var o = {};
+                var sel_ = $.trim($(this).find('.js-selection').text());
+                o.sel = sel_;
+                o.txt = $.trim($(this).find('.form-control').val());
+                arr.push(o);
+                if($(this).find('.i-checks').is(':checked')){
+                    arr2.push(sel_)
+                }
+            })
+            console.log(arr)
+            console.log(arr2)
+        });
+        COM_TOOLS.select2_init('select2_1', {ispinyi: true, tags: false}); //开启拼音检索
+        COM_TOOLS.select2_init('select2_2', {ispinyi: true, tags: false}); //开启拼音检索
+        var text_Data = [
+            {
+                "code": "1",
+                "area": ["海淀区", "朝阳区", "大兴区"]
+            }, {
+                "code": "2",
+                "area": ["浦东", "静安区", "宝山区"]
+            }, {
+                "code": "3",
+                "area": ["福田区", "南山区", "光明新区"]
+            }, {
+                "code": "4",
+                "area": []
+            }
+        ];
+        $('#sel1_xxw').change(function () {
+            var v_ = $(this).val();
+            //ajax数据缓存到本地
+            if (v_ != '-1') {
+                $.each(text_Data, function (i, n) {
+                    if (n.code == v_) {
+                        var str_ = '';
+                        $.each(n.area, function (a, b) {
+                            str_ += '<option value="a">' + b + '</option>';
+                        });
+                        $("#sel2_xxw").html(str_).show()
+                    }
+                })
+            } else {
+                $("#sel2_xxw").html('').hide();
+            }
+        })
+
+        var kkkkkkk = '_@#$%@%$#%&$%$@_';
+        $('#add_kong').click(function () {
+            var $ipt = $('#kong_input');
+            $ipt.val($ipt.val() + kkkkkkk);
+            var i_ = $(this).closest('.xxw-cont').find('.js-ti-list .form-group').length;
+            $(this).closest('.xxw-cont').find('.js-ti-list').append('<div class="form-group">\n' +
+                '                                <div class="col-sm-12 clearfix"><span class="text-danger">*</span>第' + (i_ + 1) + '个空的答案 <i class="glyphicon-trash glyphicon text-danger pull-right js-del-btnx"></i></div>\n' +
+                '                                <div class="col-sm-12"><input type="text" class="form-control"></div>\n' +
+                '                            </div>')
+        })
+        var ARR1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T'],
+            NUM = 1, NUM2 = 1;
+        $('.js-add-itemx').click(function () {
+
+            var i;
+            if ($(this).closest('.xxw-cont').data('tabid') == '1') {
+                NUM++;
+                i = ARR1[NUM];
+            } else {
+                NUM2++;
+                i = ARR1[NUM2];
+            }
+            console.log(NUM)
+            $(this).prev().append('<div class="form-group">\n' +
+                '                                <div class="col-sm-12 clearfix"><input type="radio" class="i-checks" name="name333"><span class="js-selection">' + i + '</span><i class="glyphicon-trash glyphicon text-danger pull-right js-del-btnx"></i></div>\n' +
+                '                                <div class="col-sm-12"><input type="text" class="form-control"></div>\n' +
+                '                            </div>')
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+        $('#ti_type label').click(function () {
+            var id = $(this).find('input').data('tabid');
+            if (!$('.xxw-tab-content .xxw-cont[data-tabid=' + id + ']').hasClass('active')) {
+                $(' .xxw-tab-content .xxw-cont[data-tabid=' + id + ']').addClass('active').siblings().removeClass('active')
+            }
+        })
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        $('body').on('click', '.js-del-btnx', function () {
+            var p_ = $(this).closest('.xxw-cont');
+            $(this).closest('.form-group').remove();
+            if (p_.data('tabid') == '1') {
+                NUM--;
+                p_.find('.js-ti-list .form-group').each(function(i){
+                    $(this).find('.js-selection').text(ARR1[i])
+                })
+            } else if (p_.data('tabid') == '2') {
+                NUM2--;
+                p_.find('.js-ti-list .form-group').each(function(i){
+                    $(this).find('.js-selection').text(ARR1[i])
+                })
+            }
+            alert(NUM)
+        });
+
+        var _CKE2 = CKEDITOR.replace('t_cke_02', {
+            //发生请求时字段 CKEditor、CKEditorFuncNum、
+            //CKEditor 默认自动创建，如元素有id为对应id
+            imageUploadUrl: 'js/../plugins/ckeditor/php/imgUp.php',        //图片(上传)
+        });
+        var _CKE3 = CKEDITOR.replace('t_cke_03', {
+            //发生请求时字段 CKEditor、CKEditorFuncNum、
+            //CKEditor 默认自动创建，如元素有id为对应id
+            imageUploadUrl: 'js/../plugins/ckeditor/php/imgUp.php',        //图片(上传)
+        });
+        var _CKE4 = CKEDITOR.replace('t_cke_04', {
+            //发生请求时字段 CKEditor、CKEditorFuncNum、
+            //CKEditor 默认自动创建，如元素有id为对应id
+            imageUploadUrl: 'js/../plugins/ckeditor/php/imgUp.php',        //图片(上传)
+        });
+        var _CKE8 = CKEDITOR.replace('t_cke_05', {
+            //发生请求时字段 CKEditor、CKEditorFuncNum、
+            //CKEditor 默认自动创建，如元素有id为对应id
+            imageUploadUrl: 'js/../plugins/ckeditor/php/imgUp.php',        //图片(上传)
+        });
+        var _CKE5 = CKEDITOR.replace('t_34', {
+            //发生请求时字段 CKEditor、CKEditorFuncNum、
+            //CKEditor 默认自动创建，如元素有id为对应id
+            imageUploadUrl: 'js/../plugins/ckeditor/php/imgUp.php',        //图片(上传)
+        });
+        var _CKE6 = CKEDITOR.replace('t_345', {
+            //发生请求时字段 CKEditor、CKEditorFuncNum、
+            //CKEditor 默认自动创建，如元素有id为对应id
+            imageUploadUrl: 'js/../plugins/ckeditor/php/imgUp.php',        //图片(上传)
+        });
+        var _CKE7 = CKEDITOR.replace('t_3456', {
+            //发生请求时字段 CKEditor、CKEditorFuncNum、
+            //CKEditor 默认自动创建，如元素有id为对应id
+            imageUploadUrl: 'js/../plugins/ckeditor/php/imgUp.php',        //图片(上传)
+        });
+
+    })
+    var _CKE = CKEDITOR.replace('t_cke_01', {
+        removePlugins:'elementspath',
+        //发生请求时字段 CKEditor、CKEditorFuncNum、
+        //CKEditor 默认自动创建，如元素有id为对应id
+        imageUploadUrl: '../js/plugins/ckeditor/php/imgUp.php',        //图片(上传)
+    });
+    _CKE.on('instanceReady', function (ev) {
+        editor = ev.editor;
+        editor.setReadOnly(true);
+    });
+</script>
+</body>
+</html>

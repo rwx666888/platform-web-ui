@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>表单页（add）3列</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    
+	<link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+	<link href="../../css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+	
+    <link href="../../css/animate.css" rel="stylesheet">
+	<link href="../../css/style.css" rel="stylesheet">
+	<style>
+	/* 只限三列页面使用 */
+		.form-group .control-label{ padding-left: 0; padding-right: 0;}
+		.form-group{ margin-bottom: 8px;}
+	</style>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row" style="min-height: 50px;">
+		<div class="p-sm col-xs-12 text-center" style="padding:10px;" id="demoaffix1" data-spy="affix" data-offset-top="50">
+	    	<button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+	        <button class="btn btn-success btn-sm" type="button" onclick="cumParentCallValue()">关闭</button>
+	    </div>
+	</div>
+</div>
+	
+<div class="container">
+	<div class="row p-xxs">
+	<div class="col-sm-12">
+		<form id="demoform1" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-1 control-label">中心</label>
+			<div class="col-sm-3"><input name="name1" class="form-control input-sm" type="text" placeholder="" required="required"></div>
+			<label class="col-sm-1 control-label"><span class="text-danger">*</span> 咨询顾问</label>
+			<div class="col-sm-3">
+				<div class="input-group input-group-sm">
+					<input type="text" name="name2" class="form-control input-sm" id="zixunguwenVal" readonly="readonly" required="required">
+					<input type="hidden" name="name3" id="zixunguwenValVal" required>
+					<span class="input-group-btn"><button class="btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i></button></span>
+				</div>
+			</div>
+			<label class="col-sm-1 control-label">标签1</label>
+			<div class="col-sm-3"><input name="name4" class="form-control input-sm" type="text" placeholder=""></div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-1 control-label">标签2</label>
+			<div class="col-sm-3"><input name="name5" class="form-control input-sm" type="text" placeholder="" required="required"></div>
+			<label class="col-sm-1 control-label">标签3</label>
+			<div class="col-sm-3">
+				<select class="form-control input-sm" name="name6">
+					<option value="">请选择1</option>
+					<option value="">请选择2</option>
+					<option value="">请选择3</option>
+				</select>
+			</div>
+			<label class="col-sm-1 control-label">标签4</label>
+			<div class="col-sm-3"><input name="name7" class="form-control input-sm" type="text" placeholder=""></div>
+		</div>
+		</form>
+	</div>
+	</div>
+</div>
+	<!-- Mainly scripts -->
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    
+    <!-- Custom and plugin javascript -->
+    <script src="../../js/plugins/pace/pace.min.js"></script>
+    <script src="../../js/plugins/validate/jquery.validate.min.js"></script>
+    
+    <script src="../../i18n/zh-CN.js"  type="text/javascript"></script>
+	<script src="../../js/subindex.js"></script>
+    <script src="../../js/plugins/iCheck/icheck.min.js"></script>
+    <!-- <script src="js/jquery.mockjax.min.js"></script> --> <!-- 远程模拟测试 -->
+
+<script>
+
+
+$(document).ready(function() {
+	$('#demoform1').validate({
+		submitHandler:function(form) { //验证通过
+			console.log('submoit@@@@@@@@');
+			//to ajaxsubmit
+		}
+	});
+	$('#btn_save').click(function(){
+    	$('#demoform1').submit();
+    });
+});
+
+</script>
+</body>
+</html>

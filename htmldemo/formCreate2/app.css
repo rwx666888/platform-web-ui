@@ -1,0 +1,206 @@
+/*
+   creat-page.css
+   <project>
+   
+   Created by lianglei on 2017-06-18.
+   Copyright 2017 lianglei. All rights reserved.
+*/
+
+.cus-creat-page {
+    height: 100%;
+    padding-top: 40px;
+}
+
+.cus-creat-page .tob-bar-box {
+    height: 40px;
+    left: 0;
+    top: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.cus-creat-page .ui-state-highlight {
+    max-height: 40px;
+    background: #0055AA;
+}
+
+.cus-creat-page .js-code-hide-box {
+    display: none;
+}
+
+.cus-creat-page .js-btn-box>.js-btnbar-del {
+    cursor: pointer;
+}
+
+.cus-creat-page .js-btn-box>.js-btnbar-move {
+    cursor: move;
+}
+
+.cus-creat-page .left-box {
+    width: 200px;
+    position: fixed;
+    top: 40px;
+    bottom: 0;
+    left: 0px;
+    border-right: 2px solid #ddd;
+    padding: 0 15px 0 5px;
+}
+
+.cus-creat-page .left-box .panel-heading {
+    padding: 5px 8px;
+}
+
+.cus-creat-page .left-box .js-model-item+.js-model-item {
+    border-top: 1px dashed #ddd;
+}
+
+.cus-creat-page .right-box {
+    margin-left: 200px;
+    padding: 8px 10px;
+}
+
+.cus-creat-page .js-creat-box {
+    padding: 30px 15px 10px;
+    border: 1px solid #1ab394;
+    border-radius: 5px;
+    position: relative;
+    word-wrap: break-word;
+    min-height: 100px;
+}
+
+.cus-creat-page .js-creat-box:before {
+    background-color: #F9F9F9;
+    border: 1px solid #1ab394;
+    border-radius: 5px 0;
+    color: #9DA0A4;
+    content: "Container";
+    font-weight: bold;
+    left: -1px;
+    padding: 3px 7px;
+    position: absolute;
+    top: -1px;
+}
+
+.cus-creat-page .js-creat-box .row {
+    /*background-color: #F9F9F9;*/
+    -webkit-box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    margin: 5px 0;
+    position: relative;
+    /*padding: 30px 5px 0;*/
+}
+
+.cus-creat-page .js-model-item {
+    position: relative;
+}
+
+.cus-creat-page .js-btn-box {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+}
+
+.cus-creat-page .js-btn-box>.label {
+    margin-left: 5px;
+}
+
+.cus-creat-page .js-md-title {
+    position: absolute;
+    top: 4px;
+    left: 5px;
+}
+
+.cus-creat-page .js-md-header {
+    position: relative;
+    height: 30px;
+}
+
+.cus-creat-page .right-box .js-md-header {
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: -30px;
+    left: 0;
+    right: 0;
+    background: #1ab394;
+}
+.cus-creat-page .right-box .js-md-header .js-md-title{
+    color: #ffffff;
+}
+
+.cus-creat-page .js-col-box {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 5px;
+    margin: 5px 0;
+    /*padding: 25px 5px 8px;*/
+    position: relative;
+    min-height: 22px;
+}
+
+.cus-creat-page .right-box .js-model-item>.js-btn-box {
+    /*display: none;
+    text-align: right;*/
+}
+
+.cus-creat-page.page-creating .right-box .js-model-item.c-hover {
+    outline: #1ab394 solid 1px;
+}
+
+.cus-creat-page.page-creating .right-box .js-model-item.c-hover>.js-md-header {
+    display: block;
+}
+
+.cus-creat-page .right-box .js-md-col-tabs .js-col-box {
+    margin-top: 0;
+    border-top: none;
+}
+
+.cus-creat-page .right-box .js-md-mod-formele:hover {
+    background: #f2f2f2;
+}
+
+.cus-creat-page .right-box .js-md-mod-formele .col-sm-1,
+.cus-creat-page .right-box .js-md-mod-formele .col-sm-2 {
+    width: 40%;
+}
+
+.cus-creat-page .right-box .js-md-mod-formele .col-sm-3,
+.cus-creat-page .right-box .js-md-mod-formele .col-sm-4 {
+    width: 60%;
+}
+
+.cus-creat-page .left-box .js-btn-box>.btn-group,
+.cus-creat-page .left-box .js-btn-box>.js-btnbar-del,
+.cus-creat-page .left-box .js-code-box {
+    display: none;
+}
+
+.cus-creat-page .left-box .js-model-item {
+    height: 30px;
+}
+
+.cus-creat-page .left-box .panel-body {
+    padding: 5px;
+}
+
+.cus-creat-page .right-box .js-close-btn-tabs {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    font-size: 22px;
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.cus-creat-page .right-box .js-md-col-tabs:hover .js-close-btn-tabs {
+    opacity: 1;
+}
+
+.cus-creat-page .right-box .nav-tabs>li>a {
+    padding-left: 15px;
+    padding-right: 30px;
+}

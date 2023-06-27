@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+        <title>动态表头-月报</title>
+        <link rel="stylesheet" href="../css/animate.min.css" />
+        <link rel="stylesheet" href="../css/iconfont.css" />
+        <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/plugins/dataTables/datatables.min.css" />
+        <link rel="stylesheet" href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" />
+
+        <link rel="stylesheet" href="../css/style.css" />
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="form-inline">
+                    <div class="form-group form-group-sm">
+                        <label for="liveStartTimeStr" class="col-sm-2 control-label"> 开始时间: </label
+            ><!-- 开始时间 -->
+            <div class="col-sm-4">
+              <div class="input-group date" id="live_start_time_str">
+                <input
+                  type="text"
+                  class="form-control input-sm"
+                  name="startTime"
+                  id="startTime"
+                  required
+                  readonly
+                />
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+            </div>
+            <label for="liveEndTimeStr" class="col-sm-2 control-label"> 结束时间: </label
+            ><!-- 结束时间 -->
+            <div class="col-sm-4">
+              <div class="input-group date" id="live_end_time_str">
+                <input
+                  type="text"
+                  class="form-control input-sm"
+                  name="endTime"
+                  id="endTime"
+                  required
+                  readonly
+                />
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+            </div>
+          </div>
+          <button id="cumBtn_collsearch">搜索</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <table
+            id="everydayCompleteList"
+            class="table table-striped table-bordered nowrap"
+            cellspacing="0"
+            width="100%"
+          >
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/plugins/layer/layer3.1.1.js"></script>
+    <script src="../js/plugins/moment/moment.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '${contextPath}/reports/everyday/list',
+        responseText: {
+          draw: 0,
+          recordsTotal: 12697,
+          recordsFiltered: 12697,
+          data: [
+            {
+              courseName: '111',
+              className: '111',
+              areaName: '111',
+              centerName: '111',
+              userName: '111',
+              stduyStateName: '111',
+              complete:'2020-06:0.000000:20,2020-05:0.000000:30,2020-04:0.000000'
+            },{
+              courseName: '222',
+              className: '222',
+              areaName: '222',
+              centerName: '222',
+              userName: '222',
+              stduyStateName: '222',
+              complete:'2020-06:0.000000:20,2020-05:0.000000:30,2020-04:0.000000'
+            }
+          ]
+        }
+      });
+    </script>
+<script>
+$(function () {
+    $('#live_start_time_str').datetimepicker().on('changeDate', function () {
+        var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+        $('#live_end_time_str').datetimepicker('setStartDate', t_.val());
+    });
+    $('#live_end_time_str').datetimepicker().on('changeDate', function () {
+        var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+        $('#live_start_time_str').datetimepicker('setEndDate', t_.val());
+    });
+});
+
+function create_dt_fn() {
+    COM_TOOLS.ajaxFn({
+        type: 'get',
+        url: '${contextPath}/reports/everyday/list',
+        data: $.extend({
+            pageSize: 1,
+            start: 0,
+            draw: 0
+        }, searchParemOBj_),
+        success: function (e) {
+            if (e) {
+                var arr = e.data;
+                var tab_cols = [{
+                    data: null,
+                    title: '序号' /* 序号 */,
+                    width: '30px',
+                    className: 'text-right',
+                    render: function(data, type, row, meta) {
+                      /*显示行号*/
+                      return 1 + meta.row
+                    }
+                  },
+                  {
+                    data: 'courseName',
+                    title: '课程' /* 课程*/
+                  },
+                  {
+                    data: 'className',
+                    title: '班级' /* 班级 */
+                  },
+                  {
+                    data: 'areaName',
+                    title: '区域' /* 区域 */
+                  },
+                  {
+                    data: 'centerName',
+                    title: '中心' /* 中心 */
+                  },
+                  {
+                    data: 'userName',
+                    title: '姓名' /* 姓名 */
+                  },
+                  {
+                    data: 'stduyStateName',
+                    title: '学员状态' /* 学员状态 */
+                  }];
+                if (arr.length > 0) {
+                    var arr2 = arr[0].complete.split(',');
+                    
+                    $.each(arr2, function (i, n) {
+                        var cl_ = n.split(':');
+                        
+                        (function (tmp1) {
+                            tab_cols.push({
+                                data: 'complete',
+                                title: cl_[0] + '完课率',
+                                render: function (data, type, row, meta) {
+                                    var tmpArr = data.split(',')
+                                    return tmpArr[tmp1].split(':')[1]
+                                }
+                            });
+                            if(cl_.length==3){
+                                tab_cols.push({
+                                    data: 'complete',
+                                    title: '环比',
+                                    render: function (data, type, row, meta) {
+                                        var tmpArr = data.split(',')
+                                        return tmpArr[tmp1].split(':')[2]
+                                    }
+                                });
+                            }
+                        })(i);
+                        
+                    });
+                    console.log('aa', tab_cols)
+                }
+                init_dt_fn(tab_cols);
+            }
+        }
+    }, 1);
+}
+var tabe_ =null;
+var searchParemOBj_ = {};
+function init_dt_fn(cols){
+    // 清理原有 dt
+    tabe_ && tabe_.destroy()
+    $('#everydayCompleteList')
+      .find('thead,tbody')
+      .empty();
+    var DT_ = COM_TOOLS.DT_init(
+          'everydayCompleteList',
+          cols,
+          '${contextPath}/reports/everyday/list',
+          'post',
+          searchParemOBj_,
+          {
+            other: {
+              scrollX: true,
+              destroy: true
+            }
+          }
+    );
+    tabe_ = DT_.table;
+}
+create_dt_fn()
+</script>
+</body>
+</html>

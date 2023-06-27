@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>价格区间</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="../css/animate.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style></style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row" style="min-height: 50px;">
+        <div
+          class="p-sm col-xs-12 text-center"
+          style="padding:10px;"
+          id="demoaffix1"
+          data-spy="affix"
+          data-offset-top="50"
+        >
+          <button id="save_btn_form" class="btn btn-primary btn-sm" type="button">保存</button>
+          <button class="btn btn-success btn-sm" type="button" onclick="cumParentCallValue()">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row p-xxs">
+        <div class="col-sm-12">
+          <div class="form-horizontal">
+            <div class="panel panel-default">
+              <div class="panel-heading text-right">
+                <button id="add_tpl" class="btn btn-sm btn-primary">
+                  <i class="glyphicon glyphicon-plus"></i>新增价格区间项
+                </button>
+              </div>
+              <form id="mul_form_box">
+                <div id="js_tpl_wrp" class="panel-body "></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- template -->
+    <div id="js_template" class="hidden">
+      <div class="panel panel-default js-item">
+        <div class="panel-body bg-success">
+          <span class="close_remove glyphicon glyphicon-remove"></span>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="text-danger">*</span>区间名称</label>
+            <div class="col-sm-3">
+              <input name="rangeName_{n}" type="text" class="form-control input-sm js-input" required />
+            </div>
+            <label class="col-sm-2 control-label"><span class="text-danger">*</span>返利价格</label>
+            <div class="col-sm-3">
+              <input
+                name="rebatePrice_{n}"
+                type="text"
+                class="form-control input-sm js-input"
+                required
+                ck-rebate-price="true"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="text-danger">*</span>最低价格</label>
+            <div class="col-sm-3">
+              <input name="minPrice_{n}" type="text" class="form-control input-sm js-input" required digits="true" />
+            </div>
+            <label class="col-sm-2 control-label"><span class="text-danger">*</span>最高价格</label>
+            <div class="col-sm-3">
+              <input
+                name="maxPrice_{n}"
+                type="text"
+                class="form-control input-sm js-input"
+                required
+                digits="true"
+                ck-price-state="minPrice_{n}"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <script src="../i18n/zh-CN.js"></script>
+    <script src="../js/plugins/layer/layer.js"></script>
+    <script src="../js/plugins/validate/jquery.validate.custom.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+    <script>
+      // 保持常量
+      var item_index_ = 0;
+      var $tpl = $('#js_template');
+      var $tplWrp = $('#js_tpl_wrp');
+
+      function add_item_fn(defDate) {
+        var o_ = $($tpl.html().replace(new RegExp(/(_{n})/g), '_' + item_index_));
+        $tplWrp.append(o_);
+        // init_elm_js_fn(o_, defDate);
+        item_index_++;
+      }
+      function get_obj_data(d) {
+        var o = {},
+          f_ = $(d).serializeArray();
+        $.each(f_, function(i, n) {
+          var name_ = n['name'].split('_')[0];
+          if (o[name_]) {
+            o[name_] = o[name_] + ',' + n['value'];
+          } else {
+            o[name_] = n['value'];
+          }
+        });
+        return o;
+      }
+      function get_listdata() {
+        var data_ = [];
+        $('#js_tpl_wrp .js-item').each(function() {
+          data_.push(get_obj_data($(this).find('.js-input')));
+        });
+        return data_;
+      }
+      function check_form_fn() {
+        return $('#mul_form_box')
+          .validate()
+          .form();
+      }
+
+      // 默认生成一个模板
+      add_item_fn();
+
+      // validate
+      $.validator.addMethod(
+        'ck-rebate-price',
+        function(value, element, params) {
+          var minPrice = $.trim($('input[name=' + params + ']').val());
+          return /^(\d+)$|^(\d+\.\d{1,2})$/.test(value);
+        },
+        '最多输入两位小数'
+      );
+      $.validator.addMethod(
+        'ck-price-state',
+        function(value, element, params) {
+          var minPrice = $.trim($('input[name=' + params + ']').val());
+          return value - minPrice >= 0;
+        },
+        '最高价格不能小于最低价格'
+      );
+      $('#mul_form_box').validate({
+        submitHandler: function(form) {
+          var subData = get_listdata();
+          console.log(subData);
+          // ajax
+          COM_TOOLS.ajaxFn(
+            {
+              type: 'POST',
+              url: 'xxx',
+              data: {
+                priceRangeList: JSON.stringify(subData)
+              },
+              success: function(res) {
+                // handle
+              }
+            },
+            1
+          );
+        }
+      });
+
+      // bind
+      $(document)
+        .on('click', '#save_btn_form', function() {
+          $('#mul_form_box').submit();
+        })
+        .on('click', '#add_tpl', function() {
+          if (check_form_fn()) {
+            add_item_fn();
+          }
+        })
+        .on('click', '.close_remove', function() {
+          if ($tplWrp.find('.js-item').length > 1) {
+            $(this)
+              .closest('.js-item')
+              .remove();
+          } else {
+            COM_TOOLS.alert('至少保留一条数据');
+          }
+        });
+    </script>
+  </body>
+</html>

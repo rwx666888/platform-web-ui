@@ -1,0 +1,555 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>资金日报</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/iconfont.css" rel="stylesheet" />
+    <link href="../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .item-wrapper > .row .hr{
+            margin: 0 15px;
+            height: 15px;
+            border-top: 2px solid #1a7dcc;
+            clear: both;
+        }
+        .check-box .content{
+            padding: 8px;
+            border: 1px solid #eee;
+            height: 180px;
+        }
+        .check-box .content>span{
+            display: inline-block;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            padding: 3px 5px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="p-xs col-xs-12 text-center affix-top" id="demoaffix1" data-spy="affix" data-offset-top="50">
+                <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+                <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="form-group">
+            <label class="control-label">请选择您要共享什么内容给他人？共享之后，他人可查看您共享的信息：</label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" class="js-checkbox" value="cusTable_2" />&nbsp;共享院校联系人信息
+            </label>
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" class="js-checkbox" value="cusTable_3" />&nbsp;共享院校项目信息</label>
+        </div>
+    </div>
+
+    <!-- item 01 -->
+    <div class="item-wrapper container-fluid">
+        <div id="js_cusTable_1" class="row m-b-md js-select-item">
+            <div class="col-sm-8">
+                <!-- search -->
+                <form class="js-form">
+                    <div class="form-inline m-b-xs">
+                        <div class="form-group">
+                            <label class=" control-label">账户名：</label>
+                            <input type="text" class="form-control input-sm" name="loginName">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">姓名：</label>
+                            <input type="text" class="form-control input-sm" name="name">
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm js-btn-search">
+                            <ta:local key="platform.common.btn.query" /></button>
+                    </div>
+                </form>
+                <!-- table -->
+                <table id="cusTable_1" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <ta:local key="platform.common.label.index" />
+                            </th><!-- 序号 -->
+                            <th><span class="cus-checkbox-all"></span></th>
+                            <th>账户</th>
+                            <th>姓名</th>
+                            <th>角色</th>
+                            <th>中心</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- checkbox -->
+            <div class="col-sm-4">
+                <div class="check-box">
+                    <div class="title">
+                        <label class="name-box-label">当前已选共享人</label>
+                        <button class="btn btn-danger btn-xs pull-right js_removeAll">
+                            <ta:local key="tdm.common.btn.empty_choose" /> <i class="glyphicon glyphicon-trash"></i></button>
+                    </div>
+                    <div class="content">
+                        <!-- <span>传参<i class="glyphicon glyphicon-remove"></i></span>
+                        <span>传参<i class="glyphicon glyphicon-remove"></i></span>
+                        <span>传参<i class="glyphicon glyphicon-remove"></i></span> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- item 02 -->
+        <div id="js_cusTable_2" class="row m-b-md js-select-item hidden">
+            <div class="hr clearfix"></div>
+            <div class="col-sm-8">
+                <!-- search -->
+                <form class="js-form">
+                    <div class="form-inline m-b-xs">
+                        <div class="form-group">
+                            <label class=" control-label">联系人姓名：</label>
+                            <input type="text" class="form-control input-sm" name="name">
+                        </div>
+                        <button type="button" class="btn btn-success btn-sm js-btn-search">
+                            <ta:local key="platform.common.btn.query" /></button>
+                    </div>
+                </form>
+                <!-- table -->
+                <table id="cusTable_2" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <ta:local key="platform.common.label.index" />
+                            </th><!-- 序号 -->
+                            <th><span class="cus-checkbox-all"></span></th>
+                            <th>联系人姓名</th>
+                            <th>院校名称</th>
+                            <th>院系名称</th>
+                            <th>职位</th>
+                            <th>手机</th>
+                            <th>中心</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- checkbox -->
+            <div class="col-sm-4">
+                <div class="check-box">
+                    <div class="title">
+                        <label class="name-box-label">当前已选共享人</label>
+                        <button class="btn btn-danger btn-xs pull-right js_removeAll">
+                            <ta:local key="tdm.common.btn.empty_choose" /> <i class="glyphicon glyphicon-trash"></i></button>
+                    </div>
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- item 03 -->
+        <div id="js_cusTable_3" class="row m-b-md js-select-item hidden">
+            <div class="hr clearfix"></div>
+            <div class="col-sm-8">
+                <!-- search -->
+                <form class="js-form">
+                    <div class="form-inline m-b-xs">
+                        <div class="form-group">
+                            <label class=" control-label">账户名：</label>
+                            <input type="text" class="form-control input-sm" name="loginName">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">姓名：</label>
+                            <input type="text" class="form-control input-sm" name="name">
+                        </div>
+                        <div class="form-group"></div>
+                        <button type="button" class="btn btn-success btn-sm js-btn-search">
+                            <ta:local key="platform.common.btn.query" /></button>
+                    </div>
+                </form>
+                <!-- table -->
+                <table id="cusTable_3" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <ta:local key="platform.common.label.index" />
+                            </th><!-- 序号 -->
+                            <th><span class="cus-checkbox-all"></span></th>
+                            <th>账户</th>
+                            <th>姓名</th>
+                            <th>角色</th>
+                            <th>中心</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- checkbox -->
+            <div class="col-sm-4">
+                <div class="check-box">
+                    <div class="title">
+                        <label class="name-box-label">当前已选共享人</label>
+                        <button class="btn btn-danger btn-xs pull-right js_removeAll">
+                            <ta:local key="tdm.common.btn.empty_choose" /> <i class="glyphicon glyphicon-trash"></i></button>
+                    </div>
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script src="../js/plugins/datatables/datatables.min.js"></script>
+
+    <script type="text/javascript" src="../i18n/zh-CN.js"></script>
+    <script type="text/javascript" src="../js/subindex.js"></script>
+    <!-- mock -->
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+        var demo_dt_data_ = {
+            "draw": 1,
+            "recordsTotal": 157,
+            "recordsFiltered": 157,
+            "data": [{
+                    "DT_RowId": "row_3",
+                    "DT_RowData": {
+                        "pkey": 3
+                    },
+                    "first_name": "1",
+                    "last_name": "Ramos",
+                    "position": "System Architect 111",
+                    "office": "London",
+                    "start_date": "9th Oct 09",
+                    "salary": 28875.11,
+                    "node1": "11",
+                    "node2": "22",
+                    "node3": "33",
+                    "node4": "44"
+                },
+                {
+                    "DT_RowId": "row_17",
+                    "DT_RowData": {
+                        "pkey": 17
+                    },
+                    "first_name": "2",
+                    "last_name": "Cox",
+                    "position": "Technical Author 211",
+                    "office": "San Francisco",
+                    "start_date": "12th Jan 09",
+                    "salary": 4800.002,
+                    "node1": "11",
+                    "node2": "22",
+                    "node3": "33",
+                    "node4": "44"
+                },
+                {
+                    "DT_RowId": "row_18",
+                    "DT_RowData": {
+                        "pkey": 17
+                    },
+                    "first_name": "2",
+                    "last_name": "Cox",
+                    "position": "Technical Author333",
+                    "office": "San Francisco",
+                    "start_date": "12th Jan 09",
+                    "salary": 150083003.014,
+                    "node1": "11",
+                    "node2": "22",
+                    "node3": "33",
+                    "node4": "44"
+                }
+            ]
+        };
+
+        $.mockjax({
+            url: "/dt/api",
+            dataType: "json",
+            response: function (settings) {
+                var d_ = {
+                    "draw": parseInt(settings.data['draw']) || 1,
+                    "recordsTotal": 157,
+                    "recordsFiltered": 157,
+                    "data": []
+                };
+                for (var i = 0, len_ = Math.min((parseInt(settings.data['pageSize']) || 11), d_.recordsFiltered -
+                        settings.data['start']); i < len_; i++) {
+                    d_.data.push({
+                        "DT_RowId": 'row_' + COM_TOOLS.get_random_fun(3),
+                        "id": 'row_' + COM_TOOLS.get_random_fun(3),
+                        "first_name": 'name' + COM_TOOLS.get_random_fun(3),
+                        "last_name": "Cox" + COM_TOOLS.get_random_fun(2),
+                        "position": "Technical Author333",
+                        "office": "San Francisco",
+                        "start_date": "12th Jan 09",
+                        "salary": Number(COM_TOOLS.get_random_fun(5) + '.' + COM_TOOLS.get_random_fun(
+                            3)),
+                        "node1": "11",
+                        "node2": "22",
+                        "node3": "33",
+                        "node4": "44"
+                    });
+                }
+                this.responseText = d_;
+            }
+        });
+    </script>
+    <script>
+        $(function () {
+            // select array
+            function proData(id_, obj, type) {
+                if (obj) {
+                    var oArr = $('#' + id_).data('list') || {};
+                    // var idx_ = $.inArray(data, oArr)
+                    // var status = '';
+                    if (type === 'select') {
+                        if (!oArr['c_'+ obj.id]) {
+                            oArr['c_'+ obj.id] = obj
+                        }
+                    } else if (type === 'deselect') {
+                        delete oArr['c_'+ obj.id];
+                    }
+                    createHtml(id_, oArr)
+                    /* if (idx_ >= 0) {
+                        oArr.splice(idx_, 1)
+                    } else {
+                        oArr.push(data)
+                    } */
+                    $('#' + id_).data('list', oArr)
+                    // return status;
+                }
+                return false;
+            }
+            function subData(t_id, param) {
+                var oArr = $('#' + t_id).data('list') || {};
+                console.log('subData-', oArr);
+                var arr = [];
+                for (var k in oArr) {
+                    if (oArr.hasOwnProperty(k)) {
+                        var e = oArr[k];
+                        e[param] && arr.push(e[param]);
+                    }
+                }
+                return arr;
+            }
+            // create html
+            function createHtml(t_id, obj){
+                var e_ = $('#' + t_id).closest('.js-select-item').find('.content');
+                var arr = [];
+                for (var k in obj) {
+                    if (obj.hasOwnProperty(k)) {
+                        var e = obj[k]
+                        arr.push('<span data-itemid="' + e.id + '">' + e.first_name +
+                        '<i class="glyphicon glyphicon-remove js-item-remove"></i></span>');
+                    }
+                }
+                e_.html(arr.join(''))
+            }
+            /* function createHtml(id_, obj, type) {
+                // <span>传参<i class="glyphicon glyphicon-remove"></i></span>
+                var e_ = $('#' + id_).closest('.js-select-item').find('.content');
+                if (type === 'deselect') {
+                    e_.find('span[data-itemid=' + obj.id + ']').remove();
+                } else if (type === 'select') {
+                    e_.append('<span data-itemid="' + obj.id + '">' + obj.first_name +
+                        '<i class="glyphicon glyphicon-remove js-item-remove"></i></span>');
+                }
+            } */
+            // init table
+            function table_init(id_, colums, url_, searchParemOBj_) {
+                // console.log('colums-', colums);
+                searchParemOBj_ = searchParemOBj_ || {}
+                if (!$('#' + id_).data('init')) {
+                    var DT_ = COM_TOOLS.DT_init(id_, colums, url_, 'get', searchParemOBj_, {
+                        other: {
+                            drawCallback: function () {
+                                // console.log(this.api().rows([1,2]).select());
+                                var oldArr = $('#' + id_).data('list') || [];
+                                var curArr = [];
+                                if (oldArr.length) {
+                                    for (var i = 0; i < oldArr.length; i++) {
+                                        var e = oldArr[i];
+                                        curArr.push('#' + e);
+                                    }
+                                    this.api().rows(curArr).select();
+                                }
+                            }
+                        }
+                    })
+
+                    $('#' + id_).data('init', DT_)
+
+                    // console.log(1);
+                    DT_.table.on('select.dt.DT deselect.dt.DT', function (e, dt, type, indexes) {
+                        var cType = e.type;
+                        // console.log(cType);
+                        var resource = dt.data();
+                        resource = resource.length ? resource : [resource];
+                        if (resource && resource.length) {
+                            for (var i = 0; i < resource.length; i++) {
+                                var e = resource[i];
+                                // var itemid_ = id_ == 'cusTable_1' ? e.userId : e.id;
+                                proData(id_, e, cType);
+                                // createHtml(id_, e, cType);
+                            }
+                        }
+                    })
+                    /* DT_.table.on('select.dt.DT', function (e, dt, type, indexes) {
+                        // console.log(e, dt, type, indexes);
+                        console.log(e);
+                        var resource = dt.data();
+                        resource = resource.length ? resource : [resource];
+                        if (resource && resource.length) {
+                            for (var i = 0; i < resource.length; i++) {
+                                var e = resource[i];
+                                var status = proData(id_, e.id);
+                                createHtml(id_, e, status);
+                            }
+                        }
+                    }).on('deselect.dt.DT', function(e, dt, type, indexes){
+                        console.log(e);
+                        var resource = dt.data();
+                        resource = resource.length ? resource : [resource];
+                        if (resource && resource.length) {
+                            for (var i = 0; i < resource.length; i++) {
+                                var e = resource[i];
+                                var status = proData(id_, e.id);
+                                createHtml(id_, e, status);
+                            }
+                        }
+                    }) */
+                }
+            }
+
+            var cusTable_1 = [{
+                "data": null,
+                "className": "text-center",
+                "width": "30px",
+                render: function (data, type, row, meta) { /*显示行号*/
+                    return 1 + meta.row;
+                }
+            }, {
+                "data": null,
+                "width": "30px",
+                "className": "select-checkbox",
+                "defaultContent": ''
+            }, {
+                "data": "first_name"
+            }, {
+                "data": "last_name"
+            }, {
+                "data": "position"
+            }, {
+                "data": "office"
+            }];
+
+            var cusTable_2 = [{
+                "data": null,
+                "className": "text-center",
+                "width": "30px",
+                render: function (data, type, row, meta) { /*显示行号*/
+                    return 1 + meta.row;
+                }
+            }, {
+                "data": null,
+                "width": "30px",
+                "className": "select-checkbox",
+                "defaultContent": ''
+            }, {
+                "data": "first_name"
+            }, {
+                "data": "last_name"
+            }, {
+                "data": "position"
+            }, {
+                "data": "office"
+            }, {
+                "data": "position"
+            }, {
+                "data": "office"
+            }]
+
+            var cusTable_3 = [{
+                "data": null,
+                "className": "text-center",
+                "width": "30px",
+                render: function (data, type, row, meta) { /*显示行号*/
+                    return 1 + meta.row;
+                }
+            }, {
+                "data": null,
+                "width": "30px",
+                "className": "select-checkbox",
+                "defaultContent": ''
+            }, {
+                "data": "first_name"
+            }, {
+                "data": "last_name"
+            }]
+
+            table_init('cusTable_1', cusTable_1, '/dt/api')
+
+            $('body').on('click', '.js-checkbox', function () {
+                var t_ = $(this);
+                var v_ = t_.val();
+                // console.log(v_);
+                if (t_.prop('checked')) {
+                    $('#js_' + v_).removeClass('hidden');
+                    table_init(v_, eval(v_), '/dt/api');
+                } else {
+                    $('#js_' + v_).addClass('hidden');
+                    $('#' + v_).closest('.js-select-item').find('.js_removeAll').trigger('click');
+                }
+            }).on('click', '.js-item-remove', function () {
+                var t_ = $(this);
+                // console.log(t_.closest('.js-select-item'));
+                var table_id = t_.closest('.js-select-item').attr('id').split('js_')[1];
+                var init_DT = $('#' + table_id).data('init');
+                var id_ = t_.parent().data('itemid');
+
+                init_DT.table.row('#tr_' + id_).deselect(true);
+                /* var status = proData(table_id, id_);
+                createHtml(table_id, {
+                    id: id_
+                }, status); */
+            }).on('click', '.js_removeAll', function () {
+                var t_ = $(this);
+                // console.log(t_.closest('.js-select-item'));
+                var table_id = t_.closest('.js-select-item').attr('id').split('js_')[1];
+                var init_DT = $('#' + table_id).data('init');
+                if (init_DT) {
+                    init_DT.table.rows().deselect();
+                    t_.closest('.js-select-item').find('.content').html('')
+                    $('#' + table_id).data('list', '');
+                }
+            }).on('click', '.js-btn-search', function () {
+                var t_ = $(this);
+                var form_e = t_.closest('.js-form');
+                var params = COM_TOOLS.serializeObject(form_e);
+                var table_id = t_.closest('.js-select-item').attr('id').split('js_')[1];
+                var init_DT = $('#' + table_id).data('init');
+
+                init_DT.setAjaxData(params)
+                console.log(params);
+                console.log(init_DT);
+            }).on('click', '#btn_save', function () {
+                var subData1 = subData('cusTable_1', 'id')
+                var subData2 = subData('cusTable_2', 'id')
+                var subData3 = subData('cusTable_3', 'id')
+
+                console.log(subData1, subData2, subData3);
+            })
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+
+<!doctype html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title></title>
+<script type="text/javascript" src="../js/jquery-2.1.1.js" ></script>
+</head>
+<body>
+    <table width="100%" border="1">
+        <tr>
+            <td>123123123213123</td>
+        </tr>
+        <tr>
+            <td>22222222222222222222</td>
+        </tr>
+    </table>
+    <div class="dddd"></div>
+<script>
+function is( obj, type ) {
+    return typeof obj === type;
+}
+
+var isEventSupported = (function() {
+
+  var TAGNAMES = {
+    'select': 'input', 'change': 'input',
+    'submit': 'form', 'reset': 'form',
+    'error': 'img', 'load': 'img', 'abort': 'img'
+  };
+
+  function isEventSupported( eventName, element ) {
+
+    element = element || document.createElement(TAGNAMES[eventName] || 'div');
+    eventName = 'on' + eventName;
+
+    var isSupported = eventName in element;
+
+    if ( !isSupported ) {
+      if ( !element.setAttribute ) {
+        element = document.createElement('div');
+      }
+      if ( element.setAttribute && element.removeAttribute ) {
+        element.setAttribute(eventName, '');
+        isSupported = is(element[eventName], 'function');
+
+        if ( !is(element[eventName], 'undefined') ) {
+          element[eventName] = undefined;
+        }
+        element.removeAttribute(eventName);
+      }
+    }
+
+    element = null;
+    return isSupported;
+  }
+  return isEventSupported;
+})();
+    
+    
+    var hh = $('.dddd');
+    
+    var lastClickTime = 0;
+        var clickTimer;
+    hh.append('ondblclick:$:'+( isEventSupported("dblclick"))+'<br/>');
+    hh.append('onclick::'+( isEventSupported("click"))+'<br/>');
+    $('table').on('click',function(){
+        hh.append('click: ok <br/>');
+        
+        var nowTime = new Date().getTime();
+            if (nowTime - lastClickTime < 400) {
+                /*双击*/
+                lastClickTime = 0;
+                clickTimer && clearTimeout(clickTimer);
+                hh.append('###　双击: ok <br/>');
+                //$('table').trigger('dblclick');
+                
+            } else {
+                /*单击*/
+                lastClickTime = nowTime;
+                clickTimer = setTimeout(function(){
+                    hh.append('###　单击: ok <br/>');
+                }, 400);
+            }
+    }).on('dblclick',function(){
+        hh.append('dblclick: ok <br/>');
+    });
+</script>
+</body>
+</html>

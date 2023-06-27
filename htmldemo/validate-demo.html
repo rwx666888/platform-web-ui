@@ -1,0 +1,1403 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Validate-Demo</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+	
+	<link rel="stylesheet" type="text/css" href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css"/>
+	<link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+	<link href="../css/plugins/select2/select2.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="../css/style.css" />
+	<link href="../css/iconfont.css" rel="stylesheet"/>
+	<style type="text/css">
+		.jumbotron p{font-size: 14px !important;}
+
+        pre{
+        white-space: pre-wrap;       
+        white-space: -moz-pre-wrap;  
+        white-space: -pre-wrap;      
+        white-space: -o-pre-wrap;    
+        word-wrap: break-word;       
+        }
+        .demo-box{ margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; position: relative; border-radius: 5px;}
+        .tab-content{ overflow-y: auto; max-height: 400px;}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h3>表单验证Validate</h3>
+			<p>Validate组件为表单提供了强大的验证功能，让客户端表单验证变得更简单，同时提供了大量的定制选项，满足应用程序各种需求。该插件捆绑了一套有用的验证方法，包括 URL 和电子邮件验证，同时提供了一个用来编写用户自定义方法的 API。</p>
+			<p class="text-danger">PS: input type=[checkbox,radio]时同组别内name必须相同，其他情况或元素下所有name必唯一。
+				<br/>不验证的元素包括:hidden, :submit, :reset, :image, :disabled;
+				<br/>如果需要验证有可能被用户操作隐藏的元素，需初始化时修改配置ignore,默认值：':hidden',或者阻止用户隐藏，或触发隐藏操作时，校验将要隐藏的元素是否验证通过；从行为上控制；
+			</p>
+			<p>官网地址：<a href="https://jqueryvalidation.org/" target="_blank">https://jqueryvalidation.org</a></p>		
+			<p>中文教程：<a href="https://www.runoob.com/jquery/jquery-plugin-validate.html" target="_blank">http://www.runoob.com/jquery/jquery-plugin-validate.html</a></p>	
+			<p>github：<a href="https://github.com/jquery-validation/jquery-validation/tree/master" target="_blank">https://github.com/jquery-validation/jquery-validation/tree/master</a></p>
+			
+			<h3>常用组件包</h3>
+			<p class="text-danger">基础包（必须）</p>
+			<p>jquery.js</p>
+			<p>bootstrap.min.js</p>
+			<p class="text-info">组件包</p>
+			<p>jquery.validate.min.js</p>
+			<p class="text-danger"><u>(废弃)jquery-validate.bootstrap-tooltip.min.js</u></p>
+		</div>
+		
+		<h3>默认验证规则</h3>
+		<table class="table table-bordered">
+<tbody><tr>
+	<th width="10%">序号</th>
+	<th width="30%">规则</th>
+    <th width="60%">描述</th>
+</tr>
+<tr>
+	<td>1</td>
+    <td>required:true</td>
+	<td>必须输入的字段。</td>
+</tr>
+<tr>
+	<td>2</td>
+    <td>remote:"check.php"</td>
+	<td>使用 ajax 方法调用 check.php 验证输入值。</td>
+</tr>
+<tr>
+	<td>3</td>
+    <td>email:true</td>
+	<td>必须输入正确格式的电子邮件。</td>
+</tr>
+<tr>
+	<td>4</td>
+    <td>url:true</td>
+	<td>必须输入正确格式的网址。</td>
+</tr>
+<tr>
+	<td>5</td>
+    <td>date:true</td>
+	<td>必须输入正确格式的日期。日期校验 ie6 出错，慎用。</td>
+</tr>
+<tr>
+	<td>6</td>
+    <td>dateISO:true</td>
+	<td>必须输入正确格式的日期（ISO），例如：2009-06-23，1998/01/22。只验证格式，不验证有效性。</td>
+</tr>
+<tr>
+	<td>7</td>
+    <td>number:true</td>
+	<td>必须输入合法的数字（负数，小数）。</td>
+</tr>
+<tr>
+	<td>8</td>
+    <td>digits:true</td>
+	<td>必须输入整数。</td>
+</tr>
+<tr>
+	<td>9</td>
+    <td>creditcard:</td>
+	<td>必须输入合法的信用卡号。</td>
+</tr>
+<tr>
+	<td>10</td>
+    <td>equalTo:"#field"</td>
+	<td>输入值必须和 #field 相同。</td>
+</tr>
+<tr>
+	<td>11</td>
+    <td>accept:</td>
+	<td>输入拥有合法后缀名的字符串（上传文件的后缀）。</td>
+</tr>
+<tr>
+	<td>12</td>
+    <td>maxlength:5</td>
+	<td>输入长度最多是 5 的字符串（汉字算一个字符）。</td>
+</tr>
+<tr>
+	<td>13</td>
+    <td>minlength:10</td>
+	<td>输入长度最小是 10 的字符串（汉字算一个字符）。</td>
+</tr>
+<tr>
+	<td>14</td>
+    <td>rangelength:[5,10]</td>
+	<td>输入长度必须介于 5 和 10 之间的字符串（汉字算一个字符）。</td>
+</tr>
+<tr>
+	<td>15</td>
+    <td>range:[5,10]</td>
+	<td>输入值必须介于 5 和 10 之间。</td>
+</tr>
+<tr>
+	<td>16</td>
+    <td>max:5</td>
+	<td>输入值不能大于 5。</td>
+</tr>
+<tr>
+	<td>17</td>
+    <td>min:10</td>
+	<td>输入值不能小于 10。</td>
+</tr>
+</tbody></table>
+		<h3>常用方法</h3>
+		<h5>1. 重置表单：validator.resetForm();(暂时无效)</h5>
+		<h5>2. 验证 form 返回成功还是失败（Boolean）：validator.form () 或  $(表单选择器).valid();（不支持远程异步验证）</h5>
+		<h5>3. 验证单个元素是成功还是失败（Boolean）：validator.element(表单元素选择器);（不支持远程异步验证）</h5>		
+		<h5 class="text-danger">&nbsp;&nbsp;注：默认对hidden无效，建议对必须的hidden元素进行自行验证，并提示error。</h5>
+		<h5>4. 返回无效字段的数量: Validator.numberOfInvalids()</h5>
+		<h5>5. 通过验证后运行的函数：submitHandler</h5>
+		<h5 class="text-danger">&nbsp;&nbsp;注：里面要加上表单提交的函数，否则表单：不会提交。</h5>
+<pre>
+$(".selector").validate({
+    submitHandler:function(form) {
+        //ajax提交表单或 form.submit();
+        //$(form).ajaxSubmit(); 需加载jquery-form.js
+        
+        var ajaxData = COM_TOOLS.serializeObject(form);
+        //修改提交到服务器的数据 
+        // ajaxData.param1 = 'value';
+        // ajaxData.param2 = ajaxData.param1+1;
+        //例1
+        COM_TOOLS.ajaxFn({ <a class="tedufont tedu-icon133 cushelpbtn js-helpbtn js-helpmsg" data-helpbtn="#3" data-helpmsg="platform.common.label.help_admin"></a>
+            type : "post",
+            url : "/yourUrl",
+            data : ajaxData,
+            success : function(data,status){
+                parent.COM_TOOLS.alert("操作成功");
+            },
+            error : function(){
+                COM_TOOLS.alert("系统异常");
+            }
+        }, 1); // 1:全屏loading遮罩；2:button loading遮罩;
+        
+        //等同于 例2
+        COM_TOOLS.loadingShade.open(); //防重复提交锁-打开
+        $.ajax({
+            type : "post",
+            url : "/yourUrl",
+            data : ajaxData,
+            success : function(data,status){
+                parent.COM_TOOLS.alert("操作成功");
+            },
+            error : function(){
+                COM_TOOLS.alert("系统异常");
+            },
+            complete: function(XHR, textStatus) {
+                COM_TOOLS.loadingShade.close(); //防重复提交锁-关闭
+            }
+        });
+    }
+});
+</pre>
+<h5>6. 为指定元素添加校验规则：<span class="text-danger">PS:必须使用单一元素选择器，或each遍历; 必须在$( "form" ).validate() 后面使用rules()</span></h5>
+<pre>
+$( "#myinput" ).rules( "add", {
+  required: true,
+  minlength: 2,
+  messages: { //可选
+    required: "Required input",
+    minlength: jQuery.validator.format("Please, at least {0} characters are necessary")
+  }
+});
+// 或者
+$('.selector').each(function(){
+	$(this).rules( "add", {required: true});
+});
+
+</pre>
+<h5>7. 动态删除校验规则(只适用于通过js配置的规则信息)：$( "#myinput" ).rules( "remove", "min max" ); &nbsp;&nbsp;<span class="text-danger">PS: 建议同时使用 validator.element(表单元素选择器，例如："#myinput");方法（或 $(表单选择器).valid();），以刷新当前元素校验状态；如何删除了元素上的所有校验器，则需要额外调用 $(表单元素选择器，例如："#myinput").tooltip('destroy');方法；</span></h5>
+<h5>8. 动态删除校验规则(只适用于属性校验器)：$( "#myinput" ).removeAttr('required').tooltip('destroy');</h5>
+<h5>9. 新增解析器：针对规则中"ck-cus-"开头的，且其属性值为数组形字符串的，转化成数组对象</h5>
+<pre>
+// 下方示例中的ck-number-len 是 ck-cus-* 系列中的特殊处理；
+&lt;input class=&quot;form-control input-sm&quot; name=&quot;name&quot; value=&quot;&quot; ck-number-len=&quot;[2,12]&quot; type=&quot;text&quot;&gt;
+// 输出：数字格式错误(最多只能输入12位整数及最多2位小数
+
+// 规则源码：
+$.validator.addMethod("ck-number-len", function(value, element, params) {
+    return this.optional(element) || !check_input_num2(value, params);
+},'数字格式错误(最多只能输入{1}位整数及最多{0}位小数');
+</pre>
+
+<br/><br/>
+		<h3>实例演示</h3>
+		
+		<div class="panel panel-default">
+            <div class="panel-heading">通过属性方式设置验证规则（推荐）</div>
+            <div class="panel-body">
+                <form class="form-horizontal form-label-sm" id="upForm5" autocomplete="off">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">只输入整数：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="zhengshu" required digits="true"/>
+                        </div>
+                        <label class="col-sm-3 control-label">整数范围[5-10]：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="zsfanwei" required range="[5,10]"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">只输入数字（含小数，支持千分位）：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="hxiaoshu" required number="true"/>
+                        </div>
+                        <label class="col-sm-3 control-label">只输入字母：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="zimu" required ck-letter="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">只输入汉字：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="hanzi" required ck-chinese="true"/>
+                        </div>
+                        <label class="col-sm-3 control-label">必须同时包含数字和字母：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="shuzhizm" required ck-numandletter="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">邮箱验证：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="youxiang" required ck-email="true"/>
+                        </div>
+                        <label class="col-sm-3 control-label">手机验证（1开头的11位数字|09开头的10位数字）：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="shouji" required ck-phone="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">身份验证（中国大陆）：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="shenfen" required ck-idcard="true"/>
+                        </div>
+                        <label class="col-sm-3 control-label">邮编验证（6位非全0整数）：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="youbian" required ck-zipcode="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">数字（0-9）或字母：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="numorletter" required ck-numorletter="true"/>
+                        </div>
+                        <label class="col-sm-3 control-label">数字（0-9）、下划线或字母：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="numorletteroruline" required ck-numorletteroruline="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">正数+0：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="non-negative" required ck-non-negative="true"/>
+                        </div>
+                        <label class="col-sm-3 control-label">[A-Za-z0-9\-_]：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="ck-i18n-key" required ck-i18n-key="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">特殊字符：</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="specialchars" required cus-specialchars="true"/>
+                        </div>
+                        <label class="col-sm-3 control-label">手机及电话号验证，支持台湾号码</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="phone-tel" required ck-phone-tel="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-4">
+                            <button type="button" class="btn btn-success btn-sm" id="butSub5">提交</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-9 control-label">
+                            <span class="text-danger">工具：</span>
+                            <span class="text-warning">输入17位数字生成最后一位;注意：必须遵循如下格式（年月日必须是合法格式），前6位（省市县区号）+年（4位）月（2位）日（2位）+2位数字+1位数字（男单数，女双数）+数字验证位（自动生成）【可根据身份证号码提取日期及性别的操作】</span>
+                        </label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control input-sm" name="aaa" id="demo1-input5_1" maxlength="17"/>
+                            <button type="button" class="btn btn-success btn-sm" id="butSub5_1">提交</button>
+                            <span>输出:</span>
+                            <input type="text" class="form-control input-sm" name="ddd" id="demo1-input5_2"/>
+                        </div>
+                    </div>
+                </form>
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#demo5-html" role="tab" data-toggle="tab" aria-expanded="true">html</a></li>
+                  <li role="presentation" class=""><a href="#demo5-js" role="tab" data-toggle="tab" aria-expanded="false">js</a></li>
+                  <li role="presentation" class=""><a href="#demo5-css" role="tab" data-toggle="tab" aria-expanded="false">css</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="demo5-html">
+<pre>
+&lt;form class=&quot;form-horizontal form-label-sm&quot; id=&quot;upForm5&quot; autocomplete=&quot;off&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x53EA;&#x8F93;&#x5165;&#x6574;&#x6570;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;zhengshu&quot; required digits=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x6574;&#x6570;&#x8303;&#x56F4;[5-10]&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;zsfanwei&quot; required range=&quot;[5,10]&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x53EA;&#x8F93;&#x5165;&#x6570;&#x5B57;&#xFF08;&#x542B;&#x5C0F;&#x6570;&#xFF0C;&#x652F;&#x6301;&#x5343;&#x5206;&#x4F4D;&#xFF09;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;hxiaoshu&quot; required number=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x53EA;&#x8F93;&#x5165;&#x5B57;&#x6BCD;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;zimu&quot; required ck-letter=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x53EA;&#x8F93;&#x5165;&#x6C49;&#x5B57;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;hanzi&quot; required ck-chinese=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x5FC5;&#x987B;&#x540C;&#x65F6;&#x5305;&#x542B;&#x6570;&#x5B57;&#x548C;&#x5B57;&#x6BCD;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;shuzhizm&quot; required ck-numandletter=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x90AE;&#x7BB1;&#x9A8C;&#x8BC1;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;youxiang&quot; required ck-email=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x624B;&#x673A;&#x9A8C;&#x8BC1;&#xFF08;1&#x5F00;&#x5934;&#x7684;11&#x4F4D;&#x6570;&#x5B57;|09&#x5F00;&#x5934;&#x7684;10&#x4F4D;&#x6570;&#x5B57;&#xFF09;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;shouji&quot; required ck-phone=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;&#xFF08;&#x4E2D;&#x56FD;&#x5927;&#x9646;&#xFF09;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;shenfen&quot; required ck-idcard=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x90AE;&#x7F16;&#x9A8C;&#x8BC1;&#xFF08;6&#x4F4D;&#x975E;&#x5168;0&#x6574;&#x6570;&#xFF09;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;youbian&quot; required ck-zipcode=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x6570;&#x5B57;&#xFF08;0-9&#xFF09;&#x6216;&#x5B57;&#x6BCD;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;numorletter&quot; required ck-numorletter=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x6570;&#x5B57;&#xFF08;0-9&#xFF09;&#x3001;&#x4E0B;&#x5212;&#x7EBF;&#x6216;&#x5B57;&#x6BCD;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;numorletteroruline&quot; required ck-numorletteroruline=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x6B63;&#x6570;+0&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;non-negative&quot; required ck-non-negative=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;[A-Za-z0-9\-_]&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;ck-i18n-key&quot; required ck-i18n-key=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x7279;&#x6B8A;&#x5B57;&#x7B26;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;specialchars&quot; required cus-specialchars=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-3 control-label&quot;&gt;&#x624B;&#x673A;&#x53CA;&#x7535;&#x8BDD;&#x53F7;&#x9A8C;&#x8BC1;&#xFF0C;&#x652F;&#x6301;&#x53F0;&#x6E7E;&#x53F7;&#x7801;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;phone-tel&quot; required ck-phone-tel=&quot;true&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;div class=&quot;col-sm-offset-3 col-sm-4&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn-success btn-sm&quot; id=&quot;butSub5&quot;&gt;&#x63D0;&#x4EA4;&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-9 control-label&quot;&gt;
+            &lt;span class=&quot;text-danger&quot;&gt;&#x5DE5;&#x5177;&#xFF1A;&lt;/span&gt;
+            &lt;span class=&quot;text-warning&quot;&gt;&#x8F93;&#x5165;17&#x4F4D;&#x6570;&#x5B57;&#x751F;&#x6210;&#x6700;&#x540E;&#x4E00;&#x4F4D;;&#x6CE8;&#x610F;&#xFF1A;&#x5FC5;&#x987B;&#x9075;&#x5FAA;&#x5982;&#x4E0B;&#x683C;&#x5F0F;&#xFF08;&#x5E74;&#x6708;&#x65E5;&#x5FC5;&#x987B;&#x662F;&#x5408;&#x6CD5;&#x683C;&#x5F0F;&#xFF09;&#xFF0C;&#x524D;6&#x4F4D;&#xFF08;&#x7701;&#x5E02;&#x53BF;&#x533A;&#x53F7;&#xFF09;+&#x5E74;&#xFF08;4&#x4F4D;&#xFF09;&#x6708;&#xFF08;2&#x4F4D;&#xFF09;&#x65E5;&#xFF08;2&#x4F4D;&#xFF09;+2&#x4F4D;&#x6570;&#x5B57;+1&#x4F4D;&#x6570;&#x5B57;&#xFF08;&#x7537;&#x5355;&#x6570;&#xFF0C;&#x5973;&#x53CC;&#x6570;&#xFF09;+&#x6570;&#x5B57;&#x9A8C;&#x8BC1;&#x4F4D;&#xFF08;&#x81EA;&#x52A8;&#x751F;&#x6210;&#xFF09;&#x3010;&#x53EF;&#x6839;&#x636E;&#x8EAB;&#x4EFD;&#x8BC1;&#x53F7;&#x7801;&#x63D0;&#x53D6;&#x65E5;&#x671F;&#x53CA;&#x6027;&#x522B;&#x7684;&#x64CD;&#x4F5C;&#x3011;&lt;/span&gt;
+        &lt;/label&gt;
+        &lt;div class=&quot;col-sm-3&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;aaa&quot; id=&quot;demo1-input5_1&quot; maxlength=&quot;17&quot;/&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn-success btn-sm&quot; id=&quot;butSub5_1&quot;&gt;&#x63D0;&#x4EA4;&lt;/button&gt;
+            &lt;span&gt;&#x8F93;&#x51FA;:&lt;/span&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; name=&quot;ddd&quot; id=&quot;demo1-input5_2&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                    </div>
+                    <div class="tab-pane" id="demo5-js">
+<pre>
+//组件包引用规则 同上
+
+//DEMO5
+$('#upForm5').validate();
+$('#butSub5').click(function(){
+    if(!$('#upForm5').validate().form()){
+        return false;
+    }
+});
+</pre>
+                    </div>
+                    <div class="tab-pane" id="demo5-css">
+<pre>
+&#x57FA;&#x7840;&#xFF1A;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/bootstrap.min.css&quot;/&gt;   
+
+datetimepiker&#x6837;&#x5F0F;:
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css&quot;/&gt;
+</pre>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">自定义验证规则（利用默认规则进行组合，以及提示信息修改）</div>
+			<div class="panel-body">
+				<form class="form-horizontal" id="upForm2">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">用户名：</label>
+						<div class="col-sm-4"><input class="form-control input-sm" name="uname" type="text"/></div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">密码：</label>
+						<div class="col-sm-4"><input class="form-control input-sm" id="upwd" name="upwd" type="text"/></div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">确认密码：</label>
+						<div class="col-sm-4"><input class="form-control input-sm" name="upwd2" id="upwd2" type="text"/></div>
+					</div>
+					<div class="form-group">
+                        <label class="col-sm-2 control-label">性别：</label>
+                        <div class="col-sm-4">
+                            <label class="checkbox-inline i-checks">
+                              <input type="radio" name="sex" value="option1" required> 男
+                            </label>
+                            <label class="checkbox-inline i-checks">
+                              <input type="radio" name="sex" value="option2" required> 女
+                            </label>
+                        </div>
+                    </div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">爱好(多选)：</label>
+						<div class="col-sm-4">
+							<label class="radio-inline i-checks">
+							  <input type="checkbox" name="favor[]" value="option1"> 运动
+							</label>
+							<label class="radio-inline i-checks">
+							  <input type="checkbox" name="favor[]" value="option2"> 音乐
+							</label>
+							<label class="radio-inline i-checks">
+							  <input type="checkbox" name="favor[]" value="option2"> 电影
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+			    	<div class="col-sm-offset-2 col-sm-4">
+					  	<button type="button" class="btn btn-success btn-sm" id="butSub2">提交</button>
+			    	</div>
+			    </div>
+				</form>
+				<ul class="nav nav-tabs" role="tablist">
+				  <li role="presentation" class="active"><a href="#demo2-html" role="tab" data-toggle="tab" aria-expanded="true">html</a></li>
+				  <li role="presentation" class=""><a href="#demo2-js" role="tab" data-toggle="tab" aria-expanded="false">js</a></li>
+				  <li role="presentation" class=""><a href="#demo2-css" role="tab" data-toggle="tab" aria-expanded="false">css</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="demo2-html">
+<pre>
+&lt;form class=&quot;form-horizontal&quot; id=&quot;upForm2&quot;&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x7528;&#x6237;&#x540D;&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;&lt;input class=&quot;form-control input-sm&quot; name=&quot;uname&quot; type=&quot;text&quot;/&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5BC6;&#x7801;&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;&lt;input class=&quot;form-control input-sm&quot; id=&quot;upwd&quot; name=&quot;upwd&quot; type=&quot;text&quot;/&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x786E;&#x8BA4;&#x5BC6;&#x7801;&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;&lt;input class=&quot;form-control input-sm&quot; name=&quot;upwd2&quot; type=&quot;text&quot;/&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x6027;&#x522B;&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;
+              &lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;option1&quot; checked required&gt; &#x7537;
+            &lt;/label&gt;
+            &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;
+              &lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;option2&quot; required&gt; &#x5973;
+            &lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x7231;&#x597D;(&#x591A;&#x9009;)&#xFF1A;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;
+              &lt;input type=&quot;checkbox&quot; name=&quot;favor[]&quot; value=&quot;option1&quot;&gt; &#x8FD0;&#x52A8;
+            &lt;/label&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;
+              &lt;input type=&quot;checkbox&quot; name=&quot;favor[]&quot; value=&quot;option2&quot;&gt; &#x97F3;&#x4E50;
+            &lt;/label&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;
+              &lt;input type=&quot;checkbox&quot; name=&quot;favor[]&quot; value=&quot;option2&quot;&gt; &#x7535;&#x5F71;
+            &lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+  	&lt;div class=&quot;col-sm-offset-2 col-sm-4&quot;&gt;
+	  	&lt;button type=&quot;button&quot; class=&quot;btn btn-success btn-sm&quot; id=&quot;butSub2&quot;&gt;&#x63D0;&#x4EA4;&lt;/button&gt;
+  	&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+					</div>
+					<div class="tab-pane" id="demo2-js">
+<pre>
+//iCheck组件
+&lt;script src=&quot;../js/plugins/iCheck/icheck.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+//组件包引用规则 同上
+
+//DEMO2
+$(&#x27;.i-checks&#x27;).iCheck({ //&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;iCheck&#x9700;&#x8981;&#x8FD9;&#x6BB5;JS
+    checkboxClass: &#x27;icheckbox_square-green&#x27;,
+    radioClass: &#x27;iradio_square-green&#x27;,
+}).on(&#x27;ifChanged&#x27;, function(){  //&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;validate&#x9A8C;&#x8BC1;&#x9700;&#x8981;&#x7528;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;
+      $(this).closest(&#x27;form&#x27;).validate().element(this);
+});
+
+$(&#x27;#upForm2&#x27;).validate({
+	rules:{
+		uname:{
+			required:true,	//使用组合的方式进行多项验证
+			minlength:6
+		},
+		upwd:{
+			required:true,
+			rangelength:[6,12]
+		},
+		upwd2:{
+			required:true,
+			rangelength:[6,12],
+			equalTo: &quot;#upwd&quot;
+		},
+		&quot;favor[]&quot;:{	//多选checkbox使用数组的形式
+			required:true,
+			minlength:2
+		}
+	},
+	messages:{
+		uname:{
+			required:&quot;&#x8BF7;&#x8F93;&#x5165;&#x60A8;&#x7684;&#x7528;&#x6237;&#x540D;&quot;,
+			minlength:&quot;&#x4E0D;&#x80FD;&#x5C11;&#x4E8E;6&#x4F4D;&quot;
+		},
+		upwd:{
+			required:&quot;&#x8BF7;&#x8F93;&#x5165;&#x5BC6;&#x7801;&quot;,
+			rangelength:&quot;&#x5BC6;&#x7801;&#x957F;&#x5EA6;&#x4E3A;6~12&#x4F4D;&quot;
+		},
+		upwd2:{
+			required:&quot;&#x8BF7;&#x518D;&#x6B21;&#x8F93;&#x5165;&#x5BC6;&#x7801;&quot;,
+			rangelength:&quot;&#x5BC6;&#x7801;&#x957F;&#x5EA6;&#x4E3A;6~12&#x4F4D;&quot;,
+			equalTo: &quot;&#x4E24;&#x6B21;&#x5BC6;&#x7801;&#x8F93;&#x5165;&#x4E0D;&#x4E00;&#x81F4;&quot;
+		},
+		&quot;favor[]&quot;:{
+			required:&quot;&#x8BF7;&#x9009;&#x62E9;&#x60A8;&#x7684;&#x7231;&#x597D;&quot;,
+			minlength:&quot;&#x81F3;&#x5C11;&#x9009;&#x7740;&#x4E24;&#x4E2A;&#x7231;&#x597D;&quot;
+		}
+	}
+});
+$(&#x27;#butSub2&#x27;).click(function(){
+	if(!$(&#x27;#upForm2&#x27;).validate().form()){
+		return false;
+	}
+});
+</pre>
+					</div>
+					<div class="tab-pane" id="demo2-css">
+<pre>
+基础：
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/bootstrap.min.css&quot;/&gt;
+iCheck-css
+&lt;link href=&quot;../css/plugins/iCheck/custom.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">自定义验证组件（利用扩展编写私有的校验规则）</div>
+			<div class="panel-body">
+				<form class="form-horizontal" id="upForm3">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">电话：</label>
+						<div class="col-sm-4">
+							<input class="form-control input-sm" type="text" name="uphone"/>
+						</div>
+					</div>
+					<div class="form-group form-inline">
+						<label class="col-sm-2 control-label">日期比较：</label>
+						<div class="col-sm-8">
+						    <div class="input-group input-group-sm date" id="startime_div">
+                                <input type="text" name="startime" id="startime" class="form-control input-sm" readonly>                   
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+							&nbsp;&nbsp;
+							<div class="input-group input-group-sm date" id="endtime_div">
+								<input class="form-control input-sm" type="text" id="endtime" name="endtime" readonly/>
+							    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+			    	<div class="col-sm-offset-2 col-sm-4">
+					  	<button type="button" class="btn btn-success btn-sm" id="butSub3">提交</button>
+			    	</div>
+			    </div>
+				</form>
+				<ul class="nav nav-tabs" role="tablist">
+				  <li role="presentation" class="active"><a href="#demo3-html" role="tab" data-toggle="tab" aria-expanded="true">html</a></li>
+				  <li role="presentation" class=""><a href="#demo3-js" role="tab" data-toggle="tab" aria-expanded="false">js</a></li>
+				  <li role="presentation" class=""><a href="#demo3-css" role="tab" data-toggle="tab" aria-expanded="false">css</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="demo3-html">
+<pre>
+&lt;form class=&quot;form-horizontal&quot; id=&quot;upForm3&quot;&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x7535;&#x8BDD;&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;uphone&quot;/&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group form-inline&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x65E5;&#x671F;&#x6BD4;&#x8F83;&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;input-group input-group-sm date&quot; id=&quot;startime_div&quot;&gt;
+            &lt;input type=&quot;text&quot; name=&quot;startime&quot; id=&quot;startime&quot; class=&quot;form-control input-sm&quot; readonly&gt;                   
+            &lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &amp;nbsp;&amp;nbsp;
+        &lt;div class=&quot;input-group input-group-sm date&quot; id=&quot;endtime_div&quot;&gt;
+            &lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; id=&quot;endtime&quot; name=&quot;endtime&quot; readonly/&gt;
+            &lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+  	&lt;div class=&quot;col-sm-offset-2 col-sm-4&quot;&gt;
+	  	&lt;button type=&quot;button&quot; class=&quot;btn btn-success btn-sm&quot; id=&quot;butSub3&quot;&gt;&#x63D0;&#x4EA4;&lt;/button&gt;
+  	&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+					</div>
+					<div class="tab-pane" id="demo3-js">
+<pre>
+//组件包引用规则 同上
+
+datetimepiker:
+&lt;script src=&quot;../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+//DEMO3
+$(&#x27;#upForm3&#x27;).validate({
+	rules:{
+		uphone:{
+			&quot;ck-phone&quot;:true,	//boolean false&#x4E0D;&#x6821;&#x9A8C;
+		},
+		startime:{
+			required:true,
+			date:true
+		},
+		endtime:{
+			required:true,
+			date:true,
+		}
+	},
+	messages:{
+		uphone:{	//&#x53EF;&#x4EE5;&#x8986;&#x76D6;&#x6DFB;&#x52A0;&#x7684;&#x9ED8;&#x8BA4;&#x9519;&#x8BEF;&#x4FE1;&#x606F;
+			&quot;ck-phone&quot;:&quot;&#x624B;&#x673A;&#x53F7;&#x683C;&#x5F0F;&#x9519;&#x8BEF;&quot;
+		},
+	}
+});
+
+//&#x8FD9;&#x4E2A;id&#x4E3A;input&#x5916;&#x5C42;&#x7684;div&#x7684;id
+$(&#x27;#startime_div&#x27;).datetimepicker().on(&#x27;changeDate&#x27;, function(){
+    var t_ = $(this).is(&#x27;input&#x27;) ? $(this) : $(this).children(&#x27;input&#x27;);
+    $(&#x27;#endtime_div&#x27;).datetimepicker(&#x27;setStartDate&#x27;, t_.val());
+});
+$(&#x27;#endtime_div&#x27;).datetimepicker().on(&#x27;changeDate&#x27;, function(){
+    var t_ = $(this).is(&#x27;input&#x27;) ? $(this) : $(this).children(&#x27;input&#x27;);
+    $(&#x27;#startime_div&#x27;).datetimepicker(&#x27;setEndDate&#x27;, t_.val());
+});
+
+$(&#x27;#butSub3&#x27;).click(function(){
+	if(!$(&#x27;#upForm3&#x27;).validate().form()){
+		return false;
+	}
+});
+</pre>
+					</div>
+					<div class="tab-pane" id="demo3-css">
+<pre>
+基础：
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/bootstrap.min.css&quot;/&gt;	
+
+datetimepiker样式:
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css&quot;/&gt;
+</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">远程验证（远程实时校验）</div>
+			<div class="panel-body">
+				<form class="form-horizontal" id="upForm4">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">旧密码验证：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm" id="pwd" name="pwd"/> 
+						</div>
+						<label class="col-sm-2 control-label">PS：旧密码：123456</label>
+					</div>
+					<div class="form-group">
+			    	<div class="col-sm-offset-2 col-sm-4">
+					  	<button type="button" class="btn btn-success btn-sm" id="butSub4">提交</button>
+			    	</div>
+			    </div>
+				</form>
+				<ul class="nav nav-tabs" role="tablist">
+				  <li role="presentation" class="active"><a href="#demo4-html" role="tab" data-toggle="tab" aria-expanded="true">html</a></li>
+				  <li role="presentation" class=""><a href="#demo4-js" role="tab" data-toggle="tab" aria-expanded="false">js</a></li>
+				  <li role="presentation" class=""><a href="#demo4-css" role="tab" data-toggle="tab" aria-expanded="false">css</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="demo4-html">
+<pre>
+&lt;form class=&quot;form-horizontal&quot; id=&quot;upForm4&quot;&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x65E7;&#x5BC6;&#x7801;&#x9A8C;&#x8BC1;&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; id=&quot;pwd&quot; name=&quot;pwd&quot;/&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+  	&lt;div class=&quot;col-sm-offset-2 col-sm-4&quot;&gt;
+	  	&lt;button type=&quot;button&quot; class=&quot;btn btn-success btn-sm&quot; id=&quot;butSub4&quot;&gt;&#x63D0;&#x4EA4;&lt;/button&gt;
+  	&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/form&gt;	
+</pre>
+					</div>
+					<div class="tab-pane" id="demo4-js">
+<pre>
+//组件包引用规则 同上
+
+//DEMO4
+$('#upForm4').validate({
+	rules: {
+		pwd: {
+			required: true,
+			remote: {
+				//param: {
+				url: "/api", //后台处理程序
+				type: "get", //数据发送方式
+				//dataType: "json", //接受数据格式   
+				//async : false,		//同步请求，默认true（建议使用 true，并结合使用submitHandler回调方法提交表单）
+				/* PS：如使用validator.form() && form.submit()方式验证提交表单，请改成同步 */
+				data: { //要传递的数据
+					pwd: function() {
+						return $("#pwd").val();
+					}
+				},
+				dataFilter: function(d) {　　　　 //判断控制器返回的内容
+					if(d == "true") {
+						return true;
+					} else {
+						return false;
+					}
+				}
+				//},
+				//depends:function(){return true;} //结合param 使用，返回 true 则不发送ajax 请求
+			}
+		}
+	},
+	messages: {
+		pwd: {
+			required: "请输入您的旧密码",
+			remote: "原始密码不正确,请重新填写！"
+		}
+	},
+	submitHandler: function(form) {
+		//AJAX
+		/*$.ajax({
+			url:"_URL_",
+			type:"get",
+			data:$(form).serialize(),
+			success:function(d){
+				//TODO
+			}
+		})*/
+	}
+});
+$('#butSub4').click(function(){
+	$('#upForm4').submit();
+});
+</pre>
+					</div>
+					<div class="tab-pane" id="demo4-css">
+<pre>
+基础：
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/bootstrap.min.css&quot;/&gt;	
+</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">新增自定义校验-表单内至少N项被填写</div>
+			<div class="panel-body">
+				<form class="form-horizontal" id="upForm6">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">字段1：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm js-require" name="name1"/>
+						</div>
+						<label class="col-sm-2 control-label">字段2：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm js-require" name="name2"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">字段3：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm js-require" name="name3"/>
+						</div>
+						<label class="col-sm-2 control-label">字段4：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm js-require" name="name4"/>
+						</div>
+					</div>
+					<div class="form-group">
+				    	<div class="col-sm-offset-2 col-sm-4">
+						  	<button type="button" class="btn btn-success btn-sm" id="butSub6">提交</button>
+				    	</div>
+			    	</div>
+				</form>
+				<ul class="nav nav-tabs" role="tablist">
+				  <li role="presentation" class="active"><a href="#demo6-html" role="tab" data-toggle="tab" aria-expanded="true">html</a></li>
+				  <li role="presentation" class=""><a href="#demo6-js" role="tab" data-toggle="tab" aria-expanded="false">js</a></li>
+				  <li role="presentation" class=""><a href="#demo6-css" role="tab" data-toggle="tab" aria-expanded="false">css</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="demo6-html">
+<pre>
+//&#x6CE8;&#xFF1A;&#x6B64;&#x5904;&#x8868;&#x5355;&#x5143;&#x7D20;&#x6DFB;&#x52A0;.js-require&#x7C7B;&#x662F;&#x4E3A;&#x4E86;&#x6821;&#x9A8C;&#x65F6;&#x6240;&#x7528;&#xFF1B;
+//.js-require&#x7C7B;&#x7684;&#x540D;&#x79F0;&#x53EF;&#x81EA;&#x884C;&#x5B9A;&#x4E49;&#xFF1B;
+&lt;form class=&quot;form-horizontal&quot; id=&quot;upForm6&quot;&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5B57;&#x6BB5;1&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm js-require&quot; name=&quot;name1&quot;/&gt;
+		&lt;/div&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5B57;&#x6BB5;2&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm js-require&quot; name=&quot;name2&quot;/&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5B57;&#x6BB5;3&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm js-require&quot; name=&quot;name3&quot;/&gt;
+		&lt;/div&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5B57;&#x6BB5;4&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm js-require&quot; name=&quot;name4&quot;/&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+    	&lt;div class=&quot;col-sm-offset-2 col-sm-4&quot;&gt;
+		  	&lt;button type=&quot;button&quot; class=&quot;btn btn-success btn-sm&quot; id=&quot;butSub6&quot;&gt;&#x63D0;&#x4EA4;&lt;/button&gt;
+    	&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/form&gt;
+</pre>
+					</div>
+					<div class="tab-pane" id="demo6-js">
+<pre>
+//组件包引用规则 同上
+
+//DEMO6
+
+/* &#x6CE8;&#xFF1A;[2,&quot;.js-require&quot;]
+ * options[0]: &#x7EC4;&#x4E2D;&#x81F3;&#x5C11;&#x586B;&#x5199;&#x7684;&#x5B57;&#x6BB5;&#x6570;
+ * options[1]: &#x4E0E;&#x81EA;&#x5B9A;&#x4E49;&#x540D;&#x79F0;&#x76F8;&#x5BF9;&#x5E94;&#x7684;CSS&#x9009;&#x62E9;&#x5668;&#xFF0C;&#x7528;&#x4E8E;&#x5B9A;&#x4E49;&#x6709;&#x6761;&#x4EF6;&#x7684;&#x5B57;&#x6BB5;&#x7EC4; *
+ * &#x6B64;&#x6B21;&#x6DFB;&#x52A0;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x6821;&#x9A8C; &#x4E0D;&#x652F;&#x6301; &#x5728;DOM&#x5143;&#x7D20;&#x5185;&#x76F4;&#x63A5;&#x586B;&#x5199;&#xFF0C;&#x5982;:required=&quot;true&quot;*
+ */
+$(&#x27;#upForm6&#x27;).validate({
+	rules:{
+		name1:{require_from_group: [2,&quot;.js-require&quot;]},
+		name2:{require_from_group: [2,&quot;.js-require&quot;]},
+		name3:{require_from_group: [2,&quot;.js-require&quot;]},
+		name4:{require_from_group: [2,&quot;.js-require&quot;]}
+	}/*,
+	messages:{ //可选
+		name1:{require_from_group:"请至少填写{0}项"},
+		name2:{require_from_group:"请至少填写{0}项"},
+		name3:{require_from_group:"请至少填写{0}项"},
+		name4:{require_from_group:"请至少填写{0}项"}
+	}*/
+});
+$(&#x27;#butSub6&#x27;).click(function(){
+	if(!$(&#x27;#upForm6&#x27;).validate().form()){
+		return false;
+	}
+});
+</pre>
+					</div>
+					<div class="tab-pane" id="demo6-css">
+<pre>
+&#x57FA;&#x7840;&#xFF1A;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/bootstrap.min.css&quot;/&gt;
+</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">新增自定义校验-表单内至少N项被填写 或者 都不填写</div>
+			<div class="panel-body">
+				<form class="form-horizontal" id="upForm7">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">字段1：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm js-require" name="name1"/>
+						</div>
+						<label class="col-sm-2 control-label">字段2：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm js-require" name="name2"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">字段3：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm js-require" name="name3"/>
+						</div>
+						<label class="col-sm-2 control-label">字段4：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control input-sm js-require" name="name4"/>
+						</div>
+					</div>
+					<div class="form-group">
+				    	<div class="col-sm-offset-2 col-sm-4">
+						  	<button type="button" class="btn btn-success btn-sm" id="butSub7">提交</button>
+				    	</div>
+			    	</div>
+				</form>
+				<ul class="nav nav-tabs" role="tablist">
+				  <li role="presentation" class="active"><a href="#demo7-html" role="tab" data-toggle="tab" aria-expanded="true">html</a></li>
+				  <li role="presentation" class=""><a href="#demo7-js" role="tab" data-toggle="tab" aria-expanded="false">js</a></li>
+				  <li role="presentation" class=""><a href="#demo7-css" role="tab" data-toggle="tab" aria-expanded="false">css</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="demo7-html">
+<pre>
+//&#x6CE8;&#xFF1A;&#x6B64;&#x5904;&#x8868;&#x5355;&#x5143;&#x7D20;&#x6DFB;&#x52A0;.js-require&#x7C7B;&#x662F;&#x4E3A;&#x4E86;&#x6821;&#x9A8C;&#x65F6;&#x6240;&#x7528;&#xFF1B;
+//.js-require&#x7C7B;&#x7684;&#x540D;&#x79F0;&#x53EF;&#x81EA;&#x884C;&#x5B9A;&#x4E49;&#xFF1B;
+&lt;form class=&quot;form-horizontal&quot; id=&quot;upForm7&quot;&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5B57;&#x6BB5;1&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm js-require&quot; name=&quot;name1&quot;/&gt;
+		&lt;/div&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5B57;&#x6BB5;2&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm js-require&quot; name=&quot;name2&quot;/&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5B57;&#x6BB5;3&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm js-require&quot; name=&quot;name3&quot;/&gt;
+		&lt;/div&gt;
+		&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5B57;&#x6BB5;4&#xFF1A;&lt;/label&gt;
+		&lt;div class=&quot;col-sm-4&quot;&gt;
+			&lt;input type=&quot;text&quot; class=&quot;form-control input-sm js-require&quot; name=&quot;name4&quot;/&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;div class=&quot;form-group&quot;&gt;
+    	&lt;div class=&quot;col-sm-offset-2 col-sm-4&quot;&gt;
+		  	&lt;button type=&quot;button&quot; class=&quot;btn btn-success btn-sm&quot; id=&quot;butSub7&quot;&gt;&#x63D0;&#x4EA4;&lt;/button&gt;
+    	&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/form&gt;
+</pre>
+					</div>
+					<div class="tab-pane" id="demo7-js">
+<pre>
+//组件包引用规则 同上
+
+//DEMO7
+
+/* &#x6CE8;&#xFF1A;[2,&quot;.js-require&quot;]
+ * options[0]: &#x7EC4;&#x4E2D;&#x81F3;&#x5C11;&#x586B;&#x5199;&#x7684;&#x5B57;&#x6BB5;&#x6570;
+ * options[1]: &#x4E0E;&#x81EA;&#x5B9A;&#x4E49;&#x540D;&#x79F0;&#x76F8;&#x5BF9;&#x5E94;&#x7684;CSS&#x9009;&#x62E9;&#x5668;&#xFF0C;&#x7528;&#x4E8E;&#x5B9A;&#x4E49;&#x6709;&#x6761;&#x4EF6;&#x7684;&#x5B57;&#x6BB5;&#x7EC4; *
+ * &#x6B64;&#x6B21;&#x6DFB;&#x52A0;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x6821;&#x9A8C; &#x4E0D;&#x652F;&#x6301; &#x5728;DOM&#x5143;&#x7D20;&#x5185;&#x76F4;&#x63A5;&#x586B;&#x5199;&#xFF0C;&#x5982;:required=&quot;true&quot;*
+ */
+$(&#x27;#upForm7&#x27;).validate({
+	rules:{
+		name1:{skip_or_fill_minimum: [3,&quot;.js-require&quot;]},
+		name2:{skip_or_fill_minimum: [3,&quot;.js-require&quot;]},
+		name3:{skip_or_fill_minimum: [3,&quot;.js-require&quot;]},
+		name4:{skip_or_fill_minimum: [3,&quot;.js-require&quot;]}
+	}/*,
+	messages:{ //可选
+		name1:{skip_or_fill_minimum:"请至少填写{0}项或不填写"},
+		name2:{skip_or_fill_minimum:"请至少填写{0}项或不填写"},
+		name3:{skip_or_fill_minimum:"请至少填写{0}项或不填写"},
+		name4:{skip_or_fill_minimum:"请至少填写{0}项或不填写"}
+	} */
+});
+$(&#x27;#butSub7&#x27;).click(function(){
+	console.log(1);
+	if(!$(&#x27;#upForm7&#x27;).validate().form()){
+		return false;
+	}
+});
+</pre>
+					</div>
+					<div class="tab-pane" id="demo7-css">
+<pre>
+&#x57FA;&#x7840;&#xFF1A;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/bootstrap.min.css&quot;/&gt;
+</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</body>
+<script src="../js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../i18n/zh-CN.js"  type="text/javascript"></script>
+
+<script src="../js/plugins/validate/jquery.validate.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+<script src="../js/plugins/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../js/subindex.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/jquery.mockjax.min.js" ></script>
+<script type="text/javascript" src="../demo-data.js" ></script>
+
+<script type="text/javascript">
+$(function(){
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    }).on('ifChanged', function(evt){  //如果使用了validate验证需要用一下代码
+        $(this).closest('form').validate().element(this);
+    });
+
+	
+});	
+
+$(function(){
+	//DEMO1
+	$('#butSub1').click(function(){
+		if(!$('#upForm1').validate().form()){
+			return false;
+		}
+	});
+	
+	//DEMO2
+	$('#upForm2').validate({
+		rules:{
+			uname:{
+				required:true,
+				minlength:6
+			},
+			upwd:{
+				required:true,
+				rangelength:[6,12],
+				remote: {
+                //param: {
+                url: "/validate/api", //后台处理程序
+                type: "get", //数据发送方式
+                //dataType: "json", //接受数据格式   
+                //async : false,        //同步请求，默认true（建议使用 true，并结合使用submitHandler回调方法提交表单）
+                /* PS：如使用validator.form() && form.submit()方式验证提交表单，请改成同步 */
+                data: { //要传递的数据
+                    pwd: function() {
+                        return $("#upwd").val();
+                    }
+                },
+                dataFilter: function(d) {　　　　 //判断控制器返回的内容
+                    if(d == "true") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                //},
+                //depends:function(){return true;} //结合param 使用，返回 true 则不发送ajax 请求
+            }
+				
+			},
+			upwd2:{
+				required:true,
+				rangelength:[6,12],
+				remote: {
+                //param: {
+                url: "/validate/api", //后台处理程序
+                type: "get", //数据发送方式
+                //dataType: "json", //接受数据格式   
+                //async : false,        //同步请求，默认true（建议使用 true，并结合使用submitHandler回调方法提交表单）
+                /* PS：如使用validator.form() && form.submit()方式验证提交表单，请改成同步 */
+                data: { //要传递的数据
+                    pwd: function() {
+                        return $("#upwd2").val();
+                    }
+                },
+                dataFilter: function(d) {　　　　 //判断控制器返回的内容
+                    if(d == "true") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                //},
+                //depends:function(){return true;} //结合param 使用，返回 true 则不发送ajax 请求
+            }
+				//equalTo: "#upwd"
+			},
+			"favor[]":{
+				required:true,
+				minlength:2
+			}
+		},
+		messages:{
+			uname:{
+				required:"请输入您的用户名",
+				minlength:"不能少于6位"
+			},
+			upwd:{
+				required:"请输入密码",
+				rangelength:"密码长度为6~12位"
+			},
+			upwd2:{
+				required:"请再次输入密码",
+				rangelength:"密码长度为6~12位",
+				equalTo: "两次密码输入不一致"
+			},
+			"favor[]":{
+				required:"请选择您的爱好",
+				minlength:"至少选着两个爱好"
+			}
+		}
+	});
+	$('#butSub2').click(function(){
+		if(!$('#upForm2').validate().form()){
+			return false;
+		}
+	});
+	
+	//DEMO3
+	$('#upForm3').validate({
+		rules:{
+			uphone:{
+				"ck-phone": true,	//boolean false不校验
+			},
+			startime:{
+				required: true,
+				date: true
+			},
+			endtime:{
+				required: true,
+				date: true,
+				//compareDate: "#startime"
+			}
+		},
+		messages:{
+			uphone:{	//可以覆盖添加的默认错误信息
+				"ck-phone":"手机号格式错误"
+			}
+		}
+	});
+	jQuery.validator.addMethod("compareDate", function(value, element, param) {
+		var starT_ = new Date($(param).val()).getTime(),
+		endT_ = new Date(value).getTime();
+    return this.optional(element) || (starT_ < endT_);
+	}, "结束时间必须大于开始时间");
+	
+	$('#startime_div').datetimepicker().on('changeDate', function(){
+        var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+        $('#endtime_div').datetimepicker('setStartDate', t_.val());
+    });
+    $('#endtime_div').datetimepicker().on('changeDate', function(){
+        var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+        $('#startime_div').datetimepicker('setEndDate', t_.val());
+    });
+	
+	$('#butSub3').click(function(){
+		if(!$('#upForm3').validate().form()){
+			return false;
+		}
+	});
+	//DEMO4
+	$('#upForm4').validate({
+		rules: {
+			pwd: {
+				required: true,
+				remote: {
+					//param: {
+					url: "/validate/api", //后台处理程序
+					type: "get", //数据发送方式
+					//dataType: "json", //接受数据格式   
+					//async : false,		//同步请求，默认true（建议使用 true，并结合使用submitHandler回调方法提交表单）
+					/* PS：如使用validator.form() && form.submit()方式验证提交表单，请改成同步 */
+					data: { //要传递的数据
+						pwd: function() {
+							return $("#pwd").val();
+						}
+					},
+					dataFilter: function(d) {　　　　 //判断控制器返回的内容
+						if(d == "true") {
+							return true;
+						} else {
+							return false;
+						}
+					}
+					//},
+					//depends:function(){return true;} //结合param 使用，返回 true 则不发送ajax 请求
+				}
+			}
+		},
+		messages: {
+			pwd: {
+				required: "请输入您的旧密码",
+				remote: "原始密码不正确,请重新填写！"
+			}
+		},
+		submitHandler: function(form) {
+		    console.log(form);
+			//AJAX
+			/*$.ajax({
+				url:"_URL_",
+				type:"get",
+				data:$(form).serialize(),
+				success:function(d){
+					//TODO
+				}
+			})*/
+		}
+	});
+	$('#butSub4').click(function(){
+		$('#upForm4').submit();
+	});
+	
+	//DEMO5
+	//$('#upForm5').validate();
+	$('#butSub5').click(function(){
+		if(!$('#upForm5').validate().form()){
+			return false;
+		}
+	});
+	
+	//DEMO6
+	$('#upForm6').validate({
+		rules:{
+			name1:{require_from_group: [2,".js-require"]},
+			name2:{require_from_group: [2,".js-require"]},
+			name3:{require_from_group: [2,".js-require"]},
+			name4:{require_from_group: [2,".js-require"]}
+		}/*,
+		messages:{
+			name1:{require_from_group:"请至少填写{0}项"},
+			name2:{require_from_group:"请至少填写{0}项"},
+			name3:{require_from_group:"请至少填写{0}项"},
+			name4:{require_from_group:"请至少填写{0}项"}
+		}*/
+	});
+	$('#butSub6').click(function(){
+		if(!$('#upForm6').validate().form()){
+			return false;
+		}
+	});
+	
+	//DEMO7
+	$('#upForm7').validate({
+		rules:{
+			name1:{skip_or_fill_minimum: [3,".js-require"]},
+			name2:{skip_or_fill_minimum: [3,".js-require"]},
+			name3:{skip_or_fill_minimum: [3,".js-require"]},
+			name4:{skip_or_fill_minimum: [3,".js-require"]}
+		}/*,
+		messages:{
+			name1:{skip_or_fill_minimum:"请至少填写{0}项或不填写"},
+			name2:{skip_or_fill_minimum:"请至少填写{0}项或不填写"},
+			name3:{skip_or_fill_minimum:"请至少填写{0}项或不填写"},
+			name4:{skip_or_fill_minimum:"请至少填写{0}项或不填写"}
+		}*/
+		,submitHandler:function(){
+		    console.log('$$$$$$');
+		    COM_TOOLS.ajaxFn({'url':'/validate/api2'},1);
+		}
+	});
+	$('#butSub7').click(function(){
+		console.log(1);
+		$('#upForm7').submit();
+		/*if(!$('#upForm7').validate().form()){
+			return false;
+		}*/
+	});
+	function test_fun (num){
+        var re = new RegExp(/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})$/);
+        var arrSplit = num.match(re);
+    
+        //检查生日日期是否正确
+    
+        //检验18位身份证的校验码是否正确。
+        //校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
+        var valnum;
+        var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
+        var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
+        var nTemp = 0,
+            i;
+        for(var i = 0; i < 17; i++) {
+            nTemp += num.substr(i, 1) * arrInt[i];
+        }
+        valnum = arrCh[nTemp % 11];
+        return valnum;
+                
+    }
+	$('#butSub5_1').click(function(){
+	    $('#demo1-input5_2').val($('#demo1-input5_1').val()+''+test_fun($('#demo1-input5_1').val()));
+	});
+});
+</script>
+<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css"/>
+<script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+<script>
+
+$('pre').each(function(i,n){
+	hljs.highlightBlock(n);
+});
+</script>
+</html>

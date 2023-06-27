@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CKeditor</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css">
+        <style type="text/css">
+            .demo-box {
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                position: relative;
+                border-radius: 5px;
+            }
+            .jumbotron p {
+                font-size: 14px !important;
+            }
+            pre{
+            	white-space: pre-wrap;       
+            	white-space: -moz-pre-wrap;  
+            	white-space: -pre-wrap;      
+            	white-space: -o-pre-wrap;    
+            	word-wrap: break-word;       
+            }
+        </style>
+        <!-- 以下JS因演示demo需要，所以在head中引入 -->
+        <script src="../js/jquery-2.1.1.js"></script>
+
+        <!-- 以下js仅用于演示 -->
+        <script src="../js/plugins/beautifier/beautifier.min.js"></script>
+        <script src="../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../demo-data.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h3>富文本编辑器 CKeditor</h3>
+                <p>官网地址：
+                    <a href="https://ckeditor.com/" target="_blank">http://ckeditor.com</a>
+                </p>
+                <p>使用说明：
+                    <a href="https://docs.ckeditor.com/" target="_blank">http://docs.ckeditor.com</a>
+                </p>
+                <p class="text-info">组件包</p>
+                <p>&lt;script src=&quot;../js/plugins/ckeditor/ckeditor.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</p>
+            </div>
+            <h3>实例演示</h3>
+            <!--DEMO 1-->
+            <div class="panel panel-default">
+                <div class="panel-heading">replace 初始化(已开启拖拽、截图上传功能，仅支持部分浏览器【火狐、Chrome浏览器支持】)</div>
+                <div class="panel-body">
+                    <div class="demo-box js-auto-init-demobox">
+                        <p>请输入内容:</p>
+                        <textarea id="t_cke_01" name="t_cke_01_n"></textarea>
+                        <div class="row m-t-md">
+                            <div class="col-sm-12">
+                                <button id="get_cont" type="button" class="btn btn-sm btn-info">获取内容(带html)</button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#demo1-js" role="tab" data-toggle="tab" aria-expanded="false">js</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#demo1-css" role="tab" data-toggle="tab" aria-expanded="false">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo1-html">
+                            <pre class="js-auto-init-htmlcode"></pre>
+                        </div>
+                        <div class="tab-pane" id="demo1-js">
+                            <script class="js-auto-init-jscode">
+                                $(function () {
+                                    // 默认初始化（平台上已默认配置上传接口，无需额外设置）
+                                    // var _CKE = COM_TOOLS.docEditor('t_cke_01');
+
+                                    // 高级初始化配置示例
+                                    var _CKE = COM_TOOLS.docEditor('t_cke_01', {
+                                        toolbar: '', //全量模式
+                                        cusData: { //自定义组件数据扩展对象，其子对象必须是组件名称；
+                                            cusplaceholder: {
+                                                items: [
+                                                    ['用户姓名', 'user.name'], //['描述','值']
+                                                    ['用户性别', 'user.sex'],
+                                                    ['用户生日', 'user.brithday'],
+                                                    ['入职年限', 'user.joinyear']
+                                                ],
+                                                label: '请选择一个你需要的占位符'
+                                            }
+                                        }
+                                    });
+                                    //获取内容带格式的
+                                    $('#get_cont').click(function () {
+                                        alert(_CKE.getData());
+                                        console.log(_CKE.getData());
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="tab-pane" id="demo1-css">
+                            <pre>注：由组件自动加载</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--DEMO end-->
+            <!--DEMO 2-->
+            <div class="panel panel-default">
+                <div class="panel-heading">inline 初始化方式（简洁模式）</div>
+                <div class="panel-body">
+                    <div class="demo-box js-auto-init-demobox">
+                        <div id="t_che_02" name="t_che_02_n" contenteditable="true">
+                            <p>请点击我~</p>
+                            <p>请点击我~</p>
+                            <p>请点击我~</p>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo2-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#demo2-js" role="tab" data-toggle="tab" aria-expanded="false">js</a>
+                        </li>
+                        <li role="presentation" class="">
+                            <a href="#demo2-css" role="tab" data-toggle="tab" aria-expanded="false">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo2-html">
+                            <pre class="js-auto-init-htmlcode"></pre>
+                        </div>
+                        <div class="tab-pane" id="demo2-js">
+                            <script class="js-auto-init-jscode">
+                                $(function () {
+                                    CKEDITOR.disableAutoInline = true; //禁止自动为添加了 contenteditable="true" 的DOM元素，初始化ck
+                                    var _CKE = COM_TOOLS.docEditor('t_che_02', {
+                                        toolbar: 'Basic', //简洁模式
+                                        is_inline_init: true
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="tab-pane" id="demo2-css">
+                            <pre>注：由组件自动加载</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--DEMO end-->
+            <h4>基础介绍、使用、注意项</h4>
+            <pre>
+1.多种初始化方式
+    //替换模式，通过替换&lt;textarea&gt;或者一个DOM元素&lt;div&gt;
+    CKEDITOR.replace('DOM元素/ID',config);
+    
+    //将带有 contenteditable="true" 的DOM元素&lt;div&gt;
+    CKEDITOR.disableAutoInline = true;
+    CKEDITOR.inline('DOM元素/ID',config);
+    
+    //对DOM元素末尾追加
+    CKEDITOR.appendTo('DOM元素/ID',config);
+
+2.配置项 config.js
+    //config.bodyId     //实际输入区域的ID
+    config.language     //语言
+    config.height       //输入区域高度
+    config.toolbar      //工具栏配置
+    config.toolbar_Basic        //工具栏_基础模式
+    config.removePlugins        //删除组件
+    //forcePasteAsPlainText     //强制粘贴时清除格式,截图粘贴时禁用
+    /*图片配置*/
+    config.imageUploadUrl       //图片(上传)
+    //config.filebrowserImageUploadUrl      //图片(上传)，打开图片上传功能(禁用)
+    //config.removeDialogTabs       //去除图像窗口内容,使用了image2增强组件，所以禁用
+    config.extraPlugins     //而外添加的组件
+    //config.allowedContent: true, //开启自定义内容支持(不进行内容过滤，可维护任何内容)
+    config.contentsCss = [ '/css/mysitestyles.css', '/css/anotherfile.css' ];  //用于将样式应用于编辑器内容的CSS文件,注意“内联及全页”模式下无效；默认为 CKEDITOR.getUrl( 'contents.css' )
+    
+3.基础方法
+    获取编辑器实例：
+    1.var xxx=CKEDITOR.replace('DOM元素/ID',config);  通过初始化返回
+    2.var xxx=CKEDITOR.instances['ID'];
+    获取内容：getData();
+    设置内容：setData();
+    插入内容：insertHtml();
+    插入内容（文本）：insertText();
+    摧毁：destroy();
+    设置只读模式：setReadOnly(true/false)
+
+4.关于图片上传及返回信息
+    ck默认发送的字段：
+    CKEditor:实例化时所用的ID
+    CKEditorFuncNum:实例化时所对应的NUM
+    
+    1.imageUploadUrl
+    通过拖拽、截图粘贴方式所请求的接口。
+     返回信息：为一个JSON对象 {"fileName":"文件名","uploaded":"状态","url":"返回地址"}
+     
+    2.filebrowserImageUploadUrl
+    通过点击图片按钮上传所请求的接口。
+    返回信息：为一个js脚本 &lt;script type=&quot;text/javascript&quot;&gt;window.parent.CKEDITOR.tools.callFunction(&quot;&#x5B9E;&#x4F8B;&#x5316;&#x5BF9;&#x8C61;&#x7684;num&quot;,&quot;&#x5730;&#x5740;&quot;);&lt;/script&gt;
+    注：实例化对象的num为发送请求时 CKEditorFuncNum 字段所对应的值
+5.其它
+  获取版本号：CKEDITOR.version
+</pre>
+        </div>
+        <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../js/plugins/layer/layer.js" type="text/javascript"></script>
+        <script src="../js/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+        <script src="../i18n/zh-CN.js"></script>
+        <script src="../js/subindex.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            var data_anchor_first = ['1'];
+            /* DEMO 01 */
+            //$(function() {
+
+            // 测试-ck_cushtml
+            COM_TOOLS.private_obj_.ck_cushtml = function (editor, ck_ele) {
+                // 弹窗
+                cumParentWinModal('测试', '../cj_try/180607_tmooc_ck.html', {
+                    callid: {
+                        'obj_fakeimg': (function () {
+                            // 从 fakeimg 拿出已有数据
+                            if (!$.isEmptyObject(ck_ele)) {
+                                var obj_cb = {};
+                                var r_ele = $(ck_ele.$); // 注意
+                                if (r_ele.length) {
+                                    r_ele.find('.js-ck-create').each(function (idx, el) {
+                                        var t_ = $(el),
+                                            t_id = t_.attr('id');
+                                        obj_cb['ck_' + t_id] = {
+                                            'DT_RowId': t_id,
+                                            'name1': t_.data('name'),
+                                            'is_cus_ckobj': true
+                                        };
+                                    });
+                                }
+                                return obj_cb;
+                            }
+                        })()
+                    },
+                    callback: {
+                        fn1: function (s_data) { // 创建
+                            CUSHTML_TOOLS.creatCKelement(editor, ck_ele, 'cus_ts_01', s_data, cretateHTML);
+                        }
+                    }
+                });
+            };
+            // 测试-构建实际的 HTML
+            function cretateHTML(s_data, r_ele_ck) {
+                var arr_data = []; // 通过 s_data 构建数组
+                for (var key in s_data) {
+                    arr_data.push(s_data[key]);
+                }
+                COM_TOOLS.arrayObjectSortBy(arr_data, 'ck_cus_order', 1); // 排序
+                var r_ele = (r_ele_ck && $(r_ele_ck.$)) || []; // 注意
+                if (r_ele.length) {
+                    var r_tar = r_ele.find('.js-ck-create');
+                }
+                console.log('createarr-', arr_data);
+                var html_ = [];
+                // live vip free
+                $.each(arr_data, function (i, n) {
+                    (i == 0) && html_.push('<ul class="md-bd clearfix md-2018040201-lty">');
+                    if (r_ele.length && r_tar.length && n.is_cus_ckobj) {
+                        var t_ = r_tar.filter('#' + n.DT_RowId);
+                        if (t_.length) {
+                            html_.push(t_[0].outerHTML);
+                        }
+                    } else {
+                        // html_.push('<li id="' + n.DT_RowId + '" data-name="'+ n.name1 +'" class="js-ck-create pic-box pull-left live">');
+                        // html_.push('<div class="hd-pic">');
+                        // html_.push('<a target="_blank" href="123">');
+                        // html_.push('<img data-original="123" class="lazy" src="123" style="display: inline;">');
+                        // html_.push('<span class="state">&nbsp;</span>');
+                        // html_.push('</a>');
+                        // html_.push('</div>');
+                        // html_.push('<div class="bd-word bgcolor-fff">');
+                        // html_.push('<h4 class="bd-tit">');
+                        // html_.push('<a target="_blank" href="">123</a>');
+                        // html_.push('</h4>');
+                        // html_.push('<div class="clearfix">');
+                        // html_.push('<span class="no-money pull-left">123</span>');
+                        // html_.push('<span class="sign-num pull-right color-888">123</span>');
+                        // html_.push('</div>');
+                        // html_.push('</div>');
+                        // html_.push('</li>');
+                        //console.log('------');
+                        html_.push('<li id="' + n.DT_RowId + '" class="js-ck-create" data-name="' + n.name1 + '">' + n.DT_RowId + '</li>');
+                    }
+                    ((i + 1) % 4 == 0 && i != (arr_data.length - 1)) && html_.push('</ul><ul class="md-bd clearfix md-2018040201-lty">');
+                    (i == (arr_data.length - 1)) && html_.push('</ul>');
+                });
+                return html_.join('');
+            }
+
+            //});
+        </script>
+        <link rel="stylesheet" type="text/css" href="../css/plugins/highlight/xcode.min.css" />
+        <script src="../js/plugins/highlight/highlight.pack.js"></script>
+        <script>
+            $(function () {
+                $('pre').each(function (i, n) {
+                    //$(n).html(_demo_htmlencode_fn($(n).html()));
+                    hljs.highlightBlock(n);
+                });
+            });
+        </script>
+    </body>
+
+</html>

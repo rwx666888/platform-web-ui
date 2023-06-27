@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>后20名中心预警</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/plugins/dataTables/datatables.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+    .row {
+        margin: 0 -10px
+    }
+
+    .col-sm-4,
+    .col-sm-6,
+    .col-sm-12 {
+        padding: 0 10px;
+    }
+
+    .tab-content {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    .tab-content .panel {
+        margin-bottom: 0;
+    }
+
+    .table {
+        font-size: 12px;
+    }
+
+    .dataTables_wrapper {
+        padding-bottom: 0;
+    }
+
+    .panel-heading,
+    .panel-body {
+        padding: 10px;
+    }
+
+    .cus-group-area {
+        margin-top: 20px;
+    }
+
+    .cus-echarts {
+        width: 100%;
+        height: 350px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #337ab7;
+        padding-bottom: 10px;
+    }
+
+    .cus-echarts:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- 分组 -->
+        <div class="cus-group-area">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>1、运营结果指标：完成率/增长率 后20名中心预警</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- 图表01 -->
+                    <div class="panel panel-success cus-cont">
+                        <div class="panel-body">
+                            <div class="col-sm-6">
+                                <div class="col-sm-6">
+                                    <p class="text-success">权责销售收入-完成率-倒数20名</p>
+                                    <!-- dt表格 -->
+                                    <table id="dt_report_111" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="text-info">权责销售收入-增长率-倒数20名</p>
+                                    <!-- dt表格 -->
+                                    <table id="dt_report_112" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                        <thead></thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <p></p>
+                                <!-- 数据图 -->
+                                <div class="cus-echarts" id="d_eacharts_111"></div>
+                                <div class="cus-echarts" id="d_eacharts_112"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 图表01 end -->
+                    <!-- 图表02 -->
+                    <div class="panel panel-success cus-cont">
+                        <div class="panel-body">
+                            <div class="col-sm-6">
+                                <p class="text-success">权责销售收入-完成率-倒数20名</p>
+                                <!-- dt表格 -->
+                                <table id="dt_report_121" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-6">
+                                <p></p>
+                                <!-- 数据图 -->
+                                <div class="cus-echarts" id="d_eacharts_121"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 图表02 end -->
+                </div>
+            </div>
+        </div>
+        <!-- 分组 end -->
+    </div>
+    <script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../js/plugins/echarts/echarts.js"></script>
+    <script src="../js/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../js/subindex.js" type="text/javascript"></script>
+    <script src="../js/jquery.mockjax.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var s_data_dt = {
+        "draw": 1,
+        "recordsTotal": 15,
+        "recordsFiltered": 15,
+        "data": [{
+            "id": "0",
+            "areayname": "直辖",
+            "subareayname": "",
+            "cityname": "青岛",
+            "centername": "第一浴场中心",
+            "old_order": null,
+            "new_order": null,
+            "number": 11026,
+            "numberrate": 0.16,
+            "t_number": 9525,
+            "t_rate": 0.15,
+            "n_increaserate": 0.0000123,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.001,
+            "type": 1
+        }, {
+            "id": "0",
+            "areayname": "直辖",
+            "subareayname": "",
+            "cityname": "北京",
+            "centername": "中关村中心",
+            "old_order": "1",
+            "new_order": "3",
+            "number": 11026,
+            "numberrate": 0.16,
+            "t_number": 9525,
+            "t_rate": 0.15,
+            "n_increaserate": 0.167777,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.001,
+            "type": 1
+        }, {
+            "id": "0",
+            "areayname": "",
+            "subareayname": "闽浙赣区域",
+            "cityname": "杭州",
+            "centername": "五岭广场中心",
+            "old_order": "2",
+            "new_order": "2",
+            "number": 10495,
+            "numberrate": 0.16,
+            "t_number": 90525,
+            "t_rate": 0.17,
+            "n_increaserate": -0.16444,
+            "new_totulerate": 0.345,
+            "old_totulerate": 0.387,
+            "change": -0.10,
+            "type": 1
+        }, {
+            "id": "0",
+            "areayname": "区域合并",
+            "subareayname": "",
+            "cityname": "广州",
+            "centername": "天河中心",
+            "old_order": "1",
+            "new_order": "2",
+            "number": 7384,
+            "numberrate": 0.16,
+            "t_number": 6525,
+            "t_rate": 0.10,
+            "n_increaserate": 0.000123,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.01,
+            "type": 3
+        }, {
+            "id": "0",
+            "areayname": "",
+            "subareayname": "达内集团总部",
+            "cityname": "南京",
+            "centername": "夫子庙中心",
+            "old_order": "3",
+            "new_order": "2",
+            "number": 4432,
+            "numberrate": 0.16,
+            "t_number": 3372,
+            "t_rate": 0.05,
+            "n_increaserate": 0.50333,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.01,
+            "type": 2
+        }, {
+            "id": "0",
+            "areayname": "1",
+            "subareayname": "",
+            "cityname": "长沙",
+            "centername": "臭豆腐中心",
+            "old_order": "3",
+            "new_order": "1",
+            "number": 3427,
+            "numberrate": 0.16,
+            "t_number": 1565,
+            "t_rate": 0.05,
+            "n_increaserate": -0.06123,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.01,
+            "type": 1
+        }]
+    };
+
+    $.mockjax({
+        url: "/dt/api",
+        dataType: "json",
+        response: function(settings) {
+            s_data_dt.draw = settings.data.draw;
+            this.responseText = s_data_dt;
+        }
+    });
+
+    var s_data_ec = [{
+        cname: 'p1',
+        data: [{
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": -0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.4
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.30
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.20
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.80
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.22
+        }, {
+            "name": "武汉鲁广数字艺术学院",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.34
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45
+        }, {
+            "name": "杭州西溪",
+            "value": 0.10
+        }, {
+            "name": "杭州西溪发送方式a",
+            "value": 0.3234234234
+        }, {
+            "name": "杭州西溪撒发生大发水电费",
+            "value": 0.36
+        }, {
+            "name": "杭州西溪",
+            "value": 0.45123123123
+        }, {
+            "name": "杭州西阿撒发生大发水电费溪",
+            "value": 0.23423423423
+        }, {
+            "name": "杭州西溪",
+            "value": -0.112312312312
+        }, {
+            "name": "杭州西阿斯顿发送到发送到发送到发送到发斯蒂芬溪",
+            "value": -0.45
+        }, {
+            "name": "杭州西溪",
+            "value": -0.36
+        }]
+    }];
+
+    $.mockjax({
+        url: "/ec/api",
+        dataType: "json",
+        response: function(settings) {
+            this.responseText = s_data_ec;
+        }
+    });
+    </script>
+    <script type="text/javascript">
+    $(function() {
+        var PRO_TOOLS = {
+            //减    
+            floatSub: function(arg1, arg2) {
+                if (arg1 != null && arg2 != null) {
+                    var r1, r2, m, n;
+                    try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+                    try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
+                    m = Math.pow(10, Math.max(r1, r2));
+                    //动态控制精度长度    
+                    n = (r1 >= r2) ? r1 : r2;
+                    return ((arg1 * m - arg2 * m) / m).toFixed(n);
+                } else {
+                    return '-';
+                }
+            },
+            // 除法
+            floatDiv: function(arg1, arg2) {
+                if (arg1 != null && arg2 != null) {
+                    var t1 = 0,
+                        t2 = 0,
+                        r1, r2;
+                    try { t1 = arg1.toString().split(".")[1].length; } catch (e) {}
+                    try { t2 = arg2.toString().split(".")[1].length; } catch (e) {}
+                    r1 = Number(arg1.toString().replace(".", ""));
+                    r2 = Number(arg2.toString().replace(".", ""));
+                    return (r1 / r2) * Math.pow(10, t2 - t1);
+                } else {
+                    return '-';
+                }
+            },
+            // 乘    
+            floatMul: function(arg1, arg2) {
+                // console.log(arg1, arg2);
+                
+                if (arg1 != null && arg2 != null) {
+                    var m = 0,
+                        s1 = arg1.toString(),
+                        s2 = arg2.toString();
+                    try { m += s1.split(".")[1].length; } catch (e) {}
+                    try { m += s2.split(".")[1].length; } catch (e) {}
+                    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+                } else {
+                    return '-';
+                }
+            },
+            // type 显示类型 0-默认，整数， 1-百分比
+            changeNum: function(row, name1, name2, type, dec) {
+                var res_ = '';
+                if (row.type != 2) {
+                    res_ = this.floatSub(row[name1], row[name2]);
+                    if (res_ > 0) {
+                        res_ = (type ? '<span class="text-info">+' + (this.dataProcess(this.floatMul(res_, 100), dec || 0) + '%') + '</span>' : '<span class="text-info">+' + this.cusNumber(res_, dec) + '</span>');
+                    } else if (res_ < 0) {
+                        res_ = (type ? '<span class="text-danger">-' + (this.dataProcess(this.floatMul(Math.abs(res_), 100), dec || 0) + '%') + '</span>' : '<span class="text-danger">-' + this.cusNumber(Math.abs(res_), dec) + '</span>');
+                    } else {
+                        res_ = '-';
+                    }
+                }
+                return res_;
+            },
+            dataFilter: function(data, row) {
+                var res_ = data;
+                if (row.type == 2) {
+                    res_ = '';
+                }
+                return res_;
+            },
+            dataProcess:function(s_data, dec){
+                var num;
+                if(s_data != null){
+                    num = Number(s_data);
+                    if(num || num == 0){
+                        if (Math.abs(num) > 1) {
+                            num = dec >= 0 ? num.toFixed(dec) : num;
+                        } else {
+                            num = num;
+                        }
+                    }else{
+                        num = s_data;
+                    }
+                }else{
+                    num = '-';
+                }
+                return num;
+            },
+            cusNumber: function (s_data, dec) {
+                if ($.number && s_data != null) {
+                    s_data =  $.number(s_data, dec || 0);
+                } else {
+                    s_data = '-';
+                }
+                return s_data;
+            },
+            sp_dataShow: function(ele, s_arr) {
+                var $ele = $('#' + ele).closest('.js-data-show');
+                var t_data = $.grep(s_arr, function(n, i) {
+                    return n.type == 3;
+                })[0];
+                if (!$.isEmptyObject(t_data)) {
+                    $ele.find('.js-money').text($.number(t_data.number));
+                    $ele.find('.js-complete-rate').text(PRO_TOOLS.floatMul(t_data.t_rate, 100) + '%');
+                    $ele.find('.js-increase-rate').text(PRO_TOOLS.floatMul(t_data.n_increaserate, 100) + '%');
+                }
+            }
+        };
+
+        /**
+         * [cusDTinit description]
+         * @param  {[type]} ele    [表格对象]
+         * @param  {[type]} cols   [表格列对象]
+         * @param  {[type]} a_url  [接口]
+         * @param  {[type]} a_data [请求参数]
+         * @param  {[type]} opt    [表格配置项]
+         */
+        function cusDTinit(ele, cols, a_url, a_data, opt) {
+            var searchParemOBj_ = (a_data || {}),
+                baseOpt = $.extend(true, {
+                    account_type: 1,
+                    other: {
+                        select: false,
+                        paging: false,
+                        info: false
+                    }
+                }, (opt || {}));
+
+            var base_cols = [{
+                "title": "倒数<br>排名",
+                "className": "text-center",
+                "data": "new_order",
+                "render": function(data, type, row, meta) {
+                    return PRO_TOOLS.dataFilter(data, row);
+                }
+            }, {
+                "title": "预算<br>完成率",
+                "className": "text-center",
+                "data": "n_increaserate",
+                "render": function(data, type, row, meta) {
+                    return (PRO_TOOLS.dataProcess(PRO_TOOLS.floatMul(data, 100), 0) + '%');
+                }
+            }];
+            // 权限处理
+            //var account_type = 1;
+            if (baseOpt.account_type == 1) {
+                base_cols.unshift({
+                    "title": "区域",
+                    "data": "areayname",
+                    "render": function(data, type, row, meta) {
+                        return PRO_TOOLS.dataFilter(data, row);
+                    }
+                }, {
+                    "title": "分区",
+                    "data": "subareayname"
+                });
+            } else if (baseOpt.account_type == 2) {
+                base_cols.unshift({
+                    "title": "城市",
+                    "data": "cityname"
+                });
+            } else if (baseOpt.account_type == 3) {
+                base_cols.unshift({
+                    "title": "中心",
+                    "data": "centername"
+                });
+            }
+            // 用户配置的cols
+            var dy_cols = $.extend(true, base_cols, cols);
+
+            return COM_TOOLS.DT_init(ele, dy_cols, a_url, 'get', searchParemOBj_, baseOpt);
+        }
+
+        /**
+         * 自定义图标初始化
+         * @param  {[string]} ele    [jq对象]
+         * @param  {[strgin]} a_url  [接口地址]
+         * @param  {[object]} a_data [接口参数]
+         * @param  {[type]} fopt   [图表 数据组配置]
+         * @param  {[type]} dopt   [数据项配置]
+         * @param  {[type]} opt    [图表 配置]
+         */
+        function cusIniteCharts(ele, a_url, a_data, fopt, dopt, opt) {
+            var s_data, etype, efopt, edopt, ebaeOpt;
+
+            //数据组配置
+            efopt = $.extend(true, {
+                "p1": {
+                    name: '权责销售收入-完成率-倒数20名',
+                    type: 'bar',
+                    barCategoryGap: '50%', //轴间距
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: false,
+                                //fontSize:12,
+                                position: 'top', //默认显示在柱子中间
+                                textStyle: {
+                                    color: 'black' //默认跟柱子一个颜色
+                                },
+                                formatter: function(val) { //示例 此方法可修改映射到图标上的数据
+                                    //console.log(val)
+                                    //return (val.value = val.value + '%');
+                                    return ((val.value * 100) + '%');
+                                }
+                            }
+                        }
+                    }
+                }
+            }, (fopt || {}));
+            //数据项配置
+            edopt = $.extend(true, {}, (dopt || {}));
+            // echarts 配置
+            ebaeOpt = $.extend(true, {
+                title: {
+                    text: ''
+                },
+                grid: {
+                    //show: true,
+                    top: '10%',
+                    //bottom: '20%',
+                    left: '7%',
+                    right: '5%',
+                    //containLabel: true, // 防止标签溢出
+                    //x: 30, //x/y/x2/y2 分别控制图标距离父元素边缘距离
+                    //y: 30
+                    y2: 80
+                },
+                tooltip: {
+                    formatter: function (params, ticket, callback) {
+                        var arr_ = [];
+                        arr_.push(params[0].name +'<br/>');
+                        for (let idx = 0; idx < params.length; idx++) {
+                            const el = params[idx];
+                            arr_.push(el.marker +  (PRO_TOOLS.dataProcess(PRO_TOOLS.floatMul(el.value, 100), 0) + '%')+'<br/>');
+                        }
+                        return arr_.join('');
+                    }
+                },
+                xAxis: {
+                    boundaryGap: true,
+                    axisLabel: {
+                        formatter: function(val) { //纵向显示x轴文字
+                            return val.split("").join("\n");
+                            //return val;
+                        }
+                    }
+                },
+                yAxis: {
+                    show: true, //不显示Y轴
+                    axisLabel: {
+                        formatter: function(val) { //纵向显示x轴文字
+                            console.log(val);
+                            return PRO_TOOLS.floatMul(val, 100) + '%';
+                        }
+                    }
+                }
+            }, (opt || {}));
+
+            var c_echarts = COM_TOOLS.eChartsTools.initOpt(ele, 'line', [], efopt, edopt, ebaeOpt);
+
+            // 发生请求
+            c_echarts.showLoading();
+            $.ajax({
+                    url: a_url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: a_data,
+                })
+                .done(function(res) {
+                    //s_data = res;
+                    COM_TOOLS.eChartsTools.updateData(ele, res);
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    c_echarts.hideLoading();
+                });
+            return c_echarts;
+        }
+
+        // 表格初始化
+        cusDTinit('dt_report_111', [], '/dt/api', { id: 11 }, { account_type: 3 });
+        cusDTinit('dt_report_112', [], '/dt/api', { id: 11 }, { account_type: 3 });
+
+
+        cusDTinit('dt_report_121', [{}, {
+            "title": "2017",
+            "data": "new_order"
+        }, {
+            "title": "2016",
+            "data": "old_order",
+            "render": function(data, type, row) {
+                return data;
+            }
+        }, {
+            "title": "变化",
+            "data": null,
+            "className": "text-center",
+            "render": function(data, type, row) {
+                return PRO_TOOLS.changeNum(row, 'new_order', 'old_order');
+            }
+        }, {
+            "title": "当期",
+            "data": "new_totulerate",
+            "className": "text-center",
+            "render": function(data, type, row) {
+                return (PRO_TOOLS.floatMul(data, 100) + '%');
+            }
+        }, {
+            "title": "同期",
+            "data": "old_totulerate",
+            "className": "text-center",
+            "render": function(data, type, row) {
+                return (PRO_TOOLS.floatMul(data, 100) + '%');
+            }
+        }, {
+            "title": "变化",
+            "data": null,
+            "className": "text-center",
+            "render": function(data, type, row) {
+                return PRO_TOOLS.changeNum(row, 'new_totulerate', 'old_totulerate', 1);
+            }
+        }], '/dt/api', { id: 11 }, { account_type: 3 });
+        // 图表初始化
+        cusIniteCharts('#d_eacharts_111', '/ec/api', { id: 1 });
+        cusIniteCharts('#d_eacharts_112', '/ec/api', { id: 1 });
+
+        cusIniteCharts('#d_eacharts_121', '/ec/api', { id: 1 }, {p1:{name:'集团销售利润率-倒数20名'}});
+
+
+    });
+    </script>
+</body>
+
+</html>

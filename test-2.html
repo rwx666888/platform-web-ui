@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+
+    <body>
+        <script>
+            $(document).ready(function() {
+                /* 检索数据对象 */
+                var searchParemOBj_ = {};
+                var DT_ = COM_TOOLS.DT_init('example1', [{
+                        "data": "first_name",
+                        "title": '标题1'
+                    }, {
+                        "data": "last_name",
+                        "title": '标题2'
+                    }],
+                    '/dt/api',
+                    'get',
+                    searchParemOBj_, {
+                        jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象，例如：获取行id
+                            alert('当前操作行ID为：' + trdata['first_name']);
+                        },
+                        other: { //（可选）自定义分页插件，不显示总页数
+                            pagingType: "simple_numbers_no_totalpage"
+                        }
+                    }
+                );
+                var table = DT_.table;
+                $('#demo1-btn1').click(function() { //COM_TOOLS.DT_getSelectRowsSourceData(table,'first_name') 返回所有选中行的'first_name'数组
+                    alert(DT_.getSelectRowsData('first_name').toString() || '未选中'); //[推荐] 与下面代码效果一致
+                    // alert(COM_TOOLS.DT_getSelectRowsSourceData(table, 'first_name').toString() || '未选中'); //示例
+                });
+                /*搜索按钮方案*/
+                $('#demo1-btn3').click(function() {
+                    searchParemOBj_['searchNameVal'] = $.trim($('#demo1-input1').val());
+                    searchParemOBj_['searchPhoneVal'] = $.trim($('#demo1-input2').val());
+                    DT_.setAjaxData(searchParemOBj_); //默认修改搜索数据并刷新表格，如果：DT_.setAjaxData(searchParemOBj_, true);则不刷新表格，只修改搜索数据
+                });
+            });
+        </script>
+    </body>
+
+</html>

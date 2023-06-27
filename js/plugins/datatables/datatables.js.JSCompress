@@ -1,0 +1,11 @@
+﻿<jscompress public="http://www.jscompress.cn/" command="import-combineset">
+<combinefile path="datatables.js">
+    <auto value="1" />
+    <sourcefile path=".\DataTables-1.10.12\js\jquery.dataTables.js" />
+    <sourcefile path=".\DataTables-1.10.12\js\dataTables.bootstrap.js" />
+    <sourcefile path=".\Select-1.2.0\js\dataTables.select.js" />
+    <sourcefile path=".\RowsGroup\dataTables.rowsGroup.js" />
+    <sourcefile path=".\FixedColumns-3.2.2\js\dataTables.fixedColumns.js" />
+    <sourcefile path=".\RowReorder-1.1.2\js\dataTables.rowReorder.js" />
+</combinefile>
+</jscompress>

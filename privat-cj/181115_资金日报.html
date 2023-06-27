@@ -1,0 +1,637 @@
+<!--  -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>资金日报</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../css/iconfont.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .table th,
+        .table td{
+            text-align: center;
+        }
+        .table tbody tr td{
+            vertical-align: middle;
+        }
+        .cus-table-l{
+            width: 35%;
+        }
+        .cus-table-r{
+            width: 65%;
+            margin-left: -1px;
+        }
+        .loading{
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 30%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 0 6px 0 #ddd;
+        }
+        .js-more-model{
+            text-decoration: underline;
+            color: #2196f3;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- bar -->
+        <div class="m-b-sm m-t-sm clearfix">
+            <div class="form-inline">
+                <!-- 高级搜索 -->
+                <div id="cus_highsearch_box" class="btn-group">
+                    <button type="button" class="btn btn-warning btn-sm dropdown-toggle js-highsearch-btn" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" data-itemurl="xxxxxx" data-itemfn="fn1">高级搜索</button>
+                    <div class="dropdown-menu p-sm js-moreSearchBox"></div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label>方式：</label>
+                    <select id="js_select" class="form-control">
+                        <option value="1">日</option>
+                        <option value="2">最近一周</option>
+                        <option value="3">最近一月</option>
+                        <option value="4">自定义</option>
+                    </select>
+                </div>
+                <div class="form-group form-group-sm">
+                    <div id="js_start" class="input-group date">
+                        <input class="form-control input-sm" type="text" disabled readonly />
+                        <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                    </div>
+                    至
+                    <div id="js_end" class="input-group date">
+                        <input class="form-control input-sm" type="text" disabled readonly />
+                        <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <button id="js_search" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-search"></i>搜索</button>
+                    <button class="btn btn-sm btn-info"><i class="glyphicon glyphicon-save"></i>导出</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- table -->
+        <div class="m-t-lg clearfix">
+            <div class="t1-wrapper">
+                <!-- t-l -->
+                <table id="cus_table_l1" class="cus-table-l pull-left table table-striped table-bordered nowrap" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>一级分类</th>
+                            <th>二级分类</th>
+                            <th>三级分类</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">资金流入合计</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">资金流出合计</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">资金结余</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- tl1 -->
+                        <!-- 收入项 -->
+                        <tr>
+                            <td rowspan="13">资金流入</td>
+                            <td rowspan="7">收入项</td>
+                            <td>学费</td>
+                        </tr>
+                        <tr>
+                            <td>退费</td>
+                        </tr>
+                        <tr>
+                            <td>证书</td>
+                        </tr>
+                        <tr>
+                            <td>教材/教具销售</td>
+                        </tr>
+                        <tr>
+                            <td>AI项目</td>
+                        </tr>
+                        <tr>
+                            <td>加盟收入</td>
+                        </tr>
+                        <tr>
+                            <td>其他</td>
+                        </tr>
+                        <!-- 代收款 -->
+                        <tr>
+                            <td rowspan="2">代收款</td>
+                            <td>押金</td>
+                        </tr>
+                        <tr>
+                            <td>其他</td>
+                        </tr>
+                        <!-- 内部往来 -->
+                        <tr>
+                            <td rowspan="4">内部往来</td>
+                            <td>投资款</td>
+                        </tr>
+                        <tr>
+                            <td>内部往来收到</td>
+                        </tr>
+                        <tr>
+                            <td>提现</td>
+                        </tr>
+                        <tr>
+                            <td>其他</td>
+                        </tr>
+                        <!-- tl2 -->
+                        <!-- 这里是下半部分 -->
+                        <tr>
+                            <td rowspan="29">资金流出</td>
+                            <td rowspan="2">租赁支出</td>
+                            <td>房租及物业</td>
+                        </tr>
+                        <!-- 租赁支出 -->
+                        <tr>
+                            <td>水电费</td>
+                        </tr>
+                        <!-- 证书成本 -->
+                        <tr>
+                            <td>证书成本</td>
+                            <td></td>
+                        </tr>
+                        <!-- 人力成本 -->
+                        <tr>
+                            <td rowspan="4">人力成本</td>
+                            <td>工资</td>
+                        </tr>
+                        <tr>
+                            <td>绩效奖金</td>
+                        </tr>
+                        <tr>
+                            <td>社保公积</td>
+                        </tr>
+                        <tr>
+                            <td>员工其他福利</td>
+                        </tr>
+                        <!-- 广告宣传 -->
+                        <tr>
+                            <td rowspan="5">广告宣传</td>
+                            <td>平面广告</td>
+                        </tr>
+                        <tr>
+                            <td>网络广告</td>
+                        </tr>
+                        <tr>
+                            <td>市场活动费</td>
+                        </tr>
+                        <tr>
+                            <td>宣传品</td>
+                        </tr>
+                        <tr>
+                            <td>营销费用</td>
+                        </tr>
+                        <!-- 服务费 -->
+                        <tr>
+                            <td>服务费</td>
+                            <td>咨询服务费</td>
+                        </tr>
+                        <!-- 办公消耗 -->
+                        <tr>
+                            <td rowspan="8">办公消耗</td>
+                            <td>通信网络/专线费</td>
+                        </tr>
+                        <tr>
+                            <td>差旅费</td>
+                        </tr>
+                        <tr>
+                            <td>交通费</td>
+                        </tr>
+                        <tr>
+                            <td>机房租赁费</td>
+                        </tr>
+                        <tr>
+                            <td>微信及耗材</td>
+                        </tr>
+                        <tr>
+                            <td>行政办公费</td>
+                        </tr>
+                        <tr>
+                            <td>手续费</td>
+                        </tr>
+                        <tr>
+                            <td>招待费</td>
+                        </tr>
+                        <!-- 资产支出 -->
+                        <tr>
+                            <td rowspan="5">资产支出</td>
+                            <td>投资款</td>
+                        </tr>
+                        <tr>
+                            <td>设备采购</td>
+                        </tr>
+                        <tr>
+                            <td>装修费</td>
+                        </tr>
+                        <tr>
+                            <td>AI项目采购</td>
+                        </tr>
+                        <tr>
+                            <td>教具/教材/物资采购</td>
+                        </tr>
+                        <!-- 税费支出 -->
+                        <tr>
+                            <td>税费支出</td>
+                            <td></td>
+                        </tr>
+                        <!-- 内部往来 -->
+                        <tr>
+                            <td rowspan="2">内部往来</td>
+                            <td>内部往来支出</td>
+                        </tr>
+                        <tr>
+                            <td>其他</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- t-l end -->
+
+                <!-- t-r -->
+                <table id="cus_table_r1" class="cus-table-r pull-left table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>账面余额</th>
+                            <th>调整金额</th>
+                            <th>调整后金额</th>
+                        </tr>
+                        <tr>
+                            <th id="js_sumR1" class="js-more-model">&nbsp;</th>
+                            <th id="js_sumR2"> </th>
+                            <th id="js_sumR3"> </th>
+                        </tr>
+                        <tr>
+                            <th id="js_sumC1" class="js-more-model">&nbsp;</th>
+                            <th id="js_sumC2"> </th>
+                            <th id="js_sumC3"> </th>
+                        </tr>
+                        <tr>
+                            <th id="js_sumJ1" class="js-more-model">&nbsp;</th>
+                            <th id="js_sumJ2"> </th>
+                            <th id="js_sumJ3"> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- r1 -->
+                        <!-- r2 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- tips -->
+        <div id="js_loading" class="loading">加载中，请稍后...</div>
+    </div>
+
+    <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+    <script src="../js/plugins/moment/moment.min.js"></script>
+
+    <script type="text/javascript" src="../i18n/zh-CN.js"></script>
+    <script type="text/javascript" src="../js/subindex.js"></script>
+    <!-- mock -->
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+        var t1 = {
+            data: [
+                {
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: null,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },
+            ]
+        }
+
+        var t2 = {
+            data: [
+            {
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: null,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: null,
+                    adjust_money: null
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: null
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                },{
+                    total_money: 846383728,
+                    adjust_money: 384639478
+                }
+            ]
+        }
+
+        $.mockjax({
+            url: "/api/t1",
+            dataType: "json",
+            responseTime: 200,
+            response: function(settings) {
+                this.responseText = t1;
+            }
+        });
+
+        $.mockjax({
+            url: "/api/t2",
+            dataType: "json",
+            responseTime: 200,
+            response: function(settings) {
+                this.responseText = t2;
+            }
+        });
+    </script>
+    <script>
+        // cur day
+        var cDay = moment().format('YYYY-MM-DD');
+        // 发送 table ajax
+        function createAjax(url_, params) {
+            return $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: url_,
+                data: params
+            })
+        }
+        
+        // 计算相关方法
+        var CUS_TOOLS = {
+            Add: function (arg1, arg2) {
+                if(arg1 == null || arg2 == null) return ''; 
+                arg1 = arg1.toString(), arg2 = arg2.toString();
+                var arg1Arr = arg1.split("."), arg2Arr = arg2.split("."), d1 = arg1Arr.length == 2 ? arg1Arr[1] : "", d2 = arg2Arr.length == 2 ? arg2Arr[1] : "";
+                var maxLen = Math.max(d1.length, d2.length);
+                var m = Math.pow(10, maxLen);
+                var result = Number(((arg1 * m + arg2 * m) / m).toFixed(maxLen));
+                var d = arguments[2];
+                return typeof d === "number" ? Number((result).toFixed(d)) : result;
+            },
+            Sub: function (arg1, arg2) {
+                return this.Add(arg1, -Number(arg2), arguments[2]);
+            },
+        }
+        
+        // 表格 显示处理
+        function proData(param){
+            return param ? $.number(param) : '-';
+        }
+        
+        // 表格 构造
+        function createTd(list){
+            var arr = [];
+            for (var i = 0; i < list.length; i++) {
+                var e = list[i];
+                var mmD_ = proData(e.total_money);
+                var str = '<tr>'+
+                    '<td '+ (mmD_ != '-' ? 'class="js-more-model"' : '') +'>'+ mmD_ +'</td>'+
+                    '<td>'+ proData(e.adjust_money) +'</td>'+
+                    '<td>'+ proData(CUS_TOOLS.Sub(e.total_money, e.adjust_money)) +'</td>'+
+                    '</tr>';
+                arr.push(str);
+            }
+            return arr.join('');
+        }
+        
+        // 合计 计算
+        function sumTotal(data, param){
+            var sum = 0;
+            for (var i = 0; i < data.length; i++) {
+                var e = data[i];
+                if(e[param]){
+                    sum = CUS_TOOLS.Add(sum, e[param]);
+                }
+            }
+            return sum;
+        }
+
+        function initDTP(){
+            $('#js_start').datetimepicker().on('changeDate', function(){
+                var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+                $('#js_end').datetimepicker('setStartDate', t_.val());
+            });
+            $('#js_end').datetimepicker().on('changeDate', function(){
+                var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+                $('#js_start').datetimepicker('setEndDate', t_.val());
+            });
+        }     
+        // 日期相关处理
+        function proDTP(param) {
+            $('#js_start, #js_end').find('input').attr('disabled', 'disabled');
+            $('#js_start input').val(cDay)
+            if (param == 1) {
+                $('#js_end input').val(moment().add(0, 'day').format('YYYY-MM-DD'))
+            }
+            else if (param == 2) {
+                $('#js_end input').val(moment().add(-7, 'day').format('YYYY-MM-DD'))
+            }
+            else if (param == 3) {
+                $('#js_end input').val(moment().add(-30, 'day').format('YYYY-MM-DD'))
+            }
+            else if (param == 4) {
+                $('#js_start, #js_end').find('input').val('').removeAttr('disabled')
+                // init dtp
+                if(!$('#js_start').data('datetimepicker')){
+                    initDTP()
+                }
+            }
+        }
+        // 总表格请求
+        function totalTable(params) {
+            var t1res = {checkDate: $('#js_start input').val()};
+            var t2res = {checkDate: $('#js_end input').val()};
+
+            $.when(createAjax('/api/t1', t1res), createAjax('/api/t2', t2res)).then(function(res1, res2){
+                var tList = [];
+                var rList = res1[0].data || [];
+                var cList = res2[0].data || [];
+                
+                tList = tList.concat(rList)
+                tList = tList.concat(cList)
+
+                if (tList.length) {
+                    $('#cus_table_r1 tbody').html(createTd(tList));
+                }
+
+                var r1 = sumTotal(rList, 'total_money')
+                var r2 = sumTotal(rList, 'adjust_money')
+
+                var c1 = sumTotal(cList, 'total_money')
+                var c2 = sumTotal(cList, 'adjust_money')
+
+                var j1 = sumTotal(tList, 'total_money')
+                var j2 = sumTotal(tList, 'adjust_money')
+
+                $('#js_sumR1').html(proData(r1));
+                $('#js_sumR2').html(proData(r2));
+                $('#js_sumR3').html(proData(CUS_TOOLS.Sub(r1, r2)));
+
+                $('#js_sumC1').html(proData(c1));
+                $('#js_sumC2').html(proData(c2));
+                $('#js_sumC3').html(proData(CUS_TOOLS.Sub(c1, c2)));
+
+                $('#js_sumJ1').html(proData(j1));
+                $('#js_sumJ2').html(proData(j2));
+                $('#js_sumJ3').html(proData(CUS_TOOLS.Sub(j1, j2)));
+            })
+        }
+        totalTable()
+        
+        // 下拉选
+        $('#js_select').change(function() {
+            var t_ = $(this)
+            var v_ = t_.val()
+
+            proDTP(v_)
+        }).trigger('change')
+        
+        // 钻取
+        $('#cus_table_r1').on('click', '.js-more-model', function(){
+            var t_ = $(this);
+            var sTime = $('#js_start input').val();
+            var eTime = $('#js_end input').val();
+            var idx_ = t_.is('td') ? ('s_' + (t_.parent().index() + 1)) : 't_'+ t_.parent().index();
+            // console.log(t_.is('td'), idx_);
+            // sTime eTime idx_
+        })
+
+        // 搜索
+        $('#js_search').click(function(){
+
+        })
+    </script>
+</body>
+
+</html>

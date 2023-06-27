@@ -1,0 +1,305 @@
+<!doctype html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>表单页（add）</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../../css/iconfont.css" rel="stylesheet">
+
+    <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../../css/plugins/select2/select2.min.css" rel="stylesheet">
+
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+
+
+    <style>
+        .input-filexx {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+        }
+
+        .video-210324 {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row" style="min-height: 51px;">
+        <div class="p-xs col-xs-12 text-center" id="demoaffix1" data-spy="affix" data-offset-top="50">
+            <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+            <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row p-xxs">
+        <div class="col-sm-12 js-auto-init-demobox">
+            <p class="">作品展示</p>
+            <div class="md2018091101lty">
+                <p class=""><span class="text-danger">*</span> 作品上传</p>
+                <ul class="md-pics-list clearfix js-zuopin-img">
+                    <li class="js-continue-add">
+                        <input class="js-inp-files js-inp-files-img input-filexx" accept="image/*" type="file">
+                        <div class="js-add-pic" data-num="5">
+                        </div>
+                    </li>
+                </ul>
+                <p  style="margin-top: 20px;"><span class="text-danger">*</span> 视频上传</p>
+                <ul class="md-pics-list clearfix js-zuopin-video">
+                    <li class="js-continue-add">
+                        <input class="js-inp-files input-filexx js-inp-files-video" accept="video/*" type="file">
+                        <div class="js-add-pic" data-num="3">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row p-xxs">
+        <div class="col-sm-12 js-auto-init-demobox">
+            <p class="">课堂表现</p>
+            <div class="md2018091101lty">
+                <p class=""><span class="text-danger">*</span> 照片上传</p>
+                <ul class="md-pics-list clearfix js-class-img">
+                    <li class="js-continue-add">
+                        <input class="js-inp-files js-inp-files-img input-filexx" accept="image/*" type="file">
+                        <div class="js-add-pic" data-num="5"></div>
+                    </li>
+                </ul>
+                <p  style="margin-top: 20px;"><span class="text-danger">*</span> 视频上传</p>
+                <ul class="md-pics-list clearfix js-class-video">
+                    <li class="js-continue-add">
+                        <input class="js-inp-files input-filexx js-inp-files-video" accept="video/*" type="file">
+                        <div class="js-add-pic" data-num="3"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row p-xxs">
+        <div class="col-sm-12 js-auto-init-demobox">
+            <p class="">教师评价</p>
+            <div class="md2018091101lty form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">
+                        <span class="text-danger">*</span> 评分</label>
+                    <div class="col-sm-3" style="padding-top: 7px;">
+                        <div id="star"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="text-danger">*</span> 评语</label>
+                    <div class="col-sm-6"><textarea id="textarea" placeholder="最多输入两百个字符" maxlength="200" name="name26" class="form-control input-sm"></textarea></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <!-- Mainly scripts -->
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../../js/plugins/pace/pace.min.js"></script>
+    <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+    <script src="../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../js/plugins/jquery-number/jquery.number.min.js"></script>
+    <script src="../../js/plugins/select2/select2.full.min.js"></script>
+
+
+
+<!--评分插件-->
+<script src="../../js/plugins/score-raty/jquery.raty.js"></script>
+<!--评分插件-->
+
+
+
+    <script src="../../js/subindex.js"></script>
+    <script src="../../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="addressDPage.js"></script>
+    <script src="../../js/jquery.mockjax.min.js"></script>
+
+    <script>
+        $(function () {
+            /*
+             *  $.mockjax 此方法仅限于demo演示模拟数据使用
+             */
+            $.mockjax({
+                url: "/city/api",
+                dataType: "json",
+                response: function (settings) {
+                    this.responseText = 'https://www.baidu.com/img/bd_logo1.png';
+                }
+            });
+            $.mockjax({
+                url: "/city/video",
+                dataType: "json",
+                response: function (settings) {
+                    this.responseText = 'qqq1.mp4';
+                }
+            });
+        });
+
+        $(document).ready(function () {
+
+            $('#star').raty({
+                path: '../../js/plugins/score-raty/img',
+                // starOn:'http://cdn.tmooc.cn/tmooc-web/css/img/star-on.png',
+                // starOff:'http://cdn.tmooc.cn/tmooc-web/css/img/star-off.png',
+                hints:['差劲','一般','好','很好','非常好']
+            })
+
+            $('#btn_save').click(function(){
+
+                var f = true;
+                $('.md-pics-list').each(function(i,n){
+                    if (!($(n).find('.js-file-item').length)){
+                       f = false;
+                        COM_TOOLS.alert('没上传完整文案');
+                        return false
+                    }
+                })
+                if (f){
+                    var star =  $('#star').raty('score');
+                    if (!star){
+                        COM_TOOLS.alert('请评分');
+                        return false;
+                    }
+                    var text =  $.trim($('#textarea').val());
+                    if (!text){
+                        COM_TOOLS.alert('请添加评语');
+                        return false;
+                    }
+
+                    /*示例部分 以下内容自行修改*/
+                    var obj ={
+                        pinfen:star,
+                        text:text,
+                        tupianorshipin:{
+                            a1:[],
+                            a2:[],
+                            a3:[],
+                            a4:[]
+                        }
+                    }
+                    $('.js-class-video .js-file-item').each(function (a,b){
+                        obj.tupianorshipin.a3.push($(b).data('path'))
+                    })
+                    $('.js-class-img .js-file-item').each(function (a,b){
+                        obj.tupianorshipin.a4.push($(b).data('path'))
+                    })
+                    $('.js-zuopin-video .js-file-item').each(function (a,b){
+                        obj.tupianorshipin.a2.push($(b).data('path'))
+                    })
+                    $('.js-zuopin-img .js-file-item').each(function (a,b){
+                        obj.tupianorshipin.a1.push($(b).data('path'))
+                    })
+                    console.log(obj)
+                }
+            })
+
+
+            $('.js-add-pic').click(function () {
+                var num = $(this).data('num')*1;
+                var p = $(this).closest('ul');
+                console.log(num)
+                if (p.find('.js-file-item').length >= num) {
+                    COM_TOOLS.alert('最多上传'+num+'个');
+                    return;
+                }
+                $(this).prev('.js-inp-files').trigger('click')
+            })
+            $('body').on('click', '.js-delete-img', function () {
+                $(this).closest('li').remove();
+            })
+            $('.js-inp-files-img').on('change', function (evt) {
+                console.log(998)
+                var $t = $(this),
+                    p_ = $(this).closest('.js-continue-add');
+                var files_ = evt.target.files[0];
+                if (!files_) return;
+                if (files_.size > 2 * 1024 * 1024) {
+                    COM_TOOLS.alert('图片不能超过2M');
+                    return false;
+                }
+                // $('#fileName4').text('文件名称：' + files_.name);
+                var dataF = new FormData();
+                // 'myFile' 为后台所接受该文件所对应的字段名
+                dataF.append('myFile', $t[0].files[0]);
+                console.log(dataF)
+                $.ajax({
+                    type: 'POST',
+                    processData: false, //必须
+                    contentType: false, //必须
+                    url: '/city/api', //上传路径  区分类型 自行区分url
+                    data: dataF,
+                    success: function (data) {
+                        console.log(data);
+                        p_.before('  <li class="js-file-item" data-path="' + data + '"\n' +
+                            '                data-file_name="bd_logo1.png">\n' +
+                            '                <div class="table-box">\n' +
+                            '                    <div class="table-cell"><img src="' + data + '" alt="">\n' +
+                            '                        <p class="js-delete-img text-danger"><i class="glyphicon glyphicon-remove-sign"></i></p>\n' +
+                            '                    </div>\n' +
+                            '                </div>\n' +
+                            '            </li>')
+                    }
+                });
+            });
+            $('.js-inp-files-video').on('change', function (evt) {
+                console.log(998)
+                var $t = $(this),
+                    p_ = $(this).closest('.js-continue-add');
+                var files_ = evt.target.files[0];
+                if (files_.size > 20 * 1024 * 1024) {
+                    COM_TOOLS.alert('视频不能超过20M');
+                    return false;
+                }
+                // $('#fileName4').text('文件名称：' + files_.name);
+                var dataF = new FormData();
+                // 'myFile' 为后台所接受该文件所对应的字段名
+                dataF.append('myFile', $t[0].files[0]);
+                console.log(dataF)
+                $.ajax({
+                    type: 'POST',
+                    processData: false, //必须
+                    contentType: false, //必须
+                    url: '/city/video', //上传路径 区分类型 自行区分url
+                    data: dataF,
+                    success: function (data) {
+                        console.log(data);
+                        p_.before('  <li class="js-file-item" data-path="' + data + '"\n' +
+                            '                data-file_name="bd_logo1.png">\n' +
+                            '                <div class="table-box">\n' +
+                            '                    <div class="table-cell"><video class="video-210324" src="' + data + '"></video>\n' +
+                            '                        <p class="js-delete-img text-danger"><i class="glyphicon glyphicon-remove-sign"></i></p>\n' +
+                            '                    </div>\n' +
+                            '                </div>\n' +
+                            '            </li>')
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>

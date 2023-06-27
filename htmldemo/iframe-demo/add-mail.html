@@ -1,0 +1,319 @@
+<!--  -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Mail</title>
+        <link rel="stylesheet" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../css/iconfont.css">
+
+        <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+        <link href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../../css/style.css">
+        <style>
+            .checkbox-inline + .checkbox-inline{
+                margin-left: 20px;
+            }
+            .cus-icheck{
+                padding-left:0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="p-xs col-xs-12 text-center affix-top" id="demoaffix1" data-spy="affix" data-offset-top="50">
+                    <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+                    <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <form id="js_upForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">服务类型</label>
+                        <div class="col-sm-8">
+                            <label class="checkbox-inline cus-icheck js-typeService">
+                            <input type="radio" name="type" value="1" checked>
+                            公共服务
+                        </label>
+                            <label class="checkbox-inline cus-icheck js-typeService">
+                            <input type="radio" name="type" value="2">
+                            自定义邮箱
+                        </label>
+                            <label class="checkbox-inline cus-icheck disabled js-typeService">
+                            <input type="radio" name="type" value="3" disabled>
+                            预设邮箱账号池(暂不支持)
+                        </label>
+                        </div>
+                    </div>
+
+                    <div class="mailType-wrapper hidden">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2"><span class="text-danger">*</span>发送邮箱账号</label>
+                            <div class="col-sm-3"><input class="form-control input-sm js-mail-item" type="text" name="mail" ck-email="true"></div>
+                            <label class="control-label col-sm-2"><span class="text-danger">*</span>发送邮箱密码</label>
+                            <div class="col-sm-3"><input class="form-control input-sm js-mail-item" type="text" name="password" minlength="6"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2"><span class="text-danger">*</span>发送协议</label>
+                            <div class="col-sm-3"><input class="form-control input-sm js-mail-item" type="text" name="protocol" value="smtp"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2"><span class="text-danger">*</span>邮箱主题</label>
+                            <div class="col-sm-8"><input class="form-control input-sm js-mail-item" type="text" name="theme"></div>
+                        </div>
+                    </div>
+                    <!-- ckeidter -->
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <textarea id="js_Ckeditor" class="form-control" name="content"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">收件人：</label>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <div class="layout-flex bg-warning" style="padding: 15px 0;">
+                                        <div class="checkbox" style="width: 160px;">
+                                            <label>
+                                                <input class="cus-icheck" type="radio" name="addressee" value="1" checked /> 按部门与岗位
+                                            </label>
+                                        </div>
+                                        <div class="layout-flex__item">
+                                            <div class="layout-flex" style="margin-bottom: 10px;">
+                                                <div>
+                                                    <button type="button" class="btn btn-sm btn-success ">请选择部门</button>
+                                                </div>
+                                                <div class="layout-flex__item">
+                                                    <div class="p-w-sm">
+                                                        <div class="orgtree-selectedlist-box">
+                                                            <ul class="orgtree-item-list clearfix">
+                                                                <li class="orgtree-item" data-code="A1077100287555289116" data-type="0"><i class="the-icon glyphicon glyphicon-folder-close"></i>直属单位</li>
+                                                                <li class="orgtree-item" data-code="A1077100287651758105" data-type="0"><i class="the-icon glyphicon glyphicon-folder-close"></i>关联公司</li>
+                                                                <li class="orgtree-item" data-code="A1077100287727255596" data-type="0"><i class="the-icon glyphicon glyphicon-folder-close"></i>少儿中心</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="layout-flex">
+                                                <button type="button" class="btn btn-sm btn-success ">请选择岗位</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12 checkbox ">
+                                    <div class="layout-flex bg-warning" style="padding: 15px 15px 15px 0;">
+                                        <div class="checkbox" style="width: 160px;">
+                                            <label>
+                                                <input class="cus-icheck" type="radio" name="addressee" value="2" checked /> 手动输入账号
+                                            </label>
+                                        </div>
+                                        <div class="layout-flex__item"><input class="form-control input-sm" type="text" name="add_mail"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">开启模板解析</label>
+                        <div class="col-sm-8">
+                            <div class="switch-on-off switch-tigger-name">
+                                <!-- checked -->
+                                <input type="checkbox" name="templet" id="switch-checkbox">
+                                <label class="switch-box" for="switch-checkbox">
+                                <div class="track">
+                                    <div class="knob"></div>
+                                </div>
+                            </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">附件</label>
+                        <!-- attachment -->
+                        <div class="col-sm-8">
+                            <input name="attachment" autocomplete="off" data-file_names="张三.txt|李四.txt" value="https://www.baidu.com/img/bd_logo1.png,https://s1.sinaimg.cn/mw690/006wmg2Hzy73dot1Fug80" type="text" id="js_upload_preview_file" class="js-hide-inp">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">账号别名</label>
+                        <div class="col-sm-8"><input class="form-control input-sm" type="text" name="alias"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">抄送</label>
+                        <div class="col-sm-8"><input class="form-control input-sm" type="text" name="send_dup"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">密送</label>
+                        <div class="col-sm-8"><input class="form-control input-sm" type="text" name="secret"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">发送方式</label>
+                        <div class="col-sm-8">
+                            <label class="checkbox-inline cus-icheck js-sendTimeType">
+                            <input type="radio" name="sendMode" value="1" checked>
+                            立即发送
+                        </label>
+                            <label class="checkbox-inline cus-icheck js-sendTimeType">
+                            <input type="radio" name="sendMode" value="2" >
+                            延时发送
+                        </label>
+                            <label class="checkbox-inline disabled cus-icheck js-sendTimeType">
+                            <input type="radio" name="sendMode" value="3" disabled>
+                            定时发送(暂不支持)
+                        </label>
+                        </div>
+                    </div>
+                    <!-- send mode -->
+                    <div class="sendMode-wrapper">
+                        <!-- 延时 -->
+                        <div class="form-group hidden js-sendDelay">
+                            <div class="col-sm-offset-2 col-sm-3">
+                                <div id="js_sendTime" class="input-group date">
+                                    <input class="form-control input-sm" type="text" name="sendTime" readonly="readonly" />
+                                    <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 定时 -->
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="../../js/jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+
+        <script src="../../js/plugins/layer/layer.js" type="text/javascript"></script>
+        <script src="../../js/plugins/iCheck/icheck.min.js"></script>
+        <script src="../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="../../js/plugins/ckeditor/ckeditor.js" type="text/javascript"></script>
+        <script src="../../js/plugins/webUploader/webuploader.min.js"></script>
+        <script src="../../js/plugins/webUploader/cus_uploader_preview.js"></script>
+
+        <script type="text/javascript" src="../../i18n/zh-CN.js"></script>
+        <script src="../../js/plugins/validate/jquery.validate.custom.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="../../js/subindex.js"></script>
+        <script>
+            $(function () {
+                // icheck
+                $('.cus-icheck').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+                // datatimepicker
+                $('#js_sendTime').datetimepicker({
+                    pickerPosition: 'top-left',
+                    "format": "yyyy-mm-dd hh:ii",
+                    "minView": 0,
+                    startDate: new Date()
+                })
+                // ckediter
+                var _CKE = COM_TOOLS.docEditor('js_Ckeditor', {
+                    toolbar: [{
+                        name: 'document',
+                        items: ['Source']
+                    }, {
+                        name: 'styles',
+                        items: ['Font', 'FontSize']
+                    }, {
+                        name: 'colors',
+                        items: ['TextColor', 'BGColor']
+                    }, {
+                        name: 'basicstyles',
+                        items: ['Bold', 'Italic', 'Underline', 'Strike']
+                    }, {
+                        name: 'paragraph',
+                        items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', '-', 'NumberedList',
+                            'BulletedList'
+                        ]
+                    }, {
+                        name: 'insert',
+                        items: ['Table', 'Cusimage']
+                    }],
+                    allowedContent : true
+                });
+                // _CKE 获取内容 _CKE.getData()
+                // init webupload
+                mult_upload_preview('js_upload_preview_file', {
+                    file_type: 'file'
+                });
+                // init validate
+                $('#js_upForm').validate({
+                    submitHandler: function (form) {
+                        var subData = COM_TOOLS.serializeObject(form);
+                        var onoff = $('#switch-checkbox').is(':checked') ? 1 : 0;
+                        // 塞入模板解析数据
+                        subData.templet = onoff;
+                        // 塞入 ck 数据
+                        subData.content = _CKE.getData();
+                        console.log(subData);
+                        // 序列化
+                        var subData = $.param(subData)
+                    }
+                });
+                // event
+                $('body').on('ifChecked', '.js-typeService', function (e) {
+                    var t_ = $(e.target);
+                    var val = t_.val();
+
+                    if (val == 2) {
+                        $('.mailType-wrapper').removeClass('hidden');
+                        // 动态 validate
+                        $('.js-mail-item').each(function (i, n) {
+                            $(this).rules("add", {
+                                required: true
+                            });
+                        })
+                    } else {
+                        $('.mailType-wrapper').addClass('hidden')
+                        $('.js-mail-item').each(function (i, n) {
+                            $(this).rules("remove", 'required');
+                            $(this).tooltip('destroy');
+                        })
+                    }
+                }).on('ifChecked', '.js-sendTimeType', function (e) {
+                    var t_ = $(e.target);
+                    var val = t_.val();
+
+                    if (val == 2) {
+                        $('.js-sendDelay').removeClass('hidden')
+                    } else {
+                        $('.js-sendDelay').addClass('hidden').find('input').val('');
+                    }
+                }).on('click', '#btn_save', function (e) {
+                    $('#js_upForm').submit();
+                })
+                // 数据回显相关 true 换成对应的编辑状态
+                if (true) {
+                    $('.js-typeService input:checked').trigger('ifChecked');
+                    $('.js-sendTimeType input:checked').trigger('ifChecked');
+                }
+            })
+        </script>
+    </body>
+
+</html>

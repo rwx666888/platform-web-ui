@@ -1,0 +1,62 @@
+<link rel="stylesheet" type="text/css" href="../../js/plugins/lou-multi-select/css/multi-select.css">
+<!-- start -->
+<div style="padding: 30px;">
+<h1>模糊查询穿梭框</h1>
+<select id='custom-headers' multiple='multiple' style="width:800px;">
+    <option value='elem_1' selected>elem 1</option>
+    <option value='elem_2'>elem 2</option>
+    <option value='elem_3'>elem 3</option>
+    <option value='elem_4' selected>elem 4</option>
+    <option value='elem_5'>elem 5</option>
+    <option value='elem_6'>elem 6</option>
+    <option value='elem_7'>elem 7</option>
+    <option value='elem_8'>elem 8</option>
+    <option value='elem_9'>elem 9</option>
+    <option value='elem_100'>elem 100</option>
+</select>
+<br>
+<a href="//loudev.com/">官网:http://loudev.com/</a>
+</div>
+<script>
+$(function(){
+	COM_TOOLS.requireJsFn(['quicksearch','multiSelect'],[],function(){
+    // 回调函数
+    $('#custom-headers').multiSelect({
+        selectableHeader: "<input type='text' style='width:100%;margin-bottom: 5px;border-radius: 2px;border: 1px solid #bbb;' class='search-input' autocomplete='off' placeholder='try \"12\"'>",
+        selectionHeader: "<input type='text' style='width:100%;margin-bottom: 5px;border-radius: 2px;border: 1px solid #bbb;' class='search-input' autocomplete='off' placeholder='try \"4\"'>",
+        afterInit: function(ms){
+            var that = this,
+                    $selectableSearch = that.$selectableUl.prev(),
+                    $selectionSearch = that.$selectionUl.prev(),
+                    selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                    selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                    .on('keydown', function(e){
+                        if (e.which === 40){
+                            that.$selectableUl.focus();
+                            return false;
+                        }
+                    });
+
+            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                    .on('keydown', function(e){
+                        if (e.which == 40){
+                            that.$selectionUl.focus();
+                            return false;
+                        }
+                    });
+        },
+        afterSelect: function(){
+            this.qs1.cache();
+            this.qs2.cache();
+        },
+        afterDeselect: function(){
+            this.qs1.cache();
+            this.qs2.cache();
+        }
+    });
+	});
+});
+</script>
+

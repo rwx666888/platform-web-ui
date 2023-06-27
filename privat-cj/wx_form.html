@@ -1,0 +1,2856 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>达内IT课程，助你高薪就业</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', STHeiti,
+          'Microsoft Yahei', Tahoma, Simsun, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #444;
+        font-size: 14px;
+      }
+      input,
+      select,
+      button {
+        outline: none;
+        -webkit-appearance: none;
+        background-color: transparent;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+      ul,
+      li {
+        list-style: none;
+      }
+      .clearfix:before,
+      .clearfix:after {
+        content: ' ';
+        display: table;
+      }
+      .clearfix:after {
+        height: 0;
+        line-height: 0;
+        visibility: hidden;
+        clear: both;
+      }
+      .clearB {
+        clear: both;
+      }
+      .main-wrp {
+        max-width: 800px;
+        margin: 0 auto;
+        box-shadow: 0 2px 5px 1px rgba(124, 124, 124, 0.2);
+      }
+      /* toast */
+      .toast {
+        display: none;
+        position: fixed;
+        z-index: 55;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        padding: 8px 12px;
+        background-color: rgba(50, 50, 51, 0.88);
+        text-align: center;
+        color: #fff;
+        border-radius: 4px;
+      }
+      .poster-wrp {
+        background-color: rgb(59, 103, 160);
+        background-position: center 50%;
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+      .poster-wrp:before {
+        content: ' ';
+        display: block;
+        padding-top: 49%;
+        width: 100%;
+      }
+      .intr-wrp,
+      .form-wrp {
+        padding: 10px;
+      }
+      .intr-wrp .title {
+        font-size: 16px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+      }
+      .form-wrp .form-item + .form-item {
+        margin-top: 25px;
+      }
+      .form-wrp .form-item .suffix {
+        margin-top: 2px;
+        font-size: 12px;
+        color: #f44336;
+      }
+      .form-wrp .label {
+        display: inline-block;
+        padding-bottom: 6px;
+      }
+      .form-wrp .label > span {
+        color: red;
+      }
+      .form-wrp .default {
+        padding: 10px 8px;
+        line-height: 1.4;
+        border: 1px solid #ccc;
+        border-radius: 0;
+        box-sizing: border-box;
+      }
+      .form-wrp .inp {
+        width: 100%;
+      }
+      .form-wrp .cont-sel {
+        display: flex;
+        justify-content: space-between;
+        align-self: flex-start;
+      }
+      .form-wrp .sel {
+        width: 48%;
+      }
+      .form-wrp .radio {
+        cursor: pointer;
+        width: 50%;
+        float: left;
+      }
+      .form-wrp .cont-course {
+        min-height: 150px;
+      }
+      .form-wrp .radio label {
+        display: flex;
+        padding: 8px 0 8px 5px;
+      }
+      .form-wrp .radio .inp-radio {
+        width: 0;
+        height: 0;
+        border: none;
+      }
+      .form-wrp .radio .inp-radio + span {
+        position: relative;
+        flex-shrink: 0;
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+      }
+      .form-wrp .radio .inp-radio:checked + span {
+        border-color: #3b67a0;
+      }
+      .form-wrp .radio .inp-radio:checked + span::after {
+        content: ' ';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #3b67a0;
+      }
+      .form-wrp .radio label > p {
+        margin-left: 6px;
+        word-break: break-word;
+      }
+
+      .btn-wrp {
+        padding: 30px;
+      }
+      .btn-wrp .btn,
+      .btn-default {
+        width: 100%;
+        height: 36px;
+        background: #3b67a0;
+        border: none;
+        color: #fff;
+      }
+      /* dialog */
+      .hidden {
+        display: none;
+      }
+      .dialog-mask {
+        position: fixed;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        background-color: #999;
+        opacity: 0.5;
+        width: 100%;
+        height: 100%;
+      }
+      .dialog-wrp {
+        position: fixed;
+        z-index: 25;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+        background-color: #fff;
+        box-sizing: border-box;
+        padding: 20px;
+        width: 80%;
+      }
+      .dialog-wrp .btn-close {
+        position: absolute;
+        z-index: 20;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        line-height: 1;
+      }
+      .dialog-wrp .title {
+        text-align: center;
+        margin-bottom: 20px;
+        user-select: none;
+      }
+      .dialog-wrp .btn-copy {
+        display: block;
+        margin: 0 auto;
+        margin-top: 20px;
+      }
+      .dialog-wrp .dialog-body > p {
+        word-break: break-all;
+        margin-bottom: 10px;
+      }
+      /* loading */
+      @-webkit-keyframes scale {
+        0% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        45% {
+          -webkit-transform: scale(0.1);
+          transform: scale(0.1);
+          opacity: 0.7;
+        }
+
+        80% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes scale {
+        0% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        45% {
+          -webkit-transform: scale(0.1);
+          transform: scale(0.1);
+          opacity: 0.7;
+        }
+
+        80% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .ball-pulse > div:nth-child(0) {
+        -webkit-animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+        animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      }
+      .ball-pulse > div:nth-child(1) {
+        -webkit-animation: scale 0.75s 0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+        animation: scale 0.75s 0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      }
+      .ball-pulse > div:nth-child(2) {
+        -webkit-animation: scale 0.75s 0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+        animation: scale 0.75s 0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      }
+      .ball-pulse > div:nth-child(3) {
+        -webkit-animation: scale 0.75s 0.36s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+        animation: scale 0.75s 0.36s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+      }
+      .ball-pulse > div {
+        background-color: #fff;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        display: inline-block;
+      }
+      .loader-inner {
+        position: fixed;
+        z-index: 25;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-wrp">
+      <!-- poster -->
+      <div id="js_posterWrp" class="poster-wrp"></div>
+      <!-- intr -->
+      <div class="intr-wrp">
+        <div class="title">达内IT课程，助你高薪就业</div>
+      </div>
+      <!-- form -->
+      <form id="js_form" class="form-wrp">
+        <div class="form-item">
+          <label class="label"> 姓名<span>*</span> </label>
+          <div class="cont">
+            <input name="name" class="default inp" type="text" placeholder="请输入您的姓名" />
+          </div>
+        </div>
+        <div class="form-item">
+          <label class="label"> 手机<span>*</span> </label>
+          <div class="cont">
+            <input name="phone" class="default inp" type="text" placeholder="请输入您的手机号" />
+          </div>
+        </div>
+        <!-- fileType = card 显示 -->
+        <div id="emailItem" class="form-item" style="display: none;">
+          <label class="label"> 邮箱<span>*</span> </label>
+          <div class="cont">
+            <input name="email" class="default inp" type="text" placeholder="请输入您的邮箱地址" />
+          </div>
+          <div class="suffix">用于接收账号激活码，请正确填写。</div>
+        </div>
+        <!-- area -->
+        <div class="form-item">
+          <label class="label"> 所在地<span>*</span> </label>
+          <div class="cont cont-sel">
+            <select name="provinceId" id="js_province" class="default sel"></select>
+            <select name="cityId" id="js_city" class="default sel"></select>
+          </div>
+        </div>
+        <!-- course -->
+        <div class="form-item">
+          <label class="label"> 意向学习课程<span>*</span> </label>
+          <!-- <div ></div> -->
+          <ul id="js_courseList" class="cont cont-course clearfix"></ul>
+        </div>
+      </form>
+      <!-- btn -->
+      <div class="btn-wrp">
+        <button id="js_submit" class="btn" type="button">提交</button>
+      </div>
+    </div>
+    <!-- toast -->
+    <div id="js_toast" class="toast"></div>
+    <!-- dialog -->
+    <div id="js_dialog_mask" class="dialog-mask hidden"></div>
+    <div id="js_dialog_wrp" class="dialog-wrp hidden">
+      <span class="btn-close">×</span>
+      <h5 class="title">提示</h5>
+      <div class="dialog-body"></div>
+      <button class="btn-default btn-copy">一键复制</button>
+    </div>
+    <!-- loading -->
+    <div id="js_loadIcon" class="loader-inner ball-pulse hidden">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <!-- script -->
+    <script src="./js/plugins/jquery-3.3.1.min.js"></script>
+    <script src="./js/plugins/cusCopy.fetch.js"></script>
+    <!-- mock data -->
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+      // 基本信息
+      $.mockjax({
+        url: '/tdm-web/wechat/form/course/list',
+        responseText: {
+          code: 1,
+          data: {
+            imageList: ['http://cdn.tmooc.cn/bsfile//imgad///B6C9118E3E604AC6BDA8A8F3DB2A981B.png'],
+            courseList: [
+              {
+                id: 1,
+                name: '0基础，不清楚学习哪个课程'
+              },
+              {
+                id: 2,
+                name: 'JAVA'
+              },
+              {
+                id: 3,
+                name: '大数据'
+              },
+              {
+                id: 4,
+                name: 'UID'
+              },
+              {
+                id: 5,
+                name: 'Python人工智能'
+              }
+            ]
+          }
+        }
+      })
+      // submit
+      $.mockjax({
+        url: '/tdm-web/wechat/form/submit',
+        responseText: {
+          code: 1,
+          msg: '123',
+          data: {
+            fileType: 'card', // net,card
+            url: 'http://127.0.0.1:8099/priv2423423423423at-cj/wx_form.html',
+            extractCode: 'asdfxxd',
+            account: 'asdfadsfasdfa12312312sdf到发送到发送到发',
+            pwd: 'dsfasdf'
+          }
+        }
+      })
+      // 省市
+      $.mockjax({
+        url: '/tdm-web/wechat/form/city/list',
+        responseText: {
+          code: 1,
+          msg: '获取城市列表成功',
+          localCode: null,
+          list: [
+            {
+              provinceId: 1,
+              provinceName: '北京',
+              cityList: [
+                {
+                  id: 1,
+                  code: '1',
+                  name: '北京'
+                }
+              ]
+            },
+            {
+              provinceId: 2,
+              provinceName: '天津',
+              cityList: [
+                {
+                  id: 2,
+                  code: '2',
+                  name: '天津'
+                }
+              ]
+            },
+            {
+              provinceId: 3,
+              provinceName: '上海',
+              cityList: [
+                {
+                  id: 3,
+                  code: '3',
+                  name: '上海'
+                }
+              ]
+            },
+            {
+              provinceId: 4,
+              provinceName: '重庆',
+              cityList: [
+                {
+                  id: 4,
+                  code: '4',
+                  name: '重庆'
+                }
+              ]
+            },
+            {
+              provinceId: 5,
+              provinceName: '河北',
+              cityList: [
+                {
+                  id: 5,
+                  code: '5',
+                  name: '石家庄'
+                },
+                {
+                  id: 6,
+                  code: '6',
+                  name: '唐山'
+                },
+                {
+                  id: 7,
+                  code: '7',
+                  name: '秦皇岛'
+                },
+                {
+                  id: 8,
+                  code: '8',
+                  name: '邯郸'
+                },
+                {
+                  id: 9,
+                  code: '9',
+                  name: '邢台'
+                },
+                {
+                  id: 10,
+                  code: '10',
+                  name: '保定'
+                },
+                {
+                  id: 11,
+                  code: '11',
+                  name: '张家口'
+                },
+                {
+                  id: 12,
+                  code: '12',
+                  name: '承德'
+                },
+                {
+                  id: 13,
+                  code: '13',
+                  name: '沧州'
+                },
+                {
+                  id: 14,
+                  code: '14',
+                  name: '廊坊'
+                },
+                {
+                  id: 15,
+                  code: '15',
+                  name: '衡水'
+                }
+              ]
+            },
+            {
+              provinceId: 6,
+              provinceName: '山西',
+              cityList: [
+                {
+                  id: 16,
+                  code: '16',
+                  name: '太原'
+                },
+                {
+                  id: 17,
+                  code: '17',
+                  name: '大同'
+                },
+                {
+                  id: 18,
+                  code: '18',
+                  name: '阳泉'
+                },
+                {
+                  id: 19,
+                  code: '19',
+                  name: '长治'
+                },
+                {
+                  id: 20,
+                  code: '20',
+                  name: '晋城'
+                },
+                {
+                  id: 21,
+                  code: '21',
+                  name: '朔州'
+                },
+                {
+                  id: 22,
+                  code: '22',
+                  name: '晋中'
+                },
+                {
+                  id: 23,
+                  code: '23',
+                  name: '运城'
+                },
+                {
+                  id: 24,
+                  code: '24',
+                  name: '忻州'
+                },
+                {
+                  id: 25,
+                  code: '25',
+                  name: '临汾'
+                },
+                {
+                  id: 26,
+                  code: '26',
+                  name: '吕梁'
+                }
+              ]
+            },
+            {
+              provinceId: 7,
+              provinceName: '台湾',
+              cityList: [
+                {
+                  id: 27,
+                  code: '27',
+                  name: '台北'
+                },
+                {
+                  id: 28,
+                  code: '28',
+                  name: '高雄'
+                },
+                {
+                  id: 29,
+                  code: '29',
+                  name: '基隆'
+                },
+                {
+                  id: 30,
+                  code: '30',
+                  name: '台中'
+                },
+                {
+                  id: 31,
+                  code: '31',
+                  name: '台南'
+                },
+                {
+                  id: 32,
+                  code: '32',
+                  name: '新竹'
+                },
+                {
+                  id: 33,
+                  code: '33',
+                  name: '嘉义'
+                },
+                {
+                  id: 34,
+                  code: '34',
+                  name: '台北'
+                },
+                {
+                  id: 35,
+                  code: '35',
+                  name: '宜兰'
+                },
+                {
+                  id: 36,
+                  code: '36',
+                  name: '桃园'
+                },
+                {
+                  id: 37,
+                  code: '37',
+                  name: '新竹'
+                },
+                {
+                  id: 38,
+                  code: '38',
+                  name: '苗栗'
+                },
+                {
+                  id: 39,
+                  code: '39',
+                  name: '台中'
+                },
+                {
+                  id: 40,
+                  code: '40',
+                  name: '彰化'
+                },
+                {
+                  id: 41,
+                  code: '41',
+                  name: '南投'
+                },
+                {
+                  id: 42,
+                  code: '42',
+                  name: '云林'
+                },
+                {
+                  id: 43,
+                  code: '43',
+                  name: '嘉义'
+                },
+                {
+                  id: 44,
+                  code: '44',
+                  name: '台南'
+                },
+                {
+                  id: 45,
+                  code: '45',
+                  name: '高雄'
+                },
+                {
+                  id: 46,
+                  code: '46',
+                  name: '屏东'
+                },
+                {
+                  id: 47,
+                  code: '47',
+                  name: '澎湖'
+                },
+                {
+                  id: 48,
+                  code: '48',
+                  name: '台东'
+                },
+                {
+                  id: 49,
+                  code: '49',
+                  name: '花莲'
+                }
+              ]
+            },
+            {
+              provinceId: 8,
+              provinceName: '辽宁',
+              cityList: [
+                {
+                  id: 50,
+                  code: '50',
+                  name: '沈阳'
+                },
+                {
+                  id: 51,
+                  code: '51',
+                  name: '大连'
+                },
+                {
+                  id: 52,
+                  code: '52',
+                  name: '鞍山'
+                },
+                {
+                  id: 53,
+                  code: '53',
+                  name: '抚顺'
+                },
+                {
+                  id: 54,
+                  code: '54',
+                  name: '本溪'
+                },
+                {
+                  id: 55,
+                  code: '55',
+                  name: '丹东'
+                },
+                {
+                  id: 56,
+                  code: '56',
+                  name: '锦州'
+                },
+                {
+                  id: 57,
+                  code: '57',
+                  name: '营口'
+                },
+                {
+                  id: 58,
+                  code: '58',
+                  name: '阜新'
+                },
+                {
+                  id: 59,
+                  code: '59',
+                  name: '辽阳'
+                },
+                {
+                  id: 60,
+                  code: '60',
+                  name: '盘锦'
+                },
+                {
+                  id: 61,
+                  code: '61',
+                  name: '铁岭'
+                },
+                {
+                  id: 62,
+                  code: '62',
+                  name: '朝阳'
+                },
+                {
+                  id: 63,
+                  code: '63',
+                  name: '葫芦岛'
+                }
+              ]
+            },
+            {
+              provinceId: 9,
+              provinceName: '吉林',
+              cityList: [
+                {
+                  id: 64,
+                  code: '64',
+                  name: '长春'
+                },
+                {
+                  id: 65,
+                  code: '65',
+                  name: '吉林'
+                },
+                {
+                  id: 66,
+                  code: '66',
+                  name: '四平'
+                },
+                {
+                  id: 67,
+                  code: '67',
+                  name: '辽源'
+                },
+                {
+                  id: 68,
+                  code: '68',
+                  name: '通化'
+                },
+                {
+                  id: 69,
+                  code: '69',
+                  name: '白山'
+                },
+                {
+                  id: 70,
+                  code: '70',
+                  name: '松原'
+                },
+                {
+                  id: 71,
+                  code: '71',
+                  name: '白城'
+                },
+                {
+                  id: 72,
+                  code: '72',
+                  name: '延边'
+                }
+              ]
+            },
+            {
+              provinceId: 10,
+              provinceName: '黑龙江',
+              cityList: [
+                {
+                  id: 73,
+                  code: '73',
+                  name: '哈尔滨'
+                },
+                {
+                  id: 74,
+                  code: '74',
+                  name: '齐齐哈尔'
+                },
+                {
+                  id: 75,
+                  code: '75',
+                  name: '鹤岗'
+                },
+                {
+                  id: 76,
+                  code: '76',
+                  name: '双鸭山'
+                },
+                {
+                  id: 77,
+                  code: '77',
+                  name: '鸡西'
+                },
+                {
+                  id: 78,
+                  code: '78',
+                  name: '大庆'
+                },
+                {
+                  id: 79,
+                  code: '79',
+                  name: '伊春'
+                },
+                {
+                  id: 80,
+                  code: '80',
+                  name: '牡丹江'
+                },
+                {
+                  id: 81,
+                  code: '81',
+                  name: '佳木斯'
+                },
+                {
+                  id: 82,
+                  code: '82',
+                  name: '七台河'
+                },
+                {
+                  id: 83,
+                  code: '83',
+                  name: '黑河'
+                },
+                {
+                  id: 84,
+                  code: '84',
+                  name: '绥化'
+                },
+                {
+                  id: 85,
+                  code: '85',
+                  name: '大兴安岭'
+                }
+              ]
+            },
+            {
+              provinceId: 11,
+              provinceName: '江苏',
+              cityList: [
+                {
+                  id: 86,
+                  code: '86',
+                  name: '南京'
+                },
+                {
+                  id: 87,
+                  code: '87',
+                  name: '无锡'
+                },
+                {
+                  id: 88,
+                  code: '88',
+                  name: '徐州'
+                },
+                {
+                  id: 89,
+                  code: '89',
+                  name: '常州'
+                },
+                {
+                  id: 90,
+                  code: '90',
+                  name: '苏州'
+                },
+                {
+                  id: 91,
+                  code: '91',
+                  name: '南通'
+                },
+                {
+                  id: 92,
+                  code: '92',
+                  name: '连云港'
+                },
+                {
+                  id: 93,
+                  code: '93',
+                  name: '淮安'
+                },
+                {
+                  id: 94,
+                  code: '94',
+                  name: '盐城'
+                },
+                {
+                  id: 95,
+                  code: '95',
+                  name: '扬州'
+                },
+                {
+                  id: 96,
+                  code: '96',
+                  name: '镇江'
+                },
+                {
+                  id: 97,
+                  code: '97',
+                  name: '泰州'
+                },
+                {
+                  id: 98,
+                  code: '98',
+                  name: '宿迁'
+                }
+              ]
+            },
+            {
+              provinceId: 12,
+              provinceName: '浙江',
+              cityList: [
+                {
+                  id: 99,
+                  code: '99',
+                  name: '杭州'
+                },
+                {
+                  id: 100,
+                  code: '100',
+                  name: '宁波'
+                },
+                {
+                  id: 101,
+                  code: '101',
+                  name: '温州'
+                },
+                {
+                  id: 102,
+                  code: '102',
+                  name: '嘉兴'
+                },
+                {
+                  id: 103,
+                  code: '103',
+                  name: '湖州'
+                },
+                {
+                  id: 104,
+                  code: '104',
+                  name: '绍兴'
+                },
+                {
+                  id: 105,
+                  code: '105',
+                  name: '金华'
+                },
+                {
+                  id: 106,
+                  code: '106',
+                  name: '衢州'
+                },
+                {
+                  id: 107,
+                  code: '107',
+                  name: '舟山'
+                },
+                {
+                  id: 108,
+                  code: '108',
+                  name: '台州'
+                },
+                {
+                  id: 109,
+                  code: '109',
+                  name: '丽水'
+                }
+              ]
+            },
+            {
+              provinceId: 13,
+              provinceName: '安徽',
+              cityList: [
+                {
+                  id: 110,
+                  code: '110',
+                  name: '合肥'
+                },
+                {
+                  id: 111,
+                  code: '111',
+                  name: '芜湖'
+                },
+                {
+                  id: 112,
+                  code: '112',
+                  name: '蚌埠'
+                },
+                {
+                  id: 113,
+                  code: '113',
+                  name: '淮南'
+                },
+                {
+                  id: 114,
+                  code: '114',
+                  name: '马鞍山'
+                },
+                {
+                  id: 115,
+                  code: '115',
+                  name: '淮北'
+                },
+                {
+                  id: 116,
+                  code: '116',
+                  name: '铜陵'
+                },
+                {
+                  id: 117,
+                  code: '117',
+                  name: '安庆'
+                },
+                {
+                  id: 118,
+                  code: '118',
+                  name: '黄山'
+                },
+                {
+                  id: 119,
+                  code: '119',
+                  name: '滁州'
+                },
+                {
+                  id: 120,
+                  code: '120',
+                  name: '阜阳'
+                },
+                {
+                  id: 121,
+                  code: '121',
+                  name: '宿州'
+                },
+                {
+                  id: 122,
+                  code: '122',
+                  name: '巢湖'
+                },
+                {
+                  id: 123,
+                  code: '123',
+                  name: '六安'
+                },
+                {
+                  id: 124,
+                  code: '124',
+                  name: '亳州'
+                },
+                {
+                  id: 125,
+                  code: '125',
+                  name: '池州'
+                },
+                {
+                  id: 126,
+                  code: '126',
+                  name: '宣城'
+                }
+              ]
+            },
+            {
+              provinceId: 14,
+              provinceName: '福建',
+              cityList: [
+                {
+                  id: 127,
+                  code: '127',
+                  name: '福州'
+                },
+                {
+                  id: 128,
+                  code: '128',
+                  name: '厦门'
+                },
+                {
+                  id: 129,
+                  code: '129',
+                  name: '莆田'
+                },
+                {
+                  id: 130,
+                  code: '130',
+                  name: '三明'
+                },
+                {
+                  id: 131,
+                  code: '131',
+                  name: '泉州'
+                },
+                {
+                  id: 132,
+                  code: '132',
+                  name: '漳州'
+                },
+                {
+                  id: 133,
+                  code: '133',
+                  name: '南平'
+                },
+                {
+                  id: 134,
+                  code: '134',
+                  name: '龙岩'
+                },
+                {
+                  id: 135,
+                  code: '135',
+                  name: '宁德'
+                }
+              ]
+            },
+            {
+              provinceId: 15,
+              provinceName: '江西',
+              cityList: [
+                {
+                  id: 136,
+                  code: '136',
+                  name: '南昌'
+                },
+                {
+                  id: 137,
+                  code: '137',
+                  name: '景德镇'
+                },
+                {
+                  id: 138,
+                  code: '138',
+                  name: '萍乡'
+                },
+                {
+                  id: 139,
+                  code: '139',
+                  name: '九江'
+                },
+                {
+                  id: 140,
+                  code: '140',
+                  name: '新余'
+                },
+                {
+                  id: 141,
+                  code: '141',
+                  name: '鹰潭'
+                },
+                {
+                  id: 142,
+                  code: '142',
+                  name: '赣州'
+                },
+                {
+                  id: 143,
+                  code: '143',
+                  name: '吉安'
+                },
+                {
+                  id: 144,
+                  code: '144',
+                  name: '宜春'
+                },
+                {
+                  id: 145,
+                  code: '145',
+                  name: '抚州'
+                },
+                {
+                  id: 146,
+                  code: '146',
+                  name: '上饶'
+                }
+              ]
+            },
+            {
+              provinceId: 16,
+              provinceName: '山东',
+              cityList: [
+                {
+                  id: 147,
+                  code: '147',
+                  name: '济南'
+                },
+                {
+                  id: 148,
+                  code: '148',
+                  name: '青岛'
+                },
+                {
+                  id: 149,
+                  code: '149',
+                  name: '淄博'
+                },
+                {
+                  id: 150,
+                  code: '150',
+                  name: '枣庄'
+                },
+                {
+                  id: 151,
+                  code: '151',
+                  name: '东营'
+                },
+                {
+                  id: 152,
+                  code: '152',
+                  name: '烟台'
+                },
+                {
+                  id: 153,
+                  code: '153',
+                  name: '潍坊'
+                },
+                {
+                  id: 154,
+                  code: '154',
+                  name: '济宁'
+                },
+                {
+                  id: 155,
+                  code: '155',
+                  name: '泰安'
+                },
+                {
+                  id: 156,
+                  code: '156',
+                  name: '威海'
+                },
+                {
+                  id: 157,
+                  code: '157',
+                  name: '日照'
+                },
+                {
+                  id: 158,
+                  code: '158',
+                  name: '莱芜'
+                },
+                {
+                  id: 159,
+                  code: '159',
+                  name: '临沂'
+                },
+                {
+                  id: 160,
+                  code: '160',
+                  name: '德州'
+                },
+                {
+                  id: 161,
+                  code: '161',
+                  name: '聊城'
+                },
+                {
+                  id: 162,
+                  code: '162',
+                  name: '滨州'
+                },
+                {
+                  id: 163,
+                  code: '163',
+                  name: '菏泽'
+                }
+              ]
+            },
+            {
+              provinceId: 17,
+              provinceName: '河南',
+              cityList: [
+                {
+                  id: 164,
+                  code: '164',
+                  name: '郑州'
+                },
+                {
+                  id: 165,
+                  code: '165',
+                  name: '开封'
+                },
+                {
+                  id: 166,
+                  code: '166',
+                  name: '洛阳'
+                },
+                {
+                  id: 167,
+                  code: '167',
+                  name: '平顶山'
+                },
+                {
+                  id: 168,
+                  code: '168',
+                  name: '安阳'
+                },
+                {
+                  id: 169,
+                  code: '169',
+                  name: '鹤壁'
+                },
+                {
+                  id: 170,
+                  code: '170',
+                  name: '新乡'
+                },
+                {
+                  id: 171,
+                  code: '171',
+                  name: '焦作'
+                },
+                {
+                  id: 172,
+                  code: '172',
+                  name: '濮阳'
+                },
+                {
+                  id: 173,
+                  code: '173',
+                  name: '许昌'
+                },
+                {
+                  id: 174,
+                  code: '174',
+                  name: '漯河'
+                },
+                {
+                  id: 175,
+                  code: '175',
+                  name: '三门峡'
+                },
+                {
+                  id: 176,
+                  code: '176',
+                  name: '南阳'
+                },
+                {
+                  id: 177,
+                  code: '177',
+                  name: '商丘'
+                },
+                {
+                  id: 178,
+                  code: '178',
+                  name: '信阳'
+                },
+                {
+                  id: 179,
+                  code: '179',
+                  name: '周口'
+                },
+                {
+                  id: 180,
+                  code: '180',
+                  name: '驻马店'
+                },
+                {
+                  id: 181,
+                  code: '181',
+                  name: '济源'
+                }
+              ]
+            },
+            {
+              provinceId: 18,
+              provinceName: '湖北',
+              cityList: [
+                {
+                  id: 182,
+                  code: '182',
+                  name: '武汉'
+                },
+                {
+                  id: 183,
+                  code: '183',
+                  name: '黄石'
+                },
+                {
+                  id: 184,
+                  code: '184',
+                  name: '十堰'
+                },
+                {
+                  id: 185,
+                  code: '185',
+                  name: '荆州'
+                },
+                {
+                  id: 186,
+                  code: '186',
+                  name: '宜昌'
+                },
+                {
+                  id: 187,
+                  code: '187',
+                  name: '襄阳'
+                },
+                {
+                  id: 188,
+                  code: '188',
+                  name: '鄂州'
+                },
+                {
+                  id: 189,
+                  code: '189',
+                  name: '荆门'
+                },
+                {
+                  id: 190,
+                  code: '190',
+                  name: '孝感'
+                },
+                {
+                  id: 191,
+                  code: '191',
+                  name: '黄冈'
+                },
+                {
+                  id: 192,
+                  code: '192',
+                  name: '咸宁'
+                },
+                {
+                  id: 193,
+                  code: '193',
+                  name: '随州'
+                },
+                {
+                  id: 194,
+                  code: '194',
+                  name: '仙桃'
+                },
+                {
+                  id: 195,
+                  code: '195',
+                  name: '天门'
+                },
+                {
+                  id: 196,
+                  code: '196',
+                  name: '潜江'
+                },
+                {
+                  id: 197,
+                  code: '197',
+                  name: '神农架'
+                },
+                {
+                  id: 198,
+                  code: '198',
+                  name: '恩施'
+                }
+              ]
+            },
+            {
+              provinceId: 19,
+              provinceName: '湖南',
+              cityList: [
+                {
+                  id: 199,
+                  code: '199',
+                  name: '长沙'
+                },
+                {
+                  id: 200,
+                  code: '200',
+                  name: '株洲'
+                },
+                {
+                  id: 201,
+                  code: '201',
+                  name: '湘潭'
+                },
+                {
+                  id: 202,
+                  code: '202',
+                  name: '衡阳'
+                },
+                {
+                  id: 203,
+                  code: '203',
+                  name: '邵阳'
+                },
+                {
+                  id: 204,
+                  code: '204',
+                  name: '岳阳'
+                },
+                {
+                  id: 205,
+                  code: '205',
+                  name: '常德'
+                },
+                {
+                  id: 206,
+                  code: '206',
+                  name: '张家界'
+                },
+                {
+                  id: 207,
+                  code: '207',
+                  name: '益阳'
+                },
+                {
+                  id: 208,
+                  code: '208',
+                  name: '郴州'
+                },
+                {
+                  id: 209,
+                  code: '209',
+                  name: '永州'
+                },
+                {
+                  id: 210,
+                  code: '210',
+                  name: '怀化'
+                },
+                {
+                  id: 211,
+                  code: '211',
+                  name: '娄底'
+                },
+                {
+                  id: 212,
+                  code: '212',
+                  name: '湘西'
+                }
+              ]
+            },
+            {
+              provinceId: 20,
+              provinceName: '广东',
+              cityList: [
+                {
+                  id: 213,
+                  code: '213',
+                  name: '广州'
+                },
+                {
+                  id: 214,
+                  code: '214',
+                  name: '深圳'
+                },
+                {
+                  id: 215,
+                  code: '215',
+                  name: '珠海'
+                },
+                {
+                  id: 216,
+                  code: '216',
+                  name: '汕头'
+                },
+                {
+                  id: 217,
+                  code: '217',
+                  name: '韶关'
+                },
+                {
+                  id: 218,
+                  code: '218',
+                  name: '佛山'
+                },
+                {
+                  id: 219,
+                  code: '219',
+                  name: '江门'
+                },
+                {
+                  id: 220,
+                  code: '220',
+                  name: '湛江'
+                },
+                {
+                  id: 221,
+                  code: '221',
+                  name: '茂名'
+                },
+                {
+                  id: 222,
+                  code: '222',
+                  name: '肇庆'
+                },
+                {
+                  id: 223,
+                  code: '223',
+                  name: '惠州'
+                },
+                {
+                  id: 224,
+                  code: '224',
+                  name: '梅州'
+                },
+                {
+                  id: 225,
+                  code: '225',
+                  name: '汕尾'
+                },
+                {
+                  id: 226,
+                  code: '226',
+                  name: '河源'
+                },
+                {
+                  id: 227,
+                  code: '227',
+                  name: '阳江'
+                },
+                {
+                  id: 228,
+                  code: '228',
+                  name: '清远'
+                },
+                {
+                  id: 229,
+                  code: '229',
+                  name: '东莞'
+                },
+                {
+                  id: 230,
+                  code: '230',
+                  name: '中山'
+                },
+                {
+                  id: 231,
+                  code: '231',
+                  name: '潮州'
+                },
+                {
+                  id: 232,
+                  code: '232',
+                  name: '揭阳'
+                },
+                {
+                  id: 233,
+                  code: '233',
+                  name: '云浮'
+                }
+              ]
+            },
+            {
+              provinceId: 21,
+              provinceName: '甘肃',
+              cityList: [
+                {
+                  id: 234,
+                  code: '234',
+                  name: '兰州'
+                },
+                {
+                  id: 235,
+                  code: '235',
+                  name: '金昌'
+                },
+                {
+                  id: 236,
+                  code: '236',
+                  name: '白银'
+                },
+                {
+                  id: 237,
+                  code: '237',
+                  name: '天水'
+                },
+                {
+                  id: 238,
+                  code: '238',
+                  name: '嘉峪关'
+                },
+                {
+                  id: 239,
+                  code: '239',
+                  name: '武威'
+                },
+                {
+                  id: 240,
+                  code: '240',
+                  name: '张掖'
+                },
+                {
+                  id: 241,
+                  code: '241',
+                  name: '平凉'
+                },
+                {
+                  id: 242,
+                  code: '242',
+                  name: '酒泉'
+                },
+                {
+                  id: 243,
+                  code: '243',
+                  name: '庆阳'
+                },
+                {
+                  id: 244,
+                  code: '244',
+                  name: '定西'
+                },
+                {
+                  id: 245,
+                  code: '245',
+                  name: '陇南'
+                },
+                {
+                  id: 246,
+                  code: '246',
+                  name: '临夏'
+                },
+                {
+                  id: 247,
+                  code: '247',
+                  name: '甘南'
+                }
+              ]
+            },
+            {
+              provinceId: 22,
+              provinceName: '四川',
+              cityList: [
+                {
+                  id: 248,
+                  code: '248',
+                  name: '成都'
+                },
+                {
+                  id: 249,
+                  code: '249',
+                  name: '自贡'
+                },
+                {
+                  id: 250,
+                  code: '250',
+                  name: '攀枝花'
+                },
+                {
+                  id: 251,
+                  code: '251',
+                  name: '泸州'
+                },
+                {
+                  id: 252,
+                  code: '252',
+                  name: '德阳'
+                },
+                {
+                  id: 253,
+                  code: '253',
+                  name: '绵阳'
+                },
+                {
+                  id: 254,
+                  code: '254',
+                  name: '广元'
+                },
+                {
+                  id: 255,
+                  code: '255',
+                  name: '遂宁'
+                },
+                {
+                  id: 256,
+                  code: '256',
+                  name: '内江'
+                },
+                {
+                  id: 257,
+                  code: '257',
+                  name: '乐山'
+                },
+                {
+                  id: 258,
+                  code: '258',
+                  name: '南充'
+                },
+                {
+                  id: 259,
+                  code: '259',
+                  name: '眉山'
+                },
+                {
+                  id: 260,
+                  code: '260',
+                  name: '宜宾'
+                },
+                {
+                  id: 261,
+                  code: '261',
+                  name: '广安'
+                },
+                {
+                  id: 262,
+                  code: '262',
+                  name: '达州'
+                },
+                {
+                  id: 263,
+                  code: '263',
+                  name: '雅安'
+                },
+                {
+                  id: 264,
+                  code: '264',
+                  name: '巴中'
+                },
+                {
+                  id: 265,
+                  code: '265',
+                  name: '资阳'
+                },
+                {
+                  id: 266,
+                  code: '266',
+                  name: '阿坝'
+                },
+                {
+                  id: 267,
+                  code: '267',
+                  name: '甘孜'
+                },
+                {
+                  id: 268,
+                  code: '268',
+                  name: '凉山'
+                }
+              ]
+            },
+            {
+              provinceId: 24,
+              provinceName: '贵州',
+              cityList: [
+                {
+                  id: 269,
+                  code: '269',
+                  name: '贵阳'
+                },
+                {
+                  id: 270,
+                  code: '270',
+                  name: '六盘水'
+                },
+                {
+                  id: 271,
+                  code: '271',
+                  name: '遵义'
+                },
+                {
+                  id: 272,
+                  code: '272',
+                  name: '安顺'
+                },
+                {
+                  id: 273,
+                  code: '273',
+                  name: '铜仁'
+                },
+                {
+                  id: 274,
+                  code: '274',
+                  name: '毕节'
+                },
+                {
+                  id: 275,
+                  code: '275',
+                  name: '黔西南'
+                },
+                {
+                  id: 276,
+                  code: '276',
+                  name: '黔东南'
+                },
+                {
+                  id: 277,
+                  code: '277',
+                  name: '黔南'
+                }
+              ]
+            },
+            {
+              provinceId: 25,
+              provinceName: '海南',
+              cityList: [
+                {
+                  id: 278,
+                  code: '278',
+                  name: '海口'
+                },
+                {
+                  id: 279,
+                  code: '279',
+                  name: '三亚'
+                },
+                {
+                  id: 280,
+                  code: '280',
+                  name: '五指山'
+                },
+                {
+                  id: 281,
+                  code: '281',
+                  name: '琼海'
+                },
+                {
+                  id: 282,
+                  code: '282',
+                  name: '儋州'
+                },
+                {
+                  id: 283,
+                  code: '283',
+                  name: '文昌'
+                },
+                {
+                  id: 284,
+                  code: '284',
+                  name: '万宁'
+                },
+                {
+                  id: 285,
+                  code: '285',
+                  name: '东方'
+                },
+                {
+                  id: 286,
+                  code: '286',
+                  name: '澄迈'
+                },
+                {
+                  id: 287,
+                  code: '287',
+                  name: '定安'
+                },
+                {
+                  id: 288,
+                  code: '288',
+                  name: '屯昌'
+                },
+                {
+                  id: 289,
+                  code: '289',
+                  name: '临高'
+                },
+                {
+                  id: 290,
+                  code: '290',
+                  name: '白沙'
+                },
+                {
+                  id: 291,
+                  code: '291',
+                  name: '昌江'
+                },
+                {
+                  id: 292,
+                  code: '292',
+                  name: '乐东'
+                },
+                {
+                  id: 293,
+                  code: '293',
+                  name: '陵水'
+                },
+                {
+                  id: 294,
+                  code: '294',
+                  name: '保亭'
+                },
+                {
+                  id: 295,
+                  code: '295',
+                  name: '琼中'
+                }
+              ]
+            },
+            {
+              provinceId: 26,
+              provinceName: '云南',
+              cityList: [
+                {
+                  id: 296,
+                  code: '296',
+                  name: '昆明'
+                },
+                {
+                  id: 297,
+                  code: '297',
+                  name: '曲靖'
+                },
+                {
+                  id: 298,
+                  code: '298',
+                  name: '玉溪'
+                },
+                {
+                  id: 299,
+                  code: '299',
+                  name: '保山'
+                },
+                {
+                  id: 300,
+                  code: '300',
+                  name: '昭通'
+                },
+                {
+                  id: 301,
+                  code: '301',
+                  name: '丽江'
+                },
+                {
+                  id: 302,
+                  code: '302',
+                  name: '思茅'
+                },
+                {
+                  id: 303,
+                  code: '303',
+                  name: '临沧'
+                },
+                {
+                  id: 304,
+                  code: '304',
+                  name: '文山'
+                },
+                {
+                  id: 305,
+                  code: '305',
+                  name: '红河'
+                },
+                {
+                  id: 306,
+                  code: '306',
+                  name: '西双版纳'
+                },
+                {
+                  id: 307,
+                  code: '307',
+                  name: '楚雄'
+                },
+                {
+                  id: 308,
+                  code: '308',
+                  name: '大理'
+                },
+                {
+                  id: 309,
+                  code: '309',
+                  name: '德宏'
+                },
+                {
+                  id: 310,
+                  code: '310',
+                  name: '怒江'
+                },
+                {
+                  id: 311,
+                  code: '311',
+                  name: '迪庆'
+                }
+              ]
+            },
+            {
+              provinceId: 27,
+              provinceName: '青海',
+              cityList: [
+                {
+                  id: 312,
+                  code: '312',
+                  name: '西宁'
+                },
+                {
+                  id: 313,
+                  code: '313',
+                  name: '海东'
+                },
+                {
+                  id: 314,
+                  code: '314',
+                  name: '海北'
+                },
+                {
+                  id: 315,
+                  code: '315',
+                  name: '黄南'
+                },
+                {
+                  id: 316,
+                  code: '316',
+                  name: '海南'
+                },
+                {
+                  id: 317,
+                  code: '317',
+                  name: '果洛'
+                },
+                {
+                  id: 318,
+                  code: '318',
+                  name: '玉树'
+                },
+                {
+                  id: 319,
+                  code: '319',
+                  name: '海西'
+                }
+              ]
+            },
+            {
+              provinceId: 28,
+              provinceName: '陕西',
+              cityList: [
+                {
+                  id: 320,
+                  code: '320',
+                  name: '西安'
+                },
+                {
+                  id: 321,
+                  code: '321',
+                  name: '铜川'
+                },
+                {
+                  id: 322,
+                  code: '322',
+                  name: '宝鸡'
+                },
+                {
+                  id: 323,
+                  code: '323',
+                  name: '咸阳'
+                },
+                {
+                  id: 324,
+                  code: '324',
+                  name: '渭南'
+                },
+                {
+                  id: 325,
+                  code: '325',
+                  name: '延安'
+                },
+                {
+                  id: 326,
+                  code: '326',
+                  name: '汉中'
+                },
+                {
+                  id: 327,
+                  code: '327',
+                  name: '榆林'
+                },
+                {
+                  id: 328,
+                  code: '328',
+                  name: '安康'
+                },
+                {
+                  id: 329,
+                  code: '329',
+                  name: '商洛'
+                }
+              ]
+            },
+            {
+              provinceId: 29,
+              provinceName: '广西',
+              cityList: [
+                {
+                  id: 330,
+                  code: '330',
+                  name: '南宁'
+                },
+                {
+                  id: 331,
+                  code: '331',
+                  name: '柳州'
+                },
+                {
+                  id: 332,
+                  code: '332',
+                  name: '桂林'
+                },
+                {
+                  id: 333,
+                  code: '333',
+                  name: '北海'
+                },
+                {
+                  id: 334,
+                  code: '334',
+                  name: '防城港'
+                },
+                {
+                  id: 335,
+                  code: '335',
+                  name: '钦州'
+                },
+                {
+                  id: 336,
+                  code: '336',
+                  name: '贵港'
+                },
+                {
+                  id: 337,
+                  code: '337',
+                  name: '玉林'
+                },
+                {
+                  id: 338,
+                  code: '338',
+                  name: '百色'
+                },
+                {
+                  id: 339,
+                  code: '339',
+                  name: '贺州'
+                },
+                {
+                  id: 340,
+                  code: '340',
+                  name: '河池'
+                },
+                {
+                  id: 341,
+                  code: '341',
+                  name: '来宾'
+                },
+                {
+                  id: 342,
+                  code: '342',
+                  name: '崇左'
+                }
+              ]
+            },
+            {
+              provinceId: 30,
+              provinceName: '西藏',
+              cityList: [
+                {
+                  id: 343,
+                  code: '343',
+                  name: '拉萨'
+                },
+                {
+                  id: 344,
+                  code: '344',
+                  name: '那曲'
+                },
+                {
+                  id: 345,
+                  code: '345',
+                  name: '昌都'
+                },
+                {
+                  id: 346,
+                  code: '346',
+                  name: '山南'
+                },
+                {
+                  id: 347,
+                  code: '347',
+                  name: '日喀则'
+                },
+                {
+                  id: 348,
+                  code: '348',
+                  name: '阿里'
+                },
+                {
+                  id: 349,
+                  code: '349',
+                  name: '林芝'
+                }
+              ]
+            },
+            {
+              provinceId: 31,
+              provinceName: '宁夏',
+              cityList: [
+                {
+                  id: 350,
+                  code: '350',
+                  name: '银川'
+                },
+                {
+                  id: 351,
+                  code: '351',
+                  name: '石嘴山'
+                },
+                {
+                  id: 352,
+                  code: '352',
+                  name: '吴忠'
+                },
+                {
+                  id: 353,
+                  code: '353',
+                  name: '固原'
+                },
+                {
+                  id: 354,
+                  code: '354',
+                  name: '中卫'
+                }
+              ]
+            },
+            {
+              provinceId: 32,
+              provinceName: '新疆',
+              cityList: [
+                {
+                  id: 355,
+                  code: '355',
+                  name: '乌鲁木齐'
+                },
+                {
+                  id: 356,
+                  code: '356',
+                  name: '克拉玛依'
+                },
+                {
+                  id: 357,
+                  code: '357',
+                  name: '石河子　'
+                },
+                {
+                  id: 358,
+                  code: '358',
+                  name: '阿拉尔'
+                },
+                {
+                  id: 359,
+                  code: '359',
+                  name: '图木舒克'
+                },
+                {
+                  id: 360,
+                  code: '360',
+                  name: '五家渠'
+                },
+                {
+                  id: 361,
+                  code: '361',
+                  name: '吐鲁番'
+                },
+                {
+                  id: 362,
+                  code: '362',
+                  name: '阿克苏'
+                },
+                {
+                  id: 363,
+                  code: '363',
+                  name: '喀什'
+                },
+                {
+                  id: 364,
+                  code: '364',
+                  name: '哈密'
+                },
+                {
+                  id: 365,
+                  code: '365',
+                  name: '和田'
+                },
+                {
+                  id: 366,
+                  code: '366',
+                  name: '阿图什'
+                },
+                {
+                  id: 367,
+                  code: '367',
+                  name: '库尔勒'
+                },
+                {
+                  id: 368,
+                  code: '368',
+                  name: '昌吉　'
+                },
+                {
+                  id: 369,
+                  code: '369',
+                  name: '阜康'
+                },
+                {
+                  id: 370,
+                  code: '370',
+                  name: '米泉'
+                },
+                {
+                  id: 371,
+                  code: '371',
+                  name: '博乐'
+                },
+                {
+                  id: 372,
+                  code: '372',
+                  name: '伊宁'
+                },
+                {
+                  id: 373,
+                  code: '373',
+                  name: '奎屯'
+                },
+                {
+                  id: 374,
+                  code: '374',
+                  name: '塔城'
+                },
+                {
+                  id: 375,
+                  code: '375',
+                  name: '乌苏'
+                },
+                {
+                  id: 376,
+                  code: '376',
+                  name: '阿勒泰'
+                }
+              ]
+            },
+            {
+              provinceId: 33,
+              provinceName: '内蒙古',
+              cityList: [
+                {
+                  id: 377,
+                  code: '377',
+                  name: '呼和浩特'
+                },
+                {
+                  id: 378,
+                  code: '378',
+                  name: '包头'
+                },
+                {
+                  id: 379,
+                  code: '379',
+                  name: '乌海'
+                },
+                {
+                  id: 380,
+                  code: '380',
+                  name: '赤峰'
+                },
+                {
+                  id: 381,
+                  code: '381',
+                  name: '通辽'
+                },
+                {
+                  id: 382,
+                  code: '382',
+                  name: '鄂尔多斯'
+                },
+                {
+                  id: 383,
+                  code: '383',
+                  name: '呼伦贝尔'
+                },
+                {
+                  id: 384,
+                  code: '384',
+                  name: '巴彦淖尔'
+                },
+                {
+                  id: 385,
+                  code: '385',
+                  name: '乌兰察布'
+                },
+                {
+                  id: 386,
+                  code: '386',
+                  name: '锡林郭勒盟'
+                },
+                {
+                  id: 387,
+                  code: '387',
+                  name: '兴安盟'
+                },
+                {
+                  id: 388,
+                  code: '388',
+                  name: '阿拉善盟'
+                }
+              ]
+            },
+            {
+              provinceId: 34,
+              provinceName: '澳门',
+              cityList: [
+                {
+                  id: 389,
+                  code: '389',
+                  name: '澳门'
+                }
+              ]
+            },
+            {
+              provinceId: 35,
+              provinceName: '香港',
+              cityList: [
+                {
+                  id: 390,
+                  code: '390',
+                  name: '香港'
+                }
+              ]
+            },
+            {
+              provinceId: 56,
+              provinceName: '虚拟',
+              cityList: [
+                {
+                  id: 392,
+                  code: '393',
+                  name: '虚拟'
+                }
+              ]
+            }
+          ]
+        }
+      })
+    </script>
+    <!-- mock data end -->
+    <script>
+      // toast
+      var showToast = (function () {
+        var timer = null
+        var $toast = $('#js_toast')
+
+        return function (txt, sec) {
+          if (timer) {
+            clearTimeout(timer)
+          }
+          $toast.text(txt).show()
+          timer = setTimeout(function () {
+            $toast.hide()
+          }, sec || 2500)
+        }
+      })()
+      // dialog
+      function dialog(html) {
+        $('#js_dialog_mask').removeClass('hidden')
+        $('#js_dialog_wrp').find('.dialog-body').html(html).end().removeClass('hidden')
+      }
+      $('#js_dialog_wrp')
+        .on('click', '.btn-close', function () {
+          $(this).parent().addClass('hidden')
+          $('#js_dialog_mask').addClass('hidden')
+        })
+        .on('click', '.btn-copy', function () {
+          var txt = $('#js_dialog_wrp').find('.copy-p').text()
+          copyText(txt, function () {
+            showToast('复制成功')
+          })
+        })
+      function toggleLoading() {
+        if ($('#js_dialog_mask').hasClass('hidden')) {
+          $('#js_dialog_mask, #js_loadIcon').removeClass('hidden')
+        } else {
+          $('#js_dialog_mask, #js_loadIcon').addClass('hidden')
+        }
+      }
+      // requestParam
+      function requestParam(strName) {
+        var strHref = location.search
+        var intPos = strHref.indexOf('?')
+        if (intPos === -1) {
+          return ''
+        }
+        var strRight = strHref.substr(intPos + 1)
+        var arrTmp = strRight.split('&')
+        for (var i = 0; i < arrTmp.length; i++) {
+          var arrTemp = arrTmp[i].split('=')
+          if (arrTemp[0].toUpperCase() == strName.toUpperCase()) {
+            if (i === arrTmp.length - 1) {
+              var sIndex = arrTemp[1].indexOf('#')
+              if (sIndex !== -1) {
+                arrTemp[1] = arrTemp[1].substring(0, sIndex)
+              }
+            }
+            return arrTemp[1]
+          }
+        }
+        return ''
+      }
+      // 表单序列化
+      function serializeObject(form) {
+        var o = {},
+          f_ = $(form).serializeArray()
+        $.each(f_, function (i, n) {
+          if (o[n['name']]) {
+            o[n['name']] = o[n['name']] + ',' + $.trim(n['value'])
+          } else {
+            o[n['name']] = $.trim(n['value'])
+          }
+        })
+        return o
+      }
+      // 校验
+      function validate(rule, value) {
+        return !rule.test(value)
+      }
+      function _cusPost(url, data) {
+        var baseUrl = '/tdm-web/wechat/form'
+        return $.ajax({
+          url: baseUrl + url,
+          type: 'POST',
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify(data || {})
+        })
+      }
+      // 构建 省/市 select
+      function createSelect(list, text, value) {
+        var tmp = []
+        for (var i = 0; i < list.length; i++) {
+          var item = list[i]
+          tmp.push('<option value="' + item[value] + '">' + item[text] + '</option>')
+        }
+        return tmp
+      }
+      // 构建 课程 html
+      function createCourseHtml(list) {
+        var tmp = []
+        for (var i = 0; i < list.length; i++) {
+          var item = list[i]
+          tmp.push(
+            '<li class="radio ' +
+              (i % 2 == 0 ? 'clearB' : '') +
+              '"><label><input class="inp-radio" type="radio" name="courseId" data-text="' +
+              item.name +
+              '" value="' +
+              item.id +
+              '"><span></span><p>' +
+              item.name +
+              '</p></label></li>'
+          )
+        }
+        return tmp
+      }
+
+      var CITY_LIST = { prov: [] }
+      // 初始化
+      ;(function () {
+        // 展示 email 项
+        if (requestParam('fileType') === 'card') {
+          $('#emailItem').show()
+        }
+
+        // 获取城市列表
+        _cusPost('/city/list').then(function (res) {
+          if (res.code == 1) {
+            // console.log(res.list)
+            if (res.list) {
+              res.list.forEach(function (item) {
+                CITY_LIST.prov.push({
+                  code: item.provinceId,
+                  name: item.provinceName
+                })
+
+                if (!CITY_LIST['c_' + item.provinceId]) {
+                  CITY_LIST['c_' + item.provinceId] = item
+                }
+              })
+              // 省
+              $('#js_province').html(createSelect(CITY_LIST.prov, 'name', 'code').join(''))
+              // 市
+              $('#js_province').trigger('change')
+            }
+          } else {
+            showToast(res.msg)
+          }
+        })
+
+        //  获取课程列表
+        var _data = {
+          source: requestParam('source'),
+          type: requestParam('type')
+        }
+        _cusPost('/course/list', _data).then(function (res) {
+          if (res.code == 1) {
+            if (res.data.imageList) {
+              $('#js_posterWrp').css({ backgroundImage: 'url(' + res.data.imageList[0] + ')' })
+            }
+            if (res.data.courseList) {
+              $('#js_courseList').html(createCourseHtml(res.data.courseList).join(''))
+            }
+          } else {
+            showToast(res.msg)
+          }
+        })
+      })()
+
+      // bind event
+      // 改变省，触发更改城市
+      $('#js_province').change(function () {
+        var _t = $(this)
+        var val = _t.val()
+        if (val) {
+          $('#js_city').html(createSelect(CITY_LIST['c_' + val].cityList, 'name', 'code').join(''))
+        }
+      })
+      // submit form
+      var btnFlag = true
+      $('#js_submit').click(function () {
+        var subData = serializeObject('#js_form')
+        if (validate(/^[\u4e00-\u9fa5]+$/, subData.name)) {
+          showToast('请输入您的姓名')
+          return false
+        }
+        if (validate(/^((?!1{11})1\d{10})$|^(09\d{8})$/, subData.phone)) {
+          showToast('请输入您的手机号或输入有误')
+          return false
+        }
+        if (
+          requestParam('fileType') === 'card' &&
+          validate(/^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/, subData.email)
+        ) {
+          showToast('请输入您的邮箱地址或输入有误')
+          return false
+        }
+        if (subData.courseId == null || subData.courseId == '') {
+          showToast('请选择您要预约的课程')
+          return false
+        }
+        // flag
+        if (btnFlag) {
+          // 追加参数
+          subData.source = requestParam('source')
+          subData.type = requestParam('type')
+          subData.fileType = requestParam('fileType')
+          subData.cityName = $('#js_city option:selected').text()
+          subData.courseName = $('.inp-radio:checked').data('text')
+          // ajax
+          btnFlag = false
+          toggleLoading()
+          _cusPost('/submit', subData)
+            .then(function (res) {
+              btnFlag = true
+              toggleLoading()
+              if (res.code == 1) {
+                if (res.data != null) {
+                  var html = ''
+                  if (res.data.fileType == 'net') {
+                    html =
+                      '<p class="copy-p">网盘地址：' +
+                      res.data.url +
+                      '</p><p class="copy-p"> 提取码：' +
+                      res.data.extractCode +
+                      '</p>'
+                  } else if (res.data.fileType == 'card') {
+                    html =
+                      '<p class="copy-p">激活指南：<a href="' +
+                      res.data.url +
+                      '">' +
+                      res.data.url +
+                      '</a></p><p class="copy-p">学习卡：' +
+                      res.data.account +
+                      '</p><p class="copy-p"> 密码：' +
+                      res.data.pwd +
+                      '</p>'
+                  }
+                  dialog(html)
+                } else {
+                  showToast('预约成功')
+                  setTimeout(function () {
+                    history.back()
+                  }, 1000)
+                }
+              } else {
+                showToast(res.msg)
+              }
+            })
+            .fail(function () {
+              btnFlag = true
+              toggleLoading()
+            })
+        }
+      })
+    </script>
+  </body>
+</html>

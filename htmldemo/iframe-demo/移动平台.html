@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>移动平台</title>
+<link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<!--<link href="../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+<link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/iconfont.css" type="text/css"/>
+<link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<link href="../../css/animate.css" rel="stylesheet">
+<link href="../../css/style.css" rel="stylesheet">
+<style>
+    .md-2018112901-xxw {
+        padding: 10px;
+        width: 280px;
+        height: 80px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #dddddd;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+    .md-2018112901-xxw .md-hd {
+        margin-bottom: 15px;
+    }
+
+    .md-2018112901-xxw .title-xxw {
+        width: 190px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 16px;
+    }
+
+    .md-2018112901-xxw .highlight-x {
+        color: #299be4;
+    }
+
+    .md-2018112901-xxw .cursx {
+        display: none;
+        font-size: 12px;
+    }
+
+    .md-2018112901-xxw.type1 .cursx1 {
+        display: block;
+        color: #40b641;
+    }
+
+    .md-2018112901-xxw.type2 .cursx2 {
+        display: block;
+        color: #c22123;
+    }
+
+    .md-2018112901-xxw.md-create-xxw .left-x {
+        width: 60px;
+        height: 60px;
+        display: inline-block;
+        vertical-align: middle;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        position: relative;
+    }
+
+    .md-2018112901-xxw.md-create-xxw .left-x::before {
+        content: ' ';
+        height: 30px;
+        position: absolute;
+        top: 13px;
+        left: 26px;
+        border-left: 2px solid #ddd;
+    }
+
+    .md-2018112901-xxw.md-create-xxw .left-x::after {
+        content: ' ';
+        width: 30px;
+        position: absolute;
+        left: 13px;
+        top: 26px;
+        border-top: 2px solid #ddd;
+    }
+
+    .md-2018112901-xxw.md-create-xxw .right-x {
+        color: #299be4;
+        font-size: 16px;
+        font-weight: bold;
+        margin-left: 20px;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="md-2018112901-xxw type1 pull-left">
+        <div class="md-hd clearfix">
+            <div class="pull-left font-bold title-xxw">已启用已启用已启用已启用已启用已启用</div>
+            <div class="pull-right text-right">
+                <span class="cursx cursx1">已启用</span>
+                <span class="cursx cursx2">已禁用</span>
+            </div>
+        </div>
+        <div class="md-bd">
+            <div class="pull-left">已注册<span class="highlight-x">5个</span>接口</div>
+            <div class="pull-right">已消费<span class="highlight-x">3个</span>接口</div>
+        </div>
+    </div>
+    <div class="md-2018112901-xxw type2 pull-left">
+        <div class="md-hd clearfix">
+            <div class="pull-left font-bold title-xxw">已启用已启用已启用已启用已启用已启用</div>
+            <div class="pull-right text-right">
+                <span class="cursx cursx1">已启用</span>
+                <span class="cursx cursx2">已禁用</span>
+            </div>
+        </div>
+        <div class="md-bd">
+            <div class="pull-left">已注册<span class="highlight-x">5个</span>接口</div>
+            <div class="pull-right">已消费<span class="highlight-x">3个</span>接口</div>
+        </div>
+    </div>
+    <div class="md-2018112901-xxw pull-left md-create-xxw">
+        <div class="left-x text-center"></div>
+        <span class="right-x ">创建新应用</span>
+    </div>
+
+</div>
+
+
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+
+<script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+
+<script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+
+<script src="../../js/plugins/jsTree/jstree.min.js"></script>
+<script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="../../js/plugins/layer/layer.js"></script>
+<script src="../../i18n/zh-CN.js"></script>
+<script src="../../js/plugins/iCheck/icheck.min.js"></script>
+
+<script src="../../js/subindex.js"></script>
+
+<script>
+
+  $(function () {
+    $('.i-checks').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square-green',
+    });
+
+    $('#add_code_str').click(function () {
+      var t = COM_TOOLS.get_UID('a');
+      var flag = true;
+      $('.md-2018113001-xxw').find('.js-inputx').each(function () {
+        if (!$('#form_id').validate().element(this)) {
+          flag = false;
+          return false;
+        }
+      });
+      if (flag) {
+        $('.js-addlist-boxx').append('<div class="form-group">' +
+          '<label class=" control-label">字段标记</label>' +
+          ' <input name="name1'+t+'"  cus-specialchars="true" required class="form-control input-sm js-inputx" type="text">' +
+          ' <label class="control-label">字段名称</label>' +
+          ' <input name="name2'+t+'" required class="form-control input-sm js-inputx" type="text">' +
+          ' <label><input class="i-checks" type="checkbox">必须包含</label>' +
+          ' <span class="js-del-btnx del-btn-xxw text-danger"><i class="glyphicon glyphicon-trash"></i></span>' +
+          '</div>');
+        $('.i-checks').iCheck({
+          checkboxClass: 'icheckbox_square-green',
+          radioClass: 'iradio_square-green',
+        });
+      }
+     return false;
+    });
+    $('.md-2018113001-xxw').on('click', '.js-del-btnx', function () {
+      $(this).closest('.form-group').remove();
+    })
+    $('#form_id').validate();
+
+  })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>性格测评</title>
+
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="../../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    
+    <link href="../../../css/animate.css" rel="stylesheet">
+    <link href="../../../css/style.css" rel="stylesheet">
+    <style>
+        .js-e-btn-del{ font-size: 20px; cursor: pointer;}
+        /*.js-content-box .js-item-box:nth-of-type(2n+1){ background: #F9F9F9;}*/
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row" style="min-height: 50px;">
+            <div class="p-sm col-xs-12 text-center" style="padding:10px;" id="demoaffix1" data-spy="affix" data-offset-top="50">
+                <button class="btn btn-info btn-sm" type="button" id="btn_showOrhide">显示/隐藏</button>
+                <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+                <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">请选择题型：</label>
+                <div class="col-sm-3">
+                    <select class="form-control input-sm required" name="name1" id="form-ele-name1">                  
+                        <option value="">- 请选择-</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">请选择问卷：</label>
+                <div class="col-sm-3">
+                    <select class="form-control input-sm required" name="name2" id="form-ele-name2">                  
+                        <option value="">- 请选择-</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">题干：</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" name="name3" id="form-ele-name3"></textarea>
+                </div>
+            </div>
+            <div class="js-content-box" id="js_content_box"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-8">
+                   <button class="btn btn-warning js-e-btn-add"><i class="glyphicon glyphicon-plus"></i> 添加选项</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="js_content_box_hide" class="hidden">
+        <div class="form-group js-item-box">
+            <label class="col-sm-2 control-label">选项：</label>
+            <div class="col-sm-7">
+                <textarea class="form-control js-ele-val"></textarea>
+            </div>
+            <div class="col-sm-1">
+                <i class="glyphicon glyphicon-remove text-danger js-e-btn-del js-helpmsg" data-helpmsg="del"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mainly scripts -->
+    <script src="../../../js/jquery-2.1.1.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/plugins/layer/layer.js"></script>
+    
+    <!-- Custom and plugin javascript -->
+    <script src="../../../js/plugins/pace/pace.min.js"></script>
+    <script src="../../../js/plugins/validate/jquery.validate.min.js"></script>
+    
+    <script src="../../../i18n/zh-CN.js"  type="text/javascript"></script>
+    <script src="../../../js/subindex.js"></script>
+    <script src="../../../js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(function(){
+            var js_content_box = $('#js_content_box'),
+                js_content_box_hide = $('#js_content_box_hide');
+            js_content_box.on('click','.js-e-btn-del',function(){
+                $(this).closest('.js-item-box').remove();
+            });
+            $('.js-e-btn-add').click(function(){
+                var len_ = js_content_box.find('.js-item-box').length;
+                if(len_>2){
+                    COM_TOOLS.alert('最多只能添加三个选项！');
+                    return false;
+                }
+                if(!check_input_fn()){
+                    COM_TOOLS.alert('请补全选项信息！');
+                    return false;
+                }
+                js_content_box.append(js_content_box_hide.html());
+            }).trigger('click');
+            $('#btn_save').click(function(){ // 保存按钮
+                console.log(get_the_data());
+                /*$.post('url',get_the_data(),function(d){
+                    //TODO;
+                });*/
+            });
+        });
+        function check_input_fn(){
+            var status = true;
+            $('#js_content_box .js-item-box').each(function(){
+                if(!$.trim($(this).find('.js-ele-val').val())){
+                    status = false;
+                    return false;
+                }
+            });
+            return status;
+        }
+        function get_the_data(){ //获取数据，JSON形式，可直接作为JSON-DATA使用；
+            var json_data_ = {};
+            json_data_[$('#form-ele-name1').attr('name')]=$('#form-ele-name1').val();
+            json_data_[$('#form-ele-name2').attr('name')]=$('#form-ele-name2').val();
+            json_data_[$('#form-ele-name2').attr('name')+"_text"]=$('#form-ele-name2').find('option:selected').text();
+            json_data_[$('#form-ele-name3').attr('name')]=$.trim($('#form-ele-name3').val()).replace(/[\r\n]/g,'<br/>').replace(/\"/g, "'");
+            json_data_.child = [];
+            if(!check_input_fn()){
+                COM_TOOLS.alert('请补全选项信息！');
+                return false;
+            }
+            $('#js_content_box .js-item-box').each(function(){
+                json_data_.child.push({
+                    "text":$.trim($(this).find('.js-ele-val').val()).replace(/[\r\n]/g,'<br/>').replace(/\"/g, "'")
+                });
+            });
+            return json_data_;
+        }
+    </script>
+</body>
+</html>

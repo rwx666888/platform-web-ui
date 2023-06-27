@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>排课查询-中心</title>
+
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/core/main.min.css" />
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/daygrid/main.min.css" />
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/timegrid/main.min.css" />
+
+    <link rel="stylesheet" href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="./js/plugins/tooltipster/tooltipster.bundle.min.css" />
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <style>
+      .tooltip-inner {
+        text-align: left;
+      }
+      .control-wrp {
+        /* padding-top: 15px; */
+      }
+      .control-wrp .control-left {
+        text-align: center;
+      }
+      .tips-wrp {
+        padding: 5px 0;
+      }
+      .tips-wrp .item {
+        display: inline-block;
+      }
+      .tips-wrp .item span {
+        vertical-align: middle;
+      }
+      .tips-wrp .item .color-block {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+      }
+      .tips-wrp .item .color-block.tyk {
+        background-color: #e88b61;
+      }
+      .tips-wrp .item .color-block.zsk {
+        background-color: #4b9ade;
+      }
+      .reset-inp-div {
+        display: inline-table;
+        width: 210px;
+        vertical-align: bottom;
+      }
+      .instance-wrp {
+        background-color: #f8f8f8;
+        min-height: 200px;
+        /* width: 1600px; */
+      }
+      .instance-wrp.fc-unthemed td.fc-today {
+        background-color: #fff;
+      }
+      .instance-wrp .fc-view-container {
+        background-color: #fff;
+      }
+      .instance-wrp .fc-timeline-event .fc-title {
+        white-space: pre-wrap;
+        word-break: keep-all;
+      }
+      .title-bar {
+        border: 1px solid #ddd;
+        border-bottom: none;
+        font-weight: 500;
+        background-color: #f8f8f8;
+      }
+      .title-bar .xie-block {
+        position: relative;
+        border-right: 1px solid #ddd;
+        padding: 5px;
+        width: 77px;
+      }
+      .title-bar .xie-block::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotate(33deg);
+        transform-origin: 0;
+        height: 1px;
+        width: 120%;
+        background-color: #ddd;
+      }
+      .title-bar .title {
+        overflow: hidden;
+        text-align: center;
+        line-height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="content_wrp">
+        <div class="form_wrp m-t-sm m-b-sm clearfix">
+          <!-- form 处理区 -->
+          <!-- form 处理区 -->
+          <!-- 左边 -->
+          <div class="pull-left">
+            <div class="form-inline"></div>
+          </div>
+          <!-- 右边 -->
+          <div class="pull-right"></div>
+        </div>
+        <div class="schedule_wrp">
+          <div id="js_control_class" class="control-wrp clearfix">
+            <!-- 体验 正式 -->
+            <!-- <div class="control-right pull-right">
+              <button class="btn btn-warning btn-sm js-cur-week" type="button">体验排课</button>
+              <button class="btn btn-success btn-sm js-cur-week" type="button">正式排课</button>
+            </div> -->
+            <div class="control-left">
+              <!-- <button class="btn btn-info btn-sm js-prev-week" type="button">上一周</button> -->
+              <!-- 日期 -->
+              <div id="js_daterp_class" class="input-group input-group-sm reset-inp-div date">
+                <input type="text" class="form-control input-sm" readonly="readonly" />
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+              <!-- <button class="btn btn-info btn-sm js-next-week" type="button">下一周</button> -->
+              <!-- <button class="btn btn-info btn-sm js-cur-week" type="button">返回本周</button> -->
+            </div>
+          </div>
+          <div class="tips-wrp clearfix">
+            <div class="pull-right">
+              <div class="item">
+                <span class="color-block tyk"></span>
+                <span class="info">体验课</span>
+              </div>
+              <div class="item">
+                <span class="color-block zsk"></span>
+                <span class="info">正式课</span>
+              </div>
+            </div>
+          </div>
+          <div class="calender-wrp">
+            <div class="title-bar clearfix">
+              <div class="xie-block pull-left">
+                <div class="text-right">中心</div>
+                <div class="text-left">时间</div>
+              </div>
+              <div class="title" id="js_centerName">xxx中心</div>
+            </div>
+            <div id="js_inst_class" class="instance-wrp"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <script src="../../js/plugins/moment/moment.min.js"></script>
+    <script src="../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="./js/plugins/tooltipster/tooltipster.bundle.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/core/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/locales/zh-cn.js"></script>
+    <script src="./js/plugins/fullcalender v4/interaction/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/daygrid/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/timegrid/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/resource/common/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/resource/daygrid/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/resource/timegrid/main.min.js"></script>
+
+    <script src="../../i18n/zh-CN.js"></script>
+    <script src="../../js/subindex.js"></script>
+
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/api/courseTimeTable/getClassRoomListForTag3',
+        dataType: 'json',
+        response: function(setting) {
+          this.responseText = [
+            {
+              classRoomId: '1', // ID
+              classRoomName: '教室 1' // title
+            },
+            {
+              classRoomId: '2', // ID
+              classRoomName: '教室 2' // title
+            },
+            {
+              classRoomId: '3', // ID
+              classRoomName: '教室 3' // title
+            },
+            {
+              classRoomId: '4', // ID
+              classRoomName: '教室 4' // title
+            },
+            {
+              classRoomId: '5', // ID
+              classRoomName: '教室 5' // title
+            },
+            {
+              classRoomId: '6', // ID
+              classRoomName: '教室 6' // title
+            }
+          ];
+        }
+      });
+
+      // BJLX001 体验 BJLX002 正课
+      $.mockjax({
+        url: '/api/courseTimeTable/getArrangeListForTag2',
+        dataType: 'json',
+        response: function(setting) {
+          this.responseText = [
+            {
+              classRoomId: '1', // resourceId
+              classDateStr: '2019-04-23', // start
+              courseName: '(正)Scratch课程啊沙发上多福阿斯顿发送到', // title
+              classStyle: 'BJLX002',
+              className: '教室-1',
+              timeBegin: '13:00',
+              timeEnd: '13:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            },
+            {
+              classRoomId: '1', // resourceId
+              classDateStr: '2019-04-23', // start
+              courseName: '(正)Scratch课程啊沙发上多福阿斯顿发送到', // title
+              classStyle: 'BJLX002',
+              className: '教室-1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            },
+            {
+              classRoomId: '2', // resourceId
+              classDateStr: '2019-04-23',
+              courseName: '(正)Scratch课程', // title
+              classStyle: 'BJLX001',
+              className: '教室 1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            },
+            {
+              classRoomId: '3', // resourceId
+              classDateStr: '2019-04-17',
+              courseName: '(正)Scratch课程', // title
+              classStyle: 'BJLX002',
+              className: '教室 1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            },
+            {
+              classRoomId: '4', // resourceId
+              classDateStr: '2019-04-18',
+              courseName: '(正)Scratch课程', // title
+              classStyle: 'BJLX003',
+              className: '教室 1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            }
+          ];
+        }
+      });
+    </script>
+    <script>
+      $(function() {
+        // 处理工具类
+        var SC_TOOLS = {
+          eventsUrl: '/api/courseTimeTable/getArrangeListForTag2', // 纵坐标
+          resourcesUrl: '/api/courseTimeTable/getClassRoomListForTag3', // 横坐标
+          eventsData: function(data) {
+            if (data.length) {
+              for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                item.title = item.timeBegin + '-' + item.timeEnd + ' ' + item.courseName;
+                item.resourceId = item.classRoomId;
+                item.start = item.classDateStr + ' ' + item.timeBegin;
+                item.end = item.classDateStr + ' ' + item.timeEnd;
+                item.rClassName = item.className;
+                // type
+                item.backgroundColor = SC_TOOLS.handleBGColor(item.classStyle);
+              }
+            }
+            return data || [];
+          },
+          eventsDataAjax: function(info, successCallback, failureCallback, cusOptions) {
+            cusOptions = cusOptions || {};
+            $.ajax({
+              url: SC_TOOLS.eventsUrl,
+              type: 'POST',
+              dataType: 'json',
+              data: $.extend(
+                {
+                  beginDate: info.startStr.split('T')[0],
+                  endDate: info.endStr.split('T')[0]
+                },
+                searchObj,
+                true
+              ),
+              success: function(res) {
+                var resData = SC_TOOLS.eventsData(res);
+                successCallback(SC_TOOLS.eventsData(resData));
+                // SC_TOOLS.eventsDataAjax(reqData, info, successCallback, failureCallback)
+                cusOptions.succCallback && cusOptions.succCallback();
+              },
+              error: function() {
+                failureCallback([]);
+              }
+            });
+          },
+          resourcesData: function(data) {
+            if (data.length) {
+              for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                // console.log(item);
+                item.title = item.classRoomName;
+                item.id = item.classRoomId;
+              }
+            }
+            return data || [];
+          },
+          bgColor: {
+            type1: '#4b9ade',
+            type2: '#e88b61',
+            type3: '#dc726f',
+            type4: '#d65d95',
+            type5: '#66c3de',
+            type6: '#d55d95',
+            type7: '#5567e0',
+            type8: '#ecd965'
+          },
+          handleBGColor: function(type) {
+            var bgc = '';
+            switch (type) {
+              case 'BJLX001':
+                bgc = SC_TOOLS.bgColor.type1;
+                break;
+              case 'BJLX002':
+                bgc = SC_TOOLS.bgColor.type2;
+                break;
+              case 'BJLX003':
+                bgc = SC_TOOLS.bgColor.type3;
+                break;
+              case 'BJLX004':
+                bgc = SC_TOOLS.bgColor.type4;
+                break;
+              case 'BJLX005':
+                bgc = SC_TOOLS.bgColor.type5;
+                break;
+            }
+            return bgc;
+          },
+          formatWeek: function(obj) {
+            var weekList = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            var DATE_ = new Date(obj.date.marker);
+            var year_ = obj.date.year;
+            var month_ = obj.date.month + 1;
+            var date_ = obj.date.day;
+            var bay_ = DATE_.getDay();
+            return weekList[bay_] + ' ' + month_ + '-' + date_;
+          },
+          formatTime: function(obj) {
+            obj.date.minute = obj.date.minute === 0 ? '00' : obj.date.minute;
+            var str_ = obj.date.hour + ':' + obj.date.minute;
+            if (obj.date.hour == 8 && obj.date.minute == 00) {
+              str_ = '上午 ' + obj.date.hour + ':' + obj.date.minute;
+            } else if (obj.date.hour == 12 && obj.date.minute == 00) {
+              str_ = '下午 ' + obj.date.hour + ':' + obj.date.minute;
+            } else if (obj.date.hour == 18 && obj.date.minute == 00) {
+              str_ = '晚上 ' + obj.date.hour + ':' + obj.date.minute;
+            }
+            return str_;
+          },
+          tooltip: function(el, data) {
+            var str = '时间: ' + data.timeBegin + '-' + data.timeEnd + '<br>';
+            str += '教室: ' + data.rClassName + '<br>';
+            str += '讲师: ' + data.lecturer + '<br>';
+            str += '课次: ' + data.courseNum + '<br>';
+            str += '班级人数: ' + data.actualNumber + '<br>';
+            str += '学管师: ' + data.headmaster + '<br>';
+            str += '中心: ' + data.orgCore + '<br>';
+            // instance
+            $(el).tooltipster({
+              side: ['right', 'left'],
+              contentAsHTML: true,
+              content: str
+            });
+          }
+        };
+        // calender
+        var searchObj = {};
+        var calenderEl = document.getElementById('js_inst_class');
+        var calenderInst = new FullCalendar.Calendar(calenderEl, {
+          schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+          plugins: ['interaction', 'resourceTimeGrid'],
+          header: false,
+          defaultView: 'resourceTimeGridDay',
+          locale: 'zh-ch',
+          height: 'auto',
+          firstDay: 1,
+          minTime: '08:00',
+          maxTime: '22:00',
+          slotDuration: '00:15:00',
+          resourceLabelText: '教室',
+          allDaySlot: false,
+          // eventOverlap: false,
+          slotEventOverlap: false,
+          // columnHeaderHtml:function(date){
+          //   console.log(date);
+          // },
+          slotLabelFormat: function(obj) {
+            return SC_TOOLS.formatTime(obj);
+          },
+          resourceAreaWidth: '10%', // 左侧资源宽度
+          slotWidth: '200px',
+          eventClick: function(info) {
+            // console.log(info);
+            cusClickEvent && cusClickEvent(info);
+          },
+          eventRender: function(info) {
+            // info.el.width = '200px'
+            var resData = info.event.extendedProps;
+          },
+          events: function(info, successCallback, failureCallback) {
+            console.log(info);
+            SC_TOOLS.eventsDataAjax(info, successCallback, failureCallback);
+          },
+          resourceRender: function(info) {
+            // console.log(info);
+            // info.el.width = '200px'
+          },
+          resources: function(info, successCallback, failureCallback) {
+            $.ajax({
+              url: SC_TOOLS.resourcesUrl,
+              dataType: 'json',
+              success: function(res) {
+                var resData = SC_TOOLS.resourcesData(res);
+                successCallback(resData);
+              },
+              error: function() {
+                failureCallback([]);
+              }
+            });
+          }
+        });
+        // render
+        calenderInst.render();
+        // datetimepicker
+        $('#js_daterp_class')
+          .datetimepicker({
+            clearBtn: false
+          })
+          .on('changeDate', function(ev) {
+            var sday = moment(ev.date).format('YYYY-MM-DD');
+            // refresh
+            calenderInst.gotoDate(sday);
+          });
+        // event
+        $('#js_control_class')
+          .on('click', '.js-prev-week', function() {
+            calenderInst.prev();
+          })
+          .on('click', '.js-next-week', function() {
+            calenderInst.next();
+          })
+          .on('click', '.js-cur-week', function() {
+            calenderInst.today();
+          });
+        // 点击某个 events 条的操作
+        function cusClickEvent(info) {
+          // info.event.extendedProps 可获取该课程所有数据
+          console.log(info);
+        }
+      });
+    </script>
+  </body>
+</html>

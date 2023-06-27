@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>COM_TOOLS</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css"/>
+</head>
+<body>
+	<div class="container">
+		<h3>COM_TOOLS</h3>
+		<p>公共方法库（subindex.js 源码）</p>
+<pre><code class="javascript"  id="box1">
+</code></pre>
+	</div>
+	<script src="../js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+	<script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+	<script>
+	$(function(){
+		$.ajax({
+			type:"get",
+			url:"../js/subindex.js",
+			async:true,
+			dataType:'text',
+			success:function(d){
+			//var t = d.match(/通用工具及配置 start.+?\*\/((.|\s)+)\/\*通用工具及配置 end\*\//i);
+			//t = t.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
+			$('#box1').text(d); //t[1]
+			 hljs.highlightBlock($('#box1')[0]);
+			}
+		});
+		
+	})
+	</script>
+</body>
+</html>

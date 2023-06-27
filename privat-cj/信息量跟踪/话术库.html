@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>话术库</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/iconfont.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <style>
+      .bg-gary-g {
+        background-color: #f3f3f3;
+      }
+      .md20210406__cj {
+        padding: 15px 20px 15px 15px;
+        height: 100%;
+        height: 100vh;
+        overflow: auto;
+      }
+
+      .close-win__btn {
+        position: fixed;
+        z-index: 10;
+        right: 3px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        cursor: pointer;
+      }
+
+      .word-lib__wrp {
+        height: 100%;
+      }
+
+      /* word-lib__header-classify */
+      .word-lib__header-classify {
+        line-height: 25px;
+      }
+
+      /* checkbox */
+      .checkbox__first {
+        margin-left: 10px;
+      }
+      .checkbox__sub {
+        display: inline-block;
+        padding: 0 10px;
+
+        border-radius: 5px;
+        background-color: #f6f6f6;
+      }
+
+      /* word-lib__wrp */
+      .word-lib__wrp {
+        display: flex;
+        flex-direction: column;
+        padding: 0 15px;
+
+        background-color: #fff;
+        border-radius: 10px;
+      }
+      .word-lib__wrp .word-lib__header {
+        padding: 10px 0;
+
+        border-bottom: 1px solid #eee;
+      }
+      .word-lib__wrp .word-lib__content {
+        flex: 1;
+        overflow: hidden;
+        padding: 10px 0;
+      }
+      .word-lib__wrp ul {
+        margin-bottom: 0;
+      }
+
+      /* cascade__wrp */
+      .cascade__wrp {
+        float: left;
+        padding-left: 5px;
+        width: 145px;
+        height: 100%;
+        overflow-y: auto;
+
+        border-right: 1px solid #eee;
+      }
+      .cascade__wrp .cascade__first,
+      .cascade__wrp .cascade__sub {
+        position: relative;
+        margin: 5px 0;
+      }
+      .cascade__wrp .cascade__first.active .cascade__item,
+      .cascade__wrp .cascade__sub.active .cascade__item {
+        color: #00bcd4;
+      }
+      .cascade__wrp .cascade__first.active::after,
+      .cascade__wrp .cascade__sub.active::after {
+        content: ' ';
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+
+        width: 3px;
+        height: 25px;
+
+        background-color: #00bcd4;
+      }
+      .cascade__wrp .cascade__sub::before {
+        content: ' ';
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+
+        width: 5px;
+        height: 5px;
+
+        background-color: #00bcd4;
+        border-radius: 50%;
+      }
+      .cascade__wrp .cascade__sub {
+        padding-left: 1em;
+      }
+      .cascade__wrp .cascade__item {
+        margin: 0;
+        padding: 5px 0;
+        line-height: 25px;
+
+        font-size: 14px;
+        cursor: pointer;
+        user-select: none;
+        color: #666;
+      }
+      .cascade__wrp .cascade__sub .cascade__item {
+        font-size: 12px;
+        color: #999;
+      }
+      .cascade__wrp .cascade__item:hover {
+        opacity: 0.8;
+      }
+
+      /* word-list__wrp */
+      .word-list__wrp {
+        padding-left: 5px;
+        height: 100%;
+        overflow-y: auto;
+      }
+      .word-list__wrp .word-list__item {
+        margin: 5px 0;
+        padding: 5px 10px;
+        line-height: 25px;
+
+        /* cursor: pointer; */
+        user-select: all;
+        border-radius: 5px;
+      }
+
+      .word-list__wrp .word-list__item.active {
+        color: #00bcd4;
+        background-color: #f1f1f1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="md20210406__cj bg-gary-g">
+      <!-- close btn -->
+      <span class="close-win__btn">
+        <i class="iconfont tedufont tedu-icon68"></i>
+      </span>
+
+      <!-- word-lib__wrp -->
+      <div class="word-lib__wrp">
+        <!-- header -->
+        <div class="word-lib__header clearfix">
+          <div class="pull-right">
+            <button class="btn btn-xs btn-primary">
+              <i class="glyphicon glyphicon-plus"></i>添加
+            </button>
+          </div>
+          <div class="word-lib__header-classify">
+            <div class="checkbox__first">
+              <label class="checkbox-inline i-checks"
+                ><input type="radio" name="main_type" value="HSKLX01" checked /> 企业流程话术</label
+              >
+              <label class="checkbox-inline i-checks"
+                ><input type="radio" name="main_type" value="HSKLX02" /> 企业关键词话术</label
+              >
+              <label class="checkbox-inline i-checks"
+                ><input type="radio" name="main_type" value="HSKLX03" /> 个人关键词话术</label
+              >
+            </div>
+            <div class="checkbox__sub">
+              <label class="checkbox-inline i-checks"
+                ><input type="radio" name="sub_type" value="group" checked /> 集团</label
+              >
+              <label class="checkbox-inline i-checks"
+                ><input type="radio" name="sub_type" value="city" /> 城市</label
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- content -->
+        <div class="word-lib__content clearfix">
+          <!-- cascade -->
+          <div class="cascade__wrp">
+            <ul id="js_cascade__ul" class="list-unstyled">
+              <!-- <li class="cascade__first">
+                <p class="cascade__item" data-title_id="1">一级标题一级标题</p>
+              </li> -->
+            </ul>
+          </div>
+
+          <!-- list -->
+          <div id="js_word-list__scroll" class="word-list__wrp">
+            <ul id="js_word-list__ul" class="list-unstyled">
+              <!-- <li class="word-list__item" data-wl_id="1">
+                阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- script -->
+    <script src="../../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../../js/subindex.js" type="text/javascript"></script>
+
+    <!-- moack -->
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/wordsArt/getData',
+        responseText: {
+          succ: true,
+          code: 200,
+          data: {
+            cascadeList: [
+              {
+                tId: 1,
+                type: 1,
+                title: '一级标题一级标题'
+              },
+              {
+                tId: 2,
+                type: 2,
+                title: '二级标题二级标题'
+              },
+              {
+                tId: 3,
+                type: 2,
+                title: '二级标题'
+              },
+              {
+                tId: 4,
+                type: 1,
+                title: '一级标题一级标题'
+              },
+              {
+                tId: 5,
+                type: 2,
+                title: '二级标题二级标题'
+              },
+              {
+                tId: 6,
+                type: 2,
+                title: '二级标题'
+              },
+              {
+                tId: 7,
+                type: 2,
+                title: '二级标题二级标题'
+              },
+              {
+                tId: 8,
+                type: 2,
+                title: '二级标题'
+              },
+              {
+                tId: 9,
+                type: 1,
+                title: '一级标题一级标题'
+              }
+            ],
+            contentList: [
+              {
+                cId: 1,
+                content:
+                  '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发'
+              },
+              {
+                cId: 2,
+                content: '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发'
+              },
+              {
+                cId: 3,
+                content:
+                  '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发'
+              },
+              {
+                cId: 4,
+                content:
+                  '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发'
+              },
+              {
+                cId: 5,
+                content:
+                  '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发'
+              },
+              {
+                cId: 6,
+                content: '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发'
+              },
+              {
+                cId: 7,
+                content:
+                  '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发'
+              },
+              {
+                cId: 8,
+                content: '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发送到发送到发'
+              },
+              {
+                cId: 9,
+                content: '阿斯顿发送到发送到发送到发送到发，阿斯顿发送到发送到发'
+              }
+            ]
+          }
+        }
+      });
+    </script>
+    <!-- moack end -->
+
+    <!-- cus script -->
+    <script>
+      // constant data
+      var cascadeUl = $('#js_cascade__ul');
+      var wordListUl = $('#js_word-list__ul');
+      var wordListScrollWrp = $('#js_word-list__scroll');
+
+      // init
+      getWordList('HSKLX01', 'group');
+
+      // event bind
+      $(document)
+        // 关闭弹窗
+        .on('click', '.close-win__btn', function (ev) {
+          cumParentCallValue();
+        })
+
+        // 点击一级话术
+        .on('click', '.checkbox__first input[type="radio"]', function (ev) {
+          var t = $(this);
+
+          if (t.prop('checked')) {
+            var value = t.val();
+            var subType = null;
+
+            // 是否禁止子分类
+            $('.checkbox__sub input[type="radio"]').attr('disabled', value !== 'HSKLX01');
+
+            if (value === 'HSKLX01') {
+              subType = $('.checkbox__sub input[type="radio"]:checked').val();
+            }
+
+            console.log(value, subType);
+            getWordList(value, subType);
+          }
+        })
+
+        // 点击二级话术
+        .on('click', '.checkbox__sub input[type="radio"]', function (ev) {
+          var t = $(this);
+
+          if (t.prop('checked')) {
+            var value = t.val();
+            var mainType = $('.checkbox__first input[type="radio"]:checked').val();
+
+            console.log(mainType, value);
+            getWordList(mainType, value);
+          }
+        })
+
+        // 点击标题列表
+        .on('click', '.cascade__item', function (ev) {
+          var t = $(this);
+          var _id = t.data('title_id');
+
+          // 选中标题
+          cascadeUl.find('li').removeClass('active');
+          t.parent().addClass('active');
+
+          // 选中对应内容
+          if (_id) {
+            var targetItem = $('.word-list__item[data-wl_id=' + _id + ']');
+            targetItem.addClass('active').siblings().removeClass('active');
+
+            var scrollY = targetItem[0].offsetTop - wordListScrollWrp[0].offsetTop;
+            wordListScrollWrp.scrollTop(scrollY);
+          }
+        });
+
+      // 获取对应分类话术
+      function getWordList(type, subType) {
+        var params = { type: type };
+        if (subType) {
+          params['secondType'] = subType;
+        }
+
+        $.post('/wordsArt/getData', params).then(function (res) {
+          console.log(res);
+          if (res.succ) {
+            genTitleHtml(res.data.cascadeList);
+            genContentHtml(res.data.contentList);
+          } else {
+            // 提示信息 res.msg
+          }
+        });
+
+        function genTitleHtml(list) {
+          if (list == null) return;
+
+          var temp = [];
+          list.forEach(function (item) {
+            var titleClass = item.type === 1 ? 'cascade__first' : 'cascade__sub';
+            temp.push(
+              '<li class="' +
+                titleClass +
+                '"><p class="cascade__item" data-title_id="' +
+                item.tId +
+                '">' +
+                item.title +
+                '</p></li>'
+            );
+          });
+
+          // return temp;
+          cascadeUl.html(temp.join(''));
+        }
+
+        function genContentHtml(list) {
+          if (list == null) return;
+
+          var temp = [];
+          list.forEach(function (item) {
+            temp.push(
+              ' <li class="word-list__item" data-wl_id="' + item.cId + '">' + item.content + '</li>'
+            );
+          });
+
+          wordListUl.html(temp.join(''));
+        }
+      }
+    </script>
+  </body>
+</html>

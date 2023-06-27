@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	    <title>常用组件使用范例</title>
+	
+	    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+	    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+	    <link href="../../css/animate.css" rel="stylesheet">
+		<style>
+			body {
+			  position: relative;
+			}
+			#navbar-example{top: 20px;}
+			#navbar-example a{ color: #262626; padding: 3px 8px;}
+			#navbar-example a:hover{ background: none; border-left: 1px solid #337AB7; padding-left: 7px;}
+			#navbar-example li.active > a{ color: #337ab7; border-left: 3px solid #337AB7; padding-left: 5px;}
+			h2, h3{ margin-top: 50px;}
+			#navbar-example .nav > li > ul{ display: none;}
+			#navbar-example .nav > li.active > ul{ display: block;}
+		</style>
+	</head>
+	<body data-spy="scroll" data-target="#navbar-example">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12" style="padding: 20px;">
+					<h1 id="top">常用组件使用范例</h1>
+					<p class="alert-info" style="padding: 20px;">
+1. 以下组件基于 bootstrap 3.3.6版(按需)，Jquery 1.11.x 或 2.x以上版本；其它版本存在兼容问题；<br />
+2. 新项目尤其是需要适配移动端，Jquery请使用 1.11.x 或 2.x以上版本；低版本存在兼容问题，并注意live、off等已经被删除的方法；
+	以及对元素自有属性（disable、checked等）合理使用prop,代替attr方法；<br />
+3. 未明确标注引用Bootstrap包（JS、CSS）的非BS组件，不受BS约束；
+
+					</p>
+				</div>
+				<div class="col-sm-9">
+					<h2 id="help_1">数据表格Datatable</h2>
+						<p>Datatable组件可实现表格分页、排序、搜索、行列冻结等功能；常用jquery UI版本；bootstrap版本是基于该版本之上的；</p>
+						<p>官网地址：https://datatables.net/  中文社区：http://datatables.club/</p>
+						<h3 id="help_1_1">常用组件包</h3>
+							<p>包间存在依赖关系，顺序不可变；根据功能需要选用组件包</p>
+							<h5 class="text-danger">基础包（必须）</h5>
+							<p>dataTables.bootstrap.css <br/>
+							jquery.dataTables.min.js<br/>
+							dataTables.bootstrap.min.js
+							</p>
+							<h5 class="text-info">列冻结状态包（可选）</h5>
+							<p>fixedColumns.bootstrap.min.css<br/>
+								dataTables.fixedColumns.min.js
+							</p>
+							<h5 class="text-info">行、列选中状态包（可选）</h5>
+							<p>select.bootstrap.min.css<br/>
+							dataTables.select.min.js
+							</p>
+						<h3 id="help_1_2">常用配置</h3>
+						<pre>
+var table = $('#example1').DataTable( {
+        scrollY:        "300px",//可选，是否固定表格高度，不包括表头；
+        scrollX:        true,//可选是否显示水平滚动条；默认false;
+        scrollCollapse: true,//与scrollY结合使用，是否固定高度，默认false;
+        paging:         true,//是否显示分页组件
+        pageLength:20,//每页显示条数；
+        lengthChange:false, //是否允许用户改变表格每页显示的记录数，显示条数组件
+        ordering : false,//是否启用排序组件，优先级高于columns中的排序控制；
+        searching: false,//是否启用自带搜索组件；             
+        language : {url:"js/plugins/datatables/zh_cn.js"},//自定义提示语言
+		columns: [//可选，必须定义全部列属性；data 对应数据接口字段名称
+			//data为null,不对应任何数据字段，并通过defaultContent自定义单元格内容，带数据的自定义参照render
+			//{ "data": null, "defaultContent": '&lt;input type=&quot;checkbox&quot; name=&quot;checkbox1&quot;&gt;' },
+			{ "data": null, "className":'select-checkbox', "defaultContent": ''},
+            { "data": "first_name"},
+            { "data": "last_name" },
+            { "data": "position","className":"text-right" },
+            { "data": "office","className":"text-center" },
+            { "data": "start_date" },
+            { "data": "salary" },
+            { "data": "node1" },
+            { "data": "node2" },
+            { "data": "node3" }
+        ],
+        /*columnDefs: [{//可选，使用规则同columns，用来单独定义某几个列属性
+            orderable: false,//是否可排序
+            className: 'select-checkbox',//显示模拟复选框
+            targets:   0  //将配置应用于某列，下标从0开始；
+        }],*/
+        /*fixedColumns:{//可选，锁定左侧、右侧各两列，需引用列冻结包
+            leftColumns: 2,
+            rightColumns: 2
+        },*/               
+        initComplete:function(settings, json ){resizeIframeHeight();},//组件及数据初始化完成
+        drawCallback: function(settings){resizeIframeHeight();},//视图渲染完成，每次破坏性操作均出发该事件
+        processing: true,//显示加载中，serverSide=true时生效
+        serverSide: true,//服务器模式，排序、搜索、分页均在服务器端实现，默认浏览器模式
+        select:{style:'mutil', info: false},//是否启用选中状态，需引入选中组件包，style:'mutil'为多选，默认单选'os'
+        ajax: {
+		    "url": "demotabledata.json",//接口地址
+		    "dataSrc": function (dd) {
+		    //重构接口返回的数据结构，将需要交互的数据（pkeyid）以自定义键值对的形式存到‘DT_RowData’中，获取数据时使用data('curid')方式；
+		      for ( var i=0, ien=dd.data.length ; i&lt;ien ; i++ ) {
+		        dd.data[i]['DT_RowData'] = {'curid':dd.data[i]['last_name']};
+		      }
+		      return dd.data;
+		    },
+		    "data": function(d){
+		    //自定义方法，仅限CRM框架中使用，重构发送到服务器端的参数结构；searchParemOBj_对象类型，为附加请求参数，不可使用保留字pageSize、start、draw;
+		    	return cus_dt_ajaxdata(d,searchParemOBj_); 
+		    }
+		}
+    });
+						</pre>
+						<h3 id="help_1_3">常用方法</h3>
+							<h5>API::function获取选中行数据</h5>
+							<pre>
+//获取选中行的数据(多选)
+//table 为当前页面作用域内初始化后的dt对象实例；selected类必须引入select包
+//数据组成建议使用数据，利用join拼接，避免使用substring
+	var ids=[];
+	table.rows('.selected').nodes().to$().each(function(){
+		ids.push($(this).data('itemid'));
+	});
+	return ids.join(',');
+
+							</pre>
+							
+					<h2 id="help_2">表单验证Validate</h2>
+						<p>Validate组件为表单提供了强大的验证功能，让客户端表单验证变得更简单，同时提供了大量的定制选项，满足应用程序各种需求。该插件捆绑了一套有用的验证方法，包括 URL 和电子邮件验证，同时提供了一个用来编写用户自定义方法的 API。</p>
+						<p>官网地址：https://jqueryvalidation.org/</p>
+						<h3 id="help_2_1">组件包</h3>
+						<p>jquery.validate.min.js</p>
+						<h3 id="help_2_2">常用配置</h3>
+						<h5>修改全局配置信息：</h5>
+							<pre>
+$.validator.setDefaults({
+    //debug:true, 测试时使用，阻止表单默认提交
+    onsubmit:false,//默认 true，指定是否提交时验证。
+    errorElement:"em",//默认 "label"。指定使用什么标签标记错误
+    errorClass:"cusvaldateerror",//默认 "error"。指定错误提示的 css 类名
+    //onkeyup:false,默认 true，指定是否在敲击键盘时验证。
+    success:function(a,e){console.log(e);
+    	//要验证的元素通过验证后的动作
+    },
+    errorPlacement:function(error,element){
+    	//跟一个函数，可以自定义错误放到哪里
+    	//error.appendTo(element.parent());
+    }
+});
+
+							</pre>
+						<h5>初始化配置：</h5>
+						<pre>
+var validator = $("#signupForm").validate({option});
+//Option 同上面的 setDefaults::option;
+						</pre>
+						<h3 id="help_2_3">常用方法</h3>
+						<h5>API::function重置表单：validator.resetForm();</h5>
+						<h5>API::function验证 form 返回成功还是失败（Boolean）：validator. form ();</h5>
+						<h5>Option::submitHandler：通过验证后运行的函数，里面要加上表单提交的函数，否则表单：不会提交。</h5>
+						<pre>
+$(".selector").validate({
+	submitHandler:function(form) {
+		$(form).ajaxSubmit();//ajax提交表单或 form.submit();
+	}
+});
+						</pre>
+						<h3 id="help_2_4">默认验证规则</h3>
+<table class="table table-bordered">
+<tbody><tr>
+	<th width="10%">序号</th>
+	<th width="30%">规则</th>
+    <th width="60%">描述</th>
+</tr>
+<tr>
+	<td>1</td>
+    <td>required:true</td>
+	<td>必须输入的字段。</td>
+</tr>
+<tr>
+	<td>2</td>
+    <td>remote:"check.php"</td>
+	<td>使用 ajax 方法调用 check.php 验证输入值。</td>
+</tr>
+<tr>
+	<td>3</td>
+    <td>email:true</td>
+	<td>必须输入正确格式的电子邮件。</td>
+</tr>
+<tr>
+	<td>4</td>
+    <td>url:true</td>
+	<td>必须输入正确格式的网址。</td>
+</tr>
+<tr>
+	<td>5</td>
+    <td>date:true</td>
+	<td>必须输入正确格式的日期。日期校验 ie6 出错，慎用。</td>
+</tr>
+<tr>
+	<td>6</td>
+    <td>dateISO:true</td>
+	<td>必须输入正确格式的日期（ISO），例如：2009-06-23，1998/01/22。只验证格式，不验证有效性。</td>
+</tr>
+<tr>
+	<td>7</td>
+    <td>number:true</td>
+	<td>必须输入合法的数字（负数，小数）。</td>
+</tr>
+<tr>
+	<td>8</td>
+    <td>digits:true</td>
+	<td>必须输入整数。</td>
+</tr>
+<tr>
+	<td>9</td>
+    <td>creditcard:</td>
+	<td>必须输入合法的信用卡号。</td>
+</tr>
+<tr>
+	<td>10</td>
+    <td>equalTo:"#field"</td>
+	<td>输入值必须和 #field 相同。</td>
+</tr>
+<tr>
+	<td>11</td>
+    <td>accept:</td>
+	<td>输入拥有合法后缀名的字符串（上传文件的后缀）。</td>
+</tr>
+<tr>
+	<td>12</td>
+    <td>maxlength:5</td>
+	<td>输入长度最多是 5 的字符串（汉字算一个字符）。</td>
+</tr>
+<tr>
+	<td>13</td>
+    <td>minlength:10</td>
+	<td>输入长度最小是 10 的字符串（汉字算一个字符）。</td>
+</tr>
+<tr>
+	<td>14</td>
+    <td>rangelength:[5,10]</td>
+	<td>输入长度必须介于 5 和 10 之间的字符串（汉字算一个字符）。</td>
+</tr>
+<tr>
+	<td>15</td>
+    <td>range:[5,10]</td>
+	<td>输入值必须介于 5 和 10 之间。</td>
+</tr>
+<tr>
+	<td>16</td>
+    <td>max:5</td>
+	<td>输入值不能大于 5。</td>
+</tr>
+<tr>
+	<td>17</td>
+    <td>min:10</td>
+	<td>输入值不能小于 10。</td>
+</tr>
+</tbody></table>
+<p>使用方法：
+(必需, 最小两个字母)：<pre> &lt;input name=&quot;name&quot; type=&quot;text&quot; minlength=&quot;2&quot; required&gt; </pre>
+
+</p>
+						<h3 id="help_2_5">自定义验证规则</h3>
+						<pre>
+$("#signupForm").validate({
+    rules: {
+      firstname: "required",
+      password: {
+        required: true,
+        minlength: 5
+      },
+      confirm_password: {
+        required: true,
+        minlength: 5,
+        equalTo: "#password"
+      },
+      email: {
+        required: true,
+        email: true
+      }
+    },
+    messages: {
+      firstname: "请输入您的名字",
+      password: {
+        required: "请输入密码",
+        minlength: "密码长度不能小于 5 个字母"
+      },
+      confirm_password: {
+        required: "请输入密码",
+        minlength: "密码长度不能小于 5 个字母",
+        equalTo: "两次密码输入不一致"
+      },
+      email: "请输入一个正确的邮箱"
+    }
+});
+
+						</pre>
+<p>PS:</p>
+	<ol>
+		<li>required: true 值是必须的。</li>
+		<li>required: "#aa:checked" 表达式的值为真，则需要验证。</li>
+		<li>required: function(){} 返回为真，表示需要验证。 </li>
+	</ol>
+	<p>后边两种常用于，表单中需要同时填或不填的元素。</p>
+				
+					<h2 id="help_3">弹窗(模态框)</h2>
+					<h3 id="help_3_1">bootStrap-模态框</h3>
+					<P class="text-danger">PS:</P>
+					<ol>
+						<li>不支持模态框重叠: 千万不要在一个模态框上重叠另一个模态框。要想同时支持多个模态框，需要自己写额外的代码来实现。</li>
+						<li>务必将模态框的 HTML 代码放在文档的最高层级内（也就是说，尽量作为 body 标签的直接子元素），以避免其他组件影响模态框的展现和/或功能。</li>
+					</ol>
+					<p>API:<a href="https://v3.bootcss.com/javascript/#modals">http://v3.bootcss.com/javascript/#modals</a></p>
+					<h3 id="help_3_2">layer-模态框</h3>
+					<p>包含常用的prompt层、提示层【layer.msg('玩命提示中');】、tips、modal</p>
+					<p>官网：http://layer.layui.com/</p>
+					<P class="text-danger">PS:</P>
+					<ol>
+						<li>支持模态框重叠</li>
+						<li>支持跨iframe</li>
+					</ol>
+					<h5>代码实例（效果详见CRM-demo）：</h5>
+					<pre>
+/*
+打开弹窗
+@param tit 弹窗名称
+@param url frame地址
+@param partOBJ 窗口对象 parent || top || window(self)
+@param opt = {}配置属性
+*/
+var cum_Modalindex_ = 0; //记录弹窗索引
+var cum_ModalValobj = null; //记录弹窗透传数据对象
+function cumCurWinModal(tit,url,partOBJ,opt){
+	var partOBJ_ = partOBJ || window;
+	var param ={
+		"area":['90%', '80%'], /* ['90%', '80%'] or ['500px', '300px'] */
+		"scrollbar":false, /* 是否屏蔽滚动条  true:屏蔽滚动条 */
+		"ismax":false, /* 是否显示最大化按钮 */
+		"callid":'' /* 回调元素ID */
+	}
+	if(typeof opt !== "undefined"){$.extend(param, opt);}
+	partOBJ_.layer.open({
+		type: 2
+		,title: tit
+		,area: param['area']
+		,content: url
+		,scrollbar: (param['scrollbar'] && !partOBJ_.$('html').attr('layer-full'))?false:true
+		,maxmin: param['ismax']
+		,zIndex:  partOBJ_.layer.zIndex
+		,success: function(layero,ind_){
+		 	partOBJ_.layer.setTop(layero);
+		 	var index = partOBJ_.layer.getFrameIndex(window.name);
+		 	console.log(index+"$$$"+ind_);
+			if(index){
+				var iWin_ = partOBJ_[layero.find('iframe')[0]['name']]; //返回目标window对象,window.fun()
+    			iWin_.cum_Modalindex_ = index;
+    			if(param['callid']){
+    				iWin_.cum_ModalValobj = param['callid'];
+    			}
+			}
+		}
+	});
+}
+
+/*
+在iframe父窗口中打开弹窗
+@param tit 弹窗名称
+@param url frame地址
+@param opt => @function :: cumCurWinModal
+*/
+
+function cumParentWinModal(tit,url,opt){
+	if(typeof opt !== "undefined"){$.extend(opt,{"ismax":true});}
+	cumCurWinModal(tit,url,parent,opt);
+}
+
+//使用方法：
+// cumParentWinModal('标题','pageUrl',{"scrollbar":true,"area":["800px","460px"]}); 
+//在父窗口中打开弹窗并显示最大化按钮、隐藏浏览器滚动条
+					</pre>
+					<h3 id="help_3_3">colorBox</h3>
+					<p>老牌弹窗组件，简单易用，但不支持多个重叠；http://www.jacklmoore.com/colorbox/</p>
+					<pre>
+// Examples:
+// Image links displayed as a group
+$('a.gallery').colorbox({rel:'gal'});
+
+// Ajax
+$('a#login').colorbox();
+
+// Called directly, without assignment to an element:
+$.colorbox({href:"thankyou.html"});
+
+// Called directly with HTML
+$.colorbox({html:"&lt;h1&gt;Welcome&lt;/h1&gt;"});
+
+// Colorbox can accept a function in place of a static value:
+$("a.gallery").colorbox({rel: 'gal', title: function(){
+  var url = $(this).attr('href');
+  return '&lt;a href=&quot;&#x27; + url + &#x27;&quot; target=&quot;_blank&quot;&gt;Open In New Window&lt;/a&gt;';
+}});	
+					</pre>
+					<h2 id="help_4">自定义滚动条</h2>
+					<h3 id="help_4_1">slimScroll</h3>
+					<p>网址：https://github.com/rochal/jQuery-slimScroll</p>
+					<p>组件包</p>
+					<p>jquery.slimscroll.min.js</p>
+					<p>简单实例</p>
+					<pre>
+$(selector).slimScroll();
+					</pre>
+					<p>配置实例</p>
+					<pre>
+$(function() {
+    $(".slimscroll").slimScroll({
+        width: 'auto', //可滚动区域宽度
+        height: '100%', //可滚动区域高度
+        size: '10px', //组件宽度
+        color: '#000', //滚动条颜色
+        position: 'right', //组件位置：left/right
+        distance: '0px', //组件与侧边之间的距离
+        start: 'top', //默认滚动位置：top/bottom
+        opacity: .4, //滚动条透明度
+        alwaysVisible: true, //是否 始终显示组件
+        disableFadeOut: false, //是否 鼠标经过可滚动区域时显示组件，离开时隐藏组件
+        railVisible: true, //是否 显示轨道
+        railColor: '#333', //轨道颜色
+        railOpacity: .2, //轨道透明度
+        railDraggable: true, //是否 滚动条可拖动
+        railClass: 'slimScrollRail', //轨道div类名 
+        barClass: 'slimScrollBar', //滚动条div类名
+        wrapperClass: 'slimScrollDiv', //外包div类名
+        allowPageScroll: true, //是否 使用滚轮到达顶端/底端时，滚动窗口
+        wheelStep: 20, //滚轮滚动量
+        touchScrollStep: 200, //滚动量当用户使用手势
+        borderRadius: '7px', //滚动条圆角
+        railBorderRadius: '7px' //轨道圆角
+    });
+});
+					</pre>
+					<p>事件实例</p>
+					<pre>
+$(selector).slimScroll().bind('slimscroll', function(e, pos){
+     console.log("Reached " + pos");
+ });						
+					</pre>
+					<h3 id="help_4_2">custom-content-scroller(推荐)</h3>
+					<p>网址：http://manos.malihu.gr/jquery-custom-content-scroller/</p>
+					<p>组件包</p>
+					<pre>
+&lt;link rel=&quot;stylesheet&quot; href=&quot;jquery.mCustomScrollbar.css&quot; /&gt;
+&lt;script src=&quot;jquery.mCustomScrollbar.concat.min.js&quot;&gt;&lt;/script&gt;
+					</pre>
+					<p>实例</p>
+					<pre>
+&lt;div class=&quot;mCustomScrollbar&quot; data-mcs-theme=&quot;dark&quot;&gt;
+  &lt;!-- your content --&gt;
+&lt;/div&gt;
+
+ $(".content").mCustomScrollbar();
+ //Basic configuration & option parameters
+ $(".content").mCustomScrollbar({
+    axis:"x" // horizontal scrollbar
+});
+
+$(".content").mCustomScrollbar({
+    theme:"dark"
+});
+					</pre>
+					
+					<h2 id="help_5">推荐的第三方插件</h2>
+						<h3 id="help_5_1">SuperSlide</h3>
+						<p>“焦点图/幻灯片”“Tab标签切换”“图片滚动”“无缝滚动”</p>
+						<p>官网：http://www.superslide2.com/</p>
+						<h3 id="help_5_2">layer</h3>
+						<p>包含常用的prompt层、提示层【layer.msg('玩命提示中');】、tips、modal</p>
+						<p>官网：http://layer.layui.com/</p>
+						<h3 id="help_5_3">全屏滚动插件</h3>
+						<h4 class="text-info">1. jQuery全屏滚动插件fullPage.js</h4>
+						<p>					
+							网址：http://www.dowebok.com/77.html<br>
+							https://github.com/alvarotrigo/fullPage.js
+						</p>
+						<h4 class="text-info">2. swiper</h4>
+						<p>					
+							网址：http://www.swiper.com.cn/<br>
+							PC: 2.x ;  APP: 3.x
+						</p>
+					<h2 id="help_6">日历控件</h2>
+						<h3 id="help_6_1">bootstrap-datetimepicker</h3>
+						<p>官网：http://www.bootcss.com/p/bootstrap-datetimepicker/</p>
+						<h3 id="help_6_2">jedate</h3>
+<pre>
+1、解压后，将jedate整个文件放至您项目的任意目录
+2、控件不支持选周
+3、 此为PC日期控件，非手机日期控件
+浏览器兼容，下面是我们的主要兼容目标 1、Internet Explorer >= 8 (Windows), IE8以下浏览器不兼容
+2、Safari (Mac)
+3、Chrome (Windows, Mac, iOS, Linux)
+4、Firefox (Windows, Mac, Linux)
+5、谷歌内核(webkit)浏览器，如360浏览器，搜狗浏览器，QQ浏览器等 
+</pre>
+						<p>官网：http://www.jayui.com/jedate/</p>
+						
+						<h2 id="help_7">常用jQuery对象方法</h2>
+<h3 id="help_7_1">单选按钮组</h3>
+<pre>
+&lt;input type=&quot;radio&quot; name=&quot;testradio&quot; value=&quot;&quot; /&gt;
+
+$('input[name="testradio"]:checked').val();
+//选中:
+$('input[name="testradio"]').eq(0).prop('checked',true); //根据下标
+$('input[name="testradio"][value="111"]').prop('checked',true); //根据value值
+</pre>
+
+<h3 id="help_7_2">复选按钮组</h3>
+<pre>
+&lt;input type=&quot;checkbox&quot; name=&quot;testcheckbox&quot; value=&quot;&quot; /&gt;
+
+var ids_ =[];
+$('input[name="testcheckbox"]:checked').each(function(){
+	var t_= $(this);
+	ids_.push(t_.val());
+});
+return ids_.join(','); //用，号分割；
+//选中:
+$('input[name="testcheckbox"]').eq(0).prop('checked',true); //根据下标
+$('input[name="testcheckbox"][value="111"]').prop('checked',true); //根据value值
+</pre>
+
+<h3 id="help_7_3">下拉列表</h3>
+<pre>
+&lt;select id=&quot;testSelect&quot;&gt;&lt;option value=&quot;&quot;&gt;text&lt;/option&gt;&lt;/select&gt;
+
+$('#testSelect').val(); //获取当前选中项的value
+$("#testSelect").find("option:selected").text(); // 获取当前选中项的text
+
+$(".selector1").change(function(){ //select的级联
+     // 先清空第二个
+      $(".selector2").empty();
+     // 实际的应用中，这里的option一般都是用循环生成多个了
+      var option = $("&lt;option&gt;").val(1).text("pxx");
+      $(".selector2").append(option);
+});
+//选中:
+$('#testSelect').val('111'); //设置value为111的项选中
+</pre>
+<h3 id="help_7_4">form序列化</h3>
+<p>PS:序列表表格内容为字符串，用于 Ajax 请求。</p>
+<pre>
+&lt;form&gt;
+  &lt;select name=&quot;single&quot;&gt;
+    &lt;option&gt;Single&lt;/option&gt;
+    &lt;option&gt;Single2&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;select name=&quot;multiple&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;option selected=&quot;selected&quot;&gt;Multiple&lt;/option&gt;
+    &lt;option&gt;Multiple2&lt;/option&gt;
+    &lt;option selected=&quot;selected&quot;&gt;Multiple3&lt;/option&gt;
+  &lt;/select&gt;&lt;br/&gt;
+  &lt;input type=&quot;checkbox&quot; name=&quot;check&quot; value=&quot;check1&quot;/&gt; check1
+  &lt;input type=&quot;checkbox&quot; name=&quot;check&quot; value=&quot;check2&quot; checked=&quot;checked&quot;/&gt; check2
+  &lt;input type=&quot;radio&quot; name=&quot;radio&quot; value=&quot;radio1&quot; checked=&quot;checked&quot;/&gt; radio1
+  &lt;input type=&quot;radio&quot; name=&quot;radio&quot; value=&quot;radio2&quot;/&gt; radio2
+&lt;/form&gt;
+
+ $("form").serialize();
+</pre>
+					<h2 id="help_8">富文本编辑器</h2>
+						<h3 id="help_8_1">CKEditor</h3>
+						<p>老牌富文本编辑器，前身是FCKEditor<br>
+						网址：http://ckeditor.com/demo#standard
+						</p>
+						<h3 id="help_8_2"></h3>
+						<p></p>
+				</div>
+				<div class="col-sm-3">
+					<div id="navbar-example" data-spy="affix" data-offset-top="100">
+					    <ul class="nav" role="tablist">
+					      <li>
+					      	<a href="#help_1">数据表格Datatable</a>
+					      	<ul>
+					      		<li><a href="#help_1_1">常用组件包</a></li>
+					      		<li><a href="#help_1_2">常用配置</a></li>
+					      		<li><a href="#help_1_3">常用方法</a></li>
+					      	</ul>
+					      </li>
+					      <li>
+					      	<a href="#help_2">表单验证Validate</a>
+					      	<ul>
+					      		<li><a href="#help_2_1">组件包</a></li>
+					      		<li><a href="#help_2_2">常用配置</a></li>
+					      		<li><a href="#help_2_3">常用方法</a></li>
+					      		<li><a href="#help_2_4">默认验证规则</a></li>
+					      		<li><a href="#help_2_5">自定义验证规则</a></li>
+					      	</ul>
+					      </li>
+					      <li>
+					      	<a href="#help_3">弹窗(模态框)</a>
+					      	<ul>
+					      		<li><a href="#help_3_1">bootStrap-模态框</a></li>
+					      		<li><a href="#help_3_2">layer</a></li>
+					      		<li><a href="#help_3_3">colorBox</a></li>
+					      	</ul>
+					      </li>
+					      <li>
+					      	<a href="#help_4">自定义滚动条</a>
+					      	<ul>
+					      		<li><a href="#help_4_1">slimScroll</a></li>
+					      		<li><a href="#help_4_2">custom-content-scroller</a></li>
+					      	</ul>
+					      </li>
+					      <li>
+					      	<a href="#help_5">推荐的第三方插件</a>
+					      	<ul>
+					      		<li><a href="#help_5_1">SuperSlide</a></li>
+					      		<li><a href="#help_5_2">layer</a></li>
+					      		<li><a href="#help_5_3">全屏滚动插件</a></li>
+					      	</ul>
+					      </li>
+					      <li>
+					      	<a href="#help_6">日历控件</a>
+					      	<ul>
+					      		<li><a href="#help_6_1">BS——datepicker3</a></li>
+					      		<li><a href="#help_6_2">jedate</a></li>
+					      	</ul>
+					      </li>
+					      <li>
+					      	<a href="#help_7">常用jQuery对象方法</a>
+					      	<ul>
+					      		<li><a href="#help_7_1">单选按钮组</a></li>
+					      		<li><a href="#help_7_2">复选按钮组</a></li>
+					      		<li><a href="#help_7_3">下拉列表</a></li>
+					      		<li><a href="#help_7_4">form序列化</a></li>
+					      	</ul>
+					      </li>
+					      <li>
+					      	<a href="#help_8">富文本编辑器</a>
+					      	<ul>
+					      		<li><a href="#help_8_1">CKEditor</a></li>
+					      		<li><a href="#help_8_1">CKEditor</a></li>
+					      	</ul>
+					      </li>
+					    </ul>
+					    <a href="#top">返回顶部</a>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+		
+		<script src="../../js/jquery-2.1.1.js"></script>
+	    <script src="../../js/bootstrap.min.js"></script>
+	</body>
+</html>

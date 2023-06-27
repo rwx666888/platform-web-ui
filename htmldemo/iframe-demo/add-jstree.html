@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>addIcon</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/iconfont.css" type="text/css"/>
+
+</head>
+<body style="padding-top: 25px;">
+<!--bootstrap模态框-->
+<!-- Modal -->
+<div id="myModal" data-edit="1">
+    <div class="modal-body form-inline">
+        <div class="form-group">
+            <a style="display: none;" id="nodeIcon" onclick="iconlistShow()" class="btn btn-primary">选择图标<i class=""></i></a>
+            <label>名称:</label>
+            <input style="display: inline-block;width: auto;vertical-align: middle;" id="nodeName" class="form-control input-sm" type="text" placeholder="请输入节点名称">
+        </div>
+        <!--<div class="form-group js-checked-inp">
+        	<label>类型:</label>
+		    <input type="radio" name="jdclass" id="js_jd_01" value="1"/> <label for="js_jd_01">主节点</label>
+        	<input type="radio" name="jdclass" id="js_jd_02" value="2" checked/> <label for="js_jd_02">子节点</label>
+        </div>-->
+    </div>
+    <div class="modal-footer ">
+        <button onclick="saveFunVal()" type="button" class="btn btn-primary">保存</button>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/plugins/layer/layer.js"></script>
+<script src="../../i18n/zh-CN.js"  type="text/javascript"></script>
+<!-- Custom and plugin javascript -->
+<script src="../../js/plugins/jsTree/jstree.min.js"></script>
+<script src="../../js/subindex.js"></script>
+<script>
+    /* 获取url参数值 */
+    var editNum = parseInt(COM_TOOLS.requestParam('edit'));
+    if (editNum === 1) {
+    	//回显
+        $('#nodeName').val(decodeURI(COM_TOOLS.requestParam('nodeName')));
+    }
+    function saveFunVal() {
+        var text_ = $.trim($('#nodeName').val()),
+        ischeck_=$('.js-checked-inp input:checked').val();
+        if(text_==""){
+            COM_TOOLS.alert("请输入名称");//请输入名称
+            return false;
+        }
+        var obj_ = {'editNum':editNum,'text':text_,'node':cum_ModalValobj['node'],'ref':cum_ModalValobj['ref']};
+        //$.post('',{},function(d){
+        	cumParentCallValue(function () {COM_TOOLS.callParentWinCacheFn('fn2',obj_)});	//需在回掉成功后执行
+        //},'json');
+    }
+</script>
+</body>
+</html>

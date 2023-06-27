@@ -1,0 +1,42 @@
+﻿<jscompress public="http://www.jscompress.cn/" command="import-combineset">
+<combinefile path="sub.js">
+    <auto value="1" />
+    <sourcefile path=".\_a_.js" />
+    <sourcefile path=".\_message.js" />
+    <sourcefile path=".\_language.js" />
+    <sourcefile path=".\plugins\_a_.js" />
+    <sourcefile path=".\plugins\_dt_.js" />
+    <sourcefile path=".\plugins\_valid_.js" />
+    <sourcefile path=".\plugins\jq_cusdaterangepicker.js" />
+    <sourcefile path=".\plugins\jq_cuspanel.js" />
+    <sourcefile path=".\plugins\jq_delaypopover.js" />
+    <sourcefile path=".\com_tools\_a_.js" />
+    <sourcefile path=".\com_tools\widget\ajax_fn.js" />
+    <sourcefile path=".\com_tools\widget\cusMultChoice_fn.js" />
+    <sourcefile path=".\com_tools\widget\datatable_fn.js" />
+    <sourcefile path=".\com_tools\widget\eCharts_fn.js" />
+    <sourcefile path=".\com_tools\widget\infoTips_fn.js" />
+    <sourcefile path=".\com_tools\widget\jstree_fn.js" />
+    <sourcefile path=".\com_tools\widget\msgbox_fn.js" />
+    <sourcefile path=".\com_tools\widget\requireJs_fn.js" />
+    <sourcefile path=".\com_tools\widget\select2_fn.js" />
+    <sourcefile path=".\com_tools\widget\tabPage_fn.js" />
+    <sourcefile path=".\com_tools\view\_a_.js" />
+    <sourcefile path=".\com_tools\view\cus_dropdown.js" />
+    <sourcefile path=".\com_tools\view\cusDropJstree.js" />
+    <sourcefile path=".\com_tools\view\cusFileUpload.js" />
+    <sourcefile path=".\com_tools\view\cusPopover.js" />
+    <sourcefile path=".\com_tools\view\inputStatus.js" />
+    <sourcefile path=".\com_tools\view\tabScrollFn.js" />
+    <sourcefile path=".\com_tools\model\_a_.js" />
+    <sourcefile path=".\com_tools\model\_orgModel_.js" />
+    <sourcefile path=".\com_tools\model\orgModel.js" />
+    <sourcefile path=".\com_tools\model\msg_fn.js" />
+    <sourcefile path=".\com_tools\model\msg_fn2.js" />
+    <sourcefile path=".\com_tools\model\panel.js" />
+    <sourcefile path=".\com_tools\model\set_i18n_fn.js" />
+    <sourcefile path=".\com_tools\model\set_i18n_fn2.js" />
+    <sourcefile path=".\defaultConfig.js" />
+    <sourcefile path=".\init.js" />
+</combinefile>
+</jscompress>

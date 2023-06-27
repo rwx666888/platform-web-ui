@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <link rel="stylesheet" href="../../../css/animate.min.css" />
+    <link rel="stylesheet" href="../../../css/iconfont.css" />
+    <link rel="stylesheet" href="../../../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
+    <link href="../../../css/plugins/jsTree/style.min.css" rel="stylesheet" />
+    <link
+      href="../../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../css/style.css" />
+    <title>添加/编辑规则</title>
+    <style>
+      .rule-item {
+        position: relative;
+        border: 1px solid #ddd;
+        padding: 15px 0;
+        background-color: #fff;
+      }
+      .rule-item::before {
+        position: absolute;
+        left: 66.66666667%;
+        height: 85%;
+        width: 1px;
+        background-color: #dddddd;
+      }
+      .rule-item-sub .r-sub-item {
+        position: relative;
+        display: inline-block;
+        padding: 5px;
+        margin-bottom: 6px;
+        margin-right: 6px;
+        border-radius: 5px;
+        background-color: #eee;
+      }
+      .rule-item-main {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+      .rule-item-main .js-modify {
+        float: left;
+        margin-top: 5px;
+        margin-right: 6px;
+      }
+      .rule-item-sub {
+        min-height: 100px;
+        margin-bottom: 20px;
+      }
+      .rule-item-sub .r-sub-item .r-s-clear {
+        position: absolute;
+        z-index: 10;
+        top: -9px;
+        right: -9px;
+        padding: 3px;
+        border-radius: 50%;
+        background-color: red;
+        color: #fff;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .rule-desc .form-group {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .rule-desc .input-group-c {
+        overflow: hidden;
+      }
+      .rule-desc .js-insert {
+        user-select: none;
+        margin-top: 5px;
+        margin-left: 5px;
+      }
+      @media screen and (max-width: 767px) {
+        .rule-item::before {
+          display: none;
+        }
+      }
+      .rule-item .rule-item-ccline{
+        position: absolute;
+        left: 66.67%;
+        top: 32px;
+        width: 26px;
+        border: 1px solid #ddd;
+        margin-left: -13px;
+        background: #fff;
+        padding: 8px 1px;
+        text-align: center;
+      }
+      .rule-item .rule-item-ccbox1{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border: 1px solid #DDDDDD;
+        border-width: 1px 1px 0 0;
+        border-radius: 0 6px 0 0;
+        padding: 3px 15px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- header bar -->
+    <div class="container-fluid">
+      <div class="row" style="min-height: 51px;">
+        <div
+          class="p-xs col-xs-12 text-center"
+          id="demoaffix1"
+          data-spy="affix"
+          data-offset-top="50"
+        >
+          <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+          <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- main -->
+    <div class="container">
+      <!-- item -->
+      <div class="rule-item clearfix">
+        <div data-insert="include" class="col-sm-8 rule-item-classify js-insert-include">
+          <div class="rule-item-main">
+            <a class="js-modify">编辑范围</a>
+            <div class="js-ul-wrp"></div>
+          </div>
+          <div class="rule-item-sub"></div>
+        </div>
+        <div data-insert="exclude" class="col-sm-4 rule-item-classify js-insert-exclude">
+          <div class="rule-item-main">
+            <a class="js-modify">编辑范围</a>
+            <div class="js-ul-wrp"></div>
+          </div>
+          <div class="rule-item-sub"></div>
+        </div>
+        <div class="rule-item-ccline">额外去除<i style="font-size: 21px;" class="glyphicon glyphicon-circle-arrow-right"></i></div>
+        <div class="rule-item-ccbox1">
+          <label for="cus-ccbox1" style="margin: 0;"><input id="cus-ccbox1" type="checkbox" value="isNotUnion" autocomplete="off" /> 使用交集模式;</label>
+          <a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="_curpage.btn.isnotunion"></a>
+        </div>
+      </div>
+
+      <!-- rule-sub-item -->
+      <h3 class="m-t-md">岗位&部门</h3>
+      <div class="rule-item rule-desc form-horizontal">
+        <div class="form-group form-group-sm">
+          <!-- postNameRight -->
+          <label class="col-sm-2 control-label">岗位名称为(右匹配)</label>
+          <div class="col-sm-4" data-sub="postNameRight">
+            <a data-insert="exclude" data-style="post" class="pull-right js-insert">插入右侧</a>
+            <a data-insert="include" data-style="post" class="pull-right js-insert">插入左侧</a>
+            <div class="input-group date">
+              <span class="input-group-addon">(xx)</span>
+              <input class="form-control input-sm js-sub-value" type="text" autocomplete="off" />
+            </div>
+          </div>
+
+          <!-- postNameLeft -->
+          <label class="col-sm-2 control-label">岗位名称为(左匹配)</label>
+          <div class="col-sm-4" data-sub="postNameLeft">
+            <a data-insert="exclude" data-style="post" class="pull-right js-insert">插入右侧</a>
+            <a data-insert="include" data-style="post" class="pull-right js-insert">插入左侧</a>
+            <div class="input-group date">
+              <input class="form-control input-sm js-sub-value" type="text" autocomplete="off" />
+              <span class="input-group-addon">(xx)</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group form-group-sm">
+          <!-- postName -->
+          <label class="col-sm-2 control-label">岗位名称为</label>
+          <div class="col-sm-4" data-sub="postName">
+            <a data-insert="exclude" data-style="post" class="pull-right js-insert">插入右侧</a>
+            <a data-insert="include" data-style="post" class="pull-right js-insert">插入左侧</a>
+            <div class="input-group-c">
+              <select class="form-control input-sm js-sub-value" autocomplete="off">
+                <option value="-1">- 请选择 -</option>
+                <option value="1">岗位1</option>
+                <option value="2">岗位2</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="form-group form-group-sm">
+          <!-- depName -->
+          <label class="col-sm-2 control-label"><a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="_curpage.btn.depname"></a> 末级部门名称为</label>
+          <div class="col-sm-4" data-sub="depName">
+            <a data-insert="exclude" data-style="department" class="pull-right js-insert">插入右侧</a>
+            <a data-insert="include" data-style="department" class="pull-right js-insert">插入左侧</a>
+            <div class="input-group-c">
+              <input class="form-control input-sm js-sub-value" type="text" autocomplete="off" />
+            </div>
+          </div>
+          
+          <!-- depNameLike -->
+          <label class="col-sm-2 control-label"><a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="_curpage.btn.depnamelike"></a> 末级部门名称包含</label>
+          <div class="col-sm-4" data-sub="depNameLike">
+            <a data-insert="exclude" data-style="department" class="pull-right js-insert">插入右侧</a>
+            <a data-insert="include" data-style="department" class="pull-right js-insert">插入左侧</a>
+            <div class="input-group date">
+              <span class="input-group-addon">(xx)</span>
+              <input class="form-control input-sm js-sub-value" type="text" autocomplete="off" />
+              <span class="input-group-addon">(xx)</span>
+            </div>
+          </div>
+          
+        </div>
+        
+        <div class="form-group form-group-sm">
+          <!-- depFullNameLike -->
+          <label class="col-sm-2 control-label"><a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="_curpage.btn.depfullnamelike"></a> 从属部门名称包含</label>
+          <div class="col-sm-4" data-sub="depFullNameLike">
+            <a data-insert="exclude" data-style="department" class="pull-right js-insert">插入右侧</a>
+            <a data-insert="include" data-style="department" class="pull-right js-insert">插入左侧</a>
+            <div class="input-group date">
+              <span class="input-group-addon">(xx)</span>
+              <input class="form-control input-sm js-sub-value" type="text" autocomplete="off" />
+              <span class="input-group-addon">(xx)</span>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+
+    <!-- script -->
+    <script src="../../../js/jquery-2.1.1.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../i18n/zh-CN.js"></script>
+    <script src="../../../js/plugins/layer/layer.js"></script>
+    <script src="../../../js/plugins/jsTree/jstree.min.js"></script>
+    <script src="../../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../../../js/subindex.js"></script>
+
+    <!-- mock -->
+    <script src="../../../js/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="../../../demo-data.js"></script>
+    <!-- mock end -->
+
+    <script>
+      LOCAL_MESSAGE_DATA['_curpage.btn.isnotunion'] = '交集模式：匹配同时满足部门及岗位条件的人员，只能同时设置一个部门条件和一个岗位条件，多个需要拆条<br/>'+
+      '<span class="text-warning">例如：少儿中心--教学部下所有教学主管、教学经理；需要拆条为：少儿中心-》(教学部+教学主管)；少儿中心-》(教学部+教学经理)；</span>';
+      LOCAL_MESSAGE_DATA['_curpage.btn.depname'] = '不包含子部门；<br/>输入“CC1”，匹配：AA/BB2/<span class="text-warning">CC1</span>';
+      LOCAL_MESSAGE_DATA['_curpage.btn.depnamelike'] = '；<br/>输入“CC”或“C1”，匹配：AA/BB2/<span class="text-warning">CC1</span>';
+      LOCAL_MESSAGE_DATA['_curpage.btn.depfullnamelike'] = '；<br/>输入“BB”或“B2”或“CC”或“C1”，匹配：AA/<span class="text-warning">BB2/CC1</span>';
+      
+      var CUS_FN = {
+        getSubItemIndex(list, obj) {
+          for (let i = 0; i < list.length; i++) {
+            var item = list[i];
+            if (item.type === obj.type && item.text === obj.text) {
+              return i;
+            }
+          }
+        },
+        checkUnion(data, obj) { //交集模式下，检查是否设置了多个部门或岗位
+          var list = data[obj.insertType]['sub'];
+          var _b_ = false;
+          if(data[obj.insertType]['type'] !='isNotUnion'){
+            return false;
+          }
+          var _dep = 0; //部门
+          var _pos = 0; //岗位
+          for (let i = 0; i < list.length; i++) {
+            var item = list[i];
+            if (item.style == 'department') {
+              _dep++;
+            }else if(item.style == 'post'){
+              _pos++;
+            }
+          }
+          if(obj && obj.style == 'department'){_dep++;}
+          if(obj && obj.style == 'post'){_pos++;}
+          _b_ =  _dep > 1 || _pos> 1 ;
+          if(_b_){
+            COM_TOOLS.alert2('交集模式下，部门或岗位只能设置一个，目前人员没有从属多个部门或多个岗位的情况');
+          }
+          return _b_;
+        },
+        createSubItem(obj) {
+          var template_data = {
+            postNameRight: '岗位名称为“(xx){text}”',
+            postNameLeft: '岗位名称为“{text}(xx)”',
+            postName: '岗位名称为“{text}”',
+            depName: '末级部门名称为“{text}”',
+            depNameLike: '末级部门名称包含“(xx){text}(xx)”',
+            depFullNameLike: '从属部门名称包含“(xx){text}(xx)”'
+          };
+
+          if (!template_data[obj.type]) {
+            COM_TOOLS.alert('无数据替换模版');
+            return false;
+          }
+
+          var text = template_data[obj.type].replace(/\{text\}/, obj.text);
+
+          return $(
+            '<span class="r-sub-item"><span class="r-s-clear glyphicon glyphicon-remove"></span>' +
+              text +
+              '</span>'
+          ).data('sdata', { type: obj.type, text: obj.text });
+        },
+        insertSubItem(data, obj, dom) {
+          var list = data[obj.insertType]['sub'];
+          if (this.getSubItemIndex(list, obj) != null) {
+            COM_TOOLS.alert('已存在相同条件项');
+            return false;
+          }
+          if (this.checkUnion(data, obj) == true){
+            return false;
+          }
+
+          var html = this.createSubItem(obj);
+          if (html) {
+            list.push({ type: obj.type, text: obj.text, style: obj.style });
+            dom.append(html);
+            return true;
+          }
+          return false;
+        },
+        deleteSubItem(data, obj, dom) {
+          var list = data[obj.insertType]['sub'];
+          var index = this.getSubItemIndex(list, obj);
+          console.log('del', index);
+          if (index != null) {
+            list.splice(index, 1);
+            dom.remove();
+            return true;
+          }
+          return false;
+        }
+      };
+
+      function initDataAndHtml(data) {
+        var createSubHtml = function (list, dom) {
+          var tmp = [];
+          for (let i = 0; i < list.length; i++) {
+            tmp.push(CUS_FN.createSubItem(list[i]));
+          }
+
+          dom.html(tmp);
+        };
+
+        var include = data['include'];
+        var exclude = data['exclude'];
+
+        var $include = $('.js-insert-include');
+        var $exclude = $('.js-insert-exclude');
+
+        insModel._getFormatData(include['main'], function (data) {
+          insModel._updateSelItem(data, $include.find('.js-ul-wrp'));
+        });
+        insModel._getFormatData(exclude['main'], function (data) {
+          insModel._updateSelItem(data, $exclude.find('.js-ul-wrp'));
+        });
+
+        createSubHtml(include['sub'], $include.find('.rule-item-sub'));
+        createSubHtml(exclude['sub'], $exclude.find('.rule-item-sub'));
+        console.log('ssss',include['type'] == 'isNotUnion' ,include);
+        $('#cus-ccbox1').prop('checked',include['type'] == 'isNotUnion');
+      }
+
+      // data store
+      var DATA_STORE = {
+        include: {
+          main: [],
+          sub: [],
+          type: '' //等于 "isNotUnion" 为交集模式，默认为并集模式
+        },
+        exclude: {
+          main: [],
+          sub: []
+        }
+      };
+      /* var DATA_STORE = {
+        include: {
+          main: [
+            { code: 'code_0_1_1', type: '1' },
+            { code: 'code_0_1_3', type: '0' }
+          ],
+          sub: [
+            { type: 'postNameRight', text: 'a', style: 'post'},
+            { type: 'depName', text: 'a1', style: 'department' }
+          ],
+          type: 'isNotUnion'
+        },
+        exclude: {
+          main: [{ code: 'code_0_1_3', type: '0' }],
+          sub: [{ type: 'postNameRight', text: 'b' }]
+        }
+      }; */
+
+      // init orgModel
+      var insModel = COM_TOOLS._model._orgModel_();
+      $('.js-ul-wrp').html(insModel._makeSelWrap());
+
+      // 数据回显
+      setTimeout(function () {
+        // console.log(cum_ModalValobj);
+        if (!$.isEmptyObject(cum_ModalValobj)) {
+          DATA_STORE = cum_ModalValobj;
+          initDataAndHtml(DATA_STORE);
+        }
+      }, 500);
+      // initDataAndHtml(DATA_STORE); //本地调试时，打开
+
+      // event handler
+      $(document)
+        .on('click', '#btn_closewin', function () {
+          cumParentCallValue();
+        })
+        // 保存
+        .on('click', '#btn_save', function () {
+          if (!$('.js-insert-include').find('.orgtree-item ').length) {
+            COM_TOOLS.alert('请选择规则范围');
+            return;
+          }
+          if (CUS_FN.checkUnion(DATA_STORE, {insertType:'include'}) || CUS_FN.checkUnion(DATA_STORE, {insertType:'exclude'})){
+            return;
+          }
+          console.log('sub', DATA_STORE);
+          COM_TOOLS.callParentWinCacheFn('cbRuleData', DATA_STORE);
+          cumParentCallValue();
+        })
+        // 按钮 修改
+        .on('click', '.js-modify', function () {
+          var $t = $(this);
+
+          var $p = $t.closest('.rule-item-classify');
+          var insertType = $p.data('insert');
+
+          var $warp = $p.find('.js-ul-wrp');
+          var sData = DATA_STORE[insertType].main;
+
+          insModel._openModel(sData, function (arr, sArr) {
+            console.log(arr, sArr);
+            insModel._updateSelItem(sArr, $warp);
+            DATA_STORE[insertType].main = sArr;
+          });
+        })
+        // 删除
+        .on('click', '.r-s-clear', function () {
+          var $t = $(this);
+          var $p = $t.parent();
+          var sData = $p.data('sdata');
+
+          var $pp = $t.closest('.rule-item-classify');
+          var insertType = $pp.data('insert');
+
+          var result = CUS_FN.deleteSubItem(
+            DATA_STORE,
+            $.extend(
+              {
+                insertType: insertType
+              },
+              sData
+            ),
+            $p
+          );
+        })
+        // 插入
+        .on('click', '.js-insert', function () {
+          var $t = $(this);
+          var insertType = $t.data('insert');
+          var insertStyle = $t.data('style');
+          var $insert = $('.js-insert-' + insertType).find('.rule-item-sub');
+
+          var $p = $t.parent();
+          var subType = $p.data('sub');
+
+          var val = $p.find('.js-sub-value').val();
+
+          // 数据校验
+          if (subType === 'postName' && (val == -1 || val == null)) {
+            COM_TOOLS.alert('请选择对应内容');
+            return;
+          } else if (subType !== 'postName' && !val) {
+            COM_TOOLS.alert('请输入对应内容');
+            return;
+          }
+
+          // postName 特殊处理
+          if (subType === 'postName') {
+            val = $p.find('.js-sub-value>option:selected').text();
+          }
+          console.log(2, insertType, subType, val);
+
+          var result = CUS_FN.insertSubItem(
+            DATA_STORE,
+            {
+              insertType: insertType,
+              type: subType,
+              text: val,
+              style: insertStyle
+            },
+            $insert
+          );
+
+          if (result) {
+            if (subType === 'postName') {
+              $p.find('.js-sub-value').val(-1);
+            } else {
+              $p.find('.js-sub-value').val('');
+            }
+          }
+        }).on('click','#cus-ccbox1', function(){
+          if($(this).prop('checked')){
+            DATA_STORE.include.type = 'isNotUnion';
+            CUS_FN.checkUnion(DATA_STORE, {insertType:'include'});
+          }else{
+            DATA_STORE.include.type = '';
+          }
+        });
+    </script>
+  </body>
+</html>

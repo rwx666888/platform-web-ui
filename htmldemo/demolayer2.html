@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>咨询顾问</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+    
+	<link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+	<link href="../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+	<link href="../css/style.css" rel="stylesheet">
+
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12" id="test_msg_box">
+			
+		</div>
+		<div class="col-sm-12" id="test_msg_box">
+			<button class="btn btn-danger" id="ind_demo_btn1">获取参数值</button>
+		</div>
+	</div>
+</div>
+
+<!-- Mainly scripts -->
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../js/plugins/layer/layer.js"></script>
+    
+    <!-- Custom and plugin javascript -->	
+    <script src="../i18n/zh-CN.js"  type="text/javascript"></script>
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+    <script src="../js/subindex.js"></script>
+
+<script>
+$(function(){
+	$('#test_msg_box').append('时间戳：'+(new Date()).getTime()
+	+'<br/>页面初始化时：'
+	+'<br/> callid：'+JSON.stringify(cum_ModalValobj)+'(异步值为空);使用方法：cum_ModalValobj.name1 | cum_ModalValobj.name2'
+	+'<br/> URL:'+location.search+'使用方法：COM_TOOLS.requestParam("name1")');
+	$('#ind_demo_btn1').click(function(){
+		$('#test_msg_box').append('<br/><br/>时间戳：'+(new Date()).getTime()
+		+'<br/>页面加载完成后：'
+		+'<br/> callid：'+JSON.stringify(cum_ModalValobj)+'(加载完成后有值);使用方法：cum_ModalValobj.name1 | cum_ModalValobj.name2'
+		+'<br/> URL:'+location.search+'使用方法：COM_TOOLS.requestParam("name1")');
+	});
+	COM_TOOLS.private_obj_.yourfun=function(d){
+		COM_TOOLS.alert('我是子页面中的方法yourfun,参数:'+d);
+	}
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <link rel="stylesheet" href="../../../css/animate.min.css" />
+    <link rel="stylesheet" href="../../../css/iconfont.css" />
+    <link rel="stylesheet" href="../../../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
+    <link href="../../../css/plugins/jsTree/style.min.css" rel="stylesheet" />
+    <link href="../../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../css/plugins/treegrid/jquery.treegrid.css" />
+    <link rel="stylesheet" href="../../../css/style.css" />
+    <title>分类权限配置</title>
+    <style>
+      .table .btn {
+        padding: 3px 5px;
+      }
+      .table .js-auth-wrp {
+        padding: 2px 4px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="js_mainEvent" class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 m-b-sm m-t-sm clearfix">
+          <div class="form-inline">
+            <div class="form-group form-group-sm">
+              <label>切换业务线</label>
+              <select id="busType" class="form-control input-sm" style="min-width: 100px;">
+                <option value="1">成人</option>
+                <option value="2">少儿</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- table -->
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="js_classifyTable" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="text-center" style="width: 300px;">分类树</th>
+                <th class="text-center">已授权范围(部门/人)</th>
+                <th class="text-center" style="width: 100px;">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                <td>11</td>
+                <td>
+                  <div class="data-auth-grid-wrap clearfix">
+                    <div class="data-auth-grid-item bg-info">
+                      <div class="layout-flex">
+                        <div class="orgtree-selectedlist-box">
+                          <ul class="orgtree-item-list clearfix">
+                            <li class="orgtree-item " data-code="A1105806540457586718" data-type="0" title="达内教育集团/关联公司/瀚孺中心"><i
+                                class="the-icon glyphicon glyphicon-folder-close"></i>瀚孺中心</li>
+                            <li class="orgtree-item " data-code="A1105806541967536135" data-type="0" title="达内教育集团/关联公司/好小子机器人"><i
+                                class="the-icon glyphicon glyphicon-folder-close"></i>好小子机器人</li>
+                          </ul>
+                        </div>
+                        <div class="text-rules">-&gt; <span class="font-bold">部门名称：</span>不限，<span class="font-bold">部门名称：</span>不限</div>
+                      </div>
+                      <i class="c-remove-btn js-remove-btn glyphicon glyphicon-remove-circle"></i>
+                    </div>
+                    <div class="data-auth-grid-item bg-info">
+                      <div class="layout-flex">
+                        <div class="orgtree-selectedlist-box">
+                          <ul class="orgtree-item-list clearfix">
+                            <li class="orgtree-item " data-code="A1105806540457586718" data-type="0" title="达内教育集团/关联公司/瀚孺中心"><i
+                                class="the-icon glyphicon glyphicon-folder-close"></i>瀚孺中心</li>
+                            <li class="orgtree-item " data-code="A1105806541967536135" data-type="0" title="达内教育集团/关联公司/好小子机器人"><i
+                                class="the-icon glyphicon glyphicon-folder-close"></i>好小子机器人</li>
+                          </ul>
+                        </div>
+                        <div class="text-rules">-&gt; <span class="font-bold">部门名称：</span>不限，<span class="font-bold">部门名称：</span>不限</div>
+                      </div>
+                      <i class="c-remove-btn js-remove-btn glyphicon glyphicon-remove-circle"></i>
+                    </div>
+                  </div>
+                </td>
+                <td>22</td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../../js/jquery-2.1.1.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../i18n/zh-CN.js"></script>
+
+    <script src="../../../js/plugins/jsTree/jstree.min.js"></script>
+    <script src="../../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../../../js/plugins/layer/layer.js"></script>
+
+    <script src="../../../js/plugins/treegrid/jquery.treegrid.min.js"></script>
+    <script src="../../../js/plugins/treegrid/jquery.treegrid.bootstrap3.js"></script>
+
+    <script src="../../../js/subindex.js"></script>
+
+    <!--jquery.mockjax.min.js仅限于demo演示模拟数据使用-->
+    <script src="../../../js/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="../../../demo-data.js"></script>
+    <script>
+      $.mockjax({
+        url: '/classify',
+        dataType: 'json',
+        responseText: {
+          succ: true,
+          data: [{
+              id: '1',
+              pId: '0',
+              name: '分类1',
+              data: [{
+                  id: 'list_001',
+                  org: [{ //必须有，无数据为 []；
+                    code: 'code_0_1_2',
+                    type: '0' //部门
+                  }],
+                  org_name: '部门A',
+                  position_name: '岗位A'
+                },
+                {
+                  id: 'list_002',
+                  org: [{
+                      code: 'code_0_1_1',
+                      type: '1' //人员
+                    },
+                    {
+                      code: 'code_0_1_2',
+                      type: '0' //部门
+                    }
+                  ],
+                  org_name: 'B00001',
+                  position_name: 'B00001'
+                },
+                {
+                  id: 'list_003',
+                  org: [{
+                      code: 'code_0_3_1',
+                      type: '1' //人员
+                    },
+                    {
+                      code: 'code_0_4_2',
+                      type: '0' //部门
+                    }
+                  ],
+                  org_name: 'B00001',
+                  position_name: 'B00001'
+                }
+              ],
+              child: [{
+                id: '11',
+                pId: '1',
+                name: '分类11',
+                data: [{
+                  id: 'list_002',
+                  org: [{
+                      code: 'code_0_1',
+                      type: '1' //人员
+                    },
+                    {
+                      code: 'code_0_3',
+                      type: '0' //部门
+                    }
+                  ],
+                  org_name: 'B00001',
+                  position_name: 'B00001'
+                }],
+                child: [{
+                  id: '111',
+                  pId: '11',
+                  name: '分类111',
+                  data: [{
+                    id: 'list_002',
+                    org: [{
+                        code: 'code_0_1',
+                        type: '1' //人员
+                      },
+                      {
+                        code: 'code_0_1',
+                        type: '0' //部门
+                      }
+                    ],
+                    org_name: 'B00001',
+                    position_name: 'B00001'
+                  }]
+                }]
+              }]
+            },
+            {
+              id: '2',
+              pId: '0',
+              name: '分类2',
+              data: []
+            }
+          ]
+        }
+      })
+    </script>
+    <!-- mock end -->
+    <script>
+      $(function() {
+        // init 通讯录组件
+        var insModel = COM_TOOLS._model._orgModel_();
+        var _tmpAdObj_ = {}; //缓存通讯录数据；  
+        /**
+         * 创建行视图框架；
+         * @param {Object} data
+         * @param {Object} pId
+         */
+        function createTr(data, pId) {
+          var tmp = [];
+
+          for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            var pClass = pId ? ' treegrid-parent-' + pId : '';
+
+            var $tr = $(
+              '<tr class="tr-item treegrid-' +
+              item.id +
+              pClass +
+              '"> \
+                <td>' +
+              item.name +
+              '</td> \
+                <td class="text-center js-auth-wrp"></td> \
+                <td class="text-center"><button class="btn btn-sm btn-success js-add-btn">新增</button></td> \
+              </tr>'
+            );
+            $tr.data('id', item.id);
+            $tr.data('pid', item.pId);
+            $tr.data('sdata', item.data);
+            tmp.push($tr);
+
+            if (item.child && item.child.length) {
+              tmp = tmp.concat(createTr(item.child, item.id));
+            }
+          }
+          return tmp;
+        }
+
+        function _getAllAdData(arr) {
+          var tmpAd_ = [];
+          for (var i = 0; i < arr.length; i++) {
+            var item = arr[i];
+            if (item.data && item.data.length > 0) {
+              for (var j = 0, j_len = item.data.length; j < j_len; j++) {
+                tmpAd_ = tmpAd_.concat(item.data[j].org);
+              }
+            }
+            if (item.child && item.child.length) {
+              tmpAd_ = tmpAd_.concat(_getAllAdData(item.child));
+            }
+          }
+          console.log('#_getAllAdData#', tmpAd_);
+          return tmpAd_;
+        }
+        /**
+         * @param {Object} arr, 分类上的sData
+         */
+        function _getTrAdData(arr){
+          var tmpAd_ = [];
+          for (var j = 0, j_len = arr.length; j < j_len; j++) {
+            tmpAd_ = tmpAd_.concat(arr[j].org);
+          }
+          return tmpAd_;
+        }
+        /**
+         * 获取通讯录视图数据，并缓存到 _tmpAdObj_ 中；
+         * @param {Object} arr 通讯录API入参节点数组对象
+         */
+        function _getAdViewDataToCache(arr, cbFn) {
+          insModel._getFormatData(arr, function(data) {
+            for (var i = 0; i < data.length; i++) {
+              var item = data[i];
+              _tmpAdObj_['B_' + item.code + '_' + item.type] = item;
+            }
+            cbFn && cbFn();
+          });
+        }
+        /**
+         * 构造指定行内权限视图
+         * @param {Object} $tr
+         */
+        function _makeAuthView($tr) {
+          if ($tr.length == 0) {
+            return false;
+          }
+          var AdWrap_ = insModel._makeSelWrap().prop('outerHTML');
+          var $wrap_ = $('<div class="data-auth-grid-wrap clearfix"></div>');
+          var item_str_ = '<div class="data-auth-grid-item bg-info"><div class="layout-flex">' +
+            AdWrap_ +
+            '<div class="text-rules">-&gt; <span class="font-bold">部门名称：</span>${org_name}，<span class="font-bold">岗位名称：</span>${position_name}</div>' +
+            '</div><i class="c-remove-btn js-remove-btn glyphicon glyphicon-remove-circle"></i></div>';
+
+          var sData = $tr.data('sdata');
+          var adList = [];
+          for (var j = 0; j < sData.length; j++) {
+            var _item_s_ = item_str_.replace(/\$\{(([^\{\}\$])+)\}/g, function(word, watch1) {
+              return sData[j][watch1] ? (sData[j][watch1] == 'B00001' ? '不限' : sData[j][watch1]) : '--';
+            });
+            var cmpArr = [];
+            var orgData = sData[j].org;
+            for (var i = 0; i < orgData.length; i++) {
+              var item = orgData[i]
+              if (_tmpAdObj_['B_' + item.code + '_' + item.type]) {
+                cmpArr.push(_tmpAdObj_['B_' + item.code + '_' + item.type]);
+              }
+            }
+            var $item_ = $(_item_s_);
+            $item_.data('id', sData[j].id);
+            insModel._updateSelItem(cmpArr, $item_);
+            adList.push($item_);
+          }
+          $wrap_.html(adList);
+          $tr.find('.js-auth-wrp').html($wrap_);
+        }
+        /**
+         * @param {Object} tmpAd; data.org的聚合对象
+         */
+        function _util_unique_arr(tmpAd){
+          var _unique_obj = {};
+          var _unique_arr = [];
+          $.each(tmpAd, function(i, n) {
+            if (!_unique_obj['B_' + n.code + '_' + n.type]) {
+              _unique_obj['B_' + n.code + '_' + n.type] = 1;
+              _unique_arr.push(n);
+            }
+          });
+          return _unique_arr;
+        }
+
+        // 分类信息
+        function getClassifyInfo() {
+          $.post('/classify', {}).then(function(res) {
+            if (res.succ) {
+              $('#js_classifyTable').find('tbody').html(createTr(res.data))
+              // init treegrid
+              $('#js_classifyTable').treegrid();
+              var tmpAd_ = _getAllAdData(res.data);
+              if(tmpAd_.length > 0){
+                var _unique_arr = _util_unique_arr(tmpAd_);
+                _getAdViewDataToCache(_unique_arr, function() {
+                  $('#js_classifyTable tbody tr').each(function() {
+                    _makeAuthView($(this));
+                  });
+                });
+              }
+            }
+          })
+        }
+
+        getClassifyInfo();
+        // event bind
+        $('#js_mainEvent')
+          .on('change', '#busType', function() {
+            // 切换 业务线
+            var $t = $(this)
+            var val = $t.val()
+            console.log('type-', val)
+            getClassifyInfo()
+          })
+          .on('click', '.js-add-btn', function() {
+            // 按钮 新增
+            var $t = $(this);
+            var $tr = $t.closest('.tr-item');
+            var $item = $t.closest('.data-auth-grid-item');
+            var trId = $tr.data('id');
+            
+            cumParentWinModal('新建授权规则', '新建授权.html?classify_id='+trId,{
+              callback:{
+                fn1:function(curclassData){ //返回当前分类节点的全部授权数据
+                  var tmpAd_ = _getTrAdData(curclassData);
+                  if(tmpAd_.length > 0){
+                    var _unique_arr = _util_unique_arr(tmpAd_);
+                    _getAdViewDataToCache(_unique_arr, function() {
+                      $tr.data('sdata', curclassData);
+                      _makeAuthView($tr);
+                    });
+                  }
+                }
+              }
+            });
+
+          })
+          .on('click', '.js-remove-btn', function() {
+            // 按钮 删除
+            var $t = $(this);
+            var $tr = $t.closest('.tr-item');
+            var $item = $t.closest('.data-auth-grid-item');
+            var trId = $tr.data('id');
+            var itmeId = $item.data('id');
+            //ajax-success, 返回新的当前节点的权限数据；
+            //$tr.data(sdata, ajaxData);
+            COM_TOOLS.ajaxFn({
+                type : "post",
+                url : "/yourUrl",
+                data : {trid: trId, itemid: itmeId},
+                success : function(data,status){
+                    _makeAuthView($tr);
+                },
+                error : function(){
+                    COM_TOOLS.alert("系统异常");
+                }
+            }, 1); // 1:全屏loading遮罩；2:button loading遮罩;
+          });
+      })
+    </script>
+  </body>
+</html>

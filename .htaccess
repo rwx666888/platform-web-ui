@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^htmldemo/help.html htmldemo/iframe-demo/help.html [L,R=301]
+

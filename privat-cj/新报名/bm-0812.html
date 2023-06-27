@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../../css/animate.min.css" />
+    <link rel="stylesheet" href="../../css/iconfont.css" />
+    <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/plugins/iCheck/custom.css" />
+    <link rel="stylesheet" href="../../css/plugins/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="../../css/plugins/select2/select2.min.css" />
+
+    <link rel="stylesheet" href="../../css/style.css" />
+    <title>学员报名</title>
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+      }
+      .dt-wrp {
+        margin-top: 5px;
+        min-height: 200px;
+        overflow: hidden;
+        background-color: #f9f9f9;
+      }
+
+      .dt-wrp .dataTables_wrapper {
+        padding-bottom: 0;
+        background-color: #fff;
+      }
+
+      .sign-class-wrp {
+        position: relative;
+        min-height: 100px;
+      }
+
+      .sign-class-wrp .direction-item {
+        margin-bottom: 15px;
+        border: 1px solid #1ab394;
+      }
+
+      .sign-class-wrp .class-item {
+        margin: 10px;
+      }
+
+      .sign-class-wrp .direction-item .dir-name,
+      .sign-class-wrp .class-item .class-name {
+        margin-bottom: -1px;
+        padding: 6px;
+        color: #fff;
+        background-color: #1ab394a8;
+      }
+
+      .sign-class-wrp .direction-item .dir-name {
+        text-align: center;
+      }
+
+      .sign-class-wrp .direction-item .lian-wrp {
+        padding: 6px;
+        border-top: 1px solid #1ab394;
+      }
+
+      .sign-class-wrp .direction-item .lian-wrp .form-group:first-child {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+
+      .sign-class-wrp .direction-item .lian-wrp .total {
+        line-height: 30px;
+        margin-right: 20px;
+      }
+
+      .sign-class-wrp .direction-item .lian-wrp .total span {
+        color: #1ab394;
+        margin-right: 5px;
+      }
+
+      .sign-class-wrp .class-item .class-name {
+        border: 1px solid #dddddd;
+        background-color: #e6e6e6;
+        color: #4b9ff6;
+      }
+
+      .sign-class-wrp .choice-class .table {
+        margin-bottom: 0;
+      }
+
+      .sign-class-wrp .table .cus-inp {
+        width: 100%;
+        height: 24px;
+        padding: 0 5px;
+        border: 1px solid #eee;
+        border-radius: 0;
+        outline: 0;
+      }
+
+      .sign-class-wrp .table .cus-inp[readonly] {
+        background-color: #eee;
+      }
+
+      .sign-class-wrp .choice-class .table .cus-sel {
+        width: 100%;
+        height: 24px;
+        border-radius: 0;
+        border: 1px solid #eee;
+      }
+
+      .sign-class-wrp .choice-class .table .btn-inp {
+        width: calc(100% - 40px);
+      }
+
+      .sign-class-wrp .choice-class .table .btn-inp[disabled] {
+        cursor: not-allowed;
+      }
+
+      .transfer-wrp {
+        position: relative;
+        width: 500px;
+        margin: 15px 0;
+        padding: 10px;
+        border: 1px solid #dddddd;
+      }
+
+      .transfer-wrp:before {
+        content: ' ';
+        position: absolute;
+        top: -8px;
+        right: 120px;
+        transform: rotate(45deg);
+        width: 15px;
+        height: 15px;
+        background-color: #fff;
+        border: 1px solid #dddddd;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+      }
+
+      .transfer-wrp.disabled:after {
+        content: ' ';
+        position: absolute;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(220, 220, 220, 0.5);
+      }
+
+      .cus-inp-h0,
+      .cus-inp-h1 {
+        float: left;
+        margin-top: -1px;
+        padding: 0;
+        height: 0px;
+        border: none;
+      }
+
+      .cus-inp-h1 {
+        width: 100%;
+      }
+      input[readonly].js-money {
+        user-select: none;
+        pointer-events: none;
+      }
+      /* 200318 新增 */
+      .sign-class-wrp:empty::before {
+        content: '--暂无内容--';
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translate3d(-50%, 0, 0);
+        font-size: 12px;
+      }
+      .hanle-btn-wrp .btn {
+        padding: 3px;
+        line-height: 1;
+        margin-left: 5px;
+      }
+      .m-title {
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #23c6c8;
+        color: #fff;
+        line-height: 22px;
+        font-size: 14px;
+      }
+      .s-title {
+        width: 200px;
+        padding: 4px 6px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #999999;
+        background-color: #ccc;
+        color: #fff;
+        font-weight: normal;
+      }
+      .m-title > span,
+      .s-title > span {
+        display: inline-block;
+        margin-top: 2px;
+      }
+      .s-title .hanle-btn-wrp .btn {
+        font-size: 12px;
+      }
+      .lock-box-wrp {
+        position: relative;
+        padding: 15px 0;
+      }
+      .lock-box-wrp.disabled::after {
+        content: '';
+        position: absolute;
+        z-index: 66;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #eee;
+        border-radius: 5px;
+        opacity: 0.5;
+      }
+      .ts-input-group .input-sm,
+      .ts-input-group .input-group-btn .btn {
+        height: 24px;
+        padding: 0 5px;
+      }
+      #demoaffix1.affix {
+        color: #fff;
+      }
+      .step-txt .step-show {
+        font-weight: 600;
+        margin: 0 15px;
+        font-size: 16px;
+      }
+      .step-txt .step-show.active {
+        color: #f8ac59;
+      }
+      .js-step-btn-group {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+      }
+      .js-step-btn-group .js-btn-step {
+        padding: 5px 6px;
+      }
+      .tmp-wrp .s-title {
+        float: left;
+        text-align: center;
+        background: #23c6c8;
+      }
+      .tmp-wrp .list-wrp {
+        position: relative;
+        overflow: hidden;
+        min-height: 32px;
+      }
+      .tmp-wrp .list-wrp:empty::before {
+        content: '--无数据，可联系运营总监/助理进行维护--';
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translate3d(-50%, 0, 0);
+        font-size: 12px;
+      }
+      .tmp-wrp .js-tmp-item {
+        display: inline-block;
+        padding: 6px 10px;
+        color: #23c6c8;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+      }
+      .tmp-wrp .js-tmp-item[disabled] {
+        cursor: not-allowed;
+        color: #bbb;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- bar -->
+    <div class="container-fluid">
+      <div class="row" style="min-height: 50px;">
+        <div
+          class="p-sm col-xs-12 text-center affix-top"
+          style="padding: 10px;"
+          id="demoaffix1"
+          data-spy="affix"
+          data-offset-top="50"
+        >
+          <div class="step-txt">
+            <span class="step-show active">基本信息</span>- <span class="step-show">报名信息</span>-
+            <span class="step-show">支付信息</span>
+          </div>
+          <!-- step btn -->
+          <div
+            id="js_step_handle"
+            class="hanle-btn-wrp pull-right js-step-btn-group"
+            data-stepnum="1"
+          >
+            <button
+              class="btn btn-sm btn-warning js-btn-step"
+              type="button"
+              data-step="last"
+              disabled="true"
+            >
+              <i class="glyphicon glyphicon-arrow-up"></i>上一步
+            </button>
+            <button class="btn btn-sm btn-warning js-btn-step" type="button" data-step="next">
+              <i class="glyphicon glyphicon-arrow-down"></i>下一步
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- content -->
+    <div id="eventMain" class="container-fluid">
+      <!-- 基本信息 -->
+      <form id="baseInfo" class="form-horizontal form-label-sm">
+        <h3 class="m-title clearfix js-step-wrp">
+          <span>基本信息</span>
+          <!-- <div class="hanle-btn-wrp pull-right js-step-btn-group">
+            <button
+              class="btn btn-sm btn-warning js-btn-step"
+              type="button"
+              data-step="next"
+              data-stepnum="1"
+            >
+              <i class="glyphicon glyphicon-arrow-down"></i>下一步
+            </button>
+          </div> -->
+        </h3>
+        <!-- lock box -->
+        <div class="lock-box-wrp">
+          <!-- base info -->
+          <input type="hidden" id="informationSource" name="informationSource" value="XXLY003" />
+          <input
+            type="hidden"
+            id="informationChannel"
+            name="informationChannel"
+            value="XXLY00301"
+          />
+          <input
+            type="hidden"
+            id="informationCode"
+            name="informationCode"
+            value="CS20190822000054"
+          />
+          <input type="hidden" id="studentCode" name="studentCode" value="ST20190822000056" />
+          <!-- group -->
+          <div class="form-group">
+            <label class="col-sm-1 control-label">手机号</label>
+            <div class="col-sm-2">
+              <input
+                type="text"
+                id="phoneNumber"
+                name="phoneNumber"
+                class="form-control input-sm"
+                value="15698456123"
+                readonly
+              />
+            </div>
+            <label class="col-sm-1 control-label">最新手机号</label>
+            <div class="col-sm-2">
+              <input
+                type="text"
+                id="newTelphone"
+                name="newTelphone"
+                class="form-control input-sm"
+                value="15698456121"
+              />
+            </div>
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>性别</label>
+            <div class="col-sm-2">
+              <label class="checkbox-inline i-checks"
+                ><input type="radio" requi220 name="studentSex" value="1" checked /> 男</label
+              >
+              <label class="checkbox-inline i-checks"
+                ><input type="radio" required name="studentSex" value="0" /> 女</label
+              >
+            </div>
+            <label class="col-sm-1 control-label">年龄</label>
+            <div class="col-sm-2">
+              <input
+                type="text"
+                id="studentAge"
+                name="studentAge"
+                class="form-control input-sm"
+                value="25"
+              />
+            </div>
+          </div>
+          <!-- group -->
+          <div class="form-group">
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>学生姓名</label>
+            <div class="col-sm-2">
+              <input
+                type="text"
+                id="studentName"
+                required
+                name="studentName"
+                class="form-control input-sm"
+                value="学员1"
+              />
+            </div>
+            <label class="col-sm-1 control-label">家长姓名</label>
+            <div class="col-sm-2">
+              <input
+                type="text"
+                id="parentName"
+                name="parentName"
+                class="form-control input-sm"
+                value="家长1"
+                readonly
+              />
+            </div>
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>生日</label>
+            <div class="col-sm-2">
+              <div class="input-group input-group-sm date" id="birthday">
+                <input
+                  type="text"
+                  required
+                  name="birthday"
+                  class="form-control input-sm"
+                  value="2000-01-01"
+                  readonly
+                />
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+              </div>
+            </div>
+            <!-- 年级 -->
+            <label class="col-sm-1 control-label"> <span class="text-danger">*</span>年纪 </label>
+            <div class="col-sm-2">
+              <select class="form-control input-sm required" name="grade" id="gradeList" required>
+                <option value="">---请选择---</option>
+                <option selected value="XB">小班</option>
+                <option value="ZB">中班</option>
+              </select>
+            </div>
+          </div>
+          <hr />
+          <!-- group -->
+          <div class="form-group">
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>中心</label>
+            <div class="col-sm-2">
+              <div class="input-group input-group-sm">
+                <input type="hidden" id="orgCore_code" name="orgCoreCode" value="500007" />
+                <input
+                  type="text"
+                  class="form-control input-sm"
+                  id="orgCore"
+                  name="orgCore"
+                  value="达内重庆童程童美中心"
+                  readonly
+                  required
+                />
+                <span class="input-group-btn">
+                  <button id="btnCenter" class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>缴费主体</label>
+            <div class="col-sm-2">
+              <div class="input-group input-group-sm">
+                <input
+                  type="hidden"
+                  id="payLegalSubjectCode"
+                  name="payLegalSubjectCode"
+                  value="0273"
+                />
+                <input
+                  type="text"
+                  class="form-control input-sm"
+                  id="payLegalSubjectName"
+                  name="payLegalSubjectName"
+                  value="重庆市江北区达内会计培训有限公司"
+                  readonly
+                  required
+                />
+                <span class="input-group-btn">
+                  <button id="btnCompany" class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <label class="col-sm-1 control-label hidden"
+              ><span class="text-danger">*</span>合同主体</label
+            >
+            <div class="col-sm-2 hidden">
+              <input type="hidden" id="legalSubjectCode" name="legalSubjectCode" value="0273" />
+              <input
+                type="text"
+                class="form-control input-sm"
+                id="legalSubjectName"
+                name="legalSubjectName"
+                value="重庆市江北区达内会计培训有限公司"
+                required
+                readonly
+              />
+            </div>
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>课程顾问</label>
+            <div class="col-sm-2">
+              <input
+                type="text"
+                id="courseConsultant"
+                name="courseConsultant"
+                class="form-control input-sm"
+                value="嗷嗷嗷"
+                readonly
+                required
+              />
+            </div>
+          </div>
+          <!-- group -->
+          <div class="form-group">
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>省份</label>
+            <div class="col-sm-2">
+              <input type="hidden" name="province" id="province" value="" />
+              <select class="form-control input-sm" name="provinceCode" id="provinceCode" required>
+                <option value="">请选择</option>
+                <option value="1">北京市</option>
+                <option value="2">天津市</option>
+                <option value="3">河北省</option>
+                <option value="4">山西省</option>
+              </select>
+            </div>
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>城市</label>
+            <div class="col-sm-2">
+              <input type="hidden" name="city" id="city" value="" />
+              <select class="form-control input-sm" name="cityCode" id="cityCode" required>
+                <option value="">请选择</option>
+              </select>
+            </div>
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>学校</label>
+            <div class="col-sm-2">
+              <select class="form-control input-sm" name="school" id="school">
+                <option value="">请选择</option>
+                <option value="1">123</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </form>
+      <hr />
+      <!-- 报名信息 -->
+      <h3 class="m-title clearfix js-step-wrp">
+        <span>购买信息</span>
+        <!-- <div class="hanle-btn-wrp pull-right hidden js-step-btn-group">
+          <button
+            class="btn btn-sm btn-warning js-btn-step"
+            type="button"
+            data-step="last"
+            data-stepnum="2"
+          >
+            <i class="glyphicon glyphicon-arrow-up"></i>上一步
+          </button>
+          <button
+            class="btn btn-sm btn-warning js-btn-step"
+            type="button"
+            data-step="next"
+            data-stepnum="2"
+          >
+            <i class="glyphicon glyphicon-arrow-down"></i>下一步
+          </button>
+        </div> -->
+      </h3>
+      <!-- lock box -->
+      <div class="lock-box-wrp">
+        <!-- 优惠套餐 -->
+        <div id="js_org_tmp" class="tmp-wrp clearfix">
+          <h4 class="s-title clearfix">
+            <span>校区自定义套餐</span>
+          </h4>
+          <div class="list-wrp"></div>
+        </div>
+        <!-- 选课 -->
+        <h4 class="s-title clearfix">
+          <span>报名课程</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addClass" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signClassHTML" class="sign-class-wrp"></form>
+        <!-- 证书 -->
+        <h4 class="s-title clearfix">
+          <span>证书申请</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addCertificate" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signCertificateHTML" class="sign-class-wrp"></form>
+        <!-- 教具 -->
+        <h4 class="s-title clearfix">
+          <span>购买教具</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addTeaching" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signTeachingHTML" class="sign-class-wrp"></form>
+        <!-- 其他缴费 -->
+        <h4 class="s-title clearfix">
+          <span>其他缴费</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addOther" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signOtherPayHTML" class="sign-class-wrp"></form>
+        <!-- 购买充值卡 -->
+        <!-- <h4 class="s-title clearfix">
+          <span>购买充值卡</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addRechargeCard" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signRechargeCardHTML" class="sign-class-wrp"></form> -->
+      </div>
+      <hr />
+      <!-- 支付 -->
+      <form id="payInfo" class="form-horizontal form-label-sm">
+        <h3 class="m-title clearfix js-step-wrp">
+          <span>支付信息</span>
+          <!-- <div class="hanle-btn-wrp pull-right hidden js-step-btn-group">
+            <button
+              class="btn btn-sm btn-warning js-btn-step"
+              type="button"
+              data-step="last"
+              data-stepnum="3"
+            >
+              <i class="glyphicon glyphicon-arrow-up"></i>上一步
+            </button>
+          </div> -->
+        </h3>
+        <!-- lock box -->
+        <div class="lock-box-wrp disabled">
+          <!-- group -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label">总计应付金额:</label>
+            <div class="col-sm-2">
+              <input
+                type="text"
+                id="totalAmount"
+                name="totalAmount"
+                class="form-control input-sm js-money"
+                value="0"
+                readonly
+              />
+            </div>
+            <label class="col-sm-2 control-label">优惠金额:</label>
+            <div class="col-sm-2">
+              <input
+                type="text"
+                id="discountAmount"
+                name="discountAmount"
+                class="form-control input-sm js-money"
+                value="0"
+                readonly
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-6" style="font-size: 12px;">
+              为：报名金额(定金/全款) + 其他缴费金额全款 + 证书金额全款 + 充值卡全款
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"
+              ><span class="text-danger">*</span>付款方式:</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="cus-inp-h0"
+                id="paymentMethod"
+                name="paymentMethod"
+                required
+              />
+              <button type="button" class="btn btn-sm btn-primary js-pay-method" data-type="FKFS01">
+                全款
+              </button>
+              <button type="button" class="btn btn-sm btn-primary js-pay-method" data-type="FKFS02">
+                定金
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"
+              ><span class="text-danger">*</span>支付方式:</label
+            >
+            <div class="col-sm-10">
+              <input type="text" class="cus-inp-h0" id="payMethod" name="payMethod" required />
+              <button
+                type="button"
+                class="btn btn-sm btn-primary js-pay2-method"
+                data-type="ZFFS01"
+              >
+                银行二维码
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary js-pay2-method"
+                data-type="ZFFS02"
+              >
+                银行
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary js-pay2-method"
+                data-type="ZFFS03"
+              >
+                支付宝
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary js-pay2-method"
+                data-type="ZFFS04"
+              >
+                微信
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary js-pay2-method"
+                data-type="ZFFS05"
+              >
+                支票
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary js-pay2-method"
+                data-type="ZFFS06"
+              >
+                转账
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary js-pay2-method"
+                data-type="ZFFS07"
+              >
+                银行转账(百度)
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm btn-primary js-pay2-method"
+                data-type="ZFFS13"
+              >
+                充值卡
+              </button>
+              <!-- 转账 -->
+              <div id="transferWrp" class="transfer-wrp" style="display: none;">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label"
+                    ><span class="text-danger">*</span>贷款人:</label
+                  >
+                  <div class="col-sm-4">
+                    <input
+                      type="text"
+                      class="form-control input-sm js-loan-elm"
+                      id="loanName"
+                      name="loanName"
+                      required
+                      disabled
+                    />
+                  </div>
+                  <label class="col-sm-2 control-label"
+                    ><span class="text-danger">*</span>身份证号:</label
+                  >
+                  <div class="col-sm-4">
+                    <input
+                      type="text"
+                      class="form-control input-sm js-loan-elm"
+                      id="loanCode"
+                      name="loanCode"
+                      required
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label"
+                    ><span class="text-danger">*</span>贷款期数:</label
+                  >
+                  <div class="col-sm-4">
+                    <input type="hidden" class="js-inp-loan" name="loanPeriods" id="loanPeriods" />
+                    <select
+                      class="form-control input-sm js-sel-loan js-loan-elm"
+                      id="loanPeriodsCode"
+                      name="loanPeriodsCode"
+                      required
+                      disabled
+                    >
+                      <option value="">-请选择-</option>
+                      <option value="DKQS01">12</option>
+                    </select>
+                  </div>
+
+                  <label class="col-sm-2 control-label"
+                    ><span class="text-danger">*</span>贷款利率:</label
+                  >
+                  <div class="col-sm-4">
+                    <input type="hidden" class="js-inp-loan" name="loanRate" id="loanRate" />
+                    <select
+                      class="form-control input-sm js-sel-loan js-loan-elm"
+                      name="loanRateCode"
+                      id="loanRateCode"
+                      required
+                      disabled
+                    >
+                      <option value="">-请选择-</option>
+                      <option value="DKLL01">8.4</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group" id="interestIndex">
+                  <label class="col-sm-2 control-label">贴息:</label>
+                  <div class="col-sm-4">
+                    <label class="checkbox-inline i-checks"
+                      ><input type="checkbox" id="loanIndex" name="loanIndex" value="1"
+                    /></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 上传凭证 -->
+          <div class="form-group" id="certificate_wrp" style="display: none;">
+            <label class="col-sm-2 control-label"
+              ><span class="text-danger">*</span>上传凭证:</label
+            >
+            <div class="col-sm-2">
+              <img id="img_dy_upload" width="70" height="40" class="js-dy-creation" />
+            </div>
+          </div>
+          <!-- 本次缴费 -->
+          <div class="form-group">
+            <label class="col-sm-2 control-label"
+              ><span class="text-danger">*</span>本次缴费:</label
+            >
+            <div class="col-sm-2">
+              <input
+                type="text"
+                class="form-control input-sm js-money"
+                name="thisPaymentAmount"
+                id="thisPaymentAmount"
+                value="0"
+                required
+                readonly
+              />
+            </div>
+          </div>
+          <!-- 充值卡 -->
+          <div id="js_rechargeCard_wrp">
+            <div class="form-group">
+              <label class="col-sm-2 control-label"
+                ><span class="text-danger">*</span>充值卡类型:</label
+              >
+              <div class="col-sm-2">
+                <input
+                  id="thisRechargeCardName"
+                  type="text"
+                  class="form-control input-sm js-czk-info"
+                  value
+                  required
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label"
+                ><span class="text-danger">*</span>本次使用面值:</label
+              >
+              <div class="col-sm-2">
+                <input
+                  id="thisRechargeCardAmount"
+                  type="text"
+                  class="form-control input-sm js-czk-info"
+                  value
+                  required
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label"
+                ><span class="text-danger">*</span>本次实付金额:</label
+              >
+              <div class="col-sm-2">
+                <input
+                  id="thisPaymentAmountByCardDisconut"
+                  type="text"
+                  class="form-control input-sm js-czk-info"
+                  value
+                  required
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-6" style="font-size: 12px;">
+              为：报名金额(定金/全款) + 其他缴费金额全款 + 证书金额全款
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label"
+              ><span class="text-danger">*</span>业绩归属:</label
+            >
+            <div class="col-sm-2">
+              <div class="input-group input-group-sm">
+                <input type="hidden" id="ownUser_hide" name="ownUserid" value="2001689" />
+                <input
+                  type="text"
+                  class="form-control input-sm"
+                  name="ownUserName"
+                  id="ownUserName"
+                  value="嗷嗷嗷"
+                  required
+                  readonly
+                />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">备注:</label>
+            <div class="col-sm-8">
+              <textarea class="form-control" rows="5" name="remark" id="remark"></textarea>
+            </div>
+          </div>
+          <div class="form-group" style="color: red;">
+            <label class="col-sm-2 control-label">Tips:</label>
+            <div style="padding-top: 8px;" class="col-sm-8">
+              定金付款方式及优惠金额只针对报名课程，其余均为支付全款
+            </div>
+          </div>
+          <!-- btnwrp -->
+          <div class="p-sm text-center">
+            <button id="formSubmit" class="btn btn-primary btn-sm" type="button">
+              报名并支付
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- 定金弹窗 -->
+    <div id="fronMoneyWrp" style="display: none;">
+      <!-- content -->
+      <div id="eventMain_fm" class="container-fluid">
+        <div class="p-xs" style="text-align: right;">
+          <button class="btn btn-primary btn-sm js-btn-confirm" type="button">
+            确认
+          </button>
+        </div>
+
+        <!-- 报名课程 -->
+        <h4 class="s-title">报名课程</h4>
+        <form id="frontMoneyForm">
+          <table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>报名课程</th>
+                <th>阶段名称</th>
+                <th>应收学费</th>
+                <th>定金金额</th>
+              </tr>
+            </thead>
+            <tbody id="fm_tbody" style="min-height: 200px;"></tbody>
+          </table>
+          <div class="form-inline p-xs clearfix">
+            <div class="form-group form-group-sm pull-right">
+              <label class="control-label">定金金额总计:</label>
+              <input
+                type="text"
+                id="totalFM"
+                class="form-control input-sm js-money"
+                value=""
+                readonly
+              />
+            </div>
+          </div>
+        </form>
+
+        <!-- 其他内容 -->
+        <h4 class="s-title">其他内容</h4>
+        <div class="other-fm-wrp">
+          <table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+            <thead>
+              <tr>
+                <th>购买项目</th>
+                <th>应用费用</th>
+              </tr>
+            </thead>
+            <tbody id="other_fm_tbody" style="min-height: 200px;"></tbody>
+          </table>
+          <div class="form-inline p-xs clearfix">
+            <div class="form-group form-group-sm pull-right">
+              <label class="control-label">付款金额总计:</label>
+              <input
+                type="text"
+                id="totalFMOther"
+                class="form-control input-sm js-money"
+                value=""
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 定金弹窗 end -->
+    <!-- 选择弹窗 -->
+    <div id="selctClassWrp" style="display: none;">
+      <div id="eventMain_xc" class="choice-class-wrp p-sm">
+        <div class="form-inline">
+          <div class="form-group form-group-sm">
+            <label>课程方向</label>
+            <input type="text" id="courseDirection" class="form-control input-sm" />
+          </div>
+          <div class="form-group form-group-sm">
+            <label>课程名称</label>
+            <input id="courseName" type="text" class="form-control input-sm" />
+          </div>
+          <button type="button" id="choiceClassSearch" class="btn btn-sm btn-success">
+            <i class="fa fa-search"></i>搜索
+          </button>
+          <button type="button" id="choiceClassAdd" class="btn btn-sm btn-primary">
+            <i class="glyphicon glyphicon-plus"></i>添加
+          </button>
+        </div>
+        <!-- datatable -->
+        <div class="dt-wrp">
+          <table
+            id="tdChoiceClass"
+            class="table table-striped table-bordered nowrap"
+            cellspacing="0"
+            width="100%"
+          >
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- 选择弹窗 end -->
+
+    <!-- script -->
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../i18n/zh-CN.js"></script>
+
+    <script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+    <script src="../../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="../../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../js/plugins/select2/select2.full.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+    <script src="../../js/plugins/jquery-number/jquery.number.min.js"></script>
+
+    <script src="../../js/subindex.js"></script>
+
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/city/queryForRedis',
+        responseText: [
+          {
+            id: 11,
+            name: '太原市'
+          },
+          {
+            id: 12,
+            name: '大同市'
+          },
+          {
+            id: 13,
+            name: '阳泉市'
+          },
+          {
+            id: 14,
+            name: '长治市'
+          }
+        ]
+      })
+
+      $.mockjax({
+        url: '/school/getSchoolListByCity',
+        responseText: [
+          {
+            id: 11,
+            schoolName: '学校1'
+          },
+          {
+            id: 12,
+            schoolName: '学校2'
+          },
+          {
+            id: 13,
+            schoolName: '学校3'
+          },
+          {
+            id: 14,
+            schoolName: '学校4'
+          }
+        ]
+      })
+
+      $.mockjax({
+        url: '/chooseCourse/list',
+        responseText: {
+          draw: 1,
+          recordsTotal: 30,
+          recordsFiltered: 30,
+          data: [
+            {
+              classificationCode: 1,
+              classificationName: '童程',
+              courseCode: '11',
+              courseName: '少儿趣味编程',
+              courseStageCode: '111',
+              courseStageName: 'Level1',
+              totalClassHour: 80,
+              classHour_hidden: 80,
+              classHourPrice: 100,
+              companyCode: 123,
+              companyName: '重庆市江北区达内会计培训有限公司2'
+            },
+            {
+              classificationCode: 1,
+              classificationName: '童程',
+              courseCode: '11',
+              courseName: '少儿趣味编程',
+              courseStageCode: '112',
+              courseStageName: 'Level2',
+              totalClassHour: 100,
+              classHour_hidden: 100,
+              classHourPrice: 120,
+              companyCode: 111,
+              companyName: '重庆市江北区达内会计培训有限'
+            },
+            {
+              classificationCode: 1,
+              classificationName: '童程',
+              courseCode: '12',
+              courseName: 'Scratch课程',
+              courseStageCode: '121',
+              courseStageName: 'Level1',
+              totalClassHour: 120,
+              classHour_hidden: 120,
+              classHourPrice: 150,
+              companyCode: -1,
+              companyName: null
+            },
+            {
+              classificationCode: 2,
+              classificationName: '童创',
+              courseCode: '21',
+              courseName: 'WEDO编程',
+              courseStageCode: '211',
+              courseStageName: 'Level3',
+              totalClassHour: 120,
+              classHour_hidden: 120,
+              classHourPrice: 100,
+              companyCode: -1,
+              companyName: null
+            }
+          ]
+        }
+      })
+    </script>
+    <script>
+      var CONTEXT_PATH = ''
+      var TotalClassHourRatio = 1.5
+      //
+      var classClassifyList = [
+        {
+          viewValue: '线上',
+          hiddenValue: 'BJXSXXLX002'
+        },
+        {
+          viewValue: '线下',
+          hiddenValue: 'BJXSXXLX001'
+        }
+      ]
+      // 教具二级类型
+      var teachingSecTypeList = []
+      ;(function () {
+        $.post(CONTEXT_PATH + '/dictionary/queryForRedis', { typeCode: 'JFLX09' }).then(function (
+          res
+        ) {
+          teachingSecTypeList = res
+        })
+      })()
+      // 获取套餐模版 TCLX01 TCLX02
+      function getOrgCoreTmpList(orgCode) {
+        var bmFlag = COM_TOOLS.requestParam('flagOfPage')
+        var pType = bmFlag == 1 ? 'TCLX01' : 'TCLX02'
+        var _studCode = $('#studentCode').val()
+        $.get(
+          CONTEXT_PATH +
+            '/packageManager/queryPackage?packageStatus=1&packageOrgCoreCode=' +
+            orgCode +
+            '&packageType=' +
+            pType +
+            '&studentCode=' +
+            _studCode
+        ).then(function (res) {
+          if (res.code == 1) {
+            var _html = createTmpItem(res.resultList)
+            $('#js_org_tmp .list-wrp').html(_html)
+          } else {
+            $('#js_org_tmp .list-wrp').html('')
+            COM_TOOLS.alert(res.msg)
+          }
+        })
+      }
+      // 信息量跟踪 TCLX01｜学员管理 TCLX02
+      getOrgCoreTmpList($('#orgCore_code').val())
+    </script>
+    <script src="./js/cus-signup-czk.js"></script>
+    <script>
+      $('#testPay').click(function () {
+        cumParentWinModal('支付', './bm-pay.html', {
+          other: {
+            closeBtn: 0
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

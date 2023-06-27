@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/iconfont.css">
+    <title>阿甲登录页</title>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            min-width:1200px;
+            border:1px solid transparent;
+        }
+        .lg2_container {
+            height:470px;
+            width:100%;
+            position: absolute;
+            top:46%;
+            left:0;
+            margin-top:-235px;
+            background: #0183e1;
+        }
+        .lg2_container .lg2_cont {
+            height:504px;
+            min-width:1200px;
+            max-width:1200px;
+            margin:0 auto;
+            background: url("login2/ajlogin_2.png") no-repeat  center center;
+            background-size: cover;
+        }
+        .lg2_container .lg2_formbox {
+            width:1200px;
+            height: 500px;
+            margin:0 auto;
+            position: relative;
+        }
+        .lg2_container .lg2_form {
+            padding: 30px;
+            padding-top: 50px;
+            width: 338px;
+            height: 368px;
+            position: absolute;
+            top: 26%;
+            left: 61%;
+        }
+        .lg2_container .lg2_form>p {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .lg2_container .lg2_form input {
+            padding-left: 40px;
+            width: 100%;
+            height: 42px;
+            border: 1px solid #ececec;
+            border-radius: 3px;
+            outline: none;
+        }
+        .lg2_container .lg2_form input:focus{
+            border-color: #39a5ff;
+        }
+        .lg2_container .lg2_form input:focus + i{
+            color: #39a5ff;
+        }
+        .lg2_container .lg2_form>p>i{
+            font-size: 18px;
+            position: absolute;
+            left: 10px;
+            top: 8px;
+            color: #a8a8a8;
+        }
+        .lg2_container .lg-yzbox input {
+            width:55%;
+            padding-left:8px;
+        }
+        .lg2_container .lg-yzbox span{
+            display: inline-block;
+            border: 1px solid #ececec;
+            width:40%;
+            height: 42px;
+            margin-left:5%;
+            vertical-align: top;
+        }
+        .lg2_container .lg-login {
+            display: block;
+            width:100%;
+            height: 42px;
+            font-size: 18px;
+            color: #fff;
+            background: #faa600;
+            line-height: 42px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .lg2_container .lg-login:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="lg2_container">
+        <div class="lg2_cont">
+            <div class="lg2_formbox">
+                <div class="lg2_form">
+                    <p>
+                        <input class="lg-usern" placeholder="用户名/手机号/邮箱" type="text">
+                        <i class="tedufont tedu-icon50"></i>
+                    </p>
+                    <p>
+                        <input class="lg-usern" placeholder="请输入登录密码" type="password">
+                        <i class="tedufont tedu-icon49"></i>
+                    </p>
+                    <div class="lg-yzbox"><input placeholder="请输入验证码" class="last-yanzheng" type="text"><span><img src="../../images/images_yazhengma.gif"></span></div>
+                    <span class="lg-login">登录</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!-- 报名信息开始 -->
+<div class="btn-box-info">
+	<button class="btn btn-primary btn-sm " type="button"><i class="glyphicon glyphicon-plus"></i>　新建</button>
+</div>
+<table class="table table-striped table-bordered nowrap" id="example13" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th><span class="cus-checkbox-all"></span></th>
+			<th>信息来源</th>
+			<th>信息渠道</th>
+			<th>状态</th>
+			<th>中心</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td></td>
+			<td>百度</td>
+			<td>品牌</td>
+			<td>启用</td>
+			<td>达内集团总部</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>360</td>
+			<td>课程</td>
+			<td>启用</td>
+			<td>达内集团总部</td>
+		</tr>
+	</tbody>
+</table>
+<script>
+$(function(){
+	var table = $('#example13').DataTable({
+		serverSide:false,
+		select:{style:'mutil', info: false},//是否启用选中状态，需引入选中组件包，style:'mutil'为多选，默认单选'os'
+		"columnDefs": [{ //demo示例，勿用
+	      "targets": 0,
+	      "width":"30px",
+	      "className":"select-checkbox", 
+	      "defaultContent":''
+	    }]
+	}).on('select.dt deselect.dt', function ( e, dt, type, indexes ) {//全选、反选联动
+       $(e.target).closest('.dataTables_wrapper').find('.cus-checkbox-all').toggleClass('cus-checked',dt.rows({selected: true}).count()==dt.rows().count());
+	});
+	/* 全选， 全反选 ；（只能用于标签模块中）  获取当前tab标签DOM，并绑定事件 */
+	$('#'+COM_TOOLS.private_obj_._curTabPageid).on('click','thead .cus-checkbox-all',function(){
+		if($(this).hasClass('cus-checked')){
+			$(this).removeClass('cus-checked');
+			table.rows().deselect();
+		}else{
+			$(this).addClass('cus-checked');
+			table.rows().select();
+		}
+	});
+});
+</script>
+<!-- 报名信息结束 -->

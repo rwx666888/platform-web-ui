@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>资金周报</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link
+      href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css"
+      rel="stylesheet"
+    />
+    <link href="../css/iconfont.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .table th,
+      .table td {
+        text-align: center;
+      }
+      .cus-table .subtotal {
+        color: #f90;
+      }
+      .cus-table .project-name {
+        color: #f90;
+      }
+      .cus-loading {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 30%;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        font-size: 14px;
+        box-shadow: 0 0 6px 0 #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <!-- header -->
+      <div class="m-b-sm m-t-sm clearfix">
+        <!-- 头部操作区域 -->
+        <div class="form-inline">头部操作区域</div>
+      </div>
+      <!-- table -->
+      <div class="m-t-lg clearfix">
+        <table
+          id="cus_table"
+          class="cus-table table table-striped table-bordered nowrap"
+          cellspacing="0"
+        >
+          <!-- thead -->
+          <thead>
+            <tr>
+              <th>一级分类</th>
+              <th>二级分类</th>
+              <th>三级分类</th>
+              <th>累计金额</th>
+            </tr>
+          </thead>
+          <!-- tbody -->
+          <tbody id="cus_table_body">
+            <tr>
+              <td colspan="3">资金流入合计</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="3">资金流出合计</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle;" rowspan="4">资金流入</td>
+              <td style="vertical-align: middle;" rowspan="2">收入项</td>
+              <td>&nbsp;</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle;" rowspan="2">代收项</td>
+              <td>&nbsp;</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- script -->
+    <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+    <script src="../js/plugins/moment/moment.min.js"></script>
+
+    <script type="text/javascript" src="../i18n/zh-CN.js"></script>
+    <script type="text/javascript" src="../js/subindex.js"></script>
+    <!-- mock -->
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+      var tableData = {
+        income_amount: 14214234,
+        pay_amount: 34534634,
+        icome: [
+          {
+            name: '学费',
+            money: 5654634
+          },
+          {
+            name: '学费2',
+            money: 5654634
+          },
+          {
+            name: '学费3',
+            money: 5654634
+          }
+        ],
+        collection: [
+          {
+            name: '学费',
+            money: 6644
+          },
+          {
+            name: '学费2',
+            money: 43768
+          }
+        ]
+      }
+
+      $.mockjax({
+        url: '/api/t1',
+        dataType: 'json',
+        responseTime: 200,
+        response: function(settings) {
+          this.responseText = tableData
+        }
+      })
+    </script>
+    <!-- mock end -->
+    <script>
+      // 构造表格
+      function createTable(sdata) {
+        // 金额显示处理
+        var h_money = function(param) {
+          return param ? $.number(param) : '-'
+        }
+        // 合计
+        var createTr1 = function(title, data) {
+          return (
+            '<tr><td colspan="3">' +
+            title +
+            '</td><td colspan="4">' +
+            h_money(data) +
+            '</td></tr>'
+          )
+        }
+        // 收入/代收项
+        var createTr2 = function(title, data, type) {
+          var tmp = [],
+            len = data.length
+
+          for (let i = 0; i < len; i++) {
+            var item = data[i],
+              str = ''
+
+            if (i == 0) {
+              str +=
+                '<tr>' +
+                (type == 1
+                  ? '<td style="vertical-align: middle;" rowspan="' +
+                    all_len +
+                    '">资金流入</td>'
+                  : '') +
+                '<td style="vertical-align: middle;" rowspan="' +
+                len +
+                '">' +
+                title +
+                '</td>' +
+                '<td class="text-success">' +
+                item.name +
+                '</td>' +
+                '<td>' +
+                h_money(item.money) +
+                '</td>' +
+                '</tr>'
+            } else {
+              str +=
+                '<tr>' +
+                '<td class="text-success">' +
+                item.name +
+                '</td>' +
+                '<td>' +
+                h_money(item.money) +
+                '</td>' +
+                '</tr>'
+            }
+
+            tmp.push(str)
+          }
+
+          return tmp
+        }
+        // 初始化内容
+        var m_tmp = []
+        var all_len = sdata.icome.length + sdata.collection.length
+
+        m_tmp = m_tmp.concat(createTr1('资金流入合计', sdata.income_amount))
+        m_tmp = m_tmp.concat(createTr1('资金流出合计', sdata.pay_amount))
+        m_tmp = m_tmp.concat(createTr2('收入项', sdata.icome, 1))
+        m_tmp = m_tmp.concat(createTr2('代收项', sdata.collection))
+
+        $('#cus_table_body').html(m_tmp.join(''))
+      }
+
+      // 初始化表格
+      var $loading = $('#js_loading')
+      function initTable(subData) {
+        $loading.show()
+
+        $.post('/api/t1', subData)
+          .then(function(res) {
+            $loading.hide()
+            console.log('r_succ-', res)
+
+            createTable(res)
+          })
+          .fail(function(err) {
+            $loading.hide()
+            console.log('r_err-', err)
+          })
+      }
+
+      // 实际调用
+      initTable({ a: 1, b: 2 })
+    </script>
+  </body>
+</html>

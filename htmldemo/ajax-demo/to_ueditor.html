@@ -1,0 +1,16 @@
+<div class="container-fluid">
+	<div class="row m-b-sm m-t-sm">
+		<div class="col-sm-offset-1">
+			<p>点击打开富文本编辑器：</p>
+			<botton id="to_ue" type="botton" class="btn btn-sm btn-info">打开</botton>
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	$('#to_ue').click(function(){
+		cumParentWinModal('富文本编辑器','demo-ueditor.html',{"scrollbar":true});
+	})
+});
+</script>
+

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <link rel="stylesheet" href="../css/animate.min.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/plugins/iCheck/custom.css" />
+    <link rel="stylesheet" href="../css/plugins/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="../css/plugins/select2/select2.min.css" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>模块1</title>
+    <style>
+      .list-wrp {
+        overflow-y: auto;
+      }
+      .list-unstyled {
+        margin: 0;
+        padding: 15px;
+      }
+      .list-unstyled .li-item + .li-item {
+        margin-top: 10px;
+      }
+      .li-item .text-success {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 form-horizontal p-sm">
+          <!-- nav tabs -->
+          <ul class="nav nav-tabs" role="tablist" id="info_tab">
+            <li role="presentation" class="active">
+              <a href="#tab1" aria-controls="tab1" role="tab" data-itemurl="" data-toggle="tab"
+                >新分配</a
+              >
+            </li>
+            <li role="presentation">
+              <a href="#tab2" aria-controls="tab2" role="tab" data-itemurl="" data-toggle="tab"
+                >今日待回访</a
+              >
+            </li>
+            <li role="presentation">
+              <a href="#tab3" aria-controls="tab3" role="tab" data-itemurl="" data-toggle="tab"
+                >诺到量</a
+              >
+            </li>
+            <li role="presentation">
+              <a href="#tab4" aria-controls="tab4" role="tab" data-itemurl="" data-toggle="tab"
+                >试听量</a
+              >
+            </li>
+          </ul>
+          <!-- tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab1">
+              <div class="list-wrp">
+                <ul class="list-unstyled">
+                  <li class="li-item">
+                    今日待回访 181****6171，请及时跟进，<span class="text-success">去处理></span>
+                  </li>
+                  <li class="li-item">
+                    今日待回访 181****6171，请及时跟进，<span class="text-success">去处理></span>
+                  </li>
+                  <li class="li-item">
+                    今日待回访 181****6171，请及时跟进，<span class="text-success">去处理></span>
+                  </li>
+                  <li class="li-item">
+                    今日待回访 181****6171，请及时跟进，<span class="text-success">去处理></span>
+                  </li>
+                  <li class="li-item">
+                    今日待回访 181****6171，请及时跟进，<span class="text-success">去处理></span>
+                  </li>
+                  <li class="li-item">
+                    今日待回访 181****6171，请及时跟进，<span class="text-success">去处理></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="row p-sm">
+                <div class="pull-right clearfix">
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm">
+                      <li>
+                        <a href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab2">2</div>
+            <div role="tabpanel" class="tab-pane" id="tab3">3</div>
+            <div role="tabpanel" class="tab-pane" id="tab4">4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- script -->
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../js/plugins/validate/jquery.validate.custom.min.js"></script>
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/plugins/select2/select2.full.min.js"></script>
+    <script src="../js/plugins/layer/layer.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+    <script>
+      COM_TOOLS.fnTabPage('info_tab')
+    </script>
+  </body>
+</html>

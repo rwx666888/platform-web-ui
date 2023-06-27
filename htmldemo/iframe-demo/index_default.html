@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>首页</title>
+
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <link href="../../css/animate.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../js/plugins/layer/skin/default/layer.css?v=3.1.1" id="layuicss-layer">
+        <style>
+            ul {
+                list-style: none;
+            }
+            .panel {
+                min-height: 160px;
+            }
+        </style>
+    </head>
+
+    <body class="gray-bg">
+        <div class="container-fluid p-md">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div id="cus_quick_entry" class="panel-body">
+                            <div class="col-xs-6">
+                                <ul>
+                                    <!--
+					    	        data-itemid 对应的资源 id ,如是外部链接填写''或省略
+					    	    -->
+                                    <li>
+                                        <a data-itemid="1" class="cus-evt-link" href="organization.html?name1=1&name2=不知道">我的组织管理</a>
+                                    </li>
+                                    <li>
+                                        <a data-itemid="2" class="cus-evt-link" href="list.html?name3=123&name4=test_content">我的信息量</a>
+                                    </li>
+                                    <li>
+                                        <a data-itemid="123" class="cus-evt-link" href="organization.html?name1=1&name2=不知道">不在左侧菜单内</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.sogou.com/" target="_blank">外部链接（新窗口）</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.sogou.com/">外部链接（本窗口）</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的信息量</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-6">
+                                <ul>
+                                    <li>
+                                        <a href="#">我的信息量</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">今日我的分配信息量</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">今日预计上门</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的信息量</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">今日预计上门</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">我的信息量</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h4>通知</h4>
+                            <p style="text-indent: 2em;">各位同事大家好各位同事大家好各位同事大家好各位同事大家好各位同事大家好各位同事大家好各位同事大家好</p>
+                            <p style="text-indent: 2em;">各位同事大家好各位同事大家好</p>
+                            <p class="text-success text-right">更多>></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="js_main_cbox">
+                
+            </div>
+
+        </div>
+
+        <!-- Mainly scripts -->
+        <script src="../../js/jquery-2.1.1.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/plugins/layer/layer.js"></script>
+
+        <script src="../../i18n/zh-CN.js"></script>
+        <script src="../../js/subindex.js"></script>
+        
+        <!-- 演示使用 -->
+        <script src="../../js/jquery.mockjax.min.js" type="text/javascript"></script>
+        <script src="../../demo-data.js" type="text/javascript"></script>
+        <script>
+            $(function() {
+                var cur_pageid_ =COM_TOOLS.requestParam('pageid') ||  'page1001';
+                var _style_api = COM_TOOLS._model.panel.makePanelStyle(); //获取面板样式构造器实例
+                function init_fn(t_data) {
+                    var $subdiv = $('<div/>');
+                    $.each(t_data.subdiv, function(i, n) { //初始化区块
+                        $subdiv.append(n.html);
+                    });
+
+                    $.each(t_data.modelist, function(j, m) { //初始化模块
+                        COM_TOOLS._model.panel.add_one_panel(m, $subdiv, 'onlyShow');
+                        _style_api.addStyle(m.id, m.skin);
+                    });
+                    _style_api.useStyle(); //先注入样式，再插入dom节点
+                    $('#js_main_cbox').html($subdiv.children());
+                    $subdiv = null;
+                }
+
+                /* 初始化数据 */
+                COM_TOOLS.ajaxFn({
+                    url: '/get/panel/page',
+                    data: {
+                        pageid: cur_pageid_
+                    },
+                    success: function(d) {
+                        init_fn(d);
+                        $('.cus-panel').cuspanel();
+                    }
+                }, 1, false);
+            });
+        </script>
+    </body>
+
+</html>

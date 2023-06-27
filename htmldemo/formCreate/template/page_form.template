@@ -1,0 +1,69 @@
+<!-- form 页面start -->
+<template id="formpage_codebox">
+  <div class="container-fluid">
+    <div class="row" style="min-height: 51px;">
+      <div class="p-xs col-xs-12 text-center" id="demoaffix1" data-spy="affix" data-offset-top="50">
+        <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+        <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row p-xxs">
+      <div class="col-sm-12">
+        <form id="demoform1" class="form-horizontal">
+          {{each list}}
+          {{if $index%columnlen==0}}
+          <div class="form-group">{{/if}}
+            <label class="col-sm-{{columnlen == 3 ? 1 : 2}} control-label">{{if !$value.column_isnull}}<span
+                class="text-danger">*</span>{{/if}}{{$value.label_name}}：</label>
+            <div class="col-sm-3">
+              {{include 'plugincode_'+$value.plugin_type $value}}
+            </div>
+            {{if $index%columnlen==columnlen-1 || $index+1 == list.length}}
+          </div>{{/if}}
+          {{/each}}
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(function() {
+      $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+      }).on('ifChecked', function() { //如果使用了validate验证需要用一下代码
+        $(this).closest('form').validate().element(this);
+      });
+
+      /* 表单验证 */
+      $('#demoform1').validate({
+        submitHandler: function(form) { //验证通过
+          COM_TOOLS.ajaxFn({
+            url: '${contextPath}/${action}',
+            type: 'post',
+            data: COM_TOOLS.serializeObject(form),
+            success: function(d) {
+              if(d == '1'){
+                cumParentCallValue();  //关闭当前窗口
+              }
+            }
+          }, 1);
+        }
+      });
+      /*保存按钮*/
+      $('#btn_save').click(function() {
+        $('#demoform1').submit();
+      });
+      /* 关闭按钮 */
+      $('#btn_closewin').click(function () {
+        cumParentCallValue('', true); //关闭当前窗口,但不触发弹窗销毁事件监听回调方法
+      }); 
+
+      /* 组件初始化代码 */
+      {{@jscodestr}}
+    });
+  </script>
+</template>
+<!-- form 页面end-->

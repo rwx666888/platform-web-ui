@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>资金日报</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link
+      href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css"
+      rel="stylesheet"
+    />
+    <link href="../css/iconfont.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .table th,
+      .table td {
+        text-align: center;
+      }
+      .cus-table .subtotal {
+        color: #f90;
+      }
+      .cus-table .project-name {
+        color: #f90;
+      }
+      .cus-loading {
+        display: none;
+        position: fixed;
+        left: 50%;
+        top: 30%;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        font-size: 14px;
+        box-shadow: 0 0 6px 0 #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <!-- header -->
+      <div class="m-b-sm m-t-sm clearfix">
+        <!-- 头部操作区域 -->
+        <div class="form-inline">头部操作区域</div>
+      </div>
+      <!-- table -->
+      <div class="m-t-lg clearfix">
+        <table
+          id="cus_table"
+          class="cus-table table table-striped table-bordered nowrap"
+          cellspacing="0"
+        >
+          <!-- thead -->
+          <thead>
+            <tr>
+              <th rowspan="2" colspan="2" style="vertical-align: middle;">
+                项目名称
+              </th>
+              <th colspan="3">金额</th>
+            </tr>
+            <tr>
+              <th>本日累计</th>
+              <th>本月累计</th>
+              <th>本年累计</th>
+            </tr>
+          </thead>
+          <!-- tbody -->
+          <tbody id="cus_table_body">
+            <!-- 本日收入 -->
+            <tr>
+              <td rowspan="2" style="vertical-align: middle;">本日收入</td>
+              <td>&nbsp;</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>小计</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <!-- 本日支出 -->
+            <tr>
+              <td rowspan="2" style="vertical-align: middle;">本日支出</td>
+              <td>&nbsp;</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>小计</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <!-- 余额 -->
+            <tr>
+              <td>年初资金余额</td>
+              <td colspan="4"></td>
+            </tr>
+            <tr>
+              <td>月初资金余额</td>
+              <td colspan="4"></td>
+            </tr>
+            <tr>
+              <td>昨日资金余额</td>
+              <td colspan="4"></td>
+            </tr>
+            <tr>
+              <td>本日资金余额</td>
+              <td colspan="4"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- loading -->
+      <div id="js_loading" class="cus-loading">加载中，请稍后...</div>
+    </div>
+    <!-- script -->
+    <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+    <script src="../js/plugins/moment/moment.min.js"></script>
+
+    <script type="text/javascript" src="../i18n/zh-CN.js"></script>
+    <script type="text/javascript" src="../js/subindex.js"></script>
+    <!-- mock -->
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+      var tableData = {
+        income: [
+          {
+            name: '项目1',
+            day: 10,
+            month: 20,
+            year: 30
+          },
+          {
+            name: '项目2',
+            day: 10,
+            month: 20,
+            year: 30
+          }
+        ],
+        pay: [
+          {
+            name: '项目1',
+            day: 20,
+            month: 30,
+            year: 40
+          },
+          {
+            name: '项目2',
+            day: 11,
+            month: 21,
+            year: 31
+          }
+        ],
+        year: 67586875678,
+        month: 4364567456,
+        yesteday: 45645557,
+        today: 657865756
+      }
+
+      $.mockjax({
+        url: '/api/t1',
+        dataType: 'json',
+        responseTime: 200,
+        response: function(settings) {
+          this.responseText = tableData
+        }
+      })
+    </script>
+    <!-- mock end -->
+    <script>
+      // 计算相关方法
+      var CUS_TOOLS = {
+        Add: function(arg1, arg2) {
+          if (arg1 == null || arg2 == null) return ''
+          ;(arg1 = arg1.toString()), (arg2 = arg2.toString())
+          var arg1Arr = arg1.split('.'),
+            arg2Arr = arg2.split('.'),
+            d1 = arg1Arr.length == 2 ? arg1Arr[1] : '',
+            d2 = arg2Arr.length == 2 ? arg2Arr[1] : ''
+          var maxLen = Math.max(d1.length, d2.length)
+          var m = Math.pow(10, maxLen)
+          var result = Number(((arg1 * m + arg2 * m) / m).toFixed(maxLen))
+          var d = arguments[2]
+          return typeof d === 'number' ? Number(result.toFixed(d)) : result
+        },
+        Sub: function(arg1, arg2) {
+          return this.Add(arg1, -Number(arg2), arguments[2])
+        }
+      }
+      // 构造表格
+      function createTable(sdata) {
+        // 金额显示处理
+        var h_money = function(param) {
+          return param ? $.number(param) : '-'
+        }
+        // 合计
+        var sumMoney = function(data) {
+          var s_1 = 0,
+            s_2 = 0,
+            s_3 = 0
+
+          for (var i = 0; i < data.length; i++) {
+            var item = data[i]
+
+            s_1 = CUS_TOOLS.Add(s_1, item.day)
+            s_2 = CUS_TOOLS.Add(s_2, item.month)
+            s_3 = CUS_TOOLS.Add(s_3, item.year)
+          }
+
+          return (
+            '<tr class="text-warning">' +
+            '<td>小计</td>' +
+            '<td>' +
+            h_money(s_1) +
+            '</td>' +
+            '<td>' +
+            h_money(s_2) +
+            '</td>' +
+            '<td>' +
+            h_money(s_3) +
+            '</td>' +
+            '</tr>'
+          )
+        }
+        // 收入/支出
+        var createTr1 = function(title, data) {
+          var tmp = [],
+            len = data.length
+          // 项目
+          for (var i = 0; i < len; i++) {
+            var item = data[i],
+              str = ''
+            // 添加标题
+            if (i == 0) {
+              str +=
+                '<tr>' +
+                '<td style="vertical-align: middle;" rowspan="' +
+                (len + 1) +
+                '" >' +
+                title +
+                '</td>' +
+                '<td class="text-success">' +
+                item.name +
+                '</td>' +
+                '<td>' +
+                h_money(item.day) +
+                '</td>' +
+                '<td>' +
+                h_money(item.month) +
+                '</td>' +
+                '<td>' +
+                h_money(item.year) +
+                '</td>' +
+                '</tr>'
+            } else {
+              str +=
+                '<tr>' +
+                '<td class="text-success">' +
+                item.name +
+                '</td>' +
+                '<td>' +
+                h_money(item.day) +
+                '</td>' +
+                '<td>' +
+                h_money(item.month) +
+                '</td>' +
+                '<td>' +
+                h_money(item.year) +
+                '</td>' +
+                '</tr>'
+            }
+
+            tmp.push(str)
+          }
+          // 小计
+          var xj_tr = sumMoney(data)
+          tmp.push(xj_tr)
+
+          // return tmp.join('')
+          return tmp
+        }
+        // 余额
+        var createTr2 = function(title, data) {
+          return (
+            '<tr><td>' +
+            title +
+            '</td><td colspan="4">' +
+            h_money(data) +
+            '</td></tr>'
+          )
+        }
+
+        // 初始化内容
+        var m_tmp = []
+
+        m_tmp = m_tmp.concat(createTr1('本日收入', sdata.income))
+        m_tmp = m_tmp.concat(createTr1('本日支出', sdata.pay))
+        m_tmp = m_tmp.concat(createTr2('年初资金余额', sdata.year))
+        m_tmp = m_tmp.concat(createTr2('月初资金余额', sdata.month))
+        m_tmp = m_tmp.concat(createTr2('昨日资金余额', sdata.yesteday))
+        m_tmp = m_tmp.concat(createTr2('本日资金余额', sdata.today))
+        // console.log(m_tmp)
+
+        $('#cus_table_body').html(m_tmp.join(''))
+      }
+
+      // 初始化表格
+      var $loading = $('#js_loading')
+      function initTable(subData) {
+        $loading.show()
+
+        $.post('/api/t1', subData)
+          .then(function(res) {
+            $loading.hide()
+            console.log('r_succ-', res)
+
+            createTable(res)
+          })
+          .fail(function(err) {
+            $loading.hide()
+            console.log('r_err-', err)
+          })
+      }
+
+      // 实际调用
+      initTable({ a: 1, b: 2 })
+    </script>
+  </body>
+</html>

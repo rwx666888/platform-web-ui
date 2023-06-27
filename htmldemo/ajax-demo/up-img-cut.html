@@ -1,0 +1,87 @@
+  <link rel="stylesheet" type="text/css" href="../../css/plugins/cropper/cropper.min.css"/>
+  <style>
+    .img-box{position: relative; padding: 20px; overflow: hidden;}
+    .img-div{float: left; background-color: #eee; padding: 10px; width: 350px; height: 350px;}
+    .img-div>img{vertical-align: middle; width: 100%;}
+    .img-preview{float: left; margin-left: 40px; background-color: #eee; width: 200px; height: 200px; overflow: hidden;}
+    .table-box{position: absolute; bottom: 20px; left: 410px;}
+    .but-r{float: right;}
+    .zcgs{color: #676a6c; font-size: 14px; font-weight: bold;}
+    .but-ts{position: relative; z-index: 10;}
+    .selec-but{position: absolute; z-index: 10; top: 10px; left: 0; opacity: 0; width: 82px; height: 30px;}
+    .table-box button{margin-right: 6px; margin-top: 10px;}
+    .ts-tr{position: relative;}
+  </style>
+  <div id="img-are" class="img-box">
+    <div id="img-div" class="img-div"><img></div>
+    <div class="img-preview"></div>
+    <table class="table-box" style="width: 300px;"> 
+      <tr><td class="zcgs">支持：格式为.jpg/.png的图片文件</td></tr> 
+      <tr>
+        <td class="ts-tr"><button class="btn btn-primary btn-sm but-ts"><i class="glyphicon glyphicon-plus"></i> 选择图片</button><input class="selec-but" id="selectImg" type="file" name="myFile" accept="image/jpeg,image/png"><button id="resetImg" class="btn btn-danger btn-sm" disabled="disabled"><i class="glyphicon glyphicon-refresh"></i> 重置图片</button><button id="upImg" class="btn btn-success btn-sm" disabled="disabled"><i class="glyphicon glyphicon-ok"></i> 剪裁上传</button></td>
+      </tr>
+    </table>
+  </div>
+  <script>
+      $(function(){
+          COM_TOOLS.requireJsFn(['cropper'],[],function(){
+              var cp_opt={
+                      //aspectRatio:1/1,
+                      preview:'.img-preview',
+                      //background:false,
+                      guides:false,
+                      autoCropArea:0.6,
+                      touchDragZoom:false
+                  },
+                  _imgType='images/jpeg',
+                  _imgTypeReg=/(image\/jpeg)|(image\/png)/;
+              var cutUpImg={
+                  changeImg:function(evt){
+                      var file_=this.files[0],
+                          URL_=window.URL || window.webkitURL,_blobURL,
+                          objURL_;
+
+                      if(file_){
+                          $('#resetImg,#upImg').removeAttr('disabled');
+                          _imgType=file_.type;
+                          if (_imgTypeReg.test(file_.type)) {
+                              if(URL_){ //兼容ie10
+                                  if(objURL_){URL_.revokeObjectURL(objURL_);}
+                                  objURL_=URL_.createObjectURL(file_);
+                              }else{
+                                  alert('不支持URL!');
+                                  return false;
+                              }
+                              _imgObj.cropper('destroy').attr('src', objURL_).cropper(cp_opt);
+                          }else{
+                              alert('请选择jpg/png格式图片!');
+                          }
+                      }
+                  },
+                  resetImg:function(evt){
+                      _imgObj.cropper('destroy').attr('src','');
+                      $(this).attr({'disabled': 'disabled'});
+                      $('#upImg').attr({'disabled': 'disabled'});
+                  },
+                  upImg:function(evt){
+                      $(this).attr({'disabled': 'disabled'});
+                      var cvsData=_imgObj.cropper('getCroppedCanvas');
+                      var newbase64=cvsData.toDataURL(_imgType,1).split(',')[1];
+                      $.ajax({
+                          type: 'POST',
+                          url: '../1116-cropper/upfile.php',
+                          data: {'xxx':newbase64},
+                          success: function(data){
+                              $(this).removeAttr('disabled');
+                              //TODO
+                          }
+                      });
+                  }
+              };
+
+              var _imgObj=$('#img-div>img');
+              $('#img-are').on('change','#selectImg',cutUpImg.changeImg).on('click','#resetImg',cutUpImg.resetImg).on('click','#upImg',cutUpImg.upImg);
+
+          });
+      });
+  </script>

@@ -1,0 +1,371 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>add_jstree_form</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="js/plugins/select2/css/select2.css">-->
+    <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <style>
+        #muban_box > .panel > .panel-body {
+            position: relative;
+        }
+
+        #muban_box .close_remove {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            color: rgba(0, 0, 0, .5);
+            font-size: 16px;
+        }
+
+        .panel-heading {
+            padding: 5px 15px;
+        }
+
+        .tree-box-parent .tree-box-crm {
+            display: none;
+            border: 1px solid #1ab394;
+            overflow: auto;
+            max-height: 400px;
+            min-width: 100%;
+            position: absolute;
+            top: 33px;
+            left: 0;
+            z-index: 999;
+            background: #fff;
+            padding: 10px;
+        }
+
+        .tree-box-parent {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row" style="min-height: 50px;">
+        <div class="p-sm col-xs-12 text-center" style="padding:10px;" id="demoaffix1" data-spy="affix"
+             data-offset-top="50">
+            <button id="save_btn_form" class="btn btn-primary btn-sm" type="button">保存</button>
+            <button class="btn btn-success btn-sm" type="button" onclick="cumParentCallValue()">关闭</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row p-xxs">
+        <div class="col-sm-12">
+            <div id="demo1" class="form-horizontal">
+                <div class="panel panel-default">
+                    <div class="panel-heading">主表单</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">中心</label>
+                            <div class="col-sm-3">
+                                <input class="form-control input-sm validate_custem" name="name2" type="text" placeholder="" required="true" email="true"></div>
+                            <label class="col-sm-2 control-label"><span class="text-danger">*</span> 咨询顾问</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control input-sm" name="name1" id="zixunguwenVal" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label input-sm"><span class="text-danger">*</span>
+                                信息来源</label>
+                            <div class="col-sm-3">
+                                <select class="form-control input-sm  "
+                                        name="name3">
+                                    <option value="">- 请选择-</option>
+                                    <option value="百度">百度</option>
+                                    <option value="谷歌">谷歌</option>
+                                    <option value="360">360</option>
+                                    <option value="搜狗">搜狗</option>
+                                    <option value="招聘网站">招聘网站</option>
+                                    <option value="分类信息">分类信息</option>
+                                    <option value="口碑">口碑</option>
+                                    <option value="招聘会">招聘会</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label"><span class="text-danger">*</span> 信息渠道</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control input-sm  " name="name4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">2表单</div>
+                    <div id="muban_box" class="panel-body "></div>
+                    <div class="panel-footer" style="padding: 5px;">
+                        <button id="add_muban" style="width:200px;" class="center-block btn-success btn-block  btn-sm btn">增加一条</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="muban" class="hidden">
+    <div class="panel panel-default js-item">
+        <div class="panel-body bg-success">
+            <span class="close_remove glyphicon glyphicon-remove"></span>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">中心</label>
+                <div class="col-sm-3">
+                    <input name="name1" class="form-control input-sm js-input" type="text"></div>
+                <label class="col-sm-2 control-label">
+                    <span class="text-danger">*</span>
+                    咨询顾问</label>
+                <div class="col-sm-3">
+                    <input name="name2" type="text" class="form-control input-sm js-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    <span class="text-danger">*</span>
+                    信息来源</label>
+                <div class="col-sm-3 tree-box-fg">
+                    <div class="tree-box-parent">
+                        <input readonly="readonly" name="name3" class="tree-show form-control input-sm js-input" type="text" placeholder="请选择">
+                        <input type="hidden" name="name5" class="tree-show-hiddenVal js-input">
+                        <div class="tree-box-crm js-tree-box">
+                            <input class="search-input1 form-control"/>
+                            <!--<div class="jstree1"></div>-->
+                        </div>
+                    </div>
+                </div>
+                <label class="col-sm-2 control-label">
+                    <span class="text-danger">*</span>
+                    信息渠道</label>
+                <div class="col-sm-3">
+                    <input name="name4" type="text" class="form-control input-sm js-input">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mainly scripts -->
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+
+<script src="../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../../js/plugins/layer/layer.js"></script>
+
+<!--<script src="../../js/plugins/select2/js/select2.js"></script>-->
+<!--<script src="../../js/plugins/select2/js/i18n/zh-CN.js"></script>-->
+
+<script src="../../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<script src="../../js/plugins/jsTree/jstree.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="../../js/pinyin.js"></script>
+<script src="../../js/plugins/validate/jquery.validate.min.js"></script>
+<script src="../../js/plugins/validate/messages_zh.js"></script>
+<script src="../../js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="../../i18n/zh-CN.js"></script>
+<script src="../../js/subindex.js"></script>
+<script src="../../js/plugins/iCheck/icheck.min.js"></script>
+
+<!--jquery.mockjax.min.js仅限于demo演示模拟数据使用-->
+<script src="../../js/jquery.mockjax.min.js"></script>
+<script>
+    $(function(){
+        /*
+         * 此方法仅限于demo演示模拟数据使用
+         */
+        /*$.mockjax({
+            url: "/jstree6/api",
+            dataType: "json",
+            response: function(settings) {
+                var id_= settings.data['id'];
+                this.responseText = [
+                    { "text" : "text"+id_+'_'+1,"children" : true ,"id":id_+'_'+1},
+                    { "text" : "text"+id_+'_'+2,"children" : true ,"id":id_+'_'+2}
+                ];
+            }
+        });*/
+    });
+    $(function () {
+        /*var IDS_ = [
+            ['0_1','0_1_2','0_1_2_1','0_1_2_1_2'],
+            ['0_1','0_1_2','0_1_2_1'],
+            ['0_2','0_2_2','0_2_2_1']
+        ];*/
+        function thatMatcher_(term, text) {
+            if(text.toPinYin != undefined) {
+                return text.toPinYin().indexOf(term.toUpperCase()) >= 0 ? true : text.toUpperCase().indexOf(term.toUpperCase()) >= 0;
+            }
+            return text.toUpperCase().indexOf(term.toUpperCase()) >= 0;
+        }
+        function jstreeFun(t_) {
+            $('.jstree1').jstree({
+                "checkbox": {
+                    "three_state": false//此属性选择是否级联,默认为true。
+                },
+                'core': {
+                    "check_callback": true,
+                    'data': [
+                        { "id" : "ajson1", "parent" : "0", "text" : "第一个" },
+                        { "id" : "ajson2", "parent" : "0", "text" : "两个" },
+                        { "id" : "ajson3", "parent" : "ajson2", "text" : "三个" },
+                        { "id" : "ajson4", "parent" : "ajson2", "text" : "四个" }
+                    ]
+                },
+                "search":{
+                    show_only_matches:true,//只显示搜索到的数据
+                    show_only_matches_children:true,
+                    search_callback:function(d,n){
+                         return thatMatcher_(d,n.text);
+                    }
+                },
+                'plugins': ['checkbox','search']//search:搜索组件,checkbox:多选框
+            }).on("ready.jstree", function (){
+                var ref = $(this).jstree(true);
+                var p_ = $(this).parent();
+                var ids_ = p_.siblings('.tree-show-hiddenVal').val();
+                if(ids_){
+                    ref.select_node(ids_,true,false);//tree加载完之后让id为a1节点选中
+                }
+
+                /* var path_ids=[],
+                     open_ids=[];
+                 $.each(IDS_,function(i,n){
+                     open_ids = open_ids.concat(n.slice(-1));
+                     if(n.length>1){
+                         path_ids = path_ids.concat(n.slice(0,-1));
+                     }
+                 });
+                 ref.load_node(COM_TOOLS.arrayUniqueFn(path_ids),function(){
+                     ref.select_node(COM_TOOLS.arrayUniqueFn(open_ids), true, false);
+                 });*/
+
+            }).on("activate_node.jstree",function(e,d){
+                var p_ = $(this).parent();
+                var ref = $('.jstree1').jstree(true);
+                var node_ = d.node.id;
+                var n_text = ref.get_text(node_);
+                var node_id = [];
+                var node_text = [];
+                if (p_.siblings('.tree-show-hiddenVal').val() != '') {
+                    node_id = p_.siblings('.tree-show-hiddenVal').val().split(',');
+                    node_text = p_.siblings('.tree-show').val().split(';');
+                    if (ref.is_selected(node_)) {
+                        if ($.inArray(node_, node_id) == -1) {
+                            node_id.push(node_);
+                            node_text.push(n_text);
+                        }
+                    }else{
+                        var i_ = $.inArray(node_, node_id);
+                        var i_t = $.inArray(n_text, node_text);
+                        if (i_ != -1) {
+                            node_id.splice(i_, 1);
+                            node_text.splice(i_t,1);
+                        }
+                    }
+                }else{
+                    node_id.push(node_);
+                    node_text.push(n_text);
+                }
+                p_.siblings('.tree-show-hiddenVal').val(node_id);
+                p_.siblings('.tree-show').val(node_text.join(';'));
+            })
+            t_.siblings('.js-tree-box').find('.search-input1').off().keyup(function(){
+                $('.jstree1').jstree(true).search($(this).val());
+            })
+        }
+        $(document).on('click', '.tree-show', function (e) {
+            $('.js-tree-box').hide();
+            $('.jstree1').remove().jstree("destroy");
+            var dom_ = $(this).siblings('.js-tree-box');//.toggle();
+            if (dom_.is(':hidden')) {
+                dom_.append('<div class="jstree1"></div>');
+                jstreeFun($(this));
+                dom_.show();
+
+            } else {
+                $('.jstree1').remove().jstree("destroy");
+                dom_.hide();
+            }
+        });
+        $(document).on('click', function (e) {
+            var sel_cur_box = $(e.target).closest('.tree-box-fg');
+            if (sel_cur_box.length > 0) {
+                return;
+            }
+            $('.tree-show').siblings('.js-tree-box').hide();
+            if ($('.jstree1').length > 0) {
+                $('.jstree1').remove().jstree("destroy");
+            }
+        });
+
+        var item_list = [
+            {"name1": "aa1", "name2": 2, "name3": "三个", "name4": 4,"name5":"ajson3"},
+            {"name1": "aa2", "name2": 2, "name3": "三个", "name4": 4,"name5":"ajson3"},
+            {"name1": "aa3", "name2": 2, "name3": "三个", "name4": 4,"name5":"ajson3"},
+            {"name1": "aa4", "name2": 2, "name3": "三个", "name4": 4,"name5":"ajson3"}
+        ];
+        if (item_list.length > 0) {
+            $.each(item_list, function (i, n) {
+                var this_ = $(this);
+                $('#muban_box').append($('#muban').html());
+                $('#muban_box .js-item').eq(i).find('.js-input[name="name1"]').val(n.name1)
+                    .end().find('.js-input[name="name2"]').val(n.name2)
+                    .end().find('.js-input[name="name3"]').val(n.name3)
+                    .end().find('.js-input[name="name4"]').val(n.name4)
+                    .end().find('.js-input[name="name5"]').val(n.name5)
+            })
+        } else {
+            $('#muban_box').append($('#muban').html());
+        }
+        $('#muban_box').append($('#muban').html());
+
+        $('#add_muban').click(function () {
+            var true_ = true;
+            $('#muban_box .js-input').each(function () {
+                if ($.trim($(this).val()) == "") {
+                    COM_TOOLS.alert('不能为空');
+                    true_ = false;
+                    return false;
+                }
+            });
+            if (true_) {
+                $('#muban_box').append($('#muban').html())
+            }
+        });
+        $('#muban_box').on('click', '.close_remove', function () {
+            $(this).parent().parent().remove();
+        });
+        $('#save_btn_form').click(function () {
+            var val_1 = [];
+            $('#muban_box .js-input').each(function () {
+                if ($.trim($(this).val()) == "") {
+                    COM_TOOLS.alert('不能为空', {"time": 1500});
+                    return false;
+                }
+            });
+            $('#muban_box .js-item').each(function () {
+                val_1.push(COM_TOOLS.serializeObject($(this).find('.input-sm')));
+            });
+            $.ajax({
+                data: {name1: JSON.stringify(val_1)}
+                //TODO
+            })
+        })
+    })
+</script>
+</body>
+</html>

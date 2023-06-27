@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Schedule Course</title>
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/core/main.min.css" />
+    <!-- <link rel="stylesheet" href="./js/plugins/fullcalender v4/timeline/main.min.css" /> -->
+    <!-- <link rel="stylesheet" href="./js/plugins/fullcalender v4/resource/timeline/main.min.css" /> -->
+
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/daygrid/main.min.css" />
+
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/timegrid/main.min.css" />
+    <!-- <link rel="stylesheet" href="./js/plugins/fullcalender v4/bootstrap/main.min.css" /> -->
+
+    <!-- <link rel="stylesheet" href="./js/plugins/fullcalender v4/list/main.min.css" /> -->
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <style>
+      .calender-wrp{
+        /* overflow-y: auto; */
+      }
+      .calender-wrp .fc-view-container{
+        /* min-width: 1200px; */
+      }
+      .fc-view-container .fc-resource-cell{
+        /* width: 150px; */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- calender bar -->
+    <div id="js_calenderBar" class="calender-bar">
+      <button class="btn btn-primary btn-sm js-prev-week" type="button">上一周</button>
+      <button class="btn btn-primary btn-sm js-next-week" type="button">下一周</button>
+      <button class="btn btn-primary btn-sm js-cur-week" type="button">返回本周</button>
+    </div>
+    <!-- canlender -->
+    <div id="js_calender" class="calender-wrp"></div>
+    <script src="./js/plugins/fullcalender v4/core/main.min.js"></script>
+
+    <!-- <script src="./js/plugins/fullcalender v4/bootstrap/main.min.js"></script> -->
+
+    <script src="./js/plugins/fullcalender v4/locales/zh-cn.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/interaction/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/daygrid/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/timegrid/main.min.js"></script>
+
+    <!-- <script src="./js/plugins/fullcalender v4/list/main.min.js"></script> -->
+
+    <!-- <script src="./js/plugins/fullcalender v4/timeline/main.min.js"></script> -->
+
+    <script src="./js/plugins/fullcalender v4/resource/common/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/resource/daygrid/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/resource/timegrid/main.min.js"></script>
+    <!-- <script src="./js/plugins/fullcalender v4/resource/timeline/main.min.js"></script> -->
+
+    <!-- <script src="./js/plugins/fullcalender v4/moment/main.min.js"></script> -->
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script>
+      $(function() {
+        function formatWeek(date) {
+          var weekList = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+          var DATE_ = new Date(date)
+          var year_ = DATE_.getFullYear()
+          var month_ = DATE_.getMonth() + 1
+          var date_ = DATE_.getDate()
+          var bay_ = DATE_.getDay()
+          // return weekList[bay_] + ' ' + year_ + '-' + month_ + '-' + date_
+          return weekList[bay_] + ' ' + month_ + '-' + date_
+        }
+
+        var calenderEl = document.getElementById('js_calender')
+        var calenderInst = new FullCalendar.Calendar(calenderEl, {
+          schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+          // plugins: ['dayGrid', 'timeGrid', 'resourceDayGrid', 'bootstrap', 'list'],
+          // plugins: ['interaction','resourceTimeline', 'bootstrap'],
+          // plugins: ['resourceDayGrid', 'bootstrap'],
+          // plugins: ['resourceTimeline'],
+          plugins: ['interaction', 'resourceTimeGrid'],
+          // plugins: ['dayGrid', 'bootstrap'],
+          // themeSystem: 'bootstrap',
+          header: false,
+          defaultDate: '2019-04-11',
+          // defaultDate: new Date(),
+          // defaultDate: new Date(),
+          // timeZone: 'UTC',
+          defaultView: 'resourceTimeGridDay',
+          // eventOverlap: false, // 事件 能否叠加
+          editable: true, // 开启拖动和编辑
+          eventDurationEditable: false, // 禁止编辑
+          // eventStartEditable: false, // 禁止拖动
+          // eventResourceEditable: false, // 只允许的同一资源拖动
+          // defaultView: 'dayGridWeek',
+          // defaultView: 'resourceTimelineWeek',
+          height: 'auto',
+          contentHeight: 'auto',
+          locale: 'zh-ch',
+          // views: {},
+          // slotLabelFormat: function(obj) {
+          //   console.log(obj)
+          //   // return '-1-'
+          //   // return date
+          //   // return
+          //   return formatWeek(obj.date.marker)
+          // },
+          // firstDay: 1,
+          // columnHeaderText
+          // titleFormat: {
+          //   day: 'numeric'
+          // },
+          // timeGridEventMinHeight: '200',
+          resourceLabelText: '教室',
+          minTime: '08:00',
+          maxTime: '22:00',
+          // slotDuration: '00:05:00',
+          slotDuration: '00:30:00',
+          slotLabelFormat: function(obj) {
+            // console.log(obj)
+            return '--' + obj.date.hour + ':' + obj.date.minute
+            // return '-1-'
+            // return date
+            // return
+            // return formatWeek(obj.date.marker)
+          },
+          // slotLabelInterval:{hours:1},
+          // slotDuration: {days: 1},
+          // columnHeaderHtml: function(date) {
+          //   console.log(date)
+          //   // return '-' + date + '-'
+          //   return formatWeek(date)
+          // },
+          slotWidth: '300px',
+          // timeGridEventMinHeight: 300, // event 高度
+          allDaySlot: false,
+          // resourceAreaWidth: '200px',
+          // weekNumbers: true,
+          events: [
+            {
+              resourceId: '0',
+              title: 'event 1event 1event 1event 1event 1event 1 event 1event 1event 1',
+              start: '2019-04-11 10:15',
+              end: '2019-04-11 12:15'
+            },
+            {
+              resourceId: '0',
+              title: 'event 1event 1event 1event 1event 1event 1 event 1event 1event 1',
+              start: '2019-04-11 10:15',
+              end: '2019-04-11 12:15'
+            },
+            {
+              resourceId: '0',
+              title: 'event 1event 1event 1event 1event 1event 1 event 1event 1event 1',
+              start: '2019-04-11 10:15',
+              end: '2019-04-11 12:15',
+              backgroundColor: 'red'
+            }
+            // {resourceId: 'a', title: 'event 2', start: '2019-04-11 08:30', end: '2019-04-11 09:15'},
+            // {resourceId: 'a', title: 'event 3', start: '2019-04-11 08:30', end: '2019-04-11 09:15'},
+            // {resourceId: 'a', title: 'event 4', start: '2019-04-11 08:30', end: '2019-04-11 09:15'},
+            // {resourceId: 'a', title: 'event 5', start: '2019-04-11 08:30', end: '2019-04-11 09:15'},
+            // {resourceId: 'a', title: '-123-', start: '2019-04-11 09:00', end: '2019-04-11 09:45'}
+            // {resourceId: 'b', title: 'event 3', start: '2019-04-11T12:00:00+00:00', end: '2019-04-12T06:00:00+00:00'},
+            // {resourceId: 'c', title: 'event 4', start: '2019-04-11T07:30:00+00:00', end: '2019-04-11T09:30:00+00:00'},
+            // {resourceId: 'd', title: 'event 5', start: '2019-04-11T10:00:00+00:00', end: '2019-04-11T15:00:00+00:00'},
+            // {resourceId: 'a', title: 'event 2', start: '2019-04-11T09:00:00+00:00', end: '2019-04-11T14:00:00+00:00'}
+            // {
+            //   resourceId: '001',
+            //   title: 'All Day Event',
+            //   start: '2019-04-11'
+            // },
+            // {
+            //   resourceId: '003',
+            //   title: 'All Day Event All Day Event All Day Event All Day Event',
+            //   start: '2019-04-08'
+            // },
+            // {
+            //   resourceId: '003',
+            //   title: 'All Day Event',
+            //   start: '2019-04-08'
+            // },
+            // {
+            //   resourceId: '003',
+            //   title: 'All Day Event',
+            //   start: '2019-04-08'
+            // }
+            // {
+            //   title: '阿斯顿发 暗示法 阿斯顿 阿斯顿发 阿斯顿发发',
+            //   start: '2019-04-11'
+            // },
+            // {
+            //   title: '阿斯顿发 暗示法 阿斯顿 阿斯顿发 阿斯顿发发',
+            //   start: '2019-04-12'
+            // }
+          ],
+          // resourceColumns: [
+          //   {
+          //     labelText: 'First Name',
+          //     field: 'fname'
+          //   },
+          //   {
+          //     labelText: 'Last Name',
+          //     field: 'lname'
+          //   }
+          // ],
+          resources: [
+            {id: '0', title: 'Room A'},
+            {id: '1', title: 'Room B'},
+            {id: '2', title: 'Room C'},
+            {id: '3', title: 'Room D'},
+            {id: '4', title: 'Room A'},
+            {id: '5', title: 'Room B'},
+            {id: '6', title: 'Room C'},
+            {id: '7', title: 'Room D'},
+            {id: '8', title: 'Room D'},
+            {id: '9', title: 'Room D'}
+            // {
+            //   id: '001',
+            //   title: '王老师'
+            // },
+            // {
+            //   id: '002',
+            //   title: '李老师'
+            // },
+            // {
+            //   id: '003',
+            //   title: '高老师'
+            // }
+            // {
+            //   title: 'All Day Event',
+            //   start: '2019-04-11'
+            // },
+            // {
+            //   title: '阿斯顿发 暗示法 阿斯顿 阿斯顿发 阿斯顿发发',
+            //   start: '2019-04-11'
+            // },
+            // {
+            //   title: '阿斯顿发 暗示法 阿斯顿 阿斯顿发 阿斯顿发发',
+            //   start: '2019-04-12'
+            // }
+          ]
+        })
+
+        calenderInst.render()
+
+        console.log(calenderInst)
+        // event
+        // calenderInst.changeView('dayGridWeek',{})
+        $('#js_calenderBar')
+          .on('click', '.js-prev-week', function() {
+            calenderInst.prev()
+          })
+          .on('click', '.js-next-week', function() {
+            calenderInst.next()
+          })
+          .on('click', '.js-cur-week', function() {
+            calenderInst.today()
+          })
+      })
+    </script>
+  </body>
+</html>

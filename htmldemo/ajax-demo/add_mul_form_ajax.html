@@ -1,0 +1,210 @@
+    <style>
+        #muban_box > .panel > .panel-body {
+            position: relative;
+        }
+
+        #muban_box .close_remove {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            color: rgba(0, 0, 0, .5);
+            font-size: 16px;
+        }
+        .panel-heading {
+            padding: 5px 15px;
+        }
+    </style>
+<div class="btn-box-info">
+    <button class="btn btn-primary btn-sm prev" type="button">上一步</button>
+    <button id="save_btn_form" class="btn btn-primary btn-sm" type="button">保存</button>
+    <button class="btn btn-success btn-sm" type="button" onclick="cumParentCallValue()">关闭</button>
+</div>
+<div class="container">
+    <div class="row p-xxs">
+        <div class="col-sm-12">
+            <div id="demo1" class="form-horizontal">
+                <div class="panel panel-default">
+                    <div class="panel-heading">添加多个表单</div>
+                    <form id="mul_form_box">
+                        <div id="muban_box" class="panel-body "></div>
+                    </form>
+                    <div class="panel-footer" style="padding: 5px;">
+                        <button id="add_muban" style="width:200px;" type="button" class="center-block btn-success btn-block  btn-sm btn">增加一条</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="muban" class="hidden">
+    <div class="panel panel-default js-item">
+        <div class="panel-body bg-success">
+            <span class="close_remove glyphicon glyphicon-remove"></span>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">文本框</label>
+                <div class="col-sm-3">
+                    <input name="name1_{n}" class="form-control input-sm js-input" type="text" required></div>
+                <label class="col-sm-2 control-label">
+                    <span class="text-danger">*</span>单选框
+                </label>
+                <div class="col-sm-3">
+                    <label class="checkbox-inline i-checks">
+                        <input name="name2_{n}" type="radio" value="radio1" class="js-input" required data-needjs="true"> 1
+                    </label>
+                    <label class="checkbox-inline i-checks">
+                        <input name="name2_{n}" type="radio" value="radio2" class="js-input" data-needjs="true"> 2
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    <span class="text-danger">*</span>select
+                </label>
+                <div class="col-sm-3">
+                    <select class="form-control input-sm js-input" name="name3_{n}" data-needjs="true">
+                        <option value="">- 请选择-</option>
+                        <option value="百度">百度</option>
+                        <option value="谷歌">谷歌</option>
+                        <option value="360">360</option>
+                        <option value="搜狗">搜狗</option>
+                        <option value="招聘网站">招聘网站</option>
+                        <option value="分类信息">分类信息</option>
+                        <option value="口碑">口碑</option>
+                        <option value="招聘会">招聘会</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">
+                    <span class="text-danger">*</span>复选框
+                </label>
+                <div class="col-sm-3">
+                    <label class="radio-inline i-checks">
+                        <input name="name4_{n}" type="checkbox" value="checkbox1" class="js-input" data-needjs="true"> 1
+                    </label>
+                    <label class="radio-inline i-checks">
+                        <input name="name4_{n}" type="checkbox" value="checkbox2" class="js-input" data-needjs="true"> 2
+                    </label>
+                    <label class="radio-inline i-checks">
+                        <input name="name4_{n}" type="checkbox" value="checkbox3" class="js-input" data-needjs="true"> 2
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">文本框</label>
+                <div class="col-sm-3">
+                    <div class="input-group input-group-sm">
+                        <input type="text" name="name5_{n}" class="form-control input-sm js-helpmsg" id="id1_{n}" readonly="readonly">
+                        <input type="hidden" name="name6_{n}" id="id1_{n}_hide">
+                        <span class="input-group-btn">
+                        <button class="btn btn-primary js-openwin-btn" data-id="id1_{n}" data-title="数据窗口" data-url="selectpage1.html" data-area='["600px", "230px"]' type="button">
+                        <i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+		var item_index_=0;
+		var clone_html_ = $('#muban').html();
+		function add_item_fn(){
+			var o_ = $(clone_html_.replace(new RegExp(/({n})/g),item_index_));
+			$('#muban_box').append(o_);
+			init_elm_js_fn(o_);
+            item_index_++;
+		}
+		function check_form_fn(){
+			$('#mul_form_box').submit();
+		}
+		function init_icheck_fn(obj){
+			obj.iCheck({
+				checkboxClass: 'icheckbox_square-green',
+				radioClass: 'iradio_square-green',
+			});
+		}
+		function init_select2_fn(obj){
+			obj.select2();
+		}
+		function get_elm_type(obj){
+			var nodeName_ = obj.prop('nodeName').toLowerCase();			
+			if(nodeName_ && nodeName_=='select'){
+				return 'select';
+			}else if(nodeName_ && nodeName_=='input'){
+				var type_ = obj.attr('type').toLowerCase();
+				if($.inArray(type_,['text','radio','checkbox'])!==-1){
+					return type_;
+				}
+			}
+			return '';
+		}
+		function init_elm_js_fn(obj){
+			obj.find('.js-input').each(function(){
+				var this_= $(this),
+				type_ = get_elm_type(this_);
+				if(type_){
+					if(this_.data('needjs')==true){
+						if($.inArray(type_,['radio','checkbox'])!==-1){
+							init_icheck_fn(this_);
+						}else if(type_=='select'){
+							init_select2_fn(this_);
+						}
+					}
+				}
+			});
+		}
+		function get_obj_data(d){
+			var o={}, f_ = $(d).serializeArray();
+			$.each(f_, function(i,n){
+				var name_ = n['name'].split('_')[0];
+		        if (o[name_]){
+		            o[name_] = o[name_] + "," + n['value'];
+		        }else{
+		            o[name_] = n['value'];
+		        }  
+		    });
+		    return o;
+		}
+		function get_listdata(){
+			var data_ = [];
+			$('#muban_box .js-item').each(function(){
+                data_.push(get_obj_data($(this).find('.js-input')));
+            });
+            return data_;
+		}
+		function form_submit_fn(){ //保存提交数据
+            var data2 = $('#demoform1').serialize();
+			var data = get_listdata();
+			console.log(data2+"&jsondata="+JSON.stringify(data))
+			//ajax data
+			alert(JSON.stringify(data));
+		}
+		$('#muban_box').on('click','.close_remove',function () {
+			$(this).closest('.js-item').remove();
+		});
+		var fn_do = add_item_fn;
+		$('#add_muban').click(function (){
+			fn_do = add_item_fn;
+            check_form_fn();
+       	});
+		$('#mul_form_box').validate({
+			submitHandler:function(form) {
+				fn_do();
+			}
+		});
+		$('#save_btn_form').click(function(){
+			fn_do = form_submit_fn;
+			check_form_fn();
+		});
+        $(document).on('click','.js-openwin-btn',function(){
+            var this_ = $(this),
+                d_ = this_.data(),
+                opt_ = {};
+            if(d_['area']){opt_['area']=d_['area'];}
+            opt_['callid']=d_['id'];
+            cumParentWinModal(d_['title'],d_['url'],opt_);
+        });
+    })
+</script>

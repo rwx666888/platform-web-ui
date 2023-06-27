@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta charset="UTF-8">
+		<title>datatimepicker</title>
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+		<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+		<link href="../css/iconfont.css" rel="stylesheet"/>
+					
+    	<link rel="stylesheet" href="../css/style.css">
+    	<style type="text/css">
+pre{
+white-space: pre-wrap;       
+white-space: -moz-pre-wrap;  
+white-space: -pre-wrap;      
+white-space: -o-pre-wrap;    
+word-wrap: break-word;       
+}
+    .demo-box{ margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; position: relative; border-radius: 5px;}
+    .tab-content{ overflow-y: auto; max-height: 400px;}
+    	</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="panel panel-default m-t-md">
+				<div class="panel-heading">自定义配置datatimepicker&nbsp;&nbsp;&nbsp;具体参照官网地址：http://www.bootcss.com/p/bootstrap-datetimepicker</div>
+				<div class="panel-body">
+					<div class="row">
+					    <form autocomplete="off">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="dp_id">目标id</label>
+								<input type="text" class="form-control input-sm" id="dp_id" autocomplete="off"/>
+							</div>
+							<div class="form-group">
+								<label for="dp_start">开始时间</label>
+								<input type="text" class="form-control input-sm" id="dp_start" readonly=""/>
+							</div>
+							<div class="form-group">
+								<label for="dp_end">结束时间</label>
+								<input type="text" class="form-control input-sm" id="dp_end" readonly=""/>
+							</div>
+							<div class="form-group">
+								<label for="dp_format">时间格式</label>
+								<input type="text" class="form-control input-sm js-inp-change" id="dp_format"  placeholder="yyyy-mm-dd hh:ii:ss"/>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>开始视图</label>
+								<div class="checkbox">
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_start_view" value="0"/>
+										小时
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_start_view" value="1"/>
+										天
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_start_view" value="2" checked="checked"/>
+										月份
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_start_view" value="3"/>
+										年
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_start_view" value="4"/>
+										十年
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>最小视图</label>
+								<div class="checkbox">
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_min_view" value="0" />
+										小时
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_min_view" value="1"/>
+										天
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_min_view" value="2"/>
+										月份
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_min_view" value="3"/>
+										年
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_min_view" value="4"/>
+										十年
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>最大视图</label>
+								<div class="checkbox">
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_max_view" value="0"/>
+										小时
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_max_view" value="1"/>
+										天
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_max_view" value="2"/>
+										月份
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_max_view" value="3"/>
+										年
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_max_view" value="4" checked="checked"/>
+										十年
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>选择器位置</label>
+								<div class="checkbox">
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_pickerPosition" value="bottom-right"/>
+										右下方
+									</label>
+									<label>
+										<input type="radio" class="js-inp-change" name="dt_pickerPosition" value="bottom-left"/>
+										左下方
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="dp_auto_close">
+									<input type="checkbox" class="js-inp-change" id="dp_auto_close" /> 选完自动关闭
+								</label>
+							</div>
+							<div class="form-group">
+								<label for="dp_today_btn">
+									<input type="checkbox" class="js-inp-change" id="dp_today_btn"/> 今日按钮
+								</label>
+							</div>
+							<div class="form-group">
+								<label for="dp_close_btn">
+									<input type="checkbox" class="js-inp-change" id="dp_close_btn" /> 清除按钮
+								</label>
+							</div>
+							<div class="form-group">
+                                <label for="dp_forceparse_btn">
+                                    <input type="checkbox" class="js-inp-change" id="dp_forceparse_btn" /> 当选择器关闭的时候，是否强制解析输入框中的值
+                                </label>
+                            </div>
+
+						</div>
+						</form>
+					</div>
+					<div class="row m-t-md">
+						<h4 class="container">最终效果</h4>
+						<div class="col-md-4">
+							<div class="input-group date" id="dp_test">
+	                            <input type="text" class="form-control input-sm" readonly="" autocomplete="off">
+	                            <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+	                        </div>
+						</div>
+						<div class="col-md-8">
+<pre id="dt_code" style="height: 300px;"></pre>
+						</div>
+					</div>
+					<div class="row p-md">
+<pre>
+时间格式：
+yyyy-mm-dd
+yyyy-mm-dd hh:ii
+yyyy-mm-ddThh:ii
+yyyy-mm-dd hh:ii:ss
+yyyy-mm-ddThh:ii:ssZ
+
+视图选择：
+开始视图必须在最大与最小视图范围内
+
+注：'d'(day),'w'(week),'m'(month),'y'(year)
+开始时间与结束时间也可通过以上简写实现
+例：startDate:'-1d'(设置开始时间为前一天)
+startDate:'+0d'(设置开始时间为今天)
+
+常用方法：
+remove: //移除日期时间选择器。同时移除已经绑定的event、内部绑定的对象和HTML元素。
+$('#datetimepicker').datetimepicker('remove');---><a href="#disable_demo">点击跳转到案例</a>
+show: //显示日期时间选择器。
+$('#datetimepicker').datetimepicker('show');
+hide: //隐藏日期时间选择器。
+$('#datetimepicker').datetimepicker('hide');
+update: //使用当前输入框中的值更新日期时间选择器。
+$('#datetimepicker').datetimepicker('update');
+setStartDate: //给日期时间选择器设置一个新的起始日期。
+$('#datetimepicker').datetimepicker('setStartDate', '2012-01-01');
+setEndDate: //给日期时间选择器设置结束日期。$('#datetimepicker').datetimepicker('setEndDate', '2012-01-01');
+setDaysOfWeekDisabled: //设置星期几不可用，星期日：0；星期一：1，。。。
+$('#datetimepicker').datetimepicker('setDaysOfWeekDisabled', [0,6]); //禁用周六、周日
+</pre>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 联动 DEMO -->
+			<div class="panel panel-default m-t-md">
+                <div class="panel-heading">起始时间联动</div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">开始</label>
+                            <div class="col-sm-2">
+                                <div class="input-group date" id="start_date_d">
+                                    <input class="form-control input-sm" type="text" name="start_date" id="start_date" readonly/>
+                                    <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                                </div>
+                            </div>
+                            <label class="col-sm-2 control-label">结束</label>
+                            <div class="col-sm-2">
+                                <div class="input-group date" id="end_date_d">
+                                    <input class="form-control input-sm" type="text" name="end_date" id="end_date" readonly/>
+                                    <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#demo2-js" role="tab" data-toggle="tab" aria-expanded="true">js</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo2-js">
+<pre>
+//&#x27;#start_date_d&#x27;&#x8FD9;&#x4E2A;id&#x4E3A;input&#x5916;&#x5C42;div&#x7684;id
+$(&#x27;#start_date_d&#x27;).datetimepicker().on(&#x27;changeDate&#x27;, function(){
+    var t_ = $(this).is(&#x27;input&#x27;) ? $(this) : $(this).children(&#x27;input&#x27;);
+    $(&#x27;#end_date_d&#x27;).datetimepicker(&#x27;setStartDate&#x27;, t_.val());
+});
+$(&#x27;#end_date_d&#x27;).datetimepicker().on(&#x27;changeDate&#x27;, function(){
+    var t_ = $(this).is(&#x27;input&#x27;) ? $(this) : $(this).children(&#x27;input&#x27;);
+    $(&#x27;#start_date_d&#x27;).datetimepicker(&#x27;setEndDate&#x27;, t_.val());
+});   
+</pre>                            
+                        </div>
+                    </div>    
+                </div>
+            </div> 
+            <!-- 禁用日历demo -->
+            <div class="panel panel-default m-t-md" id="disable_demo">
+                <div class="panel-heading">禁用日历demo</div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <div class="input-group date" id="disable_date">
+                                    <input class="form-control input-sm" type="text" name="start_date" id="disable_date_input" readonly/>
+                                    <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="checkbox" id="switch_state"/>启用/禁用
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#demo3-js" role="tab" data-toggle="tab" aria-expanded="true">js</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo3-js">
+<pre>
+$(&#x27;#disable_date&#x27;).datetimepicker();
+$(&#x27;#switch_state&#x27;).click(function(){
+    if($(this).is(&quot;:checked&quot;)){
+        $(&#x27;#disable_date_input&#x27;).val(&#x27;&#x27;).prop(&#x27;disabled&#x27;,true);
+        $(&#x27;#disable_date&#x27;).datetimepicker(&#x27;remove&#x27;);
+    }else{
+        $(&#x27;#disable_date_input&#x27;).prop(&#x27;disabled&#x27;,false);
+        $(&#x27;#disable_date&#x27;).datetimepicker(); 
+    }
+})
+</pre>                            
+                        </div>
+                    </div>    
+                </div>
+            </div> 
+            
+            <div style="width: 300px;" id="xxxx"></div>
+            
+		</div>
+		
+	<script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+	<script src="../js/plugins/moment/moment.min.js"></script>
+	
+	<script src="../i18n/zh-CN.js"></script>
+	<script src="../js/subindex.js" type="text/javascript"></script>
+	<script type="text/javascript">
+    	$(function(){
+    	   
+    		/*
+    		* language cus-lang
+    		* minView 2
+    		* todayBtn true
+    		* autoclose true
+    		* pickerPosition  bottom-left
+    		* clearBtn   true
+    		* */
+    		var defa_=$.fn.datetimepicker.defaults;
+    		$('input[name="dt_min_view"][value="'+defa_['minView']+'"]').prop('checked',true);
+            $('input[name="dt_pickerPosition"][value="'+defa_['pickerPosition']+'"]').prop('checked',true);
+            $('#dp_format').val($.fn.datetimepicker.dates['cus-lang'].format);
+    		$('#dp_today_btn').prop('checked',defa_['todayBtn']);
+    		$('#dp_auto_close').prop('checked',defa_['autoclose']);
+    		$('#dp_close_btn').prop('checked',defa_['clearBtn']);
+    		$('#dp_forceparse_btn').prop('checked',defa_['forceParse']);
+    
+    		/*开始时间*/
+    		$('#dp_start').datetimepicker().on('changeDate',function(){
+    			cusDPinit();
+    			showCode();
+    		})
+    		$('#dp_end').datetimepicker().on('changeDate',function(){
+    			cusDPinit();
+    			showCode();
+    		})
+    //		val(moment().add(7,'day').format('YYYY-MM-DD'));
+    		
+    		/*内容修改时*/
+    		$('.js-inp-change').change(function(){
+    			cusDPinit();
+    			showCode();
+    		});
+    		/*id修改时*/
+    		$('#dp_id').change(function(){
+    			showCode();
+    		});
+    		/*最终设置*/
+    		cusDPinit();
+    		function cusDPinit() {
+    		    var sd_ = $('#dp_start').val(),
+    			ed_=$('#dp_end').val(),
+    			sv_=Number($("[name='dt_start_view']:checked").val()),
+    			minv_=Number($("[name='dt_min_view']:checked").val()),
+    			maxv_=Number($("[name='dt_max_view']:checked").val()),
+    			picP_=$("[name='dt_pickerPosition']:checked").val();
+    
+    			df_=$('#dp_format').val(),
+    			autoc_=$('#dp_auto_close').prop('checked'),
+    			tbtn_=$('#dp_today_btn').prop('checked'),
+    			cbtn_=$('#dp_close_btn').prop('checked'),
+    			forceParse_=$('#dp_forceparse_btn').prop('checked');
+    			
+    			$('#dp_test').datetimepicker('remove').datetimepicker({
+    				"startDate": sd_,  /*先移出后初始化*/
+    				"endDate": ed_,
+    				"startView": sv_,
+    				"minView": minv_,
+    				"maxView": maxv_,
+    				"format": df_,
+    				"autoclose": autoc_,
+    				"todayBtn": tbtn_,
+    				"clearBtn": cbtn_,
+    				"pickerPosition":picP_,
+    				"forceParse":forceParse_
+    			});
+    		}
+    		/*代码显示*/
+    		showCode();
+    		function showCode(){
+    			var id_=$('#dp_id').val(),
+    			sd_=$('#dp_start').val(),
+    			ed_=$('#dp_end').val(),
+    			sv_=Number($("[name='dt_start_view']:checked").val()),
+    			minv_=Number($("[name='dt_min_view']:checked").val()),
+    			maxv_=Number($("[name='dt_max_view']:checked").val()),
+                picP_=$("[name='dt_pickerPosition']:checked").val(),
+                fp_=$('#dp_forceparse_btn').prop('checked');
+    
+    			df_=$('#dp_format').val(),
+    			autoc_=$('#dp_auto_close').prop('checked'),
+    			tbtn_=$('#dp_today_btn').prop('checked'),
+    			cbtn_=$('#dp_close_btn').prop('checked');
+    			
+    			(!id_.length)?id_='demo':'';
+    			
+    			var str_='$("#'+id_+'").datetimepicker({<br/>';
+    			(sd_!='')?str_+='  "startDate":'+sd_+',<br/>':'';
+    			(ed_!='')?str_+='  "endDate":'+ed_+',<br/>':'';
+    			(df_!=$.fn.datetimepicker.dates['cus-lang'].format)?str_+='  "format":"'+df_+'",<br/>':'';
+    			(sv_!=2)?str_+='  "startView":'+sv_+',<br/>':'';
+    			(minv_!=2)?str_+='  "minView":'+minv_+',<br/>':'';
+    			(maxv_!=4)?str_+='  "maxView":'+maxv_+',<br/>':'';
+    			(!tbtn_)?str_+='  "todayBtn":'+tbtn_+',<br/>':false;
+    			(!autoc_)?str_+='  "autoclose":'+autoc_+',<br/>':false;
+    			(!cbtn_)?str_+='  "clearBtn":'+cbtn_+',<br/>':false;
+    			(picP_!=defa_['pickerPosition'])?str_+='  "pickerPosition":"'+picP_+'",<br/>':'';
+    			(fp_!=defa_['forceParse'])?str_+='  "forceParse":'+fp_+',<br/>':'';
+    
+    
+    			str_+='});';
+    			
+    			$('#dt_code').html('HTMl: \n&lt;div class="input-group date" id="'+id_+'"&gt; \n'+
+                                        '&lt;input class="form-control input-sm" type="text" name="start_date" readonly="readonly"/&gt; \n'+
+                                        '&lt;span class="input-group-addon"&gt;&lt;i class=&quot;tedufont tedu-icon130&quot;&gt;&lt;/i&gt;&lt;/span&gt; \n&lt;/div&gt;\n\n'+
+                                    'JS:\n'+str_);
+    			hljs.highlightBlock($('#dt_code')[0]);
+    		}
+    		
+    		//TDM 定制
+    		function cus_datetimepicker_show(id, fn, opt){
+                var set_D = moment().date() > 20 ? 2 : 1;
+                $('#'+ id).datetimepicker($.extend({
+                    startDate: moment().add(set_D, 'M').format('YYYY-MM-01')
+                }, opt)).on('changeDate', function(){
+                    var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+                    var old_M = t_.data('old_M');
+                    if(old_M != moment(t_.val()).month()){
+                        t_.data('old_M', moment(t_.val()).month());
+                        fn && fn();
+                    }
+                });
+            }
+        });
+		$(function(){
+		    $('#start_date_d').datetimepicker().on('changeDate', function(){
+		        var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+		        $('#end_date_d').datetimepicker('setStartDate', t_.val());
+		    });
+		    $('#end_date_d').datetimepicker().on('changeDate', function(){
+                var t_ = $(this).is('input') ? $(this) : $(this).children('input');
+                $('#start_date_d').datetimepicker('setEndDate', t_.val());
+            });
+		});
+		$(function(){
+		    $('#disable_date').datetimepicker();
+		    $('#switch_state').click(function(){
+		        if($(this).is(":checked")){
+		            $('#disable_date_input').val('').prop('disabled',true);
+		            $('#disable_date').datetimepicker('remove');
+		        }else{
+		            $('#disable_date_input').prop('disabled',false);
+		            $('#disable_date').datetimepicker(); 
+		        }
+		    })
+		});
+		$(function(){
+		  /*内联*/
+		  var dates = ['2018-06-11','2018-06-15'];
+		  $('#xxxx').datetimepicker({
+		      bootcssVer:3,
+		      onRenderDay:function(date){
+		          var y_ = date.getFullYear();
+		          var m_ = date.getMonth()+1;
+		          var d_ = date.getDate();
+		          m_= m_ < 10 ? '0' + m_ : m_;
+		          d_= d_ < 10 ? '0' + d_ : d_;
+		          var day_= y_ + '-' + m_ + '-' + d_;
+		          if($.inArray(day_, dates) !== -1){
+		              return ['ggg'];
+		          }
+		      }
+		  });
+		});
+	
+	</script>
+	    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+        <script>
+          $('pre').each(function(i, n) {
+              hljs.highlightBlock(n);
+          });
+            
+        </script>
+        <style>
+            .ggg{ background: #BFF6CD;}
+        </style>
+	</body>
+</html>

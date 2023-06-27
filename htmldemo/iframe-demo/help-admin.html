@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>帮助系统——管理</title>
+
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+        <link href="../../css/iconfont.css" rel="stylesheet">
+        <link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+        <link href="../../css/animate.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
+        </style>
+    </head>
+
+    <body class="flex-box-ltr-2col">
+        <div class="flex-box-left">
+            <div class="" style="height: 100%; padding:50px 15px 20px; position: relative; ">
+                <div style="position: absolute; left: 0; top: 0; width: 100%; padding: 10px 15px 0;">
+                    <div class="cus-input-inside-icon" style="display: block;">
+                        <input type="text" class="form-control input-sm" id="js_tree_cj_searchbox">
+                        <span class="c-icon-bar">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="jstree-box-cont" id="js_tree_overflowbox" style="height: 100%;">
+                    <div id="js_tree_cj"></div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-box-content">
+            <div class="flex-box-leftbar">
+                <div class="cbar-box">
+                    <i class="glyphicon glyphicon-triangle-left"></i>
+                    <i class="glyphicon glyphicon-triangle-right"></i>
+                </div>
+            </div>
+            <div class="container-fluid flex-box-overflow">
+                <div class="row" style="padding: 10px 0; border-bottom: 1px solid #ddd;">
+                    <div class="col-sm-7">
+                        <ol class="breadcrumb" id="breadcrumb_box" style="line-height: 30px; font-weight: 600;">
+                        </ol>
+                    </div>
+                    <div class="col-sm-5" style="text-align: right;">
+                        <button id="btn_save" class="btn btn-sm btn-danger" type="button" style="display: none;">保存</button>
+                        <button id="btn_edit" class="btn btn-sm btn-info" type="button">编辑</button>
+                    </div>
+                </div>
+
+                <div id="t_cke_01" name="t_cke_01_n" style="height: 400px;">
+                    <h1 id="a1_1">a1_1</h1>
+                    <p id="a1">adasd123</p>
+                    <h2 id="a1_2">a1_2</h2>
+                    <p id="a2">a2</p>
+                    <p id="">333 no id 33</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- jstree ck-toolbar -->
+        <div style="display: none; padding: 10px;" id="the_jstree_box_dig">
+            <!--<div id="the_jstree_box"></div>
+            <div id="the_jstree_box_msg" style="padding: 10px 0; display: none;">该段落不可设置为大纲！</div>-->
+            <div class="">锚点： </div>
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control input-sm" id="t_jstree_box_val" autocomplete="off"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-warning btn-sm" id="the_jstree_box_btn2">生成资源编码</button>
+                </span>
+            </div>
+            <div style="padding: 15px 0; text-align: center;">
+                <button class="btn btn-danger btn-sm btn-block" id="the_jstree_box_btn">确定</button>
+            </div>
+        </div>
+        <!-- jstree ck-toolbar -->
+
+        <!-- jstree bookmark -->
+        <div style="padding: 10px; display: none;" id="the_bookmark_dig">
+            <div class="form-group">
+                <label>大纲名称:</label>
+                <input type="text" class="form-control input-sm" id="the_bookmark_name">
+            </div>
+            <div class="panel panel-primary" style="margin-bottom: 8px;">
+                <div class="panel-heading">绑定资源</div>
+                <div class="panel-body">
+                    <p class="bg-info" style="padding: 5px;">绑定系统菜单资源：</p>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control input-sm" id="the_bookmark_serval">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                    </div>
+                    <div id="the_bookmark_box"></div>
+                    <div class="form-group">
+                        <p class="bg-info" style="padding: 5px; margin-top: 12px;">自定义锚点：(非系统菜单资源)</p>
+                        <div class="input-group input-group-sm">
+                            <input class="form-control input-sm" id="t_bookmark_box_val" readonly="readonly" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-warning btn-sm" id="t_bookmark_box_btn">生成资源编码</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" style="text-align: center;">
+                <button type="button" class="btn btn-sm btn-danger" id="the_bookmark_savebtn">保存</button>
+            </div>
+        </div>
+        <!-- jstree bookmark -->
+
+        <script src="../../js/jquery-2.1.1.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/plugins/layer/layer.js"></script>
+        <script src="../../js/plugins/jsTree/jstree.min.js"></script>
+        <script src="../../js/plugins/datatables/datatables.min.js"></script>
+        <script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+        <script src="../../i18n/zh-CN.js"></script>
+        <script src="../../js/plugins/ckeditor/ckeditor.js"></script>
+        <script src="../../js/subindex.js"></script>
+
+        <!--jquery.mockjax.min.js仅限于demo演示模拟数据使用-->
+        <script src="../../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../../demo-data.js"></script>
+        <script>
+            $(function() {
+                var isEditingEnabled = false,
+                    $btn_edit = $('#btn_edit'),
+                    $btn_save = $('#btn_save');
+
+                function getCKE_api() {
+                    return CKEDITOR.instances['t_cke_01'];
+                }
+
+                function enableEditing() { //初始化编辑器
+                    if(!getCKE_api()) {
+                        var uu = COM_TOOLS.docEditor('t_cke_01', {
+                            height: ($('#t_cke_01').height() || 380) - 80,
+                            removeButtons: 'Format',
+                            toolbar: 'booxMark',
+                            fileUploadMaxSize: 1200 //KB
+                        });
+                        $btn_edit.text('预览');
+                        isEditingEnabled = true;
+                    }
+                }
+
+                function disableEditing() { //销毁编辑器
+                    if(getCKE_api()) {
+                        getCKE_api().destroy();
+                        $btn_edit.text('编辑');
+                        isEditingEnabled = false;
+                    }
+                }
+
+                function check_isEdited() { //获取内容是否已更改
+                    return getCKE_api() && getCKE_api().checkDirty();
+                }
+
+                /**
+                 * 修改预览区内容
+                 * @param {String} content
+                 * @return {boolean} 是否修改成功
+                 */
+                function update_content(content) {
+                    if(check_isEdited() || $btn_save.is(':visible')) {
+                        COM_TOOLS.confirm('是否放弃已编辑的内容？', function(index) {
+                            disableEditing(); //必须先销毁再重置内容
+                            $btn_save.hide();
+                            $('#t_cke_01').html(content);
+                            layer.close(index);
+                            return true;
+                        });
+                        return false;
+                    } else {
+                        disableEditing();
+                        $('#t_cke_01').html(content);
+                        return true;
+                    }
+                }
+                window.yyy = update_content;
+
+                $btn_edit.click(function() { //切换编辑器编辑状态
+                    if(JSTREE_.get_selected(true)[0].parent == COM_DEFAULT._jsTreeOpt.root) {
+                        COM_TOOLS.alert('此节点下的内容，不能编辑！');
+                        return false;
+                    }
+                    if(isEditingEnabled) {
+                        if(check_isEdited()) { //内容已发生变化
+                            $btn_save.show();
+                        }
+                        disableEditing();
+                    } else {
+                        enableEditing();
+                    }
+                });
+                $btn_save.click(function() { //保存
+                    COM_TOOLS.ajaxFn({
+                        url: '/help-adminpage/api',
+                        data: $('#t_cke_01').html(),
+                        type: 'post',
+                        success: function(d) {
+                            if(d && d.code == 1) {
+                                COM_TOOLS.alert('保存成功！');
+                                $btn_save.hide();
+                            }
+                        }
+                    }, 2, $btn_save);
+                });
+
+                function jstree_node_edit(node_, type) { //重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+                    var JT_BOOK_ = null;
+                    cumCurWinModal('编辑大纲', $('#the_bookmark_dig'), self, {
+                        area: ['400px', '90%'],
+                        type: 1,
+                        success: function(lay, ind) {
+                            $('#the_bookmark_savebtn').data('data_api', {
+                                type: type,
+                                node: node_,
+                                layIndex: ind
+                            });
+                            var $val_ = $('#t_bookmark_box_val');
+                            //console.log(node_)
+                            var cid_ = node_.li_attr.cid || '';
+                            if(type == 'edit') {
+                                $val_.val(cid_);
+                                $('#the_bookmark_name').val(node_.text);
+                            }
+                            JT_BOOK_ = COM_TOOLS.jstree_init('the_bookmark_box', {
+                                url: '/jstree7/api',
+                                input_val_obj: $val_,
+                                other: {
+                                    core: {
+                                        multiple: false
+                                    },
+                                    'plugins': ['search']
+                                },
+                                initCallback: function() {
+                                    JT_BOOK_.changeCallback(function() {
+                                        var t_node = JT_BOOK_.get_selected(true)[0];
+                                    });
+                                    var to_ = false;
+                                    var $seach_box = $('#the_bookmark_serval');
+                                    $seach_box.keyup(function() {
+                                        if(to_) {
+                                            clearTimeout(to_);
+                                        }
+                                        to_ = setTimeout(function() {
+                                            var v = $.trim($seach_box.val());
+                                            JT_BOOK_.jstree.search(v);
+                                        }, 250);
+                                    });
+                                }
+                            });
+                            type == 'edit' && cid_ && JT_BOOK_.select_node([cid_], true);
+                        },
+                        end: function() {
+                            $('#t_bookmark_box_val, #the_bookmark_serval, #the_bookmark_name').val('');
+                            $('#the_bookmark_savebtn').removeData('data_api');
+                            if(JT_BOOK_) {
+                                JT_BOOK_.deselect_all(true);
+                                JT_BOOK_.jstree.clear_search();
+                                JT_BOOK_.jstree.close_all();
+                            }
+                        }
+                    });
+                }
+                //jstree_node_edit();
+
+                var JSTREE_ = COM_TOOLS.jstree_init('js_tree_cj', {
+                    'url': "/bookmark/api",
+                    'dataFilter': function(data, type) {
+                        if(data) {
+                            var d_ = jQuery.parseJSON(data);
+                            if(d_.isFilterTag == 0) { //无权限
+                                return '[]';
+                            } else {
+                                d_.unshift({
+                                    "id": "a0", //业务上的虚拟根的ID
+                                    "parent": COM_DEFAULT._jsTreeOpt.root,
+                                    "text": "大纲目录",
+                                    "li_attr": {
+                                        "lever": 0
+                                    },
+                                    "type":"root"
+                                });
+                                return JSON.stringify(d_);
+                            }
+                        } else {
+                            return data;
+                        }
+                    },
+                    'initCallback': function() {
+                        var to_ = false;
+                        var $seach_box = $('#js_tree_cj_searchbox');
+                        $seach_box.keyup(function() {
+                            if(to_) {
+                                clearTimeout(to_);
+                            }
+                            to_ = setTimeout(function() {
+                                var v = $.trim($seach_box.val());
+                                JSTREE_.jstree.search(v);
+                            }, 250);
+                        });
+                    },
+                    'other': {
+                        'core': {
+                            "check_callback": true
+                        },
+                        'contextmenu': {
+                            show_at_node: false,
+                            select_node: false,
+                            items: function(node) {
+                                var temp = {
+                                    "add_c": { //子节点
+                                        "icon": 'glyphicon glyphicon-asterisk',
+                                        "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTaddn_node"],
+                                        "separator_after": true, //表示在此项之后是否应该有分隔符
+                                        "action": function(data) {
+                                            jstree_node_edit(node, 'addChild');
+                                        }
+                                    },
+                                    "add_b": { //同级节点
+                                        "icon": 'glyphicon glyphicon-asterisk',
+                                        "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTaddb_node"],
+                                        "separator_after": true,
+                                        "action": function(data) {
+                                            jstree_node_edit(node, 'addNext');
+                                        },
+                                        "_disabled": function() { //菜单禁止操作
+                                            return node.parent == COM_DEFAULT._jsTreeOpt.root;
+                                        }
+                                    },
+                                    "rename": {
+                                        "icon": 'glyphicon glyphicon-pencil',
+                                        "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTrename_node"],
+                                        "separator_after": true,
+                                        "action": function(data) {
+                                            jstree_node_edit(node, 'edit');
+                                        },
+                                        "_disabled": function() { //菜单禁止操作
+                                            return node.parent == COM_DEFAULT._jsTreeOpt.root;
+                                        }
+                                    },
+                                    "del": {
+                                        "icon": 'glyphicon glyphicon-remove',
+                                        "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTdel_node"],
+                                        "separator_after": true,
+                                        "action": function(data) {
+                                            if(node.parent == COM_DEFAULT._jsTreeOpt.root || node.children.length > 0) {
+                                                COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_notdel"]);
+                                                return false;
+                                            }
+                                            COM_TOOLS.confirm('确认删除？', function(index) {
+                                                layer.close(index);
+                                                COM_TOOLS.ajaxFn({ //删除
+                                                    url: '/bookmark/api',
+                                                    data: {
+                                                        id: node.id
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function(d) {
+                                                        JSTREE_.jstree.refresh(false, true); //第二个参数必须为true，否则会触发changeCallback 事件
+                                                        JSTREE_.target.on('refresh.jstree', function() {
+                                                            JSTREE_.deselect_all(true);
+                                                            JSTREE_.select_node([node.parent]); //打开父节点
+                                                        });
+                                                    }
+                                                }, 1);
+                                            });
+                                        },
+                                        "_disabled": function() { //菜单禁止操作
+                                            return node.parent == COM_DEFAULT._jsTreeOpt.root;
+                                        }
+                                    }
+                                }
+                                return temp;
+                            }
+                        },
+                        'types': { //可自定义树的图标
+                            'default': {
+                                'icon': 'tedufont tedu-icon99'
+                            }
+                        },
+                        'dnd': {
+                            is_draggable: function(nodes) {
+                                return !(nodes[0].parent == COM_DEFAULT._jsTreeOpt.root);
+                            },
+                            copy: false,
+                        },
+                        "types": { //限制子节点类型
+                            "0": {
+                                "max_children": 1,
+                                "max_depth": 6,
+                                "valid_children": ["root"]
+                            },
+                            "root": {
+                                "valid_children": ["default"]
+                            },
+                            "default": {
+                                "valid_children": ["default"]
+                            }
+                        },
+
+                        'plugins': ['contextmenu', 'dnd', 'search', 'types'] //dnd开启拖拽功能
+                    }
+                });
+
+                JSTREE_.changeCallback(function() {
+                    var t_node = JSTREE_.get_selected(true)[0];
+                    if(!t_node) { //未选中节点
+                        return false;
+                    }
+                    /*if(t_node.parent == COM_DEFAULT._jsTreeOpt.root) {
+                        COM_TOOLS.alert('此节点不能操作！');
+                        return false;
+                    }*/
+                    var path_ = JSTREE_.jstree.get_path(t_node);
+                    var t_path = '';
+                    $.each(path_, function(i, n) {
+                        t_path += '<li>' + n + '</li>';
+                    });
+                    $('#breadcrumb_box').html(t_path);
+                    if(t_node.parent == COM_DEFAULT._jsTreeOpt.root) { //如果是大纲目录
+                        update_content('<h2 style="margin-top:50px; text-align:center;" class="text-success">此为大纲目录,内容不可编辑</h2>');
+                    }else{
+                        if(t_node.id) {
+                            COM_TOOLS.ajaxFn({
+                                url: "/bookmark/get-api",
+                                type: 'get',
+                                dataType: 'text',
+                                data: {
+                                    id: t_node.id
+                                },
+                                success: function(d) {
+                                    update_content(d);
+                                }
+                            }, 1);
+                        }
+                    }
+                });
+                
+                JSTREE_.target.on('move_node.jstree', function(){
+                    /*JSTREE_.target.off('refresh.jstree').on('refresh.jstree', function() {
+                        if(id__){ //移动后的新id
+                            JSTREE_.deselect_all(true);
+                            JSTREE_.select_node([id__]);  //打开新创建的节点
+                            id__ = null;
+                        }
+                    });
+                    JSTREE_.jstree.refresh(false, true); //第二个参数必须为true，否则会触发changeCallback 事件*/
+                });
+
+                /*function _checkInput(input) { //控制输入框状态
+                    if($.trim(input.val()) == '') {
+                        COM_TOOLS._view.setInputStatus(input, 'error');
+                        return true;
+                    } else {
+                        COM_TOOLS._view.setInputStatus(input, '');
+                        return false;
+                    }
+                }*/
+
+                $('#the_bookmark_savebtn').click(function() {
+                    var cid = $.trim($('#t_bookmark_box_val').val());
+                    var name = $.trim($('#the_bookmark_name').val());
+                    var data_api = $(this).data('data_api');
+                    //if(!data_api || _checkInput($('#the_bookmark_name') || _checkInput($('#t_bookmark_box_val')))) {
+                    if(!data_api || !cid || !name || !data_api.node || !data_api.node.id) {
+                        COM_TOOLS.alert('参数错误！');
+                        return false;
+                    }
+
+                    COM_TOOLS.ajaxFn({ //保存
+                        url: '/bookmark/api',
+                        data: {
+                            id: data_api.type == 'addNext' ? data_api.node.parent : data_api.node.id,
+                            cid: cid,
+                            name: name,
+                            type: data_api.type == 'edit' ? 'edit' : 'add'
+                        },
+                        dataType: 'text',
+                        success: function(d) {
+                            JSTREE_.target.off('refresh.jstree').on('refresh.jstree', function() {
+                                /*if(newid){
+                                    JSTREE_.deselect_all(true);
+                                    JSTREE_.select_node([newid]);  //打开新创建的节点
+                                    newid = null;
+                                }*/
+                            });
+                            JSTREE_.jstree.refresh(false, true); //第二个参数必须为true，否则会触发changeCallback 事件
+                            layer.close(data_api.layIndex)
+                        }
+                    }, 2, $(this));
+                });
+                $('#t_bookmark_box_btn').click(function() {
+                    $('#t_bookmark_box_val').val(COM_TOOLS.get_GUID());
+                });
+                $('#the_jstree_box_btn2').click(function() {
+                    $('#t_jstree_box_val').val(COM_TOOLS.get_GUID());
+                });
+
+            });
+        </script>
+    </body>
+
+</html>

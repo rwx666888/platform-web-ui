@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<title>info</title>
+
+		<link href="../../css/bootstrap.min.css" rel="stylesheet">
+		<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+		<link href="../../css/iconfont.css" rel="stylesheet">
+
+		<link href="../../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css" rel="stylesheet">
+		<link href="../../js/plugins/datatables/Select-1.2.0/css/select.bootstrap.min.css" rel="stylesheet">
+
+		<link href="../../css/animate.css" rel="stylesheet">
+		<link href="../../css/style.css" rel="stylesheet">
+		<style>
+			.tab-content .tab-pane {
+				padding-top: 15px;
+			}
+		</style>
+	</head>
+
+	<body class="info-body">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 form-horizontal p-sm">
+				    <div class="cus-tabmodel-box cus-tabmodel-default">
+    					<div id="tab_list_box" class="tab-list-box">
+    						<button class="roll-nav roll-left tab-roll-btn tab-left-btn btn-default"><i class="glyphicon glyphicon-backward"></i></button>
+    						<div class="tab-list-overflow">
+        						<div class="tab-list-bar">
+        							<ul class="nav nav-tabs tab-list-ul pull-left" role="tablist" id="info_tab">
+        								<li role="presentation" class="active">
+        									<a href="#tab1" aria-controls="tab1" role="tab" data-itemurl="" data-isreload="" data-toggle="tab">基本信息</a>
+        								</li>
+        								<li role="presentation">
+        									<a href="#tab2" aria-controls="tab2" role="tab" data-itemurl="info_include1.html" data-isreload="" data-toggle="tab">市场信息</a>
+        								</li>
+        								<li role="presentation">
+        									<a href="#tab3" aria-controls="tab3" role="tab" data-itemurl="info_include2.html" data-isreload="" data-toggle="tab">报名信息</a>
+        								</li>
+        								<li role="presentation">
+        									<a href="#tab4" aria-controls="tab4" role="tab" data-itemurl="info_include3.html" data-isreload="true" data-toggle="tab">每次点击标签都刷新</a>
+        								</li>
+        								<li role="presentation">
+        									<a href="#tab5" aria-controls="tab5" role="tab" data-itemurl="info_include4.html" data-isreload="" data-toggle="tab">API刷新</a>
+        								</li>
+        								<li role="presentation">
+                                            <a href="#tab6" aria-controls="tab6" role="tab" data-itemurl="info_include5.html" data-isreload="" data-toggle="tab">班级信息</a>
+                                        </li>
+        							</ul>
+        						</div>
+    						</div>
+    						<button class="roll-nav roll-right tab-roll-btn tab-right-btn btn-default"><i class="glyphicon glyphicon-forward"></i></button>
+    					</div>
+				    </div>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="tab1">
+							<!-- 基本信息开始 -->
+							<div class="form-group">
+								<label class="col-sm-2 control-label">中心</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">中关村中心 <a class="tedufont tedu-icon133 cushelpbtn js-helpbtn js-helpmsg" data-helpbtn="#3" data-helpmsg="platform.common.label.help_admin"></a></p>
+								</div>
+								<label class="col-sm-2 control-label">咨询顾问</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">张三</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">姓名</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">张习好</p>
+								</div>
+								<label class="col-sm-2 control-label">性别</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">女</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">手机</label>
+								<div class="col-sm-4">
+									<p class="form-control-static">123442334433</p>
+								</div>
+								<label class="col-sm-2 control-label">QQ</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">邮箱</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">微信</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">证件号码</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">证件地址</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">学校</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">院系</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">学历</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">专业</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">客户类型</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">下次回访时</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">学习方向</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+								<label class="col-sm-2 control-label">创建时间</label>
+								<div class="col-sm-4">
+									<p class="form-control-static"></p>
+								</div>
+							</div>
+							<!-- 基本信息结束 -->
+						</div>
+						<div role="tabpanel" class="tab-pane" id="tab2"></div>
+						<div role="tabpanel" class="tab-pane" id="tab3"></div>
+						<div role="tabpanel" class="tab-pane" id="tab4"></div>
+						<div role="tabpanel" class="tab-pane" id="tab5"></div>
+						<div role="tabpanel" class="tab-pane" id="tab6"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Mainly scripts -->
+		<script src="../../js/jquery-2.1.1.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>
+		<script src="../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="../../js/plugins/layer/layer.js"></script>
+
+		<!-- Custom and plugin javascript -->
+		<script src="../../js/bootstrap-plugins-custom.js"></script>
+
+		<script src="../../js/plugins/datatables/datatables.min.js"></script>
+
+		<script src="../../js/jquery.hash.min.js"></script>
+		<script src="../../i18n/zh-CN.js"  type="text/javascript"></script>
+		<script src="../../js/subindex.js"></script>
+		<script>
+			$(function() {
+				COM_TOOLS.fnTabPage('info_tab');
+				
+				COM_TOOLS._view.tabScrollFn.init('#tab_list_box');
+			});
+		</script>
+
+	</body>
+
+</html>

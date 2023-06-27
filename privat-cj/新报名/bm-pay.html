@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>支付信息</title>
+  <link rel="stylesheet" href="../css/animate.min.css">
+  <link rel="stylesheet" href="../css/iconfont.css">
+  <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .pay-info-wrp .form-control {
+      border-color: transparent;
+    }
+
+    .table-wrp {
+      margin-top: 20px;
+      border: 1px solid #1ab394;
+    }
+
+    .table-wrp .table-name {
+      padding: 6px;
+      color: #ffffff;
+      background-color: #1ab394;
+    }
+
+    .table-wrp .table-box {
+      padding: 10px;
+    }
+
+    .table-wrp .table-box .table {
+      margin-bottom: 10px;
+    }
+
+    .table-wrp .table-box .w110 {
+      width: 110px;
+    }
+
+    .table-wrp .table-box .cus-inp {
+      width: 100%;
+      height: 24px;
+      padding: 0 5px;
+      border: 1px solid #eee;
+      border-radius: 0;
+      outline: 0;
+    }
+
+    .table-wrp .table-box .cus-inp[readonly] {
+      background-color: #eee;
+    }
+
+    .layer-pay-wrp.layui-layer-page {
+      border-radius: 6px;
+    }
+
+    .layer-pay-wrp.layui-layer-page .layui-layer-content {
+      overflow: visible;
+    }
+
+    .pay-wrp {
+      position: relative;
+      margin-top: 60px;
+      padding: 0 20px 30px 20px;
+      text-align: center;
+    }
+
+    .pay-wrp .pay-status {
+      position: absolute;
+      top: -95px;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0);
+      margin: 0 auto;
+      padding: 5px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+
+    .pay-wrp .pay-status .pay-icon>i.glyphicon,
+    .pay-wrp .pay-status .pay-text {
+      position: absolute;
+      z-index: 10;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+    }
+
+    .pay-wrp .pay-status .pay-icon {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      font-size: 74px;
+      line-height: unset;
+    }
+
+    .pay-wrp .pay-status .pay-text {
+      z-index: 20;
+      font-size: 20px;
+    }
+
+    .pay-wrp .paying,
+    .pay-wrp .succ,
+    .pay-wrp .fail {
+      display: none;
+    }
+
+    .pay-wrp .pay-info .title {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .pay-wrp .menu-bar .item {
+      cursor: pointer;
+      margin: 0 5px;
+      text-decoration: underline;
+      color: #666;
+    }
+
+    .pay-wrp .menu-bar .item:hover {
+      color: #337ab7;
+    }
+
+    /* 支付中 */
+    .pay-wrp.paying .paying {
+      display: block;
+    }
+
+    .pay-wrp.paying .pay-status .pay-text:after {
+      content: 's';
+    }
+
+    .pay-wrp.paying .pay-status .pay-icon .paying {
+      width: 100%;
+      height: 100%;
+      animation: icon-rotate 1.8s linear infinite;
+    }
+
+    @keyframes icon-rotate {
+      0% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* 支付成功 */
+    .pay-wrp.succ .succ {
+      display: block;
+    }
+
+    .pay-wrp.succ .pay-icon {
+      background-color: #1ab394;
+    }
+
+    .pay-wrp.succ .pay-icon>i.glyphicon-ok {
+      color: #fff;
+      font-size: 40px;
+    }
+
+    .pay-wrp.succ .content .money {
+      color: #1ab394;
+      line-height: 28px;
+      font-size: 25px;
+    }
+
+    /* 支付失败 */
+    .pay-wrp.fail .fail {
+      display: block;
+    }
+
+    .pay-wrp.fail .pay-icon {
+      background-color: #ed5565;
+    }
+
+    .pay-wrp.fail .pay-icon>i.glyphicon-remove {
+      color: #fff;
+      font-size: 40px;
+    }
+
+    /* 输入框 */
+    .sweep-code-wrp {
+      position: relative;
+    }
+
+    .sweep-code-wrp .glyphicon {
+      position: absolute;
+      z-index: 10;
+      top: 3px;
+      right: -16px;
+      font-size: 24px;
+      opacity: 0;
+    }
+
+    .sweep-code-wrp.focus .glyphicon-ok-circle {
+      opacity: 1;
+    }
+
+    .sweep-code-wrp.blur .glyphicon-remove-circle {
+      opacity: 1;
+    }
+
+    .layer-qrpay-wrp{
+      /* border-radius: 10px !important; */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- btn bar -->
+  <div class="container-fluid">
+    <div class="row" style="min-height: 50px;">
+      <div class="p-sm col-xs-12 text-center affix-top" style="padding:10px;" id="demoaffix1" data-spy="affix"
+        data-offset-top="50">
+        <button id="subSweepCode" class="btn btn-primary btn-sm" type="button">补单扫码支付</button>
+        <button id="subPay" class="btn btn-primary btn-sm" type="button">支付</button>
+        <button id="subPay2" class="btn btn-primary btn-sm" type="button">支付 qr</button>
+        <button id="subCancel" class="btn btn-danger btn-sm" type="button">取消</button>
+      </div>
+    </div>
+  </div>
+  <!-- content -->
+  <div class="container-fluid">
+    <!-- pay info -->
+    <div class="form-horizontal pay-info-wrp">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">商户订单号:</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control input-sm" name="togetherStamp" id="togetherStamp"
+            value="TOD20190822000038" readonly>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">学生姓名:</label>
+        <div class="col-sm-2">
+          <p class="form-control" id="studentName">大方大方</p>
+        </div>
+        <label class="col-sm-2 control-label">学员编号:</label>
+        <div class="col-sm-3">
+          <p class="form-control">ST20190822000056</p>
+        </div>
+        <label class="col-sm-1 control-label">性别:</label>
+        <div class="col-sm-2">
+          <p class="form-control">男</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">中心名称:</label>
+        <div class="col-sm-2">
+          <p class="form-control">大方大方</p>
+        </div>
+        <label class="col-sm-2 control-label">续费主体:</label>
+        <div class="col-sm-3">
+          <p class="form-control">重庆市江北区达内会计培训有限公司</p>
+        </div>
+        <label class="col-sm-1 control-label">帐套:</label>
+        <div class="col-sm-2">
+          <p class="form-control">02345</p>
+        </div>
+      </div>
+    </div>
+    <!-- pay table info -->
+    <div class="table-wrp">
+      <div class="table-name">支付信息</div>
+      <div class="table-box">
+        <table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>订单号</th>
+              <th>课程名称</th>
+              <th>课程阶段</th>
+              <th class="w110">本次缴费</th>
+              <th class="w110">应付金额</th>
+              <th class="w110">已付金额</th>
+              <th class="w110">未付金额</th>
+              <th class="w110">优惠金额</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyWrp"></tbody>
+        </table>
+        <div class="table-money form-inline clearfix">
+          <div class="form-group form-group-sm pull-right">
+            <label class="control-label">本次总付款金额：</label>
+            <input type="text" class="form-control input-sm js-money" value="" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 扫码支付 -->
+  <div id="sweepCodeWrp" style="display: none;">
+    <div id="eventMain_sc" class="container-fluid p-sm">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">订单编号:</label>
+          <div class="col-sm-8">
+            <p class="form-control">OD342345435634563456356</p>
+            <p class="form-control">OD342345435634563456356</p>
+            <p class="form-control">OD342345435634563456356</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">商户订单号:</label>
+          <div class="col-sm-8 sweep-code-wrp">
+            <i class="glyphicon glyphicon-remove-circle text-danger"></i>
+            <i class="glyphicon glyphicon-ok-circle text-info"></i>
+            <input type="text" class="form-control input-sm" id="sweepCodeInp" value="" readonly>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"></label>
+          <div class="col-sm-8 clearfix">
+            <div class="text-danger pull-left">注：请确保光标在该输入框内时再扫码</div>
+            <button id="confirmSweepCode" class="btn btn-primary btn-sm pull-right" type="button">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 支付弹窗 支付中/完成 -->
+  <div id="paymentWrp" style="display: none;">
+    <div class="pay-wrp">
+      <!-- icon -->
+      <div class="pay-status">
+        <div class="pay-icon">
+          <svg t="1566875199319" class="icon paying" viewBox="0 0 1024 1024" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" p-id="1176" width="80" height="80"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+              <style type="text/css"></style>
+            </defs>
+            <path
+              d="M876.864 782.592c3.264 0 6.272-3.2 6.272-6.656 0-3.456-3.008-6.592-6.272-6.592-3.264 0-6.272 3.2-6.272 6.592 0 3.456 3.008 6.656 6.272 6.656z m-140.544 153.344c2.304 2.432 5.568 3.84 8.768 3.84a12.16 12.16 0 0 0 8.832-3.84 13.76 13.76 0 0 0 0-18.56 12.224 12.224 0 0 0-8.832-3.84 12.16 12.16 0 0 0-8.768 3.84 13.696 13.696 0 0 0 0 18.56zM552.32 1018.24c3.456 3.648 8.32 5.76 13.184 5.76a18.368 18.368 0 0 0 13.184-5.76 20.608 20.608 0 0 0 0-27.968 18.368 18.368 0 0 0-13.184-5.824 18.368 18.368 0 0 0-13.184 5.76 20.608 20.608 0 0 0 0 28.032z m-198.336-5.76c4.608 4.8 11.072 7.68 17.6 7.68a24.448 24.448 0 0 0 17.536-7.68 27.456 27.456 0 0 0 0-37.248 24.448 24.448 0 0 0-17.536-7.68 24.448 24.448 0 0 0-17.6 7.68 27.52 27.52 0 0 0 0 37.184z m-175.68-91.84c5.76 6.08 13.824 9.6 21.952 9.6a30.592 30.592 0 0 0 22.016-9.6 34.368 34.368 0 0 0 0-46.592 30.592 30.592 0 0 0-22.016-9.6 30.592 30.592 0 0 0-21.952 9.6 34.368 34.368 0 0 0 0 46.592z m-121.152-159.36c6.912 7.36 16.64 11.648 26.368 11.648a36.736 36.736 0 0 0 26.432-11.584 41.28 41.28 0 0 0 0-55.936 36.736 36.736 0 0 0-26.432-11.584 36.8 36.8 0 0 0-26.368 11.52 41.28 41.28 0 0 0 0 56zM12.736 564.672a42.88 42.88 0 0 0 30.784 13.44 42.88 42.88 0 0 0 30.784-13.44 48.128 48.128 0 0 0 0-65.216 42.88 42.88 0 0 0-30.72-13.44 42.88 42.88 0 0 0-30.848 13.44 48.128 48.128 0 0 0 0 65.216z m39.808-195.392a48.96 48.96 0 0 0 35.2 15.36 48.96 48.96 0 0 0 35.2-15.36 54.976 54.976 0 0 0 0-74.56 48.96 48.96 0 0 0-35.2-15.424 48.96 48.96 0 0 0-35.2 15.424 54.976 54.976 0 0 0 0 74.56zM168.32 212.48c10.368 11.008 24.96 17.408 39.68 17.408 14.592 0 29.184-6.4 39.552-17.408a61.888 61.888 0 0 0 0-83.84 55.104 55.104 0 0 0-39.616-17.408c-14.656 0-29.248 6.4-39.616 17.408a61.888 61.888 0 0 0 0 83.84zM337.344 124.8c11.52 12.16 27.712 19.264 43.968 19.264 16.256 0 32.448-7.04 43.968-19.264a68.672 68.672 0 0 0 0-93.184 61.248 61.248 0 0 0-43.968-19.264 61.248 61.248 0 0 0-43.968 19.264 68.736 68.736 0 0 0 0 93.184z m189.632-1.088c12.672 13.44 30.528 21.248 48.448 21.248s35.712-7.808 48.384-21.248a75.584 75.584 0 0 0 0-102.464A67.392 67.392 0 0 0 575.36 0c-17.92 0-35.776 7.808-48.448 21.248a75.584 75.584 0 0 0 0 102.464z m173.824 86.592c13.824 14.592 33.28 23.104 52.736 23.104 19.584 0 39.04-8.512 52.8-23.104a82.432 82.432 0 0 0 0-111.744 73.472 73.472 0 0 0-52.8-23.168c-19.52 0-38.912 8.512-52.736 23.168a82.432 82.432 0 0 0 0 111.744z m124.032 158.528c14.976 15.872 36.032 25.088 57.216 25.088 21.12 0 42.24-9.216 57.152-25.088a89.344 89.344 0 0 0 0-121.088 79.616 79.616 0 0 0-57.152-25.088c-21.184 0-42.24 9.216-57.216 25.088a89.344 89.344 0 0 0 0 121.088z m50.432 204.032c16.128 17.088 38.784 27.008 61.632 27.008 22.784 0 45.44-9.92 61.568-27.008a96.256 96.256 0 0 0 0-130.432 85.76 85.76 0 0 0-61.568-27.072c-22.848 0-45.44 9.984-61.632 27.072a96.192 96.192 0 0 0 0 130.432z"
+              fill="#1ab394" p-id="1177"></path>
+          </svg>
+          <i class="glyphicon glyphicon-ok succ"></i>
+          <i class="glyphicon glyphicon-remove fail"></i>
+        </div>
+        <div id="payTimeNum" class="pay-text paying"></div>
+      </div>
+      <!-- content -->
+      <div class="pay-info">
+        <div class="title">
+          <p class="paying">正在支付...</p>
+          <p class="succ">支付成功</p>
+          <p class="fail">支付失败</p>
+        </div>
+        <div class="content">
+          <div class="paying">
+            <p class="money">&nbsp;</p>
+            <p class="info">商家订单号：<span>12804230573489750834408</span></p>
+          </div>
+          <div class="succ">
+            <p class="money">¥ 6000</p>
+            <p class="info">商家订单号：<span>12804230573489750834408</span></p>
+            <div class="menu-bar">
+              <a class="item" onclick="cumParentCallValue()">关闭窗口</a>
+              <!-- <a class="item" href="">学费补缴</a> -->
+              <!-- <a class="item" href="">支付详情</a> -->
+              <!-- <a class="item" href="">本次缴费收据打印</a> -->
+              <!-- <a class="item" href="">返回学员列表</a> -->
+            </div>
+          </div>
+          <div class="fail">
+            <p class="money">&nbsp;</p>
+            <p class="info">商家订单号：<span>12804230573489750834408</span></p>
+            <div class="menu-bar">
+              <a class="item" id="repayment" href="javascript:void(0);">重新支付</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/jquery-2.1.1.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../i18n/zh-CN.js"></script>
+
+  <script src="../js/plugins/layer/layer.js"></script>
+  <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+
+  <script src="../js/subindex.js"></script>
+
+  <script src="../js/jquery.mockjax.min.js"></script>
+  <script>
+    $.mockjax({
+      url: '/newsignup/findByTogetherStamp',
+      responseText: [{
+        orderCode: 'OD20190823000075',
+        courseName: '少儿趣味编程课程',
+        courseStageName: 'Level 1',
+        thisPaymentAmount: '3000',
+        totalAmount: '27000',
+        totalPaymentAmount: '3000',
+        outStandingAmount: '24000',
+        discountAmount: '3000',
+      }, {
+        orderCode: 'OD20190826000001',
+        courseName: '少儿趣味编程课程',
+        courseStageName: 'Level 2',
+        thisPaymentAmount: '4000',
+        totalAmount: '26000',
+        totalPaymentAmount: '4000',
+        outStandingAmount: '22000',
+        discountAmount: '4000',
+      }]
+    })
+
+    $.mockjax({
+      url: '/newsignup/noOrderPay',
+      responseText: {
+        code: Math.random() > 0.5 ? 1 : 0
+      }
+    })
+
+    $.mockjax({
+      url: '/newsignup/pay',
+      responseText: {
+        code: Math.random() > 0.5 ? 1 : 0,
+        msg: '123123'
+      }
+    })
+
+    $.mockjax({
+      url: '/newsignup/payStatus',
+      responseText: {
+        code: Math.random() > 0.5 ? 1 : 0,
+        msg: '-paying-'
+      }
+    })
+  </script>
+  <script>
+    // 常量
+    var SWEEP_CODE_IDX = '';
+    var PAYMENT_IDX = '';
+    // var TOGETHER_STAMP = $('#togetherStamp').val();
+    var CHECKSN = '332211'; // checksn
+    // 初始化 table
+    function tableTrHtml(list) {
+      var html_ = [];
+
+      for (var i = 0; i < list.length; i++) {
+        var item = list[i];
+        var $elm = $('<tr class="js-tr-item"><td>' + item.orderCode + '</td>' +
+          '<td>' + item.courseName + '</td>' +
+          '<td>' + item.courseStageName + '</td>' +
+          '<td><input type="text" class="input-sm cus-inp js-money" value="' + item.thisPaymentAmount +
+          '" readonly></td>' +
+          '<td><input type="text" class="input-sm cus-inp js-money" value="' + item.totalAmount +
+          '" readonly></td>' +
+          '<td><input type="text" class="input-sm cus-inp js-money" value="' + item.totalPaymentAmount +
+          '" readonly></td>' +
+          '<td><input type="text" class="input-sm cus-inp js-money" value="' + item.outStandingAmount +
+          '" readonly></td>' +
+          '<td><input type="text" class="input-sm cus-inp js-money" value="' + item.discountAmount +
+          '" readonly></td></tr>').data('sdata', item);
+
+        html_.push($elm);
+      }
+
+      return html_;
+    }
+
+    function r_tableList() {
+      $.get('/newsignup/findByTogetherStamp', {
+        togetherStamp: $('#togetherStamp').val()
+      }).then(function (res) {
+        if (res.length) {
+          var html_ = tableTrHtml(res);
+          $('#tbodyWrp').html(html_);
+
+          $('.js-money').number(true, 2);
+        }
+      })
+    }
+    r_tableList();
+
+    // 支付-状态
+    function r_checkPayStatus(idx, timer) {
+      $.post('/newsignup/payStatus', {
+        checkSn: CHECKSN
+      }).then(function (res) {
+        if (res.code == 0) {
+          // 失败
+          clearInterval(timer);
+          cumCloseWin(idx);
+
+          setTimeout(function () {
+            PAYMENT_IDX = payModel('fail', );
+          }, 200);
+        } else if (res.code == 1) {
+          // 成功
+          clearInterval(timer);
+          cumCloseWin(idx);
+
+          setTimeout(function () {
+            PAYMENT_IDX = payModel('success');
+          }, 200);
+        }
+      })
+    }
+    // 支付中-定时
+    function paySettimeout(sec, idx, callback) {
+      var _sec = sec || 60;
+      var $obj = $('#payTimeNum');
+
+      $obj.text(_sec);
+      var timer = setInterval(function () {
+        console.log('-timer-')
+        _sec--;
+        $obj.text(_sec);
+
+        // 支付状态沦陷
+        callback && callback(idx, timer);
+
+        if (_sec == 0) {
+          clearInterval(timer);
+          cumCloseWin(idx);
+          setTimeout(function () {
+            PAYMENT_IDX = payModel('fail');
+          }, 200);
+        }
+      }, 1000);
+    }
+    // 支付弹窗
+    function payModel(type, opts) {
+      var $obj = $('#paymentWrp');
+      // 类型判断
+      switch (type) {
+        case 'paying':
+          $obj.find('.pay-wrp').addClass('paying');
+          break;
+        case 'success':
+          $obj.find('.pay-wrp').addClass('succ');
+          break;
+        case 'fail':
+          $obj.find('.pay-wrp').addClass('fail');
+          break;
+      }
+      // other opts
+      var _opts = $.extend(true, {
+        "area": ['400px', 'auto'],
+        type: 1,
+        other: {
+          skin: 'layer-pay-wrp',
+          title: false,
+          closeBtn: 0,
+          maxmin: false
+        },
+        success: function (layer, idx) {
+          if (type == 'paying') {
+            paySettimeout(60, idx, function (idx, timer) {
+              r_checkPayStatus(idx, timer);
+            });
+          } else if (type == 'fail') {
+            $obj.find('.pay-info .content .fail .money').text('注：' + opts.cusMsg || '无');
+          }
+        },
+        end: function () {
+          $obj.find('.pay-wrp').removeClass('paying succ fail');
+        }
+      }, opts);
+
+      return cumCurWinModal('', $obj, self, _opts);
+    }
+    // 获取订单号
+    function getOrderCode() {
+      var arr = [];
+
+      $('.js-tr-item').each(function (key, item) {
+        var t_ = $(this);
+        var s_data = t_.data('sdata');
+
+        arr.push(s_data.orderCode);
+      })
+
+      return arr;
+    }
+
+    // bind evnet
+    $('#subSweepCode').click(function () {
+      // 扫码录入
+      SWEEP_CODE_IDX = cumCurWinModal('扫码录入', $('#sweepCodeWrp'), '', {
+        "area": ['500px', 'auto'],
+        type: 1,
+        other: {
+          id: 'sweepCode'
+        },
+        success: function (layer) {
+          layer.find('#sweepCodeInp').trigger('focus');
+        },
+        end: function () {}
+      });
+    });
+    $('#confirmSweepCode').click(function () {
+      var t_ = $(this);
+      // 扫码录入 - 确定
+      var params = {
+        checkSn: CHECKSN,
+        orderCode: getOrderCode().join(','),
+        posInfo: $('#sweepCodeInp').val(),
+      }
+
+      if (!params.posInfo) {
+        COM_TOOLS.alert('请填入商户订单号');
+        return false;
+      }
+
+      COM_TOOLS.loadingBtn.open(t_);
+      $.post('/newsignup/noOrderPay', params).then(function (res) {
+        cumCloseWin(SWEEP_CODE_IDX);
+        if (res.code == 1) {
+          setTimeout(function () {
+            PAYMENT_IDX = payModel('success');
+          }, 200);
+        } else {
+          setTimeout(function () {
+            PAYMENT_IDX = payModel('fail');
+          }, 200);
+        }
+
+      }).fail(function (err) {
+        COM_TOOLS.loadingBtn.close(t_);
+      })
+    });
+    $('#subPay').click(function () {
+      // console.log('123')
+      var params = {
+        checkSn: CHECKSN,
+        subject: '',
+        customer: $('#studentName').val(),
+      }
+
+      COM_TOOLS.loadingShade.open();
+      $.post('/newsignup/pay', params).then(function (res) {
+        COM_TOOLS.loadingShade.close();
+        if (res.code == 1) {
+          PAYMENT_IDX = payModel('paying');
+        } else {
+          COM_TOOLS.alert(res.msg);
+        }
+      }).fail(function (err) {
+        COM_TOOLS.loadingShade.close();
+      });
+
+    });
+    $('#sweepCodeWrp').on('focus', '#sweepCodeInp', function (evt) {
+      $(this).parent().addClass('focus').removeClass('blur');
+    }).on('blur', '#sweepCodeInp', function (evt) {
+      $(this).parent().addClass('blur').removeClass('focus');
+    })
+    $('#repayment').click(function () {
+      // 支付失败 重新支付
+      cumCloseWin(PAYMENT_IDX);
+    })
+    $('#subCancel').click(function () {
+      COM_TOOLS.alert('取消相关的功能还没做完，请稍后测试');
+    });
+    // todo
+    $('#subPay2').click(function () {
+      cumCurWinModal('', './bm-user-qrcode.html', top, {
+        "area": ['500px', '450px'],
+        // type: 1,
+        other: {
+          // skin: 'layer-qrpay-wrp',
+          title: false,
+          closeBtn: 0,
+          maxmin: false
+        }
+      });
+    })
+  </script>
+</body>
+
+</html>

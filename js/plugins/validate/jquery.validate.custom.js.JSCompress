@@ -1,0 +1,7 @@
+﻿<jscompress public="http://www.jscompress.cn/" command="import-combineset">
+<combinefile path="jquery.validate.custom.js">
+    <auto value="1" />
+    <sourcefile path=".\jquery.validate.js" />
+    <sourcefile path=".\zdy-validate.js" />
+</combinefile>
+</jscompress>

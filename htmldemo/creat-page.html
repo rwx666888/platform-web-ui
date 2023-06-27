@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>页面构造器</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" />
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/creat-page.css"/>
+	
+	<script type="text/javascript" src="../js/jquery-2.1.1.js" ></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+	<script src="../js/jquery-ui-1.10.4.min.js"></script>
+	<script src="../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="../js/creat-page.js" ></script>
+	<script type="text/javascript" src="../js/plugins/jquery-htmlClean/jquery.htmlClean.min.js" ></script>
+	<script src="../i18n/zh-CN.js" ></script>
+	<script src="../js/subindex.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+	<!--
+    	作者：605910231@qq.com
+    	时间：2017-06-08
+    	描述：页面构造器
+    	区块模型要添加 “.js-col-box .js-ent-col”
+    -->
+	<div class="cus-creat-page" id="cus-creat-page">
+		<div class="tob-bar-box">
+		    <button class="btn btn-default btn-sm" type="button" onclick="getPageCodeFn()">TEST</button>
+		</div>
+		<div class="left-box" id="js-left-box">
+			<div class="panel-group" id="accordion" role="tablist">
+				<div class="panel panel-primary">
+					<div class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
+						区块
+					</div>
+					<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
+						<div class="panel-body">
+							<!-- 区块-12 start -->
+							<div class="js-model-item js-md-col">
+								<div class="js-md-title">12</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs">
+										<button class="btn btn-default">配置</button>
+										<button class="btn btn-default">btn1</button>
+										<div class="btn-group btn-group-xs">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+												Dropdown
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+											</ul>
+										</div>
+									</div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<div class="row">
+										<div class="col-md-12 js-col-box js-ent-col"></div>
+									</div>
+								</div>
+							</div>
+							<!-- 区块-12 end -->
+							<!-- 区块-6+6 start -->
+							<div class="js-model-item js-md-col">
+								<div class="js-md-title">6+6</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs">
+										<button class="btn btn-default">配置</button>
+										<button class="btn btn-default">btn1</button>
+										<div class="btn-group btn-group-xs">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+												Dropdown
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+											</ul>
+										</div>
+									</div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<div class="row">
+										<div class="col-md-6 js-col-box js-ent-col"></div>
+										<div class="col-md-6 js-col-box js-ent-col"></div>
+									</div>
+								</div>
+							</div>
+							<!-- 区块-6+6 end -->
+							<!-- 区块-4+4+4 start -->
+							<div class="js-model-item js-md-col">
+								<div class="js-md-title">4+4+4</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs">
+										<button class="btn btn-default">配置</button>
+										<button class="btn btn-default">btn1</button>
+										<div class="btn-group btn-group-xs">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+												Dropdown
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+											</ul>
+										</div>
+									</div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<div class="row">
+										<div class="col-md-4 js-col-box js-ent-col"></div>
+										<div class="col-md-4 js-col-box js-ent-col"></div>
+										<div class="col-md-4 js-col-box js-ent-col"></div>
+									</div>
+								</div>
+							</div>
+							<!-- 区块-4+4+4 end -->
+							<!-- 区块-8+4 start -->
+							<div class="js-model-item js-md-col">
+								<div class="js-md-title">8+4</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs">
+										<button class="btn btn-default">配置</button>
+										<button class="btn btn-default">btn1</button>
+										<div class="btn-group btn-group-xs">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+												Dropdown
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+											</ul>
+										</div>
+									</div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<div class="row">
+										<div class="col-md-8 js-col-box js-ent-col"></div>
+										<div class="col-md-4 js-col-box js-ent-col"></div>
+									</div>
+								</div>
+							</div>
+							<!-- 区块-8+4 end -->
+							<!-- 自定义区块-2+3+2+3 start -->
+							<div class="js-model-item js-md-col">
+								<div class="js-md-title">CUS-2+3+2+3</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs">
+										<button class="btn btn-default">配置</button>
+										<button class="btn btn-default">btn1</button>
+										<div class="btn-group btn-group-xs">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+												Dropdown
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+												<li><a href="#">Dropdown link</a></li>
+											</ul>
+										</div>
+									</div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<div class="row">
+										<div class="col-md-2 js-col-box js-ent-col"></div>
+										<div class="col-md-3 js-col-box js-ent-col"></div>
+										<div class="col-md-2 js-col-box js-ent-col"></div>
+										<div class="col-md-3 js-col-box js-ent-col"></div>
+									</div>
+								</div>
+							</div>
+							<!-- 自定义区块-2+3+2+3 end -->
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo">
+						表单组件
+					</div>
+					<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel">
+						<div class="panel-body">
+							<!-- 一般表单 start -->
+							<div class="js-model-item js-md-col js-md-col-nmform">
+								<div class="js-md-title">一般表单</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<form class="js-col-box js-ent-col-nmform"></form>
+								</div>
+							</div>
+							<!-- 一般表单 end -->
+							<!-- 内联表单 start -->
+							<div class="js-model-item js-md-col js-md-col-nmform">
+								<div class="js-md-title">内联表单</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<form class="form-inline js-col-box js-ent-col-nmform"></form>
+								</div>
+							</div>
+							<!-- 内联表单 end -->
+							<!-- 水平表单 start -->
+							<div class="js-model-item js-md-col">
+								<div class="js-md-title">水平表单</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<form class="form-horizontal js-col-box js-ent-col"></form>
+								</div>
+							</div>
+							<!-- 水平表单 end -->
+							<!-- 表单逻辑行1+3 start -->
+							<div class="js-model-item js-md-col-formgp">
+								<div class="js-md-title">表单逻辑行1+3</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<div class="form-group js-col-box js-ent-col-formgp" data-colsize="1,3"></div>
+								</div>
+							</div>
+							<!-- 表单逻辑行1+3 end -->
+							<!-- 表单逻辑行2+3 start -->
+							<div class="js-model-item js-md-col-formgp">
+								<div class="js-md-title">表单逻辑行2+3</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<div class="form-group js-col-box js-ent-col-formgp" data-colsize="2,3"></div>
+								</div>
+							</div>
+							<!-- 表单逻辑行2+3 end -->
+							<!-- 文本框 start -->
+							<div class="js-model-item js-md-mod-formele" data-that_jsplug="formele">
+								<div class="js-md-title">单行文本框</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix"></div>
+								<div class="js-code-hide-box">
+									<label>Text</label>
+									<input type="text" class="form-control" placeholder="text">
+								</div>
+							</div>
+							<!-- 文本框 end -->
+							<!-- select start -->
+							<div class="js-model-item js-md-mod-formele" data-that_jsplug="formele">
+								<div class="js-md-title">下拉列表</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix"></div>
+								<div class="js-code-hide-box">
+									<label>select</label>
+									<select class="form-control">
+										<option value="1">text1</option>
+										<option value="2">text2</option>
+									</select>
+								</div>
+							</div>
+							<!-- select end -->
+							<!-- select2 start -->
+							<div class="js-model-item js-md-mod-formele js-md-plug-init" data-that_jsplug="formele" data-that_jsinit="select2" mdata-itemid="m2017061801">
+								<div class="js-md-title">select2</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix"></div>
+								<div class="js-code-hide-box">
+									<label>select</label>
+									<select class="form-control">
+										<option value="1">text1</option>
+										<option value="2">text2</option>
+									</select>
+								</div>
+							</div>
+							<!-- select2 end -->
+							<!-- 输入框组+ICON start -->
+							<div class="js-model-item js-md-mod-formele" data-that_jsplug="formele">
+								<div class="js-md-title">输入框组+ICON</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix"></div>
+								<div class="js-code-hide-box">
+									<label>Text</label>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="text">
+										<span class="input-group-addon">ICON</span>
+									</div>
+								</div>
+							</div>
+							<!-- 输入框组+ICON end -->
+							<!-- 输入框组+btn start -->
+							<div class="js-model-item js-md-mod-formele" data-that_jsplug="formele">
+								<div class="js-md-title">输入框组+btn</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix"></div>
+								<div class="js-code-hide-box">
+									<label>Text</label>
+									<div class="input-group">
+										<input type="text" class="form-control" placeholder="text">
+										<span class="input-group-btn">
+											<button class="btn btn-default" type="button">Btn</button>
+										</span>
+									</div>
+								</div>
+							</div>
+							<!-- 输入框组+btn end -->
+							<!-- 日历 start -->
+							<div class="js-model-item js-md-mod-formele js-md-plug-init" data-that_jsplug="formele" data-that_jsinit="datetimepicker" mdata-itemid="m2017062001">
+								<div class="js-md-title">日历</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix"></div>
+								<div class="js-code-hide-box">
+									<label>日历</label>
+									<div class="input-group date">
+										<input type="text" class="form-control" placeholder="">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+									</div>
+								</div>
+							</div>
+							<!-- 日历 end -->
+							<!-- icheck start -->
+							<div class="js-model-item js-md-mod-formele js-md-plug-init" data-that_jsplug="formele" data-that_jsinit="icheck" mdata-itemid="m2017061801">
+								<div class="js-md-title">icheck-radio</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs"></div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix"></div>
+								<div class="js-code-hide-box">
+									<label>radio</label>
+									<label class="checkbox-inline i-checks"><input type="radio" value="option1" name="name2017061801"> 标签1 </label>
+									<label class="checkbox-inline i-checks"><input type="radio" value="option2" name="name2017061801"> 标签2 </label>
+								</div>
+							</div>
+							<!-- icheck end -->
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" data-target="#collapseThree">
+						js插件
+					</div>
+					<div id="collapseThree" class="panel-collapse collapse" role="tabpanel">
+						<div class="panel-body">
+							<!-- 标签页 start -->
+							<div class="js-model-item js-md-col js-md-col-tabs" data-that_jsplug="tabs" mdata-itemid="m2017061601">
+								<div class="js-md-title">标签页</div>
+								<div class="js-btn-box">
+									<div class="btn-group btn-group-xs">
+										<button class="btn btn-default js-evt-btn-addtab">添加标签</button>
+									</div>
+									<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+									<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+								</div>
+								<div class="js-code-box clearfix">
+									<ul class="nav nav-tabs"></ul>
+									<div class="tab-content"></div>
+								</div>
+							</div>
+							<!-- 标签页 end -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="right-box">
+			<div class="js-creat-box container-fluid" id="js_creat_box">
+				<div class="js-model-item js-md-col">
+					<div class="js-md-title">12</div>
+					<div class="js-btn-box">
+						<div class="btn-group btn-group-xs">
+							<button class="btn btn-default">配置</button>
+							<button class="btn btn-default">btn1</button>
+							<div class="btn-group btn-group-xs">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									Dropdown
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Dropdown link</a></li>
+									<li><a href="#">Dropdown link</a></li>
+									<li><a href="#">Dropdown link</a></li>
+									<li><a href="#">Dropdown link</a></li>
+								</ul>
+							</div>
+						</div>
+						<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+						<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+					</div>
+					<div class="js-code-box clearfix">
+						<div class="row">
+							<div class="col-md-12 js-col-box js-ent-col">.col-md-12</div>
+						</div>
+					</div>
+				</div>
+				<div class="js-model-item js-md-col">
+					<div class="js-md-title">6+6</div>
+					<div class="js-btn-box">
+						<div class="btn-group btn-group-xs">
+							<button class="btn btn-default">配置</button>
+							<button class="btn btn-default">btn1</button>
+							<div class="btn-group btn-group-xs">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									Dropdown
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#">Dropdown link</a></li>
+									<li><a href="#">Dropdown link</a></li>
+									<li><a href="#">Dropdown link</a></li>
+									<li><a href="#">Dropdown link</a></li>
+								</ul>
+							</div>
+						</div>
+						<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+						<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+					</div>
+					<div class="js-code-box">
+						<div class="row">
+							<div class="col-md-6 js-col-box js-ent-col">.col-md-6</div>
+							<div class="col-md-6 js-col-box js-ent-col">
+								<div class="js-model-item js-md-mod">
+									<div class="js-md-title">段落</div>
+									<div class="js-btn-box">
+										<div class="btn-group btn-group-xs">
+											<button class="btn btn-default">配置</button>
+											<button class="btn btn-default">btn1</button>
+											<div class="btn-group btn-group-xs">
+												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+													Dropdown
+													<span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li><a href="#">Dropdown link</a></li>
+													<li><a href="#">Dropdown link</a></li>
+													<li><a href="#">Dropdown link</a></li>
+													<li><a href="#">Dropdown link</a></li>
+												</ul>
+											</div>
+										</div>
+										<span class="label label-danger js-btnbar-del"><i class="glyphicon glyphicon-remove"></i>删除</span>
+										<span class="label label-warning js-btnbar-move"><i class="glyphicon glyphicon-move"></i>拖动</span>
+									</div>
+									<div class="js-code-box clearfix">
+										<p contenteditable="true">这是一段可编辑的段落。请试着编辑该文本。</p>
+									</div>
+								</div>
+							</div>
+							<textarea id="fgh" class="form-control" data-options="name:'11',user:22"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- code box -->
+	
+	<div id="js_creat_hide_box" class="hidden"></div>
+</body>
+</html>

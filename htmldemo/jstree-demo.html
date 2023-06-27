@@ -1,0 +1,1547 @@
+<!doctype html>
+<html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>jstree-demo</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/iconfont.css" type="text/css" />
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+        <style>
+        pre {
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .demo-box {
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            position: relative;
+            border-radius: 5px;
+        }
+        
+        .tab-content {
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        
+        .selected input {
+            color: #000;
+        }
+    </style>
+
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h2>树组件-jstree</h2>
+                <p>jstree-demo 单选,拖拽/获取节点路径/获取父节点id/搜索以及默认选中指定节点
+                    <br> 官网地址：
+                    <a href="https://www.jstree.com" target="_blank">https://www.jstree.com</a>
+                </p>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">常用组件及扩展</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <pre>
+/* 如果想在jstree渲染前修改数据请使用ajax原生dataFilter方法
+注意此方法data返回字符串格式,使用时需转为可解析模式并在return时回转
+例如: */
+$('xx').jstree({
+    data:{
+        dataFilter:function(d){
+            d=$.parseJSON(d);
+            $.each(d,function(i,n){
+                n.state={selected: true}
+            })
+            return JSON.stringify(d);
+        }
+    }
+ })
+
+//常用组件 :
+"plugins" : [
+    "checkbox",//多选框
+    "contextmenu",//右键菜单
+    "dnd",  //拖拽
+    "search", //搜索
+    "types", //设置节点类型
+]
+//详情请参照<a href="https://www.jstree.com/plugins/" target="_blank">https://www.jstree.com/plugins/</a>组件参考地址
+
+//checkbox复选框插件:
+$('#jstree').jstree({
+        "checkbox" : {
+            "three_state":false,
+            "cascade":'undetermined'
+        }
+    "plugins" : [ "checkbox" ]//启用多选框组件
+ })
+/*
+    three_state 此属性选择是否级联,默认为true。
+    cascade   多个值,分别为:
+    undetermined 待定:当前节点选中时父节点为待定状态
+    up  向上级连: 当前节点选中时所有父节点为选中状态
+    down  向下级连: 当前节点作为父节点并且被选中时子节点全部选中
+    此处可关联使用 例如 "cascade":'up down undetermined'
+*/
+
+//contextmenu右键菜单插件:
+$("#jstree").jstree({
+    "core" : {
+        "check_callback" : true //允许修改节点
+    },
+    "plugins" : [ "contextmenu" ]
+});
+
+//dnd拖拽组件:
+$("#jstree").jstree({
+    "core" : {
+        "check_callback" : true //允许修改节点
+    },
+    "plugins" : [ "dnd" ]
+});
+
+//search搜索组件:
+$("#plugins4").jstree({
+    "plugins" : [ "search" ]
+});
+var to = false;
+$('搜索输入框').keyup(function () {
+    if(to) { clearTimeout(to); }
+    to = setTimeout(function () {
+        var v = $('#plugins4_q').val();
+        $('#jstree').jstree(true).search(v);
+    }, 250);
+});
+
+//    types"设置节点类型
+$("#jstree").jstree({
+    "types" : {
+      "default" : {
+        "icon" : "glyphicon glyphicon-flash"
+      },
+      "demo" : {
+        "icon" : "glyphicon glyphicon-ok"
+      }
+    },
+    "plugins" : [ "types" ]
+});
+</pre>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例1 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">一、组件初始化以及默认选中指定节点</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div id="jstree1">
+                            <ul>
+                                <li id="0" class="jstree-open">Admin theme
+                                    <ul>
+                                        <li id="a" data-jstree='{"icon":"tedufont tedu-icon81"}'>css
+                                            <ul>
+                                                <li id="a1" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    animate.css
+                                                </li>
+                                                <li id="a2" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    bootstrap.css
+                                                </li>
+                                                <li id="a3" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    style.css
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="b" data-jstree='{"icon":"tedufont tedu-icon81"}'>email-templates
+                                            <ul>
+                                                <li id="b1" data-jstree='{"icon":"tedufont tedu-icon81"}'>action.html</li>
+                                                <li id="b2" data-jstree='{"icon":"tedufont tedu-icon81"}'>alert.html</li>
+                                                <li id="b3" data-jstree='{"icon":"tedufont tedu-icon81"}'>billing.html</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <input id="jstree1_val" type="hidden" value="a1">
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-html">
+                            <pre>
+&lt;div id="jstree2" class="all_box"&gt;
+    &lt;ul&gt;
+        &lt;li id="01" class="jstree-open"&gt;Admin theme
+            &lt;ul&gt;
+                &lt;li id="a12" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;css
+                    &lt;ul&gt;
+                        &lt;li id="a121" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            animate.css
+                        &lt;/li&gt;
+                        &lt;li id="0a2" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            bootstrap.css
+                        &lt;/li&gt;
+                        &lt;li id="0a3" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            style.css
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li id="0b" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;email-templates
+                    &lt;ul&gt;
+                        &lt;li id="0b1" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;action.html&lt;/li&gt;
+                        &lt;li id="0b2" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;alert.html&lt;/li&gt;
+                        &lt;li id="0b3" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;billing.html&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-js">
+                            <pre>
+&lt;script src="js/jquery-2.1.1.js"&gt;&lt;/script&gt;
+&lt;script src="js/jstree.min.js"&gt;&lt;/script&gt;
+
+$('#jstree1').jstree()//初始化组件
+     .on("ready.jstree", function () {//组件初始化完成事件
+        var ref = $('#jstree1').jstree(true);
+        ref.select_node(['a1'],true,false);//tree加载完之后让id为a1节点选中
+    });
+    /*
+     select_node(obj, boolean, boolean)
+     obj 数组,可选多个节点['a1','a2'],
+     supress_event  Boolean TRUE;不会触发`changed.jstree`事件
+     prevent_open   Boolean true'选定节点的的父节点不会打开
+     */
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-css">
+                            <pre>
+
+组件
+&lt;link href="../css/plugins/jsTree/style.min.css" rel="stylesheet"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例1 结束 -->
+            <!-- 实例2开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">二、多选以及搜索tree组件-demo,获取id,数据回显,默认选中多个节点</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="input-group " style="width:200px;">
+                            <input id="plugins4_q" type="text" class="form-control">
+                            <span class="input-group-btn"><button type="button" class="btn" id="search_tree">搜索</button></span>
+                        </div>
+                        <div id="jstree2">
+                            <ul>
+                                <li id="q" class="jstree-open">Admin theme
+                                    <ul>
+                                        <li id="q0" data-jstree='{"icon":"tedufont tedu-icon81"}'>css
+                                            <ul>
+                                                <li id="q00" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    animate.css
+                                                </li>
+                                                <li id="q01" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    bootstrap.css
+                                                </li>
+                                                <li id="q02" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    style.css
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="q1" data-jstree='{"icon":"tedufont tedu-icon81"}'>email-templates
+                                            <ul>
+                                                <li id="q10" data-jstree='{"icon":"tedufont tedu-icon81"}'>action.html</li>
+                                                <li id="q11" data-jstree='{"icon":"tedufont tedu-icon81"}'>alert.html</li>
+                                                <li id="q12" data-jstree='{"icon":"tedufont tedu-icon81"}'>billing.html</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info" id="get_node">获取选中的节点路径</button>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo2-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo2-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo2-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo2-html">
+                            <pre>
+&lt;div id="jstree2"&gt;
+    &lt;ul&gt;
+        &lt;li id="q" class="jstree-open"&gt;Admin theme
+            &lt;ul&gt;
+                &lt;li id="q0" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;css
+                    &lt;ul&gt;
+                        &lt;li id="q00" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            animate.css
+                        &lt;/li&gt;
+                        &lt;li id="q01" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            bootstrap.css
+                        &lt;/li&gt;
+                        &lt;li id="q02" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            style.css
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li id="q1" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;email-templates
+                    &lt;ul&gt;
+                        &lt;li id="q10" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;action.html&lt;/li&gt;
+                        &lt;li id="q11" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;alert.html&lt;/li&gt;
+                        &lt;li id="q12" data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;billing.html&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo2-js">
+                            <pre>
+
+//初始化完成指定选择节点    数据回显  模拟后台返回数据,需要此格式
+    var id_list =[
+        {
+            id:'q02',
+            pid:'q0'
+        },
+        {
+            id:'q0',
+            pid:'q'
+        },
+        {
+            id:'q',
+            pid:'#'
+        },
+        {
+            id:'q10',
+            pid:'q1'
+        },
+        {
+            id:'q11',
+            pid:'q1'
+        },
+        {
+            id:'q12',
+            pid:'q1'
+        },
+        {
+            id:'q1',
+            pid:'q'
+        },
+        {
+            id:'q',
+            pid:'#'
+        }
+    ];
+    //通过此方法挑选需要的子类id
+    var pid_=[], id_=[];
+    $.each(id_list,function(i,n){
+
+        if($.inArray(n['pid'],pid_)==-1){
+            pid_.push(n['pid']);
+        }
+    });
+
+    $.each(id_list,function(i,n){
+
+        if($.inArray(n['id'],pid_)==-1){
+            id_.push(n['id']);
+        }
+    });
+
+        $('#jstree2').jstree({
+            "checkbox" : {
+                "three_state":true,//此属性选择是否级联,默认为true。
+//                "cascade":'down'//级联的方向   up down   three_state设置为false可修改
+            },
+             "search":{
+                show_only_matches:true,//只显示搜索到的数据
+                show_only_matches_children:true, //是否可显示搜索到节点的子节点,默认为false不可显示
+            },
+            'plugins': ['checkbox', "search"]//search:搜索组件,checkbox:多选框
+        }).on("ready.jstree", function () {
+            var ref = $('#jstree2').jstree(true);
+            ref.select_node(id_, false, false);//tree加载完之后让id为a1节点选中,
+        });
+        $('#search_tree').click(function () {
+        if (to) {
+            clearTimeout(to);
+        }
+        to = setTimeout(function () {
+            var v = $('#plugins4_q').val();
+            $('#jstree2').jstree(true).search(v); //搜索
+        }, 250);
+    });
+$('#get').click(function () {
+    var ref = $('#jstree2').jstree(true);
+    var sel = ref.get_selected(true);//获取选中的节点
+    $.each(sel, function (i,n) {
+        var path = [n.id].concat(n.parents);
+        alert("节点路径:" + path)
+    })
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo2-css">
+                            <pre>
+&lt;link href="../css/plugins/jsTree/style.min.css" rel="stylesheet"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例2 结束 -->
+            <!-- 实例3 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">三、增删改以及自定义图标</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="btn-group">
+                            <button id="add" type="button" class="btn btn-info">add</button>
+                            <button id="rename" type="button" class="btn btn-warning">rename</button>
+                            <button id="delete" type="button" class="btn btn-primary">del</button>
+                        </div>
+                        <div id="jstree3">
+                            <ul>
+                                <li id="z" class="jstree-open">Admin theme
+                                    <ul>
+                                        <li id="z1" data-jstree='{"icon":"tedufont tedu-icon81"}'>css
+                                            <ul>
+                                                <li id="z11" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    animate.css
+                                                </li>
+                                                <li id="z12" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    bootstrap.css
+                                                </li>
+                                                <li id="z13" data-jstree='{"icon":"tedufont tedu-icon81"}'>
+                                                    style.css
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li id="z2" data-jstree='{"icon":"tedufont tedu-icon81"}'>email-templates
+                                            <ul>
+                                                <li id="z21" data-jstree='{"icon":"tedufont tedu-icon81"}'>action.html</li>
+                                                <li id="z22" data-jstree='{"icon":"tedufont tedu-icon81"}'>alert.html</li>
+                                                <li id="z23" data-jstree='{"icon":"tedufont tedu-icon81"}'>billing.html</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-htm3" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo3-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo3-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-htm3">
+                            <pre>
+&lt;div id="jstree3"&gt;
+    &lt;ul&gt;
+        &lt;li id="z"  class="jstree-open"&gt;Admin theme
+            &lt;ul&gt;
+                &lt;li id="z1"  data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;css
+                    &lt;ul&gt;
+                        &lt;li id="z11"  data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            animate.css
+                        &lt;/li&gt;
+                        &lt;li id="z12"  data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            bootstrap.css
+                        &lt;/li&gt;
+                        &lt;li id="z13"  data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;
+                            style.css
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                &lt;li id="z2"  data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;email-templates
+                    &lt;ul&gt;
+                        &lt;li id="z21"   data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;action.html&lt;/li&gt;
+                        &lt;li id="z22"   data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;alert.html&lt;/li&gt;
+                        &lt;li id="z23"   data-jstree='{"icon":"tedufont tedu-icon81"}'&gt;billing.html&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo3-js">
+                            <pre>
+    $(function () {
+        var i1, sel, ref;
+        function saveFun(obj, editNum) {
+            if (editNum == 0) {
+                ref.create_node(sel, {"icon": obj['icon'], "text": obj['text']});//创建节点
+                if (sel) {
+                    ref.open_node(sel);
+                }
+            } else if (editNum == 1) {
+                ref.set_icon(sel, obj['icon']);//更改节点icon
+                ref.set_text(sel, obj['text']);//更改节点内容
+            }
+        }
+        var treeObjList = {
+            editFunc:function (tit, url_) {//重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+                i1 = cumParentWinModal(tit, url_, {
+                    "type": 2,
+                    'area': ['380px', '240px']
+                })
+            },
+            create: function () {
+                sel = ref.get_selected(); //获取选中的节点ID；get_selected(true),获取选中的节点对象，返回OBJ（id,text...）
+                if (!sel.length) {
+                    COM_TOOLS.alert(TEDU_MESSAGE.get('JTsel_node'));//请选择节点!
+                    return false;
+                }
+                sel = sel[0];
+                treeObjList.editFunc(TEDU_MESSAGE.get('JTmo_tit'), ['add-icon.html?edit=0'])
+            },//'JTmo_tit':请输入图标及内容!
+            rename: function () {
+                sel = ref.get_selected();
+                if (!sel.length) {
+                    COM_TOOLS.alert(TEDU_MESSAGE.get('JTsel_node'));//请选择节点!
+                    return false;
+                }
+                sel = sel[0];
+                var iconRename = encodeURI($.trim(ref.get_icon(sel)));
+                var textRename = encodeURI($.trim(ref.get_text(sel)));
+                treeObjList.editFunc(TEDU_MESSAGE.get('JTr_tit'), ['add-icon.html?edit=1&nodeName=' + textRename + '&iconRename=' + iconRename])
+            },//'JTr_tit' 请修改图标及内容!
+            del: function () {
+                sel = ref.get_selected(true);
+                if (!sel.length) {
+                    COM_TOOLS.alert(TEDU_MESSAGE.get('JTsel_node'));//请选择节点!
+                    return false;
+                }
+                COM_TOOLS.confirm(TEDU_MESSAGE.get('delConfirm'), function(index){
+                    cumCloseWin(index);
+                    ref.delete_node(sel);
+                });
+            }
+        };
+        $('#jstree3').jstree({
+            'plugins': [''],//search:搜索组件,checkbox:多选框
+            'core': {
+                "multiple": false,//是否启用多选
+                'check_callback': true//是否允许修改节点
+            }
+        }).on('ready.jstree',function () {
+            ref = $('#jstree3').jstree(true);
+        });
+        $('#add').click(function () {
+            treeObjList.create()
+        });
+        $('#rename').click(function () {
+            treeObjList.rename()
+        });
+        $('#delete').click(function () {
+            treeObjList.del()
+        });
+        COM_TOOLS.private_obj_.saveFun = saveFun;
+    });
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo3-css">
+                            <pre>
+&lt;link href="../css/plugins/jsTree/style.min.css" rel="stylesheet"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例3 结束 -->
+            <!-- 实例4 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">四、json数据加载</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div id="jstree4"></div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-htm4" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo4-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo4-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo4-data" role="tab" data-toggle="tab">data</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-htm4">
+                            <pre>
+&lt;div id="jstree4"&gt; &lt;/div&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo4-js">
+                            <pre>
+&lt;script src=&quot;js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/jstree.min.js&quot;&gt;&lt;/script&gt;
+$(function () {
+        $('#jstree4').jstree({
+            "checkbox" : {
+                "three_state":false,//此属性选择是否级联,默认为true。
+                "cascade":'undetermined'//级联的方向   up 上级连   down下级联  undetermined 父节点待定状态
+            },
+            'core' : {
+                'data' : {
+                    'url' : '/jstree6/api',
+                    'data' : function (node) {
+                        return { 'id' : node.id };
+                    }
+                }
+            },
+            'plugins' : ['checkbox','wholerow']
+        });
+
+    });
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo4-css">
+                            <pre>
+&lt;link href="../css/plugins/jsTree/style.min.css" rel="stylesheet"&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo4-data">
+                            <pre>
+// AJAX
+$('#tree').jstree({
+    'core' : {
+        'data' : {
+            'url' : '/get/children/',
+            'data' : function (node) {
+                return { 'id' : node.id };
+            }
+        }
+    });
+### ps 
+[
+{ "text" : "ajax-Child 1","icon":"tedu tedu-icon85","children" : true}, 
+{ "text" : "state-Child 2","icon":"tedu tedu-icon85", "children" : ["One more"] }
+]
+
+
+//静态 data #1：
+$('#using_json').jstree({
+    'core' : {
+        'data' : [
+            {
+                'id' : 'node_2',
+                'text' : 'Root node with options',
+                'state' : { 'opened' : true, 'selected' : true },
+                'children' : [ { 'text' : 'Child 1' }, 'Child 2']
+            }
+        ]
+    }
+});
+
+###  PS：
+{
+  id          : "string" // will be autogenerated if omitted
+  text        : "string" // node text
+  icon        : "string" // string for custom
+  state       : {
+    opened    : boolean  // is the node open
+    disabled  : boolean  // is the node disabled
+    selected  : boolean  // is the node selected
+  },
+  children    : []  // array of strings or objects
+  li_attr     : {}  // attributes for the generated LI node
+  a_attr      : {}  // attributes for the generated A node
+}
+
+
+//静态 data #2：list child=> parent
+$('#using_json_2').jstree({ 'core' : {
+    'data' : [
+       { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
+       { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+       { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
+       { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+    ]
+} });
+
+###  PS：
+{
+  id          : "string" // required
+  parent      : "string" // required
+  text        : "string" // node text
+  icon        : "string" // string for custom
+  state       : {
+    opened    : boolean  // is the node open
+    disabled  : boolean  // is the node disabled
+    selected  : boolean  // is the node selected
+  },
+  li_attr     : {}  // attributes for the generated LI node
+  a_attr      : {}  // attributes for the generated A node
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例4 结束 -->
+            <!-- 实例5 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">五、jstree右键菜单</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="input-group " style="width:200px;">
+                            <input id="plugins4_q1" type="text" class="form-control">
+                            <span class="input-group-btn"><button type="button" class="btn" id="search2_tree">搜索</button></span>
+                        </div>
+                        <div id="jstree5"></div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-htm5" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo5-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo5-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo5-data" role="tab" data-toggle="tab">data</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-htm5">
+                            <pre>
+&lt;div id="jstree5"&gt; &lt;/div&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo5-js">
+                            <pre>
+&lt;script src=&quot;js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/jstree.min.js&quot;&gt;&lt;/script&gt;
+$(function () {
+        var i1, ref,node_;
+        function saveFun(obj, editNum) {
+            $.ajax({
+                url:'jstree-demo.html',//后台保存数据路径
+                data:{icon:obj['icon'],text:obj['text']},
+                success:function (d) {
+                 //...执行创建
+                    //ref.refresh();//正式环境ajax返回成功后可直接刷新jstree 无需以下操作
+                    if(d){
+                        if (obj.editNum == 0) {
+                            ref.create_node(node_, {"icon": obj['icon'], "text": obj['text']});
+                            ref.open_node(node_);
+                        } else if (obj.editNum == 1) {
+                            ref.set_icon(node_, obj['icon']);//更改节点icon
+                            ref.set_text(node_, obj['text']);//更改节点内容
+                        }
+                    }
+                 }
+             })
+        }
+
+        var treeObjList = {
+            editFunc: function (tit, url_) {//重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+                i1 = cumParentWinModal(tit, url_, {
+                    "type": 2,
+                    'area': ['380px', '240px']
+                })
+            },
+            create: function () {
+                if (!node_.length) {
+                    COM_TOOLS.alert(TEDU_MESSAGE.get('JTsel_node'));
+                    return false;
+                }
+                treeObjList.editFunc(TEDU_MESSAGE.get('JTmo_tit'), ['add-icon.html?edit=0'])
+            },
+            rename: function () {
+                if (!node_.length) {
+                    COM_TOOLS.alert(TEDU_MESSAGE.get('JTsel_node'));
+                    return false;
+                }
+                var iconRename = encodeURI($.trim(ref.get_icon(node_)));
+                var textRename = encodeURI($.trim(ref.get_text(node_)));
+                treeObjList.editFunc(TEDU_MESSAGE.get('JTr_tit'), ['add-icon.html?edit=1&nodeName=' + textRename + '&iconRename=' + iconRename])
+            },
+            del: function () {
+                if (!node_.length) {
+                    COM_TOOLS.alert(TEDU_MESSAGE.get('JTsel_node'));
+                    return false;
+                }
+                COM_TOOLS.confirm(TEDU_MESSAGE.get('delConfirm'), function (index) {
+                    cumCloseWin(index);
+                    ref.delete_node(node_);
+                });
+            }
+        };
+        $('#jstree5').jstree({
+            'core': {
+                "check_callback": true,
+                'data': {
+                    'url' : '/jstree6/api',
+                    'data': function (node) {
+                        return {'id': node.id};
+                    }
+                }
+            }, 'contextmenu': {
+                show_at_node: false,//指示菜单是否应该与节点对齐。默认为true，否则使用鼠标坐标
+                items: function (node) {
+                    var temp = {
+                        "add_c": {
+                            "icon": 'glyphicon glyphicon-asterisk',
+                            "label": TEDU_MESSAGE.get('JTaddn_node'),
+                            "separator_after": true,//表示在此项之后是否应该有分隔符
+                            "action": function (data) {
+                                var pathL = node.parents.length;
+                                alert("我是" + pathL + "级节点");
+                                ref = $('#jstree5').jstree(true);
+                                node_ = node.id;
+                                treeObjList.create();
+                            }
+                        },
+                        "add_b": {
+                            "icon": 'glyphicon glyphicon-asterisk',
+                            "label": TEDU_MESSAGE.get('JTaddb_node'),
+                            "separator_after": true,//表示在此项之后是否应该有分隔符
+                            "action": function (data) {
+                                ref = $('#jstree5').jstree(true);
+                                node_ = node.parents[0];
+                                treeObjList.create();
+                            }
+                        },
+                        "rename": {
+                            "icon": 'glyphicon glyphicon-pencil',
+                            "label": TEDU_MESSAGE.get('JTrename_node'),
+                            "separator_after": true,//表示在此项之后是否应该有分隔符
+                            "action": function (data) {
+                                ref = $('#jstree5').jstree(true);
+                                node_ = node.id;
+                                treeObjList.rename();
+                            }
+                        },
+                        "del": {
+                            "icon": 'glyphicon glyphicon-remove',
+                            "label": TEDU_MESSAGE.get('JTdel_node'),
+                            "separator_after": true,//表示在此项之后是否应该有分隔符
+                            "action": function (data) {
+                                var typeid_ = node.li_attr.typeid;
+                                var pathL = node.parents.length;
+                                if (pathL < 2 || typeid_) {
+                                    COM_TOOLS.alert(TEDU_MESSAGE.get('JTr_notdel'));
+                                    return false;
+                                }
+                                ref = $('#jstree5').jstree(true);
+                                node_ = node.id;
+                                treeObjList.del();
+                            }
+                        }
+                    }
+                    return temp;
+                }
+            },
+            'plugins': ['wholerow', 'contextmenu', "search"]
+        });
+        var to_ = false;
+        $('#search2_tree').click(function () {
+            if (to_) {
+                clearTimeout(to_);
+            }
+            to_ = setTimeout(function () {
+                var v = $('#plugins4_q1').val();
+                $('#jstree5').jstree(true).search(v); //搜索
+            }, 250);
+        });
+        COM_TOOLS.private_obj_.saveFun = saveFun;
+    })
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo5-css">
+                            <pre>
+&lt;link href="../css/plugins/jsTree/style.min.css" rel="stylesheet"&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo5-data">
+                            <pre>
+// AJAX
+$('#tree').jstree({
+    'core' : {
+        'data' : {
+            'url' : '/get/children/',
+            'data' : function (node) {
+                return { 'id' : node.id };
+            }
+        }
+    });
+### ps
+[
+{ "text" : "ajax-Child 1","icon":"tedu tedu-icon85","children" : true},
+{ "text" : "state-Child 2","icon":"tedu tedu-icon85", "children" : ["One more"] }
+]
+
+
+//静态 data #1：
+$('#using_json').jstree({
+    'core' : {
+        'data' : [
+            {
+                'id' : 'node_2',
+                'text' : 'Root node with options',
+                'state' : { 'opened' : true, 'selected' : true },
+                'children' : [ { 'text' : 'Child 1' }, 'Child 2']
+            }
+        ]
+    }
+});
+
+###  PS：
+{
+  id          : "string" // will be autogenerated if omitted
+  text        : "string" // node text
+  icon        : "string" // string for custom
+  state       : {
+    opened    : boolean  // is the node open
+    disabled  : boolean  // is the node disabled
+    selected  : boolean  // is the node selected
+  },
+  children    : []  // array of strings or objects
+  li_attr     : {}  // attributes for the generated LI node
+  a_attr      : {}  // attributes for the generated A node
+}
+
+
+//静态 data #2：list child=> parent
+$('#using_json_2').jstree({ 'core' : {
+    'data' : [
+       { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
+       { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
+       { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
+       { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+    ]
+} });
+
+###  PS：
+{
+  id          : "string" // required
+  parent      : "string" // required
+  text        : "string" // node text
+  icon        : "string" // string for custom
+  state       : {
+    opened    : boolean  // is the node open
+    disabled  : boolean  // is the node disabled
+    selected  : boolean  // is the node selected
+  },
+  li_attr     : {}  // attributes for the generated LI node
+  a_attr      : {}  // attributes for the generated A node
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例5 结束 -->
+            <!-- 实例5 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">六、异步加载/全路径回显</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="p-sm form-inline">
+                            <label>搜索： </label><input class="form-control" id="demo6-inp1" />
+                        </div>
+                        <div id="jstree6"></div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo6-htm" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo6-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo6-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo6-htm">
+                            <pre>
+&lt;div id="jstree6"&gt; &lt;/div&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo6-js">
+                            <pre>
+&lt;script src=&quot;js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/jstree.min.js&quot;&gt;&lt;/script&gt;
+   $(function(){
+        /*回显全路径数据*/
+        var IDS_ = [
+        	['0_1','0_1_2','0_1_2_1','0_1_2_1_2'],
+        	['0_1','0_1_2','0_1_2_1'],
+        	['0_2','0_2_2','0_2_2_1']
+        ];
+        $('#jstree6').jstree({
+            "checkbox": {
+                "three_state": false//此属性选择是否级联,默认为true。
+            },
+            'core': {
+                "check_callback": true,
+                'data':{
+                    'url' : '/jstree6/api',
+                    'data': function (node) {
+                        return {'id': node.id};
+                    }
+                }
+            },
+            "search":{
+            	show_only_matches:true,//只显示搜索到的数据
+                show_only_matches_children:true, //是否可显示搜索到节点的子节点,默认为false不可显示
+            	ajax:{
+            		url:"/jstree6/searchapi"
+            	}
+            },
+            debug:true,
+            'plugins': ['checkbox','search']//search:搜索组件,checkbox:多选框
+        }).on("ready.jstree", function (){
+        	var ref = $(this).jstree(true);
+        	var path_ids=[],
+        		open_ids=[];
+        	$.each(IDS_,function(i,n){
+        		open_ids = open_ids.concat(n.slice(-1));
+        		if(n.length>1){
+        			path_ids = path_ids.concat(n.slice(0,-1));
+        		}
+        	});
+        	ref.load_node(COM_TOOLS.arrayUniqueFn(path_ids),function(){
+        		ref.select_node(COM_TOOLS.arrayUniqueFn(open_ids), true, false);
+        	});
+        });
+        $('#demo6-inp1').keypress(function(){
+        	 $('#jstree6').jstree(true).search($(this).val());
+        });
+    });
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo6-css">
+                            <pre>
+&lt;link href="../css/plugins/jsTree/style.min.css" rel="stylesheet"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例5 结束 -->
+        </div>
+
+        <script src="../js/jquery-2.1.1.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/plugins/jsTree/jstree.min.js"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="../js/plugins/layer/layer.js"></script>
+        <script src="../i18n/zh-CN.js"></script>
+        <!--<script src="../js/jquery.hash.min.js"></script>-->
+        <!--<script src="../js/inspinia-ajax.js"></script>-->
+        <script src="../js/subindex.js"></script>
+        <!--<script src="../js/plugins/pace/pace.min.js"></script>-->
+
+        <!--jquery.mockjax.min.js仅限于demo演示模拟数据使用-->
+        <script src="../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../demo-data.js" ></script>
+
+        <script>
+            $(function() {
+
+            });
+        </script>
+
+        <script>
+
+            $(function() {
+                var i1, sel, ref;
+
+                function saveFun(obj) {
+                    if(obj['editNum'] == 0) {
+                        ref.create_node(sel, {
+                            "icon": obj['icon'],
+                            "text": obj['text']
+                        }); //创建节点
+                        if(sel) {
+                            ref.open_node(sel);
+                        }
+                    } else if(obj['editNum'] == 1) {
+                        ref.set_icon(sel, obj['icon']); //更改节点icon
+                        ref.set_text(sel, obj['text']); //更改节点内容
+                    }
+                }
+                var treeObjList = {
+                    editFunc: function(tit, url_) { //重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+                        i1 = cumParentWinModal(tit, url_, {
+                            "type": 2,
+                            "area": ['380px', '240px'],
+                            "callback": {
+                                fn: 'fn2'
+                            }
+                        })
+                        COM_TOOLS.setCacheFnForChildWin({
+                            fn2: saveFun
+                        });
+                    },
+                    create: function() {
+                        sel = ref.get_selected(); //获取选中的节点ID；get_selected(true),获取选中的节点对象，返回OBJ（id,text...）
+                        if(!sel.length) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.jtree.JTsel_node')); //请选择节点!
+                            return false;
+                        }
+                        sel = sel[0];
+                        treeObjList.editFunc(TEDU_MESSAGE.get('platform.plugin.jtree.JTmo_tit'), ['add-icon.html?edit=0'])
+                    }, //'JTmo_tit':请输入图标及内容!
+                    rename: function() {
+                        sel = ref.get_selected();
+                        if(!sel.length) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.jtree.JTsel_node')); //请选择节点!
+                            return false;
+                        }
+                        sel = sel[0];
+                        var iconRename = encodeURI($.trim(ref.get_icon(sel)));
+                        var textRename = encodeURI($.trim(ref.get_text(sel)));
+                        treeObjList.editFunc(TEDU_MESSAGE.get('platform.plugin.jtree.JTr_tit'), ['add-icon.html?edit=1&nodeName=' + textRename + '&iconRename=' + iconRename])
+                    }, //'JTr_tit' 请修改图标及内容!
+                    del: function() {
+                        sel = ref.get_selected(true);
+                        if(!sel.length) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.jtree.JTsel_node')); //请选择节点!
+                            return false;
+                        }
+                        COM_TOOLS.confirm(TEDU_MESSAGE.get('platform.plugin.jtree.delConfirm'), function(index) {
+                            cumCloseWin(index);
+                            ref.delete_node(sel);
+                        });
+                    }
+                };
+                $('#jstree3').jstree({
+                    'plugins': [''], //search:搜索组件,checkbox:多选框
+                    'core': {
+                        "multiple": false, //是否启用多选
+                        'check_callback': true //是否允许修改节点
+                    }
+                }).on('ready.jstree', function() {
+                    ref = $('#jstree3').jstree(true);
+                });
+                $('#add').click(function() {
+                    treeObjList.create()
+                });
+                $('#rename').click(function() {
+                    treeObjList.rename()
+                });
+                $('#delete').click(function() {
+                    treeObjList.del()
+                });
+            });
+            $(document).ready(function() {
+                /*$('#jstree1').jstree({
+                    'core': {
+                        "multiple": false, //默认为true,true启用多选 false取消包括按键Ctrl的多选
+                        "check_callback": true
+                    },
+                    "plugins": ["dnd"]
+                }).on("ready.jstree", function() {
+                    var ref = $('#jstree1').jstree(true);
+                    ref.select_node(['a1'], false, false); //tree加载完之后让id为a1节点选中,
+                }).on("move_node.jstree", function(e, d) {
+                    console.log('hss', d)
+                });*/
+                var JSTREE_ = COM_TOOLS.jstree_init('jstree1',{input_val_name:'asd'});
+                JSTREE_.changeCallback(function(d,w){
+                    console.log('####',this,d,w,'--',JSTREE_.get_selected())
+                });
+                var JSTREE_2 = COM_TOOLS.jstree_init('jstree1');
+                JSTREE_2.changeCallback(function(d,w){
+                    console.log('##222##',JSTREE_2.get_selected())
+                });
+                console.log('2222',JSTREE_2.get_selected())
+                window.JSTREE_2 = JSTREE_2;
+                
+            });
+            
+            $(document).ready(function() {
+                /*
+                 select_node(obj, boolean, boolean)
+                 obj 数组,可选多个节点['a1','a2'],
+                 supress_event  Boolean TRUE;不会触发`changed.jstree`事件
+                 prevent_open   Boolean true'选定节点的的父节点不会打开
+                 */
+
+                //初始化完成指定选择节点jstree2demo    数据回显
+                var id_list = [{
+                        id: 'q02',
+                        pid: 'q0'
+                    },
+                    {
+                        id: 'q0',
+                        pid: 'q'
+                    },
+                    {
+                        id: 'q',
+                        pid: '#'
+                    },
+                    {
+                        id: 'q10',
+                        pid: 'q1'
+                    },
+                    {
+                        id: 'q11',
+                        pid: 'q1'
+                    },
+                    {
+                        id: 'q12',
+                        pid: 'q1'
+                    },
+                    {
+                        id: 'q1',
+                        pid: 'q'
+                    },
+                    {
+                        id: 'q',
+                        pid: '#'
+                    }
+                ];
+                var pid_ = [],
+                    id_ = [];
+                $.each(id_list, function(i, n) {
+
+                    if($.inArray(n['pid'], pid_) == -1) {
+                        pid_.push(n['pid']);
+                    }
+                    //console.log("pid_===", pid_);
+                });
+                $.each(id_list, function(i, n) {
+
+                    if($.inArray(n['id'], pid_) == -1) {
+                        id_.push(n['id']);
+                    }
+                    //console.log("uu_===", id_);
+                });
+                //搜索
+                $('#jstree2').jstree({
+                    "checkbox": {
+                        "three_state": true, //级联,默认为true。
+                        //                "cascade":'down'//级联的方向   up down   three_state设置为false可修改
+                    },
+                    "search": {
+                        show_only_matches: true, //只显示搜索到的数据
+                        show_only_matches_children: true, //是否可显示搜索到节点的子节点,默认为false不可显示
+                    },
+                    'plugins': ['checkbox', "search"], //search:搜索组件,checkbox:多选框
+                }).on("ready.jstree", function() {
+                    var ref = $('#jstree2').jstree(true);
+                    ref.select_node(id_, false, false); //tree加载完之后让id为a1节点选中,
+                });
+                var to = false;
+                $('#search_tree').click(function() {
+                    if(to) {
+                        clearTimeout(to);
+                    }
+                    to = setTimeout(function() {
+                        var v = $('#plugins4_q').val();
+                        $('#jstree2').jstree(true).search(v); //搜索
+                    }, 250);
+                });
+                $('#get_node').click(function() {
+                    var ref = $('#jstree2').jstree(true);
+                    var sel = ref.get_selected(true); //获取选中的节点
+                    $.each(sel, function(i, n) {
+                        var path = [n.id].concat(n.parents);
+                        alert("节点路径:" + path);
+                    })
+                });
+            });
+            $(function() {
+                $('#jstree4').jstree({
+                    "checkbox": {
+                        "three_state": false, //此属性选择是否级联,默认为true。
+                        "cascade": 'undetermined' //级联的方向   up 上级连   down下级联  undetermined 父节点待定状态
+                    },
+                    'core': {
+                        'data': {
+                            'url': '/jstree6/api',
+                            'data': function(node) {
+                                return {
+                                    'id': node.id
+                                };
+                            }
+                        }
+                    },
+                    'plugins': ['checkbox', 'wholerow']
+                });
+
+            });
+            $(function() {
+                var i1, ref, node_;
+
+                function saveFun(obj) {
+                    $.ajax({
+                        url: 'jstree-demo.html', //后台保存数据路径
+                        data: {
+                            icon: obj['icon'],
+                            text: obj['text']
+                        },
+                        success: function(d) {
+                            //...执行创建
+                            //ref.refresh();//正式环境ajax返回成功后可直接刷新jstree 无需以下操作
+                            if(d) {
+                                if(obj.editNum == 0) {
+                                    ref.create_node(node_, {
+                                        "icon": obj['icon'],
+                                        "text": obj['text']
+                                    });
+                                    ref.open_node(node_);
+                                } else if(obj.editNum == 1) {
+                                    ref.set_icon(node_, obj['icon']); //更改节点icon
+                                    ref.set_text(node_, obj['text']); //更改节点内容
+                                }
+                            }
+                        }
+                    })
+
+                }
+
+                var treeObjList = {
+                    editFunc: function(tit, url_) { //重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+                        i1 = cumParentWinModal(tit, url_, {
+                            "type": 2,
+                            'area': ['380px', '240px'],
+                            callback: {
+                                fn: 'fn'
+                            }
+                        });
+                        COM_TOOLS.setCacheFnForChildWin({
+                            fn: saveFun
+                        });
+                    },
+                    create: function() {
+                        if(!node_.length) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.jtree.JTsel_node')); //请选择节点
+                            return false;
+                        }
+                        treeObjList.editFunc(TEDU_MESSAGE.get('platform.plugin.jtree.JTmo_tit'), ['add-icon.html?edit=0'])
+                    }, //'JTmo_tit':请输入图标及内容!
+                    rename: function() {
+                        if(!node_.length) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.jtree.JTsel_node')); //请选择节点
+                            return false;
+                        }
+                        var iconRename = encodeURI($.trim(ref.get_icon(node_)));
+                        var textRename = encodeURI($.trim(ref.get_text(node_)));
+                        treeObjList.editFunc(TEDU_MESSAGE.get('platform.plugin.jtree.JTr_tit'), ['add-icon.html?edit=1&nodeName=' + textRename + '&iconRename=' + iconRename])
+                    },
+                    del: function() {
+                        if(!node_.length) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.jtree.JTsel_node'));
+                            return false;
+                        }
+                        /*'delConfirm':确认删除吗?*/
+                        COM_TOOLS.confirm(TEDU_MESSAGE.get('platform.plugin.jtree.delConfirm'), function(index) {
+                            cumCloseWin(index);
+                            ref.delete_node(node_);
+                        });
+                    }
+                };
+                $('#jstree5').jstree({
+                    'core': {
+                        "check_callback": true,
+                        'data': {
+                            'url': '/jstree6/api',
+                            /*'url': function (node) {
+                                return node.id === COM_DEFAULT._jsTreeOpt.root ?
+                                    'demo-tree-data-root.json' :
+                                    'demo-tree-data-child.json';
+                            },*/
+                            'data': function(node) {
+                                return {
+                                    'id': node.id
+                                };
+                            }
+                        }
+                    },
+                    'contextmenu': {
+                        show_at_node: false, //指示菜单是否应该与节点对齐。默认为true，否则使用鼠标坐标
+                        items: function(node) {
+                            var temp = {
+                                "add_c": {
+                                    "icon": 'glyphicon glyphicon-asterisk',
+                                    "label": TEDU_MESSAGE.get('platform.plugin.jtree.JTaddn_node'),
+                                    "separator_after": true, //表示在此项之后是否应该有分隔符
+                                    "action": function(data) {
+                                        var pathL = node.parents.length;
+                                        alert("我是" + pathL + "级节点");
+                                        ref = $('#jstree5').jstree(true);
+                                        node_ = node.id;
+                                        treeObjList.create();
+                                    }
+                                },
+                                "add_b": {
+                                    "icon": 'glyphicon glyphicon-asterisk',
+                                    "label": TEDU_MESSAGE.get('platform.plugin.jtree.JTaddb_node'),
+                                    "separator_after": true, //表示在此项之后是否应该有分隔符
+                                    "action": function(data) {
+                                        ref = $('#jstree5').jstree(true);
+                                        node_ = node.parents[0];
+                                        treeObjList.create();
+                                    },
+                                    _disabled: function() { //禁用节点
+                                        return node.parent == COM_DEFAULT._jsTreeOpt.root;
+                                    }
+                                },
+                                "rename": {
+                                    "icon": 'glyphicon glyphicon-pencil',
+                                    "label": TEDU_MESSAGE.get('platform.plugin.jtree.JTrename_node'),
+                                    "separator_after": true, //表示在此项之后是否应该有分隔符
+                                    "action": function(data) {
+                                        ref = $('#jstree5').jstree(true);
+                                        node_ = node.id;
+                                        treeObjList.rename();
+                                    }
+                                },
+                                "del": {
+                                    "icon": 'glyphicon glyphicon-remove',
+                                    "label": TEDU_MESSAGE.get('platform.plugin.jtree.JTdel_node'),
+                                    "separator_after": true, //表示在此项之后是否应该有分隔符
+                                    "action": function(data) {
+                                        var typeid_ = node.li_attr.typeid;
+                                        var pathL = node.parents.length;
+                                        if(pathL < 2 || typeid_) {
+                                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.plugin.jtree.JTr_notdel'));
+                                            return false;
+                                        }
+                                        ref = $('#jstree5').jstree(true);
+                                        node_ = node.id;
+                                        treeObjList.del();
+                                    }
+                                }
+                            };
+                            return temp;
+                        }
+                    },
+                    'plugins': ['wholerow', 'contextmenu', "search"]
+                });
+                
+                var to_ = false;
+                $('#search2_tree').click(function() {
+                    if(to_) {
+                        clearTimeout(to_);
+                    }
+                    to_ = setTimeout(function() {
+                        var v = $('#plugins4_q1').val();
+                        $('#jstree5').jstree(true).search(v); //搜索
+                    }, 250);
+                });
+                //        COM_TOOLS.private_obj_.saveFun = saveFun;
+            });
+            $(function() {
+                /*回显全路径数据*/
+                var IDS_ = [
+                    ['0_1', '0_1_2', '0_1_2_1', '0_1_2_1_2'],
+                    ['0_1', '0_1_2', '0_1_2_1'],
+                    ['0_2', '0_2_2', '0_2_2_1']
+                ];
+                $('#jstree6').jstree({
+                    "checkbox": {
+                        "three_state": false //此属性选择是否级联,默认为true。
+                    },
+                    'core': {
+                        "check_callback": true,
+                        'data': {
+                            'url': '/jstree6/api',
+                            'data': function(node) {
+                                return {
+                                    'id': node.id
+                                };
+                            }
+                        }
+                    },
+                    "search": {
+                        show_only_matches: true, //只显示搜索到的数据
+                        show_only_matches_children: true, //是否可显示搜索到节点的子节点,默认为false不可显示
+                        ajax: {
+                            url: "/jstree6/searchapi"
+                        }
+                    },
+                    'plugins': ['checkbox', 'search'] //search:搜索组件,checkbox:多选框
+                }).on("ready.jstree", function() {
+                    var ref = $(this).jstree(true);
+                    var path_ids = [],
+                        open_ids = [];
+                    $.each(IDS_, function(i, n) {
+                        open_ids = open_ids.concat(n.slice(-1));
+                        if(n.length > 1) {
+                            path_ids = path_ids.concat(n.slice(0, -1));
+                        }
+                    });
+                    ref.load_node(COM_TOOLS.arrayUniqueFn(path_ids), function() {
+                        ref.select_node(COM_TOOLS.arrayUniqueFn(open_ids), true, false);
+                    });
+                });
+                $('#demo6-inp1').keypress(function() {
+                    $('#jstree6').jstree(true).search($(this).val());
+                });
+            });
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+        <script>
+            $('pre').each(function(i, n) {
+                hljs.highlightBlock(n);
+            });
+        </script>
+    </body>
+
+</html>

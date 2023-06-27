@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>jstree-demo</title>
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<!--<link href="../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+<link href="../css/plugins/jsTree/style.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/iconfont.css" type="text/css"/>
+
+<link href="../css/animate.css" rel="stylesheet">
+<style>
+
+
+    .tree-btns-x {
+        display: inline-block;
+        margin-left: 5px;
+        padding: 0 5px;
+    }
+    .tree-btns-x:hover {
+        background: #cde5ef;
+    }
+    .color-bluex {
+        color: green;
+    }
+</style>
+<body>
+<div id="jstree1">
+
+    <ul>
+        <li id="1"> 系统管理 <span data-idx_="1" class="tree-btns-x js-select-btn"><em class="tedufont tedu-icon64 color-bluex"></em>全选</span><span data-idx_="1" class="tree-btns-x js-unselect-btn"><em class="glyphicon glyphicon-remove-sign color-bluex"></em>全不选</span>
+            <ul>
+                <li id='101'>组织管理
+                    <ul>
+                        <li id='102' data-jstree='{"type":"button"}'>组织新建</li>
+                    </ul>
+                    <ul>
+                        <li id='103' data-jstree='{"type":"button"}'>组织修改</li>
+                    </ul>
+                    <ul>
+                        <li id='124' data-jstree='{"type":"button"}'>组织查询</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li id='105'>用户管理
+                    <ul>
+                        <li id='106' data-jstree='{"type":"button"}'>用户新建</li>
+                    </ul>
+                    <ul>
+                        <li id='107' data-jstree='{"type":"button"}'>用户修改</li>
+                    </ul>
+                    <ul>
+                        <li id='109' data-jstree='{"type":"button"}'>用户权限组</li>
+                    </ul>
+                    <ul>
+                        <li id='125' data-jstree='{"type":"button"}'>用户查询</li>
+                    </ul>
+                    <ul>
+                        <li id='144' data-jstree='{"type":"button"}'>重置密码</li>
+                    </ul>
+                    <ul>
+                        <li id='166' data-jstree='{"type":"button"}'>设置兼任角色</li>
+                    </ul>
+                    <ul>
+                        <li id='167' data-jstree='{"type":"button"}'>保存兼任角色</li>
+                    </ul>
+                    <ul>
+                        <li id='348' data-jstree='{"type":"button"}'>修改密码</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li id='111'>角色管理
+                    <ul>
+                        <li id='112' data-jstree='{"type":"button"}'>角色新建</li>
+                    </ul>
+                    <ul>
+                        <li id='113' data-jstree='{"type":"button"}'>角色修改</li>
+                    </ul>
+                    <ul>
+                        <li id='126' data-jstree='{"type":"button"}'>角色查询</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li id='115'>资源管理
+                    <ul>
+                        <li id='116' data-jstree='{"type":"button"}'>资源新建</li>
+                    </ul>
+                    <ul>
+                        <li id='117' data-jstree='{"type":"button"}'>资源修改</li>
+                    </ul>
+                    <ul>
+                        <li id='127' data-jstree='{"type":"button"}'>资源查询</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li id='119'>权限组管理
+                    <ul>
+                        <li id='120' data-jstree='{"type":"button"}'>权限组新建</li>
+                    </ul>
+                    <ul>
+                        <li id='121' data-jstree='{"type":"button"}'>权限组修改</li>
+                    </ul>
+                    <ul>
+                        <li id='122' data-jstree='{"type":"button"}'>权限组删除</li>
+                    </ul>
+                    <ul>
+                        <li id='123' data-jstree='{"type":"button"}'>权限组设置权限</li>
+                    </ul>
+                    <ul>
+                        <li id='128' data-jstree='{"type":"button"}'>权限组查询</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li id='323'>用户菜单管理
+                    <ul>
+                        <li id='324' data-jstree='{"type":"button"}'>用户菜单查询</li>
+                    </ul>
+                    <ul>
+                        <li id='325' data-jstree='{"type":"button"}'>用户菜单删除</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul>
+        <li id="129"> 任务管理
+            <ul>
+                <li id='130'>任务中心</li>
+            </ul>
+            <ul>
+                <li id='131'>调度日志</li>
+            </ul>
+            <ul>
+                <li id='132'>执行器管理</li>
+            </ul>
+            <ul>
+                <li id='133'>任务报表</li>
+            </ul>
+            <ul>
+                <li id='134'>定时器配置</li>
+            </ul>
+        </li>
+    </ul>
+    <ul>
+        <li id="148"> 国际化管理
+            <ul>
+                <li id='149'>语言组织管理
+                    <ul>
+                        <li id='150' data-jstree='{"type":"button"}'>语言组织新建</li>
+                    </ul>
+                    <ul>
+                        <li id='151' data-jstree='{"type":"button"}'>语言组织修改</li>
+                    </ul>
+                    <ul>
+                        <li id='152' data-jstree='{"type":"button"}'>语言组织删除</li>
+                    </ul>
+                    <ul>
+                        <li id='153' data-jstree='{"type":"button"}'>语言组织查询</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li id='154'>语言资源管理
+                    <ul>
+                        <li id='155' data-jstree='{"type":"button"}'>语言资源新建</li>
+                    </ul>
+                    <ul>
+                        <li id='156' data-jstree='{"type":"button"}'>语言资源修改</li>
+                    </ul>
+                    <ul>
+                        <li id='157' data-jstree='{"type":"button"}'>语言资源删除</li>
+                    </ul>
+                    <ul>
+                        <li id='158' data-jstree='{"type":"button"}'>语言资源查询</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li id='160'>语言内容管理
+                    <ul>
+                        <li id='161' data-jstree='{"type":"button"}'>语言内容新建</li>
+                    </ul>
+                    <ul>
+                        <li id='162' data-jstree='{"type":"button"}'>语言内容修改</li>
+                    </ul>
+                    <ul>
+                        <li id='163' data-jstree='{"type":"button"}'>语言内容删除</li>
+                    </ul>
+                    <ul>
+                        <li id='164' data-jstree='{"type":"button"}'>语言内容查询</li>
+                    </ul>
+                    <ul>
+                        <li id='165' data-jstree='{"type":"button"}'>语言内容导出</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul>
+        <li id="174"> 基础设置
+            <ul>
+                <li id='170'>高级搜索
+                    <ul>
+                        <li id='172' data-jstree='{"type":"button"}'>高级搜索修改</li>
+                    </ul>
+                    <ul>
+                        <li id='171' data-jstree='{"type":"button"}'>高级搜索新建</li>
+                    </ul>
+                    <ul>
+                        <li id='173' data-jstree='{"type":"button"}'>高级搜索查询</li>
+                    </ul>
+                    <ul>
+                        <li id='177' data-jstree='{"type":"button"}'>高级搜索删除</li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li id='335'>文件管理
+                    <ul>
+                        <li id='336' data-jstree='{"type":"button"}'>文件新建</li>
+                    </ul>
+                    <ul>
+                        <li id='337' data-jstree='{"type":"button"}'>文件修改</li>
+                    </ul>
+                    <ul>
+                        <li id='338' data-jstree='{"type":"button"}'>文件查询</li>
+                    </ul>
+                    <ul>
+                        <li id='339' data-jstree='{"type":"button"}'>文件删除</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</div>
+<script src="../js/jquery-2.1.1.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/plugins/jsTree/jstree.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="../js/plugins/layer/layer.js"></script>
+<script src="../i18n/zh-CN.js"></script>
+<!--<script src="../js/jquery.hash.min.js"></script>-->
+<!--<script src="../js/inspinia-ajax.js"></script>-->
+<script src="../js/subindex.js"></script>
+<!--<script src="../js/plugins/pace/pace.min.js"></script>-->
+
+<script>
+    $('#jstree1').jstree({
+        'core': {
+            'check_callback': true
+        },
+        'checkbox': {
+            'three_state': false
+        },
+        "search": {
+            show_only_matches: true,//只显示搜索到的数据
+            show_only_matches_children: true
+        },
+        'plugins': ['types', 'search', 'checkbox'],
+        'types': {
+            'default': {},
+            'button': {
+                'icon': 'glyphicon glyphicon-grain color-bluex'
+            }
+        }
+    }).on("ready.jstree", function () {
+//        $('#jstree1').jstree(true).select_node(uu_, true, false);
+        //tree加载完之后让a1节点选中
+    });
+    $('.js-select-btn').click(function(){
+        var tree_ = $('#jstree1').jstree(true);
+        tree_.select_node(tree_.get_node('1').children,true, false);
+        return false;
+    });
+    $('.js-unselect-btn').click(function(){
+        var tree_ = $('#jstree1').jstree(true);
+        tree_.deselect_node(tree_.get_node('1').children,true, false);
+        return false;
+    })
+</script>
+</body>
+</html>

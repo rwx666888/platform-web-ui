@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>用户动态</title>
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/plugins/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <style>
+      .title-icon-g {
+        font-family: 'Glyphicons Halflings';
+        line-height: 1;
+      }
+      .title-icon-g::before {
+        content: '\e044';
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+      .md20210118_cj_ud {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .md20210118_cj_ud .title-wrp {
+        flex-shrink: 0;
+      }
+      .md20210118_cj_ud .title-wrp .text {
+        overflow: hidden;
+        padding-top: 7px;
+      }
+      .md20210118_cj_ud .title-wrp .text > small {
+        cursor: pointer;
+      }
+      .md20210118_cj_ud .md-time-line {
+        flex-grow: 1;
+        margin-top: 20px;
+        overflow-y: auto;
+      }
+      .md20210118_cj_ud .md-time-line .time-line-list {
+        position: relative;
+        padding-top: 20px;
+        padding-left: 20px;
+      }
+      .md20210118_cj_ud .md-time-line .time-line-list::before {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 5px;
+        bottom: 0;
+        border-left: 1px solid #ccc;
+      }
+      .md20210118_cj_ud .md-time-line .time-line-list > ul {
+        margin: 0;
+      }
+      .md20210118_cj_ud .md-time-line li {
+        position: relative;
+      }
+      .md20210118_cj_ud .md-time-line li::before {
+        content: ' ';
+        position: absolute;
+        top: 0px;
+        left: -19px;
+        width: 10px;
+        height: 10px;
+        background-color: #fff;
+        border: 2px solid #1ab394;
+        border-radius: 50%;
+      }
+      .md20210118_cj_ud .md-time-line li .date-label {
+        position: absolute;
+        top: -20px;
+        left: 0;
+      }
+      .md20210118_cj_ud .md-time-line li + li {
+        margin-top: 30px;
+      }
+      .md20210118_cj_ud .md-time-line .tl-card {
+        position: relative;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      .md20210118_cj_ud .md-time-line .time-type {
+        position: absolute;
+        top: 2px;
+        right: 0px;
+      }
+      .md20210118_cj_ud .md-time-line .scroll-placeholder {
+        height: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="md20210118_cj_ud p-sm">
+      <div class="title-wrp clearfix">
+        <div id="js_title" class="text pull-left hide">
+          <strong class="title-icon-g">用户动态 </strong
+          >
+          <!-- <small id="js_more_dy" class="text-success">查看更多</small> -->
+        </div>
+
+        <!-- btn group -->
+        <div class="btn-group pull-right">
+          <button
+            id="js_dp_text"
+            type="button"
+            class="btn btn-default dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            全部动态 <span class="caret"></span>
+          </button>
+          <ul id="js_dp_menu" class="dropdown-menu">
+            <li data-type=""><a href="javascript:;">全部动态</a></li>
+            <li data-type="DT02"><a href="javascript:;">跟进动态</a></li>
+            <li data-type="DT01"><a href="javascript:;">激活动态</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- list -->
+      <div class="md-time-line" id="js_scroll_wrp">
+        <div class="time-line-list">
+          <ul class="list-unstyled" id="js_ul_card">
+            <!-- <li>
+              <span class="label label-primary date-label">今天</span>
+              <div class="clearfix tl-card">
+                <small class="pull-right time-type"
+                  ><i class="glyphicon glyphicon-time"></i> 10:00
+                  <small class="label label-success">跟踪</small></small
+                >
+                <div class="content">
+                  <h3>的点点滴滴</h3>
+                  <p>阿福定时发送到发送到发定时发送到发</p>
+                </div>
+                <small class="pull-right">操作：都想得到的</small>
+              </div>
+            </li> -->
+          </ul>
+        </div>
+        <p id="js_ul_status" class="text-center">加载中...</p>
+        <div id="js_scroll_placeholder" class="scroll-placeholder"></div>
+      </div>
+    </div>
+
+    <!-- script -->
+    <script src="../../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../../js/plugins/moment/moment.min.js"></script>
+    <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../../js/subindex.js" type="text/javascript"></script>
+
+    <!-- mock 测试用数据 可删除 -->
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/marketTrack/list',
+        responseTime: 2000,
+        responseText: {
+          draw: 0,
+          recordsTotal: 10,
+          recordsFiltered: 30,
+          data: [
+            {
+              createName: '小王',
+              createDateStr: '2021-01-19 12:12:12',
+              dynamicType: '操作',
+              dynamicName: '新报名1',
+              remark: '阿斯顿发送到发多少'
+            },
+            {
+              createName: '小王',
+              createDateStr: '2021-01-18 10:12:12',
+              dynamicType: '跟踪',
+              dynamicName: '新报名2',
+              remark: '阿斯顿发送到发多少1'
+            },
+            {
+              createName: '小王',
+              createDateStr: '2020-01-22 12:12:12',
+              dynamicType: '跟踪2',
+              dynamicName: '新报名3',
+              remark: '阿斯顿发送到发多少1'
+            }
+          ]
+        }
+      });
+    </script>
+    <!-- mock end -->
+
+    <script>
+      var ulNode = $('#js_ul_card');
+      var plNode = $('#js_scroll_placeholder');
+      var dynamicType = '';
+
+      var startIndex = 0;
+      var pageSize = 12;
+      var scrollOffset = 150; // 滚动加载触发距离
+      var loading = false;
+      var finished = false;
+
+      // init data
+      // processScroll($('#js_scroll_wrp')[0]);
+
+      // scroll event
+      $('#js_scroll_wrp').on('scroll', function () {
+        processScroll(this);
+      });
+
+      // sidebar model
+      // url: sidebar=1
+      processSidebarModel();
+
+      // event
+      $(document)
+        .on('click', '#js_more_dy', function () {
+          // 查看更多
+          if (window.parent.window.getTargetWindow) {
+            var leftWindow = window.parent.window.getTargetWindow('iframe_left');
+            leftWindow.triggerTab();
+          }
+        })
+        .on('click', '#js_dp_menu>li', function (e) {
+          // 切换动态类型
+          var t = $(this);
+          var type = t.data('type');
+          console.log(type, t.text());
+
+          dynamicType = type;
+          $('#js_dp_text').text(t.text());
+          // reset data
+          startIndex = 0;
+          finished = false;
+          ulNode.html('');
+          $('#js_ul_status').text('加载中...');
+          processScroll($('#js_scroll_wrp')[0]);
+        });
+
+      $('#js_dp_menu>li').eq(1).trigger('click');
+
+      // 滚动判断 及 事件触发
+      function processScroll(elem) {
+        if (!elem || loading || finished) return;
+
+        var _nodeHeight = elem.scrollHeight;
+        var _visibleHeight = elem.offsetHeight;
+        var _scrollTop = elem.scrollTop;
+
+        if (!_visibleHeight) return;
+
+        // 判断距离 及 触发
+        var shouldTrigger = _nodeHeight - (_scrollTop + _visibleHeight) <= scrollOffset;
+
+        if (shouldTrigger) {
+          getListData();
+        }
+      }
+
+      // 获取数据
+      function getListData() {
+        loading = true;
+
+        var start = startIndex * pageSize - 1 < 0 ? 0 : startIndex * pageSize - 1;
+        $.getJSON('/marketTrack/list', {
+          start: start,
+          pageSize: pageSize,
+          informationCode: '',
+          dynamicType: dynamicType
+        })
+          .then(function (res) {
+            loading = false;
+            startIndex++;
+
+            var htmlArr = createLi(res.data);
+            ulNode.append(htmlArr);
+
+            if (ulNode.children().length >= res.recordsTotal) {
+              finished = true;
+              $('#js_ul_status').text('已经到底了');
+            }
+          })
+          .fail(function (error) {
+            loading = false;
+          });
+
+        function createLi(list) {
+          var temp = [];
+          list.forEach(function (item) {
+            var _formatDate = formatDate(item.createDateStr);
+
+            temp.push(
+              '<li>' +
+                ('<span class="label label-primary date-label">' +
+                  _formatDate.dateStr +
+                  '</span>') +
+                '<div class="clearfix tl-card">' +
+                '<small class="pull-right time-type">' +
+                ('<i class="glyphicon glyphicon-time"></i> ' + _formatDate.time + ' ') +
+                ('<small class="label label-success">' + item.dynamicType + '</small>') +
+                '</small><div class="content">' +
+                ('<h3>' + item.dynamicName + '</h3>') +
+                ('<p>' + item.remark + '</p>') +
+                '</div>' +
+                ('<small class="pull-right">操作：' + item.createName + '</small>') +
+                '</div>' +
+                '</li>'
+            );
+          });
+
+          function formatDate(date) {
+            if (date) {
+              var m = moment(date);
+              var dataDate = m.format('YYYY-MM-DD');
+              var dataDateStr = dataDate;
+              var current = moment().format('YYYY-MM-DD');
+
+              if (moment(current).isSame(dataDate)) {
+                dataDateStr = '今天';
+              }
+              if (moment(current).add(-1, 'days').isSame(dataDate)) {
+                dataDateStr = '昨天';
+              }
+
+              return {
+                date: dataDate,
+                dateStr: dataDateStr,
+                time: m.format('HH:mm')
+              };
+            }
+            return {};
+          }
+
+          return temp;
+        }
+      }
+
+      // 侧边栏模式 展示内容修改
+      function processSidebarModel() {
+        var isSidebarModel = COM_TOOLS.requestParam('sidebar');
+        if (isSidebarModel * 1) {
+          $('#js_title').removeClass('hide');
+          pageSize = 5;
+          $('#js_scroll_wrp').off('scroll');
+        }
+      }
+    </script>
+  </body>
+</html>

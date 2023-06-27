@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../../../css/iconfont.css" rel="stylesheet">
+    <link href="../../../css/animate.css" rel="stylesheet">
+    <link href="../../../css/style.css" rel="stylesheet">
+    <style type="text/css">
+        .add-mod {
+            width: 240px;
+            height: 200px;
+            /*border: 1px solid #ccc;*/
+            box-shadow: 0 0 10px #ddd;
+            margin: 10px;
+            border-radius: 6px;
+            font-size: 20px;
+            overflow: hidden;
+            padding-top: 60px;
+            cursor: pointer;
+        }
+
+        .add-mod span {
+            transform: scale(3);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .md-2019050801-xxw {
+            width: 240px;
+            position: relative;
+            height: 80px;
+            border: 1px solid #eee;
+            border-top: none;
+        }
+
+        .md-2019050801-xxw:first-child {
+            height: auto;
+        }
+
+        .md-2019050801-xxw:first-child .img-0508 {
+            width: 100%;
+            height: 140px;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        .md-2019050801-xxw .img-0508 {
+            position: absolute;
+            right: 10px;
+            top: 15px;
+            background: red;
+            width: 50px;
+            height: 50px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .md-2019050801-xxw:first-child .md-bd {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            right: 0;
+            top: 0;
+            background: rgba(0, 0, 0, .5);
+            color: #fff;
+            padding: 10px;
+        }
+
+        .md-2019050801-xxw:first-child .p1 {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-left: 0;
+        }
+
+        .md-2019050801-xxw .md-bd {
+            padding: 1px;
+        }
+
+        .md-2019050801-xxw .p1 {
+            width: 160px;
+            margin-top: 28px;
+            padding-left: 10px;
+        }
+
+        .md-2019050801-xxw.one-x .p1, .md-2019050801-xxw.one-x .md-bd {
+            position: relative;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            margin: 0;
+        }
+
+        .mod-box {
+            width: 240px;
+            box-shadow: 0 0 10px #ddd;
+            margin: 10px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .md-2019050801-xxw .p1 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .md-2019050801-xxw .p2 {
+            display: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .md-2019050801-xxw.one-x .p2 {
+            display: block;
+        }
+
+        .md-2019050801-xxw .other-bd {
+            position: absolute;
+            width: 100%;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, .5);
+            color: #fff;
+            bottom: 0;
+            left: 0;
+            display: none;
+        }
+
+        .md-2019050801-xxw .other-bd i {
+            cursor: pointer;
+        }
+
+        .md-2019050801-xxw:hover .other-bd {
+            display: block;
+        }
+
+        .modal-boxx .md-2019050801-xxw:first-child .iconx-up {
+            display: none;
+        }
+
+        .modal-boxx .md-2019050801-xxw:last-child .iconx-down {
+            display: none;
+        }
+
+        .movex-add {
+            font-size: 30px;
+            font-weight: bold;
+            border: 1px solid #eee;
+            /*border-top: none;*/
+            cursor: pointer;
+            width: 240px;
+        }
+
+        .modal-boxx .md-2019050801-xxw.active {
+            box-shadow: 0 0 5px red;
+        }
+        .type1 .otherf-2 {
+            display: none;
+        }
+        .otherf-1 {
+            display: none;
+        }
+        .type1 .otherf-1 {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="container-fluid m-t-md">
+<div>
+
+    <!-- Nav tabs -->
+    <ul id="info_tab" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class=""><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">文本</a></li>
+        <li role="presentation" class="active"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">图文</a></li>
+        <li role="presentation" class=""><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">图文外链</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content m-t-md">
+        <div role="tabpanel" class="tab-pane " id="tab1">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-4">
+                        <textarea name="#" class="form-control" id="js_edit_area" cols="30" rows="10"></textarea>
+                        <p class="">
+                            还可以输入<span class="js-total_num text-info">2048</span>个字
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="tab2">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="add-mod text-center"><span>+</span>
+                            <p class="text-success">添加图文</p></div>
+                        <div data-ittype="1" class="mod-box" data-toggle="modal" data-target="#myModal">
+                            <div data-bgsrc="11" data-tit="点这里题有弹框" data-txt="zhaiyao" class="md-2019050801-xxw">
+                                <a href="#">
+                                    <div class="img-0508"></div>
+                                    <div class="md-bd">
+                                        <p class="p1">点这里题有弹框</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="md-2019050801-xxw" data-bgsrc="222" data-tit="标题22222222" data-txt="asdfas阿斯顿发送到222222222">
+                                <a href="#">
+                                    <div class="img-0508"></div>
+                                    <div class="md-bd">
+                                        <p class="p1">标题22222222</p>
+                                        <p class="p2">asdfas阿斯顿发送到222222222</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="md-2019050801-xxw" data-bgsrc="33" data-tit="标题3333" data-txt="3333">
+                                <a href="#">
+                                    <div class="img-0508"></div>
+                                    <div class="md-bd">
+                                        <p class="p1">标题3333</p>
+                                        <p class="p2">3333</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--<div class="mod-box">
+                            <div class="md-2019050801-xxw one-x">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">标题</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab3">
+            <div class="form-horizontal">
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="add-mod text-center"><span>+</span>
+                            <p class="text-success">添加图文</p></div>
+                        <div class="mod-box" data-toggle="modal" data-target="#myModal">
+                            <div data-bgsrc="11" data-tit="33333点这里题有弹框" data-txt="zhaiyao" class="md-2019050801-xxw">
+                                <a href="#">
+                                    <div class="img-0508"></div>
+                                    <div class="md-bd">
+                                        <p class="p1">3333点这里题有弹框</p>
+                                        <p class="p2">z33333haiyao</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="md-2019050801-xxw" data-bgsrc="222" data-tit="标题22222222" data-txt="asdfas阿斯顿发送到222222222">
+                                <a href="#">
+                                    <div class="img-0508"></div>
+                                    <div class="md-bd">
+                                        <p class="p1">3333标题22222222</p>
+                                        <p class="p2">3333asdfas阿斯顿发送到222222222</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="md-2019050801-xxw" data-bgsrc="33" data-tit="标题3333" data-txt="3333">
+                                <a href="#">
+                                    <div class="img-0508"></div>
+                                    <div class="md-bd">
+                                        <p class="p1">333标题3333</p>
+                                        <p class="p2">33333333</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--<div class="mod-box">
+                            <div class="md-2019050801-xxw one-x">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">标题</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">发送范围</label>
+            <div class="col-sm-4 control-label" style="text-align: left"><a class="" href="#">选择发送范围</a></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">发送消息的应用</label>
+            <div class="col-sm-2">
+                <select name="" class="form-control input-sm">
+                    <option value="1">未选择</option>
+                    <option value="2">未选择22</option>
+                    <option value="3">未选择333</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <hr>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-info btn-sm">发送</button>
+                <button class="btn btn-info btn-sm">定时发送</button>
+                <button class="btn btn-info btn-sm">存为草稿</button>
+                <button class="btn btn-info btn-sm">预览</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 880px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加</h4>
+            </div>
+            <div class="modal-body" id="mod_bd">
+                <div class="container-fluid">
+                    <div class="pull-left" style="width: 500px">
+                        <div id="form2" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="text-danger">*</span>标题</label>
+                                <div class="col-sm-10">
+                                    <input data-types="tit" id="ipt1" name="" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                            <div class="form-group otherf-1">
+                                <label class="col-sm-2 control-label"><span class="text-danger">*</span>正文</label>
+                                <div class="col-sm-10">
+                                    <textarea data-types="txt2" class="form-control" name="" id="ipt2"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" style="padding-top: 20px;"><span class="text-danger">*</span>封面</label>
+                                <div class="col-sm-10">
+                                    <!--<button class="btn btn-sm">添加封面图片</button>-->
+                                    <span>建议尺寸:1068*455</span>
+                                    <img id="img_dy_upload" width="100" height="60" class="js-dy-creation"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="text-danger">*</span>摘要</label>
+                                <div class="col-sm-10">
+                                    <textarea data-types="txt" class="form-control" name="" id="js_edit_area2"></textarea>
+                                    <p class="">
+                                        还可以输入<span class="js-total_num text-info">512</span>个字
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group otherf-2">
+                                <label class="col-sm-2 control-label"><span class="text-danger">*</span>外链</label>
+                                <div class="col-sm-10">
+                                    <input data-types="lian" id="ipt4" name="" class="form-control input-sm"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right modal-boxx">
+                        <div id="move_list" class="move-list">
+                            <div class="js-move md-2019050801-xxw">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">标题</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                                <div class="other-bd">
+                                    <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>
+                                    <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>
+                                    <i class="js-del pull-right glyphicon glyphicon-trash"></i>
+                                </div>
+                            </div>
+                            <div class="js-move md-2019050801-xxw">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">标题22222</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                                <div class="other-bd">
+                                    <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>
+                                    <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>
+                                    <i class="js-del pull-right glyphicon glyphicon-trash"></i>
+                                </div>
+                            </div>
+                            <div class="js-move md-2019050801-xxw">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">标题333333332</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                                <div class="other-bd">
+                                    <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>
+                                    <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>
+                                    <i class="js-del pull-right glyphicon glyphicon-trash"></i>
+                                </div>
+                            </div>
+                            <div class="js-move md-2019050801-xxw">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">4444444444</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                                <div class="other-bd">
+                                    <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>
+                                    <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>
+                                    <i class="js-del pull-right glyphicon glyphicon-trash"></i>
+                                </div>
+                            </div>
+                            <div class="js-move md-2019050801-xxw">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">90909090999</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                                <div class="other-bd">
+                                    <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>
+                                    <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>
+                                    <i class="js-del pull-right glyphicon glyphicon-trash"></i>
+                                </div>
+                            </div>
+                            <div class="js-move md-2019050801-xxw">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">5656565687878</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                                <div class="other-bd">
+                                    <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>
+                                    <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>
+                                    <i class="js-del pull-right glyphicon glyphicon-trash"></i>
+                                </div>
+                            </div>
+                            <div class="js-move md-2019050801-xxw">
+                                <a href="#">
+                                    <img src="" class="img-0508">
+                                    <div class="md-bd">
+                                        <p class="p1">999999999</p>
+                                        <p class="p2">zhaiyao</p>
+                                    </div>
+                                </a>
+                                <div class="other-bd">
+                                    <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>
+                                    <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>
+                                    <i class="js-del pull-right glyphicon glyphicon-trash"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="add_btn" class="movex-add text-center">
+                            +
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../js/jquery-2.1.1.js"></script>
+<script src="../../../js/bootstrap.min.js"></script>
+<script src="../../../js/jquery-ui-1.10.4.min.js"></script>
+
+<script src="../../../js/plugins/layer/layer.js"></script>
+
+<script src="../../../i18n/zh-CN.js"></script>
+<script src="../../../js/subindex.js"></script>
+
+<!-- 以下js仅用于演示 -->
+<script>
+    $(function () {
+        COM_TOOLS.fnTabPage('info_tab');
+
+        function getStrleng(str) {//获取字符串长度
+            var len = 0;
+            for (var i = 0; i < str.length; i++) {
+                if (str.charCodeAt(i) > 127 || str.charCodeAt(i) == 94) {
+                    len += 2;
+                } else {
+                    len++;
+                }
+            }
+            return len;
+        }
+
+        $('#myModal').on('show.bs.modal', function (e) {
+            var arr = [];
+
+            var typ_ = $('#mod_bd').hasClass('type1')?1:2
+            var $list =typ_==1?$('#tab2 .mod-box .md-2019050801-xxw'):$('#tab3 .mod-box .md-2019050801-xxw');
+            if ($list.length > 0) {
+                $list.each(function (i, n) {
+                    var obj = $(this).data();
+                    console.log(obj)
+                    arr.push(obj)
+                });
+                // var str = '';
+                $('#move_list').html('');
+                $.each(arr, function (i, n) {
+                    $('#move_list').append($('<div class="js-move md-2019050801-xxw">' +
+                        '    <a href="#">' +
+                        '         <div class="img-0508"></div>' +
+                        '        <div class="md-bd">' +
+                        '            <p class="p1">' + n.tit + '</p>' +
+                        '            <p class="p2">' + n.txt + '</p>' +
+                        '        </div>' +
+                        '    </a>' +
+                        '    <div class="other-bd">' +
+                        '        <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>' +
+                        '        <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>' +
+                        '        <i class="js-del pull-right glyphicon glyphicon-trash"></i>' +
+                        '    </div>' +
+                        '</div>').data(n))
+                });
+                $('#move_list').find('.js-move').first().trigger('click');
+            }
+        });
+
+        function limitLength(obj, num) {
+            var val_input = obj.val(),
+                val_length = getStrleng(val_input);
+            var span_ = obj.next().find('.js-total_num');
+            span_.text(num - Number(val_length));
+            if (val_length > num) {
+                obj.val(val_input.substring(0, num));
+                span_.text('0');
+            } else {
+                return;
+            }
+        }
+
+        function isone() {
+            if ($('#move_list .js-move').length == 1) {
+                if (!$('#move_list .js-move').hasClass('one-x')) {
+                    $('#move_list .js-move').addClass('one-x')
+                }
+            }
+        }
+        function clearval(){
+            $('#form2').find('input,textarea').val('');
+        }
+        $("#js_edit_area").keyup(function () {
+            limitLength($(this), 2048);
+        });
+        $("#js_edit_area2").keyup(function () {
+            limitLength($(this), 512);
+        });
+        $(document).on('click', '.js-down', function () {
+            var $t = $(this),
+                $p = $t.closest('.js-move');
+            if ($p.next().html() != undefined) {
+                var obj = $p.clone(true);
+                $p.next().after(obj);
+                $p.remove();
+            } else {
+                alert('到头了');
+            }
+        }).on('click', '.js-up', function () {
+            var $t = $(this),
+                $p = $t.closest('.js-move');
+            if ($p.prev().html() != undefined) {
+                var obj = $p.clone(true);
+                $p.prev().before(obj);
+                $p.remove();
+            } else {
+                alert('到头了');
+            }
+        }).on('click', '.js-del', function (e) {
+            e.preventDefault();
+            $(this).closest('.js-move').remove();
+            isone();
+            if ($('#move_list .js-move').length>0) {
+                if (!$('#move_list .js-move.active').length>0) {
+                    $('#move_list').find('.js-move').first().trigger('click');
+                }
+            }else {
+                $('#form2').find('input,textarea').val('')
+            }
+
+            return false;
+        }).on('click', '.js-move', function () {
+            if ($('.js-move.active').length>0){
+                var obj = $('.js-move.active').data();
+                // var f_ = true;
+                if($('#mod_bd').hasClass('type1')){
+                    if(!(obj.tit&&obj.txt&&obj.bgsrc&&obj.txt2)){
+                        f_ = false;
+                        COM_TOOLS.alert('请把当前项填写完整');
+                        return false;
+                    }
+                }else {
+                    if(!(obj.tit&&obj.txt&&obj.bgsrc&&obj.lian)){
+                        f_ = false;
+                        COM_TOOLS.alert('请把当前项填写完整');
+                        return false;
+                    }
+                }
+            }
+            if (!$(this).hasClass('active')) {
+                if ($('.js-move.active').length>0){
+                    var obj_ = $('.js-move.active').data();
+                    var flag = true;
+                    $.each(obj_, function (i, n) {
+                        console.log(n)
+                        if (n == '') {
+                            flag = false;
+                            COM_TOOLS.alert('请将当前项填写完整');
+                            return false;
+                        }
+                    });
+                }
+
+                $(this).addClass('active').siblings().removeClass('active');
+                var d = $(this).data();
+                $('#ipt1').val(d.tit);
+                $('#ipt2').val(d.txt2);
+                $('#js_edit_area2').val(d.txt);
+                $('#ipt4').val(d.link);
+                $('#img_dy_upload').attr('src', d.bgsrc);
+                $('#img_dy_upload_hide').val(d.bgsrc);
+            }
+        });
+        $('[data-types]').keyup(function () {
+            var type_ = $(this).data('types'),
+                dom_ = $('.js-move.active'),
+                val_ = $.trim($(this).val());
+            dom_.data(type_, val_);
+            console.log(type_)
+            switch (type_) {
+                case 'tit':
+                    dom_.find('.p1').text(val_);
+                    break;
+                case 'txt':
+                    dom_.find('.p2').text(val_);
+            }
+        });
+        $('#add_btn').click(function(){
+            var len_ =  $('.js-move').length;
+            if(len_>7){
+                COM_TOOLS.alert('最多八个');
+                return false;
+            }else {
+                var cls = '';
+                if(len_>0){
+                    cls = '';
+                    console.log('----',len_)
+
+                    var obj = $('.js-move.active').data();
+                    // var f_ = true;
+                    if($('#mod_bd').hasClass('type1')){
+                        if(!(obj.tit&&obj.txt&&obj.bgsrc&&obj.txt2)){
+                            f_ = false;
+                            COM_TOOLS.alert('请把当前项填写完整')
+                            return false;
+                        }
+                    }else {
+                        if(!(obj.tit&&obj.txt&&obj.bgsrc&&obj.lian)){
+                            f_ = false;
+                            COM_TOOLS.alert('请把当前项填写完整')
+                            return false;
+                        }
+                    }
+                }else {
+                    cls = 'one-x'
+                }
+                if (len_>0){
+                    $('.js-move').removeClass('one-x');
+                }
+                $('#move_list').append($('<div class="js-move md-2019050801-xxw '+cls+'">' +
+                    '    <a href="#">' +
+                    '         <div class="img-0508"></div>' +
+                    '        <div class="md-bd">' +
+                    '            <p class="p1">标题</p>' +
+                    '            <p class="p2">摘要</p>' +
+                    '        </div>' +
+                    '    </a>' +
+                    '    <div class="other-bd">' +
+                    '        <i class="js-down iconx-down glyphicon glyphicon-arrow-down"></i>' +
+                    '        <i class="js-up iconx-up glyphicon glyphicon-arrow-up"></i>' +
+                    '        <i class="js-del pull-right glyphicon glyphicon-trash"></i>' +
+                    '    </div>' +
+                    '</div>')).find('.js-move').last().trigger('click')
+            }
+
+        });
+        COM_TOOLS._view.cusFileUpload('img_dy_upload',{success:function(res,obj){
+            var val = $('#img_dy_upload_hide').val();
+                $('.js-move.active').data('bgsrc', val).find('.img-0508').css('background-image','url('+val+')')
+            }})
+        $('.mod-box').click(function(){
+            if($(this).data('ittype')==1){
+                if(!$('#mod_bd').hasClass('type1')){
+                    $('#mod_bd').addClass('type1');
+                }
+            }else {
+                $('#mod_bd').removeClass('type1');
+            }
+        })
+    })
+</script>
+</body>
+</html>

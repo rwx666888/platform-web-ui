@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>订单管理</title>
+    <link rel="stylesheet" href="../css/animate.min.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/plugins/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      td.details-control {
+        cursor: pointer;
+      }
+      td.details-control span::before {
+        content: '\e133';
+      }
+      tr.shown td.details-control span::before {
+        content: '\e134';
+      }
+      /* nav */
+      .cus-nav .nav-tabs > li > a {
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <!-- form -->
+      <form id="formNode">
+        <!-- row -->
+        <div class="row m-t-sm">
+          <div class="col-sm-12">
+            <div class="form-inline">
+              <div class="form-group form-group-sm">
+                <label class="control-label">订单状态</label>
+                <select class="form-control input-sm" name="orderStatus" id="orderStatus">
+                  <option value="">- 请选择 -</option>
+                  <option value="1">已全款</option>
+                  <option value="0">未全款</option>
+                </select>
+              </div>
+              <div class="form-group form-group-sm">
+                <label class="control-label">合同签署状态</label>
+                <select class="form-control input-sm" name="htStatus" id="htStatus">
+                  <option value="">- 请选择 -</option>
+                  <option value="haveSign">已签署</option>
+                  <option value="noneSign">未签署</option>
+                  <option value="partSign">部分签署</option>
+                </select>
+              </div>
+              <div class="form-group form-group-sm">
+                <label class="control-label">下单日期</label>
+                <div class="input-group date" id="begin_div">
+                  <input
+                    class="form-control input-sm"
+                    type="text"
+                    name="begin"
+                    placeholder="开始时间"
+                    readonly="readonly"
+                  />
+                  <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                </div>
+                <div class="input-group date" id="end_div">
+                  <input
+                    class="form-control input-sm"
+                    type="text"
+                    name="end"
+                    placeholder="结束时间"
+                    readonly="readonly"
+                  />
+                  <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                </div>
+              </div>
+              <button type="button" class="btn btn-success btn-sm pull-right" id="searchBtn">
+                搜索
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- row -->
+        <div class="row m-t-sm">
+          <div class="col-sm-12">
+            <div class="form-inline">
+              <div class="form-group form-group-sm">
+                <label class="control-label">中心</label>
+                <input class="form-control input-sm" type="text" name="orgCore" id="orgCore" />
+              </div>
+              <div class="form-group form-group-sm">
+                <label class="control-label">学员姓名</label>
+                <input
+                  class="form-control input-sm"
+                  type="text"
+                  name="studentName"
+                  id="studentName"
+                />
+              </div>
+              <div class="form-group form-group-sm">
+                <label class="control-label">手机号</label>
+                <input class="form-control input-sm" type="text" name="telphone" id="telphone" />
+              </div>
+              <div class="form-group form-group-sm">
+                <label class="control-label">录入人</label>
+                <input
+                  class="form-control input-sm"
+                  type="text"
+                  name="createName"
+                  id="createName"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- row -->
+        <div class="row m-t-sm">
+          <div class="col-sm-12">
+            <div class="form-inline">
+              <div class="form-group form-group-sm">
+                <label class="control-label">综报订单号</label>
+                <input
+                  class="form-control input-sm"
+                  type="text"
+                  name="togetherStamp"
+                  id="togetherStamp"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- form end -->
+      <!-- row -->
+      <div class="row m-t-sm">
+        <div class="col-sm-12">
+          <button class="btn btn-sm btn-success">
+            <i class="glyphicon glyphicon-pencil"></i>生成订单合同
+          </button>
+        </div>
+      </div>
+      <!-- table -->
+      <div class="row m-t-sm">
+        <div class="col-sm-12">
+          <table
+            id="orderTable"
+            class="table table-striped table-bordered nowrap"
+            cellspacing="0"
+            width="100%"
+          >
+            <thead></thead>
+            <tbody class="js-parent-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- script -->
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/signupManager/managerList',
+        response: function (settings) {
+          this.responseText = {
+            draw: parseInt(settings.data['draw']) || 1,
+            recordsTotal: 50,
+            recordsFiltered: 50,
+            data: [
+              {
+                togetherStamp: '上课中1',
+                orgCore: '2',
+                studentName: '阿斯顿发送到发',
+                phoneNumber: '2020/09/22 11:11-11:11',
+                orderStatusName: '5/10',
+                totalAmount: '1',
+                actualTotalAmount: '4',
+                htStatus: '100%',
+                createName: '阿迪说法',
+                createDateStr: '卅饭店'
+              },
+              {
+                togetherStamp: '上课中2',
+                orgCore: '2',
+                studentName: '阿斯顿发送到发',
+                phoneNumber: '2020/09/22 11:11-11:11',
+                orderStatusName: '5/10',
+                totalAmount: '1',
+                actualTotalAmount: '4',
+                htStatus: '100%',
+                createName: '阿迪说法',
+                createDateStr: '卅饭店'
+              }
+            ]
+          }
+        }
+      })
+    </script>
+    <script>
+      function checkShow(tb, tr, str) {
+        var r = tb.row(tr)
+        if (r.child.isShown()) {
+          tr.removeClass('shown')
+          r.child.remove()
+        } else {
+          tb.rows().every(function () {
+            this.child.remove()
+            this.nodes().to$().removeClass('shown')
+          })
+          tr.addClass('shown')
+          r.child(str).show()
+        }
+      }
+
+      function dyInstanceTable(tabId, params, callback) {
+        // 对应配置信息
+        var types = {
+          tab1: {
+            id: 'tab1Table',
+            url: '/signupManager/managerList',
+            colums: [
+              {
+                data: 'orderCode',
+                title: '订单编号'
+              },
+              {
+                data: 'typeName',
+                title: '订单类型'
+              },
+              {
+                data: 'orderStatusName',
+                title: '当前订单状态'
+              },
+              {
+                data: 'courseName',
+                title: '课程名称'
+              },
+              {
+                data: 'className',
+                title: '班级'
+              },
+              {
+                data: 'classHour',
+                title: '总课时'
+              },
+              {
+                data: 'surplusClassHour',
+                title: '剩余课时'
+              },
+              {
+                data: 'actualTotalAmount',
+                title: '实际应付'
+              },
+              {
+                data: 'totalPaymentAmount',
+                title: '实际已付'
+              },
+              {
+                data: 'compactCode',
+                title: '关联协议编号'
+              }
+            ]
+          },
+          tab2: {
+            id: 'tab2Table',
+            url: '/signupManager/managerList',
+            colums: [
+              {
+                data: 'compactCode',
+                title: '合同编号'
+              },
+              {
+                data: 'orderNums',
+                title: '关联订单数'
+              },
+              {
+                data: 'htType',
+                title: '合同类型'
+              },
+              {
+                data: 'contractStatus',
+                title: '签署状态'
+              },
+              {
+                data: 'processStatus',
+                title: '审核状态'
+              },
+              {
+                data: 'createDateStr',
+                title: '申请时间'
+              },
+              {
+                data: 'auditionDateStr',
+                title: '审核通过时间'
+              },
+              {
+                data: 'createName',
+                title: '申请人'
+              }
+            ]
+          },
+          tab3: {
+            id: 'tab3Table',
+            url: '/signupManager/managerList',
+            colums: [
+              {
+                data: 'id',
+                title: '缴费单编号'
+              },
+              {
+                data: 'orderCode',
+                title: '关联订单编号'
+              },
+              {
+                data: 'thisPaymentAmount',
+                title: '本次缴费金额'
+              },
+              {
+                data: 'redDashStatusName',
+                title: '红冲状态'
+              },
+              {
+                data: 'unPaidAmount',
+                title: '订单未付金额'
+              },
+              {
+                data: 'baiduLoanTransStatusName',
+                title: '贷款状态'
+              },
+              {
+                data: 'loanInterestAmount',
+                title: '贴息金额'
+              },
+              {
+                data: 'payStatusName',
+                title: '支付状态'
+              },
+              {
+                data: 'processStatusName',
+                title: '审批状态'
+              },
+              {
+                data: 'createDateStr',
+                title: '申请时间'
+              },
+              {
+                data: 'auditDateStr',
+                title: '审批通过时间'
+              },
+              {
+                data: 'createName',
+                title: '申请人'
+              }
+            ]
+          }
+        }
+
+        if (!types[tabId]) return false
+
+        var curItem = types[tabId]
+
+        COM_TOOLS.DT_init(curItem.id, curItem.colums, curItem.url, 'get', params, {
+          jsInitComplete: function () {
+            callback && callback()
+          },
+          jsTrDblclick: function (trdata, jqdom) {
+            // 双击事件触发
+            console.log(curItem.id);
+            console.log(trdata['orgCore']);
+          },
+          other: {
+            info: false,
+            paging: false,
+            destroy: true
+          }
+        })
+      }
+
+      // dtp
+      $('#begin_div')
+        .datetimepicker()
+        .on('changeDate', function () {
+          var t_ = $(this).is('input') ? $(this) : $(this).children('input')
+          $('#end_div').datetimepicker('setStartDate', t_.val())
+        })
+      $('#end_div')
+        .datetimepicker()
+        .on('changeDate', function () {
+          var t_ = $(this).is('input') ? $(this) : $(this).children('input')
+          $('#begin_div').datetimepicker('setEndDate', t_.val())
+        })
+
+      // search
+      $('#searchBtn').click(function () {
+        var formData = COM_TOOLS.serializeObject('#formNode')
+        console.log(formData)
+        searchParemOBj_ = $.extend({}, formData)
+        DT_.setAjaxData(searchParemOBj_)
+      })
+
+      // table
+      var searchParemOBj_ = {}
+      var DT_ = COM_TOOLS.DT_init(
+        'orderTable',
+        [
+          {
+            data: null,
+            width: '30px',
+            title: '操作',
+            className: 'text-center no-Sel-obj details-control',
+            defaultContent: '<span style="color: #1c84c6" class="glyphicon"></span>'
+          },
+          {
+            data: 'togetherStamp',
+            title: '综报订单号'
+          },
+          {
+            data: 'orgCore',
+            title: '中心'
+          },
+          {
+            data: 'studentName',
+            title: '学员姓名'
+          },
+          {
+            data: 'phoneNumber',
+            title: '学员手机号'
+          },
+          {
+            data: 'orderStatusName',
+            title: '订单状态'
+          },
+          {
+            data: 'totalAmount',
+            title: '订单总金额'
+          },
+          {
+            data: 'actualTotalAmount',
+            title: '实付总金额'
+          },
+          {
+            data: 'htStatus',
+            title: '合同签署状态'
+          },
+          {
+            data: 'createName',
+            title: '创建人'
+          },
+          {
+            data: 'createDateStr',
+            title: '创建时间'
+          }
+        ],
+        '/signupManager/managerList',
+        'get',
+        searchParemOBj_,
+        {
+          selectStyle: 'api'
+        }
+      )
+      var mainTable = DT_.table
+      var curTogetherStamp = null
+
+      mainTable
+        .on('click', 'tbody.js-parent-table td.details-control', function () {
+          var tr_ = $(this).closest('tr')
+          var str_ =
+            '<div class="cus-nav"><ul class="nav nav-tabs" role="tablist"><li role="presentation" class=""><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">订单信息</a></li><li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">合同列表</a></li><li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">缴费信息</a></li></ul><div class="tab-content"><div role="tabpanel" class="tab-pane " id="tab1"><table id="tab1Table" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table></div><div role="tabpanel" class="tab-pane" id="tab2"><table id="tab2Table" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table></div><div role="tabpanel" class="tab-pane" id="tab3"><table id="tab3Table" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%"><thead></thead><tbody></tbody></table></div></div>'
+
+          checkShow(mainTable, tr_, str_)
+
+          curTogetherStamp = mainTable.row(tr_).data()['togetherStamp']
+
+          $('.cus-nav').find('a[data-toggle="tab"]').eq(0).trigger('click')
+        })
+        .on('shown.bs.tab', '.cus-nav a[data-toggle="tab"]', function (e) {
+          var $t = $(this)
+          var tabId = $t.attr('aria-controls')
+
+          if ($t.data('init-table')) return
+          if (!curTogetherStamp) return
+
+          dyInstanceTable(tabId, { togetherStamp: curTogetherStamp }, function () {
+            $t.data('init-table', true)
+          })
+        })
+    </script>
+  </body>
+</html>

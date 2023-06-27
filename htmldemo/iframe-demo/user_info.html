@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/iconfont.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
+        <style>
+            .user-infopage .user-phone {
+                height: 70px;
+                width: 70px;
+                float: right;
+                position: relative;
+                overflow: hidden;
+                cursor: pointer;
+            }
+            
+            .user-infopage .user-phone .warppan {
+                position: absolute;
+                display: none;
+                height: 100%;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.4);
+                left: 0;
+                top: 0;
+            }
+            
+            .user-infopage .user-phone .warppan i {
+                font-size: 40px;
+                color: #fff;
+                height: 40px;
+                width: 40px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                margin: -20px;
+            }
+            
+            .user-infopage .user-phone:hover .warppan {
+                display: block;
+            }
+            
+            .user-infopage .text-box {
+                position: relative;
+                cursor: pointer;
+            }
+            
+            .user-infopage .text-box>i.js-edit-icon {
+                display: none;
+                position: absolute;
+                right: 10px;
+                top: 8px;
+                font-size: 14px;
+                color: #299be4;
+            }
+            
+            .user-infopage .text-box .js-text {
+                display: block;
+                min-height: 30px;
+                line-height: 20px;
+                padding: 5px 40px 5px 10px;
+            }
+            
+            .user-infopage .text-box:hover .js-text,
+            .user-infopage .text-box .js-text:focus,
+            .user-infopage .text-box .js-text.error {
+                background: #efefef;
+            }
+            
+            .user-infopage .text-box:hover .js-text~i.js-edit-icon,
+            .user-infopage .text-box .js-text:focus~i.js-edit-icon,
+            .user-infopage .text-box .js-text.error~i.js-edit-icon {
+                display: block;
+            }
+            .user-infopage .text-box .js-text:focus{
+                outline: 1px solid #299be4;
+            }
+            .user-infopage .text-box .js-text .js-sex-val{display: none;}
+            .user-infopage .text-box:hover .js-text .js-sex-box{display: none;}
+            .user-infopage .text-box:hover .js-text .js-sex-val{display: block;}
+            .user-infopage .text-box .js-text label{margin: 0;}
+            .user-infopage .text-box .js-text input[type="radio"]{margin-top: 1px;}
+            /* 头像上传start */
+            .img-upload-box {
+                position: relative;
+                padding: 20px;
+                width: 460px;
+                margin: 0 auto;
+            }
+            
+            .img-upload-box .img-div {
+                float: left;
+                background-color: #eee;
+                padding: 10px;
+                width: 260px;
+                height: 260px;
+            }
+            
+            .img-upload-box .img-div>img {
+                vertical-align: middle;
+                width: 100%;
+            }
+            
+            .img-upload-box .img-preview {
+                background-color: #eee;
+                width: 100px;
+                height: 100px;
+                overflow: hidden;
+                border-radius: 50%;
+            }
+            
+            .img-upload-box .zcgs {
+                color: #676a6c;
+                font-size: 14px;
+                font-weight: bold;
+                padding-top: 20px;
+            }
+            
+            .img-upload-box .selec-but {
+                position: absolute;
+                z-index: 10;
+                top: 0px;
+                left: 0;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                right: 0;
+                bottom: 0;
+            }
+            /* 头像上传end */
+        </style>
+    </head>
+
+    <body class="user-infopage">
+        <div class="container-fluid" style="min-width: 500px;">
+            <form class="form-horizontal cus-form-format" id="thisform">
+                <div style="padding: 20px 50px 20px 20px;">
+                    <div class="form-group">
+                        <div class="col-xs-4 control-label">
+                            <div class="user-phone img-circle">
+                                <img src="../../images/default_userimg.jpg" data-src="../../images/default_userimg.jpg" id="user_img" style="height: 100%; width: 100%;">
+                                <div class="warppan" id="js_uploadimg"><i class="glyphicon glyphicon-cloud-upload"></i></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-8">
+                            <h4 style="padding-top: 12px;">张三</h4>
+                            <p>####</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">主角色名称：</label>
+                        <div class="col-xs-8">
+                            <div class="text-box">
+                                <span name="name1" contenteditable="true" class="js-text" required="required">asdsad主角色名称</span>
+                                <i class="js-edit-icon tedufont tedu-icon102"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">性别：</label>
+                        <div class="col-xs-8">
+                            <div class="text-box">
+                                <div class="js-text">
+                                    <span class="js-sex-box" id="js_sex_box"></span>
+                                    <div class="js-sex-val" id="js_sex_val">
+                                        <input type="radio" name="sexname" value="0" id="sexname0"> <label for="sexname0">男 </label>
+                                        &nbsp;&nbsp;
+                                        <input type="radio" name="sexname" value="1" id="sexname1" checked="checked"> <label for="sexname1">女</label>
+                                    </div>
+                                </div>
+                                <i class="js-edit-icon tedufont tedu-icon102"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label">备注：</label>
+                        <div class="col-xs-8">
+                            <div class="text-box">
+                                <span name="name2" contenteditable="true" class="js-text" required="required">主角色名称主角色名称主角色名称主角色名称主角色名称主角色名称主角色名称主角色名称主角色名称</span>
+                                <i class="js-edit-icon tedufont tedu-icon102"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="border-top: 2px solid #299be4; padding-top: 10px; padding-bottom: 5px; text-align: center;">
+                    <button id="btn_save" type="button" class="btn btn-sm btn-success">保存</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="img_area_upload" class="img-upload-box" style="display: none;">
+            <div class="clearfix">
+                <div id="img-div" class="img-div"><img></div>
+                <div class="pull-left" style="margin-left: 20px; width: 120px;">
+                    <div class="img-preview"></div>
+                    <p class="zcgs">支持：<br/>*.jpg<br/>*.png<br/>格式的图片</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #299be4; padding:10px 0; text-align: center; margin-top: 20px;">
+                <form autocomplete="off">
+                    <div style="display: inline-block; position: relative;">
+                        <button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> 选择图片</button>
+                        <input class="selec-but" id="selectImg" type="file" name="myFile" accept="image/jpeg,image/png">
+                    </div>
+                    <button type="button" id="resetImg" class="btn btn-danger btn-sm" disabled="disabled">
+                        <i class="glyphicon glyphicon-refresh"></i> 重置图片
+                    </button>
+                    <button type="button" id="upImg" class="btn btn-success btn-sm" disabled="disabled">
+                        <i class="glyphicon glyphicon-ok"></i> 剪裁上传
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+        <script src="../../js/jquery-2.1.1.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/plugins/layer/layer.js"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="../../js/bootstrap-plugins-custom.js"></script>
+        <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+        <script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+
+        <script src="../../js/jquery.hash.min.js"></script>
+        <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+        <script src="../../js/subindex.js"></script>
+        <script>
+            var cur_lay_index = 0;
+            var _cutUpImg = {};
+            $(function() {
+                $('#btn_save').click(function() {
+                    $('#thisform').submit();
+                });
+                $('#thisform').validate({
+                    debug: true,
+                    submitHandler: function(form) { //验证通过
+                        //to ajaxsubmit 提交表单
+                        cumParentCallValue(); //数据提交成功后（ajax-success），关闭当前窗口，触发弹窗销毁事件监听回调方法
+                    }
+                });
+                $('#js_uploadimg').click(function() {
+                    if(!$.fn.cropper){
+                        COM_TOOLS.requireJsFn(['cropper'], [], function() {
+                            _cutUpImg = init_upload_img();
+                        });
+                    }
+                    $('#selectImg').val('');
+                    $('#resetImg,#upImg').prop('disabled',true);
+                    cur_lay_index = cumCurWinModal('aaa', $('#img_area_upload'), window.self, {
+                        type: 1,
+                        area:'auto',
+                        end:function(){
+                            _cutUpImg.resetImg();
+                        },
+                        other:{maxWidth:0}
+                    });
+                });
+                $('#js_sex_val > input').click(function(){
+                    $('#js_sex_box').text($(this).next('label').text());
+                });
+                $('#js_sex_val > input:checked').trigger('click');
+            });
+            function init_upload_img(){
+                var cp_opt = {
+                        aspectRatio:1/1,
+                        preview: '.img-preview',
+                        //background:false,
+                        guides: false,
+                        autoCropArea: 0.6,
+                        touchDragZoom: false,
+                        minCropBoxWidth:50,
+                        minCropBoxHeight:50
+                    },
+                    _imgType = 'images/jpeg',
+                    _imgTypeReg = /(image\/jpeg)|(image\/png)/;
+                var cutUpImg = {
+                    changeImg: function(evt) {
+                        var file_ = this.files[0],
+                            URL_ = window.URL || window.webkitURL,
+                            _blobURL,
+                            objURL_;
+
+                        if(file_) {
+                            console.log(123123)
+                            $('#resetImg,#upImg').prop('disabled',false);
+                            _imgType = file_.type;
+                            if(_imgTypeReg.test(file_.type)) {
+                                if(URL_) { //兼容ie10
+                                    if(objURL_) {
+                                        URL_.revokeObjectURL(objURL_);
+                                    }
+                                    objURL_ = URL_.createObjectURL(file_);
+                                } else {
+                                    alert('不支持URL!');
+                                    return false;
+                                }
+                                _imgObj.cropper('destroy').attr('src', objURL_).cropper(cp_opt);
+                            } else {
+                                alert('请选择jpg/png格式图片!');
+                            }
+                        }
+                    },
+                    resetImg: function(evt) {
+                        _imgObj.cropper('destroy').attr('src', '');
+                        $(this).prop({
+                            'disabled': true
+                        });
+                        $('#upImg').prop({
+                            'disabled': true
+                        });
+                    },
+                    upImg: function(evt) {
+                        $(this).prop({
+                            'disabled': true
+                        });
+                        var cvsData = _imgObj.cropper('getCroppedCanvas');
+                        var newbase64 = cvsData.toDataURL(_imgType, 1).split(',')[1];
+                        $.ajax({
+                            type: 'POST',
+                            url: '../php-api/upfile-base64.php',
+                            data: {
+                                'xxx': newbase64
+                            },
+                            success: function(data) {
+                                $(this).prop('disabled',false);
+                                //TODO 修改头像路径  $('#user_img').src('');
+                                cumCloseWin(cur_lay_index, false, self);
+                            }
+                        });
+                    }
+                };
+
+                var _imgObj = $('#img-div>img');
+                $('#selectImg').on('change', cutUpImg.changeImg);
+                $('#resetImg').on('click', cutUpImg.resetImg);
+                $('#upImg').on('click', cutUpImg.upImg);
+                
+                return cutUpImg;
+            }
+        </script>
+    </body>
+
+</html>

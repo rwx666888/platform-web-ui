@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="../../../css/iconfont.css">
+    <title>童程童美</title>
+    <style>
+      * {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                font-family: "微软雅黑";
+            }
+            html{
+              height: 100%;
+              width: 100%;
+            }
+            body {
+                height: 100%;
+                width: 100%;
+                background:#010149 url("login2021/login2021bg.jpg") no-repeat center center;
+                background-size: 100% 100%;
+                /* min-width: 1350px;
+                min-height: 600px; */
+                /*修改高度*/
+                position: relative;
+            }
+            .bg-content {
+                width: 1300px;
+                height: 600px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                margin-left: -650px;
+                margin-top: -350px;
+                z-index: 20;
+            }
+            .bg-content .pic-left {
+                width: 907px;
+                height: 730px;
+                position: absolute;
+                left: 0;
+                background: url("login2021/img2021011309.png") no-repeat left center;
+                transform: scale(.95);
+                margin-left: -5%;
+            }
+            .bg-content .login-con {
+                width: 316px;
+                min-height: 337px;
+                /*高度还要再调整*/
+                position: absolute;
+                right: 35px;
+                top: 140px;
+                background: #6d7de5;
+                padding: 20px 20px 75px;
+                border-radius: 10px;
+            }
+            .bg-content .login-con .logo-tedu {
+                text-align: center;
+                height: 48px;
+            }
+            .bg-content .login-con .logo-word {
+                text-align: center;
+                color: #fdda72;
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+            .bg-content .login-con .user-login {
+                position: relative;
+            }
+            .bg-content .login-con .user-login i {
+                color: #999999;
+                font-size: 16px;
+                position: absolute;
+                left: 10px;
+                top: 11.5px;
+            }
+            .bg-content .login-con .user-login input {
+                padding-left: 45px;
+                line-height: 50px;
+            }
+            .bg-content .login-con .user-login input,
+            .bg-content .login-con .user-sub button,
+            .bg-content .login-con .user-login .yzm {
+                width: 100%;
+                height: 50px;
+                font-family: "微软雅黑";
+                border-radius: 4px;
+                /*border: 0;*/
+                outline: 0;
+                border: 1px solid #4c3bff;
+            }
+            .bg-content .login-con .user-login .user-yzm {
+                width: 163px;
+            }
+            .bg-content .login-con .user-login .yzm {
+                display: inline-block;
+                vertical-align: bottom;
+                background: #fff;
+                width: 100px;
+                margin-left: 8px;
+                text-align: center;
+            }
+            .bg-content .login-con .user-login .yzm img {
+                width: 100%;
+                height: 100%;
+            }
+            .bg-content .login-con .user-sub button {
+                color: #2f2725;
+                background: linear-gradient(#ffe46c,#f8bb37);
+                cursor: pointer;
+                font-size: 22px;
+                display: block;
+                text-align: center;
+                width: 178px;
+                line-height: 44px;
+                border-radius: 44px;
+                height: 44px;
+                border: none;
+                margin: 0 auto;
+            }
+            .bg-content .login-con .user-sub button:hover {
+                background: #f8bb37;
+            }
+            .bg-content .login-con .compatible-info {
+                color: #1890ff;
+                font-size: 12px;
+                padding: 5px 0;
+            }
+            .bg-content .login-con:after {
+                content: '兼容Chrome、Safari、Firefox及IE10+';
+                position: absolute;
+                bottom: -25px;
+                left: 0;
+                right: 0;
+                text-align: center;
+                color: #6e80e2;
+                font-size: 15px;
+            }
+            
+            .m-b-20 {
+                margin-bottom: 20px;
+            }
+            .m-b-40 {
+                margin-bottom: 40px;
+            }
+            .hide-l {
+                display: none;
+            }
+            .bg-content .login-con .error-l {
+                min-height: 20px;
+                line-height: 20px;
+                text-align: center;
+                color: #fff;
+                margin-top: -15px;
+                margin-bottom: 5px;
+            }
+            .bg-content .login-con .error-l .error-info {
+                color: #fff;
+                font-size: 12px;
+                text-align: center;
+            }
+            .bg-content .login-con .user-opear .user-check {
+                display: inline-block;
+                width: 80px;
+                height: 15px;
+                position: relative;
+                cursor: pointer;
+            }
+            .bg-content .login-con .user-opear .user-check input {
+                position: absolute;
+                width: 15px;
+                height: 15px;
+            }
+            .bg-content .login-con .user-opear .user-check span {
+                font-size: 12px;
+                color: #fff;
+                position: absolute;
+                right: 0;
+            }
+            .bg-content .login-con .user-opear select {
+                border: 1px solid #ddd;
+                float: right;
+            }
+
+
+            /*下方小球动画*/
+            
+            .copy-right {
+                color: #3481f8;
+                position: absolute;
+                bottom: 10px;
+                width: 100%;
+                text-align: center;
+                font-size: 14px;
+            }
+            @media only screen and (max-width: 1500px) {
+                
+                /* body {
+                    min-width: 1200px;
+                    min-height: 588px;
+                } */
+                .bg-content .pic-left{
+                    /*width: 1200px;*/
+                    /*margin-left: -600px;*/
+                    transform: scale(.76);
+                }
+            }
+            @keyframes fadeInLeft {
+                0% {
+                    -webkit-transform: translateX(25px);
+                    -ms-transform: translateX(25px);
+                    transform: translateX(25px);
+                }
+                50% {
+                    -webkit-transform: translateX(0);
+                    -ms-transform: translateX(0);
+                    transform: translateX(0);
+                }
+                100% {
+                    -webkit-transform: translateX(25px);
+                    -ms-transform: translateX(25px);
+                    transform: translateX(25px);
+                }
+            }
+            @keyframes fadeInLeft2 {
+                0%{
+                    -webkit-transform: translate(0);
+                    -ms-transform: translate(0);
+                    transform: translate(0);
+                }
+                25% {
+                    -webkit-transform: translate(50px,20px);
+                    -ms-transform: translate(50px,20px);
+                    transform: translate(50px,20px);
+                }
+                50% {
+                    -webkit-transform: translate(100px,0);
+                    -ms-transform: translate(100px,0);
+                    transform: translate(100px,0);
+                }
+                75% {
+                    -webkit-transform: translate(50px,20px);
+                    -ms-transform: translate(50px,20px);
+                    transform: translate(50px,20px);
+                }
+                100% {
+                    -webkit-transform: translate(0);
+                    -ms-transform: translate(0);
+                    transform: translate(0);
+                }
+            }
+            @keyframes fadeInDown {
+                0% {
+                    opacity: 0;
+                    -webkit-transform: translateY(-25px);
+                    -ms-transform: translateY(-25px);
+                    transform: translateY(-25px);
+                }
+                100% {
+                    -webkit-transform: translateY(0);
+                    -ms-transform: translateY(0);
+                    transform: translateY(0);
+                }
+            }
+            @keyframes amn-tfly {
+              0%{
+                opacity: 0;
+                transform: translate(0,0);
+              }
+              20% {
+                  opacity: 1;
+              }
+              80% {
+                  opacity: 1;
+              }
+              100% {
+                opacity: 0;
+                transform: translate(420px,-80px);
+              }
+            }
+            @keyframes amn-fadeInDown {
+                0% {
+                    opacity: 1;
+                    transform: translateY(-15px);
+                }
+                15% {
+                    opacity: 1;
+                }
+                20% {
+                    transform: translateY(60px);
+                    opacity: 0;
+                    
+                }
+                100% {
+                    transform: translateY(80px);
+                    
+                }
+            }
+            .text-center {
+                text-align: center;
+            }
+            .cus-tooltip2 {
+                position: absolute;
+                z-index: 1070;
+                display: block;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: normal;
+                line-height: 1.42857143;
+                text-align: left;
+                text-decoration: none;
+                text-shadow: none;
+                text-transform: none;
+                letter-spacing: normal;
+                word-break: normal;
+                word-spacing: normal;
+                word-wrap: normal;
+                white-space: nowrap;
+                line-break: auto;
+                cursor: default;
+                /*left: 10px;*/
+            }
+            .cus-tooltip2.left {
+                padding: 0 5px;
+                margin-left: -3px;
+                right: 41px;
+                top: 10px;
+            }
+            .cus-tooltip2-inner {
+                max-width: 200px;
+                padding: 3px 8px;
+                color: #4b43fb;
+                text-align: center;
+                background-color: #fff;
+                border-radius: 4px;
+                border: 1px solid #4b43fb;
+            }
+            .cus-tooltip2-arrow {
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+            }
+            .cus-tooltip2.left .cus-tooltip2-arrow {
+                top: 50%;
+                right: 1px;
+                margin-top: -5px;
+                border-width: 5px 0 5px 5px;
+                border-left-color: #fff;
+            }
+            .login-tab-imginput {
+                position: absolute;
+                bottom: 0px;
+                right: 0px;
+                cursor: pointer;
+                /*display: none;*/
+            }
+            .login-tab-imginput img {
+                display: block;
+            }
+            .login-tab-imginput:hover .cus-tooltip2-inner {
+
+                border: 1px solid #4b43fb;
+            }
+            /*.j-codebox .login-con {
+                display: none;
+            }
+            .j-codebox .login-con:last-child {
+                display: block;
+            }*/
+            .login-con[data-type1="input"]{
+                display: none;
+            }
+            .login-con[data-type1="code"]{
+                display: block;
+            }
+            .j-codebox .login-con[data-type1="input"]{
+                display: block;
+            }
+            .j-codebox .login-con[data-type1="code"]{
+                display: none;
+            }
+            .bg-content .login-con:last-child {
+                padding-bottom: 20px;
+            }
+            #login_tab_codebox>iframe {
+                height: 320px;
+            }
+            .login-con .code-msg-box {
+                padding-bottom: 5px;
+                color: #fff;
+                font-size: 12px;
+                text-align: center;
+            }
+
+            .absimg2 {
+                position: absolute;
+                top: 50px;
+                left: 20px;
+                animation: fadeInLeft 14s infinite;
+            }
+            .absimg3 {
+                position: absolute;
+                top: 130px;
+                right: 70px;
+                animation: fadeInLeft 10s infinite;
+            }
+            .absimg4 {
+                position: absolute;
+                top: -35px;
+                right: 210px;
+                animation: fadeInLeft2 15s infinite;
+                border-radius: 300px;
+            }
+            .container-201222 {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+            .logo-box {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                padding-top: 15px;
+            }
+            .absimg-a1{
+              position: absolute;
+              top: 48px;
+              left: 150px;
+              animation: amn-tfly 8s linear infinite;
+            }
+            .absimg-bb{
+              position: absolute;
+              opacity: 0;
+            }
+            .absimg-b1{
+              top: 108px;
+              left: 320px;
+              animation: amn-fadeInDown 8s 1.6s linear infinite;
+              
+            }
+            .absimg-b2{
+              top: 100px;
+              left: 360px;
+              animation: amn-fadeInDown 8s 2.2s linear infinite;
+            }
+            .absimg-b3{
+              top: 91px;
+              left: 398px;
+              animation: amn-fadeInDown 8s 2.9s linear infinite;
+            }
+            .absimg-b4{
+              top: 84px;
+              left: 435px;
+              animation: amn-fadeInDown 8s 3.7s linear infinite;
+            }
+            .absimg-b5{
+              top: 78px;
+              left: 471px;
+              animation: amn-fadeInDown 8s 4.3s linear infinite;
+            }
+            .absimg-b6{
+              top: 70px;
+              left: 510px;
+              animation: amn-fadeInDown 8s 5s linear infinite;
+            }
+        </style>
+  </head>
+
+  <body class="j-codebox">
+    <!-- 加上j-codebox样式默认显示二维码 -->
+    <div class="logo-box">
+      <div style="width: 1200px;margin: 0 auto;">
+        <img src="login2021/img2021011310.png">
+      </div>
+    </div>
+    <div class="container-201222">
+      <div class="bg-content">
+        <div class="pic-left">
+          <img class="absimg2" src="login2021/img2021011302.png">
+          <img class="absimg3" src="login2021/img2021011303.png">
+          <img class="absimg4" src="login2021/img2021011301.png">
+          <img class="absimg-bb absimg-b1" src="login2021/img2021011308.png">
+          <img class="absimg-bb absimg-b2" src="login2021/img2021011305.png">
+          <img class="absimg-bb absimg-b3" src="login2021/img2021011306.png">
+          <img class="absimg-bb absimg-b4" src="login2021/img2021011307.png">
+          <img class="absimg-bb absimg-b5" src="login2021/img2021011308.png">
+          <img class="absimg-bb absimg-b6" src="login2021/img2021011305.png">
+          <img class="absimg-a1" src="login2021/img2021011304.png">
+        </div>
+        <div data-type1="code" class="login-con">
+          <p class="logo-word">童程童美KCRM系统</p>
+          <div class="user-login m-b-20">
+            <input class="user-num" type="text" placeholder="用户名/手机号/邮箱" />
+            <i><img src="login2021/icon2012291.png"></i>
+          </div>
+          <div class="user-login  m-b-20">
+            <input class="user-pwd" type="password" placeholder="请输入登录密码" />
+            <i><img src="login2021/icon2012292.png"></i>
+          </div>
+          <div class="user-login m-b-20 hide-l">
+            <input class="user-yzm" type="text" maxlength="6" placeholder="请输入验证码" />
+            <i><img src="login2021/icon2012293.png"></i>
+            <span class="yzm"><img src="login4/crm-login-yzm.jpg" alt="" /></span>
+          </div>
+          <div class="error-l">
+            * <span class="error-info ">账号错误账号错误</span>
+          </div>
+          <p class="user-sub"><button type="button" id="login_btn">登 &nbsp;&nbsp;&nbsp;录</button></p>
+          <div class="user-opear" style="position:absolute;bottom: 45px;left: 20px;width: 276px;">
+            <select name="" id="">
+              <option value="1">中文简体</option>
+              <option value="2">中文繁体</option>
+            </select>
+            <label for="checkbox1" class="user-check" style="vertical-align: middle;">
+              <input type="checkbox" id="checkbox1" />
+              <span>记住用户名</span>
+            </label>
+            <!--                    <a href="#" style="margin-left: 15px; color: #1890ff; font-size: 12px; text-decoration: underline; vertical-align: middle;" target="_blank">忘记密码？</a>-->
+          </div>
+          <div class="login-tab-imginput">
+            <img class="js-checkweix" src="login2021/login2021_10.png" data-type="input" title="扫码登录更安全" />
+            <div class="cus-tooltip2 left">
+              <div class="cus-tooltip2-arrow"></div>
+              <div class="cus-tooltip2-inner">扫码登录更安全</div>
+            </div>
+          </div>
+        </div>
+        <div data-type1="input" class="login-con">
+          <p class="logo-word">童程童美KCRM系统</p>
+          <div class="text-center" id="login_tab_codebox">
+            <iframe src="https://open.weixin.qq.com/connect/qrconnect?appid=wx3478ef3576df5109&amp;scope=snsapi_login&amp;redirect_uri=http%3A%2F%2Fwww.tmooc.cn%2Ftouc%2Flogin%2FwxLogin&amp;state=http%253A%252F%252Fwww.tmooc.cn%252F&amp;login_type=jssdk&amp;self_redirect=false&amp;style=black&href=https://wecdn.tmooc.cn/tmp_file/saoma_css/welogincode_kcrm.css"
+              scrolling="no" width="270px" height="350px" frameborder="0"></iframe>
+          </div>
+          <!--                  <div class="code-msg-box" id="code_msg_box">您不具有该系统的访问权限！请联系管理员申请。</div>-->
+          <div class="login-tab-imginput ">
+            <img class="js-checkweix" src="login2021/iconpcx1.png" data-type="input" title="账号、密码登录" />
+            <div class="cus-tooltip2 left">
+              <div class="cus-tooltip2-arrow"></div>
+              <div class="cus-tooltip2-inner">账号、密码登录</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="copy-right">Copyright © 2017 Tedu.cn All Rights Reserved 京ICP备08000853号-56</p>
+    <!--兼容ie9及以下-->
+
+    <!--[if lt IE 10]>
+        <div style="background: #faad14;  position: fixed; left: 0; top: 0; right: 0; z-index:100;">
+            <div style="padding: 12px; font-size: 14px; color: #fff; text-align: left; width: 1200px; margin: 0 auto; line-height: 1.3;">
+                <span>您的浏览器（IE内核）版本过低，请使用IE10+、Chrome、Safari、Firefox浏览器，如使用的是360、QQ、搜狗浏览器，请切换为极速模式；</span>
+                <a href="https://www.google.cn/chrome/thank-you.html">Chrome下载</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://stubdownloader.cdn.mozilla.net/builds/firefox-stub/zh-CN/win/a0835331c6d66133eda04b6135b562b4ae6b8dad90f1e80cd07016b47383288d/Firefox%20Installer.exe">Firefox下载</a>
+            </div>
+        </div>
+        <script>
+            document.getElementById("login_btn").setAttribute('disabled','disabled');
+            document.getElementById("login_btn").innerHTML='浏览器（IE内核）版本过低,禁止使用';
+        </script>
+    <![endif]-->
+    <script type="text/javascript" src="../../../js/jquery-2.1.1.js"></script>
+    <script>
+      $(function() {
+        function requestParam_(strName) {
+          var strHref = location.search;
+          var intPos = strHref.indexOf('?');
+          if (intPos === -1) {
+            return '';
+          }
+          var strRight = strHref.substr(intPos + 1);
+          var arrTmp = strRight.split('&');
+          for (var i = 0; i < arrTmp.length; i++) {
+            var arrTemp = arrTmp[i].split('=');
+            if (arrTemp[0].toUpperCase() == strName.toUpperCase()) {
+              if (i === arrTmp.length - 1) {
+                var sIndex = arrTemp[1].indexOf('#');
+                if (sIndex !== -1) {
+                  arrTemp[1] = arrTemp[1].substring(0, sIndex);
+                }
+              }
+              return arrTemp[1];
+            }
+          }
+          return '';
+        }
+
+        $('.js-checkweix').click(function() {
+          var $p = $(this).closest('.login-con');
+          if ($p.data('type1') == 'code') {
+            $('body').addClass('j-codebox');
+            if (('localStorage' in window) && window['localStorage'] !== null) {
+              localStorage.setItem('c_login_tag_w', 'code');
+            }
+          } else {
+            $('body').removeClass('j-codebox');
+            if (('localStorage' in window) && window['localStorage'] !== null) {
+              localStorage.setItem('c_login_tag_w', 'input');
+            }
+          }
+        })
+        if (('localStorage' in window) && window['localStorage'] !== null) {
+          var type_t = localStorage.getItem('c_login_tag_w') || '';
+          console.log(type_t)
+          if (!type_t) {
+            localStorage.setItem('c_login_tag_w', $('body').hasClass('j-codebox') ? 'code' : 'input');
+          }
+          if ($('body').hasClass('j-codebox') && type_t == 'input') {
+            $('[data-type1="input"] .js-checkweix').trigger('click');
+          } else if (!$('body').hasClass('j-codebox') && type_t == 'code') {
+            $('[data-type1="code"] .js-checkweix').trigger('click');
+          }
+        }
+
+      })
+    </script>
+  </body>
+
+</html>

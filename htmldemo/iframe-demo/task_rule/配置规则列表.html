@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>配置规则列表</title>
+
+<link href="../../../css/bootstrap.min.css" rel="stylesheet">
+<!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+<link href="../../../css/iconfont.css" rel="stylesheet">
+
+<link href="../../../css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="../../../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+<link href="../../../css/animate.css" rel="stylesheet">
+<link href="../../../css/style.css" rel="stylesheet">
+    <style>
+        .no-Sel-obj {
+            margin-right: 5px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid this-event-page ">
+    <div class="row">
+        <div class="col-sm-12 m-b-sm m-t-sm clearfix">
+            <div class="pull-left">
+                <div class="form-inline">
+                    <div class="form-group form-group-sm">
+                        <label for="formdemo2">规格名称：</label>
+                        <input type="text" class="form-control" id="formdemo2">
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label>包含类型：</label>
+                        <select class="form-control input-sm">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-success btn-sm" id="demoSearchBtn">搜索</button>
+                </div>
+            </div>
+            <div class="pull-right">
+                <div id="drop-gengduo" class="dropdown" style="position: relative;display: inline-block;">
+                    <button class="btn btn-warning btn-sm" type="button" data-hover="dropdown" id="cumBtn_gengduo"><i class="glyphicon glyphicon-th-list"></i> 新建
+                </button>
+                    <div class="dropdown-menu p-sm dropdown-menu-right " role="menu">
+                        <button id="btn" class="btn btn-primary btn-sm btn-block" type="button"> BTN</button>
+                        <button class="btn btn-success btn-sm btn-block" type="button"> BTN</button>
+                        <button class="btn btn-info btn-sm btn-block" type="button"> BTN</button>
+                        <button class="btn btn-danger btn-sm btn-block" type="button"> BTN</button>
+                        <button class="btn btn-warning btn-sm btn-block" type="button"> BTN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="example1" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 多行单列DEMO -->
+<div id="pop_html2" style="display: none;">
+    <form class="form-horizontal container-fluid">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">nam11：</label>
+                <div class="col-sm-8">
+                    <select class="form-control input-sm" name="name11" id="name11">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>    
+            <div class="form-group">
+                <label class="col-sm-4 control-label">nam12：</label>
+                <div class="col-sm-8"><input class="form-control input-sm" type="text" name="name12" id="name12"/></div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- Mainly scripts -->
+<script src="../../../js/jquery-2.1.1.js"></script>
+<script src="../../../js/bootstrap.min.js"></script>
+<script src="../../../js/bootstrap-plugins-custom.js"></script>
+<script src="../../../js/plugins/layer/layer.js"></script>
+<script src="../../../i18n/zh-CN.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="../../../js/plugins/datatables/datatables.min.js"></script>
+<script src="../../../js/subindex.js"></script>
+
+
+
+<!-- demo 演示使用 -->
+<script src="../../../js/jquery.mockjax.min.js"></script>
+<script src="../../../demo-data.js"></script>
+<!--正式环境请删掉演示代码-->
+
+<script>
+
+    $(document).ready(function() {
+        var searchParemOBj_ = {};
+
+        var DT_ = COM_TOOLS.DT_init('example1', [{ // 显示行号
+                "data": null,
+                "className": "text-center",
+                "width": "30px",
+                "title": '序号',
+                render: function(data, type, row, meta) {
+                    return 1 + meta.row;
+                }
+            },
+
+                {
+                    "data": "first_name",
+                    "title": '标题1'
+                },
+                {
+                    "data": "first_name",
+                    "title": '标题2'
+                },
+            {
+                "data": "node3",
+                "title": '操作',
+                render: function(data, type, row, meta) {
+                    /*方法中返回值可以获取当前行数据*/
+                    return '<span class="no-Sel-obj ">立即执行</span> ' +
+                        '<span class="no-Sel-obj">编辑</span>' +
+                        ' <span class="no-Sel-obj ">启用</span> ' +
+                        '<span class="no-Sel-obj">禁用</span> ' +
+                        '<span class="no-Sel-obj">删除</span> ' +
+                        '<span class="no-Sel-obj">日志</span> ';
+                }
+            }
+        ],
+        '/dt/api',
+        'get',
+        searchParemOBj_, {
+            jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象，例如：获取行id
+                var id_ = trdata['first_name'];
+                if(id_) {
+                    cumParentWinModal('详情', 'info.html?id=' + id_, {
+                        "scrollbar": true,
+                        'area': ['70%', '70%']
+                    });
+                }
+            },
+            other: {
+                pagingType: "simple_numbers_no_totalpage" //可选，应用自定义分页组件
+            }
+        });
+        $('#btn').click(function() {
+            cumParentWinModal('测试弹框页面1', 'edit_all.html', {
+                "scrollbar": true,
+                "area": ["800px", "460px"]
+            });
+        });
+
+    });
+</script>
+</body>
+
+</html>

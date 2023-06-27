@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>echarts-demo</title>
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+
+<link href="../css/animate.css" rel="stylesheet">
+<link href="../css/style.css" rel="stylesheet">
+<style>
+    .e-box {
+        border: 2px solid;
+        margin: 10px;
+    }
+</style>
+<body>
+<div class="e-box" id="demobox01" style="width: 600px;height: 400px;"></div>
+
+<div class="e-box" id="demobox02" style="width: 600px;height: 400px;"></div>
+<div class="e-box" id="demobox03" style="width: 600px;height: 400px;"></div>
+
+
+<script src="../js/jquery-2.1.1.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+
+<script src="../js/plugins/echarts/echarts.js"></script>
+
+<script src="../js/plugins/layer/layer.js"></script>
+<script src="../i18n/zh-CN.js"></script>
+<script src="../js/subindex.js"></script>
+
+<!-- 以下js仅用于演示 -->
+<script src="../js/jquery.mockjax.min.js"></script>
+<script type="text/javascript" src="../demo-data.js"></script>
+
+<script>
+    var _data_ = [
+        {
+            cname: "p1",
+            data: [
+                {name: "name1", value: -111},
+                {name: "name2", value: 222},
+                {name: "name3", value: 33},
+                {name: "name4", value: 444}
+            ]
+        },
+        {
+            cname: "p2",
+            data: [
+                {name: "name1", value: 55},
+                {name: "name2", value: 66},
+                {name: "name3", value: 77},
+                {name: "name4", value: 88}
+            ]
+        }
+    ];
+    var _data_2 = [
+        {
+            cname: "p1",
+            data: [
+                {name: "name1", value: 111},
+                {name: "name2", value: -222},
+                {name: "name2", value: -222},
+                {name: "name3", value: -33}
+            ]
+        }
+    ];
+
+
+    $(function () {
+        COM_TOOLS.eChartsTools.initOpt('#demobox01', 'line', _data_,
+            { //数据组配置
+                "p1": {
+                    name: '直接访问',
+                    type: 'line',
+                    itemStyle: {normal: {label: {show: true}}}//默认显示数据数值
+                },
+                "p2": {
+                    name: '间接访问',
+                    type: 'line',
+                    itemStyle: {normal: {label: {show: true}}}//默认显示数据数值
+                }
+            },
+            { //数据项配置
+                name1: '坐标1111',
+                name2: '坐标2adfasdfasdfsdf',
+                name3: '坐标3',
+                name4: '坐标4'
+            },
+            {
+                title: {
+                    text: '图表实例名称'
+                },
+                grid: {
+//                left: '3%',
+//                right: '10%',
+//                bottom: '3%',
+//                containLabel: true
+                    x2: 140,//x/y/x2/y2 分别控制图标距离父元素边缘距离
+                    y2: 150,
+                    x: 100,
+//                    y:100
+                },
+                xAxis: {
+                    axisLabel: {
+                        formatter: function (val) {//纵向显示x轴文字
+                            return val.split("").join("\n");
+                        }
+                    }
+                }
+            }
+        )
+    });
+
+
+    $(function () {
+        COM_TOOLS.eChartsTools.initOpt('#demobox02', 'bar', _data_2,
+            { //数据组配置
+                "p1": {
+                   name: '111',
+                    type: 'bar',
+//                    barWidth: 20,//轴宽度
+                    barCategoryGap:'80%',//轴间距
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                fontSize:18,
+                                show: true,
+                                position: 'top',//默认显示在柱子中间
+                                textStyle: {
+                                    color: 'black',//默认跟柱子一个颜色
+
+                                },
+                                formatter: function (val) {//示例 此方法可修改映射到图标上的数据
+                                    console.log(val)
+                                    return (val.value = val.value + '%');
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            { //数据项配置
+                name1: '坐标1',
+                name2: '坐标2',
+                name3: '坐标3'
+            },
+            {
+                title: {
+                    text: '图表实例名称'
+                },
+                xAxis: {
+                    axisLabel: {
+                        formatter: function (val) {//纵向显示x轴文字
+                            return val.split("").join("\n");
+                        }
+                    }
+                },
+                yAxis: {
+                    //show:false//不显示Y轴
+                }
+            }
+        );
+    });
+    $(function () {
+        COM_TOOLS.eChartsTools.initOpt('#demobox03', 'bar', _data_2,
+            { //数据组配置
+                "p1": {
+                    name: '111',
+                    type: 'bar',
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true,
+                                position: 'bottom',//默认显示在柱子中间
+                                textStyle: {
+                                    color: 'black'//默认跟柱子一个颜色
+                                },
+                                formatter: function (val) {//示例 此方法可修改映射到图标上的数据
+                                    console.log(val)
+                                    return val.value = val.value + '%'
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            { //数据项配置
+                name1: '坐标1',
+                name2: '坐标2',
+                name3: '坐标3'
+            },
+            {
+                title: {
+                    text: '图表实例名称'
+                },
+                xAxis: {
+                    axisLabel: {
+                        formatter: function (val) {//纵向显示x轴文字
+                            return val.split("").join("\n");
+                        }
+                    },
+                    position: 'top'//x轴显示位置
+                },
+                yAxis: {
+                    show: false//不显示Y轴
+                },
+                grid: {
+                    y: 150//x/y/x2/y2 分别控制图标距离父元素边缘距离
+                }
+            }
+        );
+    })
+</script>
+</body>
+</html>

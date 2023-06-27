@@ -1,0 +1,240 @@
+<!--  -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>中心分布图</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="main" style="width: 100%;height:600px;"></div>
+
+    <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../js/plugins/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="../js/plugins/echarts/china.js"></script>
+
+    <script type="text/javascript" src="../i18n/zh-CN.js"></script>
+    <script type="text/javascript" src="../js/subindex.js"></script>
+    <script>
+        $(function () {
+            // init
+            var myChart = echarts.init(document.getElementById('main'));
+            // 配置及数据
+            var eOption = {
+                title: {
+                    text: '中心分布图',
+                    subtext: '巴拉巴拉',
+                    left: 'left'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params, ticket, callback) {
+                        // console.log(params, ticket);
+                        // setTimeout(function(){
+                        //     callback(ticket, '-333-')
+                        // }, 1000);
+                        var arr = [];
+                        var res = '';
+                        if (params.data) {
+                            if (params.data.centerList) {
+                                params.data.centerList.forEach(function (v, k) {
+                                    arr.push('<br/>' + v.name + '-' + v.value);
+                                })
+                            }
+                            res = params.marker + params.name + '-' + params.value + arr.join('')
+                        } else {
+                            res = params.marker + '暂无';
+                        }
+                        return res;
+                    }
+                },
+                visualMap: {
+                    min: 0,
+                    max: 2500,
+                    left: 'left',
+                    top: 'bottom',
+                    text: ['高', '低'], // 文本，默认为数值文本
+                    calculable: true
+                },
+                series: [{
+                    name: '中心数',
+                    type: 'map',
+                    mapType: 'china',
+                    label: {
+                        normal: {
+                            show: true
+                        }
+                    },
+                    data: [{
+                            id: 1,
+                            name: '北京',
+                            value: Math.round(Math.random() * 1000),
+                        },
+                        {
+                            id: 2,
+                            name: '天津',
+                            value: Math.round(Math.random() * 1000),
+                        },
+                        {
+                            id: 3,
+                            name: '上海',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '重庆',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '河北',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '河南',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '云南',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '辽宁',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '黑龙江',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '湖南',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '安徽',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '山东',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            id: 11,
+                            centerList: [{
+                                name: 'a1',
+                                value: '123'
+                            }, {
+                                name: 'a2',
+                                value: '222'
+                            }, {
+                                name: 'a3',
+                                value: '333'
+                            }],
+                            name: '新疆',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '江苏',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '浙江',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '江西',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '湖北',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '广西',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '甘肃',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '山西',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '内蒙古',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '陕西',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '吉林',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '福建',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '贵州',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '广东',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '青海',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '西藏',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '四川',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '宁夏',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '海南',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '台湾',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '香港',
+                            value: Math.round(Math.random() * 1000)
+                        },
+                        {
+                            name: '澳门',
+                            value: Math.round(Math.random() * 1000)
+                        }
+                    ]
+                }]
+            };
+            // 塞入数据
+            myChart.setOption(eOption);
+            // event
+            myChart.on('click', function (params) {
+                console.log(params);
+                alert('id:' + params.data.id + '打开弹窗');
+            });
+        })
+    </script>
+</body>
+
+</html>

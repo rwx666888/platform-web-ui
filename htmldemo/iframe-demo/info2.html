@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>info</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+
+	<link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+	<link href="../../css/plugins/select2/select2.min.css" rel="stylesheet" >
+	<link href="../../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../../js/plugins/datatables/Select-1.2.0/css/select.bootstrap.min.css" rel="stylesheet">
+
+    <link href="../../css/animate.css" rel="stylesheet">
+	<link href="../../css/style.css" rel="stylesheet">
+	<link href="../../css/iconfont.css" rel="stylesheet" />
+	<style>
+		.tab-content .tab-pane{ padding-top: 15px;}
+        .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+            background-color: transparent;
+            cursor: default;
+            color: #A7B1C2;
+            border: 1px solid transparent;
+        }
+	</style>
+</head>
+<body style="height: 100%;">
+<div class="container-fluid" style="height: 100%">
+<div class="row" style="height: 90%">
+	<div class="col-sm-12 form-horizontal p-sm" style="height: 100%">
+        <ul class="nav nav-tabs" role="tablist" id="info_tab">
+            <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-itemurl="" data-toggle="tab">基本信息</a></li>
+            <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-itemurl="add_mul_form_include.html" data-toggle="tab">市场信息</a></li>
+        </ul>
+		<div id="tab_cont" class="tab-content" style="height: 100%;overflow-y: auto;">
+			<div role="tabpanel" class="tab-pane active" id="tab1">
+                <div class="btn-box-info">
+                    <button class="btn btn-primary btn-sm next_btn" type="button">下一步</button>
+                    <button class="btn btn-success btn-sm" type="button" onclick="cumParentCallValue()">关闭</button>
+                </div>
+				<div class="container">
+					<div class="row p-xxs">
+						<div class="col-sm-12">
+							<form id="demoform1" class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">中心</label>
+									<div class="col-sm-3"><input name="name1" class="form-control input-sm" type="text" placeholder=""></div>
+									<label class="col-sm-2 control-label"><span class="text-danger">*</span> 咨询顾问</label>
+									<div class="col-sm-3">
+										<div class="input-group input-group-sm">
+											<input type="text" name="name2" class="form-control input-sm js-helpmsg" data-helpmsg="error" id="zixunguwenVal" readonly="readonly">
+											<input type="hidden" id="zixunguwenVal_hide">
+											<span class="input-group-btn"><button class="btn btn-primary" type="button" onClick="cumFunDemo1()"><i class="glyphicon glyphicon-search"></i></button></span>
+										</div>
+										<a class="tedufont tedu-icon133 cushelpbtn"></a>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><span class="text-danger">*</span> 信息来源</label>
+									<div class="col-sm-3">
+										<select class="form-control input-sm required" name="name4" id="xinxisourceVal">
+											<option value="">- 请选择-</option>
+											<option value="百度">百度</option>
+											<option value="谷歌">谷歌</option>
+											<option value="360">360</option>
+											<option value="搜狗">搜狗</option>
+											<option value="招聘网站">招聘网站</option>
+											<option value="分类信息">分类信息</option>
+											<option value="口碑">口碑</option>
+											<option value="招聘会">招聘会</option>
+											<option value="其他">其他</option>
+										</select>
+									</div>
+									<label class="col-sm-2 control-label"><span class="text-danger">*</span> 信息渠道</label>
+									<div class="col-sm-3">
+										<div class="input-group input-group-sm">
+											<input name="name5" type="text" class="form-control input-sm" readonly="readonly" id="xinxiqudaoVal">
+											<input type="hidden" id="xinxiqudaoVal_hide">
+											<span class="input-group-btn"><button class="btn btn-primary" onClick="cumFunDemo2()" type="button"><i class="glyphicon glyphicon-search"></i></button></span>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><span class="text-danger">*</span> 信息质量</label>
+									<div class="col-sm-3">
+										<select class="form-control input-sm" required name="name6">
+											<option value="">- 请选择-</option>
+											<option value="A">A</option>
+											<option value="B">B</option>
+											<option value="C">C</option>
+											<option value="D">D</option>
+										</select>
+										<a class="tedufont tedu-icon133 cushelpbtn"></a>
+									</div>
+									<label class="col-sm-2 control-label">关键词</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+								</div>
+								<div id="demohideinfo1" style="display: none;">
+									<div class="form-group">
+										<label class="col-sm-2 control-label">口碑来源</label>
+										<div class="col-sm-3">
+											<select class="form-control input-sm">
+												<option value="" selected="">- 请选择-</option>
+												<option value="在读学生">在读学生</option>
+												<option value="毕业学生">毕业学生</option>
+												<option value="新学生">新学生</option>
+												<option value="其他">其他</option>
+											</select>
+										</div>
+										<label class="col-sm-2 control-label">提供者</label>
+										<div class="col-sm-3">
+											<div class="input-group input-group-sm">
+												<input type="text" class="form-control input-sm" readonly="readonly" id="tigongzheVal">
+												<span class="input-group-btn"><button class="btn btn-primary" onClick="cumFunDemo3()" type="button"><i class="glyphicon glyphicon-search"></i></button></span>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">推荐人</label>
+										<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+										<label class="col-sm-2 control-label">推荐人手机</label>
+										<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">申请奖品</label>
+										<div class="col-sm-3">
+											<select class="form-control input-sm">
+												<option value="" selected="">- 请选择-</option>
+												<option value="现金">现金</option>
+												<option value="京东卡">京东卡</option>
+												<option value="电话卡">电话卡</option>
+												<option value="无需奖励">无需奖励</option>
+											</select>
+										</div>
+										<label class="col-sm-2 control-label">奖品领取人</label>
+										<div class="col-sm-3">
+											<select class="form-control input-sm">
+												<option value="" selected="">- 请选择-</option>
+												<option value="推荐人">推荐人</option>
+												<option value="被推荐人">被推荐人</option>
+												<option value="无">无</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><span class="text-danger">*</span> 姓名</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+									<label class="col-sm-2 control-label">性别</label>
+									<div class="col-sm-3">
+										<label class="checkbox-inline i-checks"><input type="radio" checked value="option1" name="sexbox"> 男 </label>
+										<label class="checkbox-inline i-checks"><input type="radio" value="option2" name="sexbox"> 女 </label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">省份</label>
+									<div class="col-sm-3">
+										<select class="form-control input-sm">
+											<option value="">- 请选择-</option>
+											<option value="北京">北京</option>
+											<option value="河北">河北</option>
+											<option value="天津">天津</option>
+										</select>
+									</div>
+									<label class="col-sm-2 control-label">是否本市</label>
+									<div class="col-sm-3">
+										<label class="checkbox-inline i-checks"> <input type="radio" checked value="option1" name="islocal1"> <i></i> 是 </label>
+										<label class="checkbox-inline i-checks"> <input type="radio" value="option2" name="islocal1"> <i></i> 否 </label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">手机</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+									<label class="col-sm-2 control-label">固话</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><span class="text-danger">*</span> QQ</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+									<label class="col-sm-2 control-label">微信</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+								</div>
+								<div class="form-group" id="data_2">
+									<label class="col-sm-2 control-label">下次回访时间</label>
+									<div class="col-sm-3">
+										<div class="input-group input-group-sm date">
+											<input type="text" class="form-control input-sm" readonly="readonly" value="">
+											<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+										</div>
+									</div>
+									<label class="col-sm-2 control-label">学习方向</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">客户类型</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+									<label class="col-sm-2 control-label">学历</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">专业</label>
+									<div class="col-sm-3">
+										<div class="input-group input-group-sm">
+											<input type="text" class="form-control input-sm" readonly="readonly" id="zhuanyeVal">
+											<input type="hidden" id="zhuanyeVal_hide">
+											<span class="input-group-btn"><button class="btn btn-primary" onClick="cumFunDemo4()" type="button"><i class="glyphicon glyphicon-search"></i></button></span>
+										</div>
+									</div>
+									<label class="col-sm-2 control-label">数学格式</label>
+									<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder="" id="num_format_val"></div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">备注</label>
+									<div class="col-sm-10"><textarea class="form-control input-sm"></textarea></div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="tab2"></div>
+		</div>
+	</div>
+</div>
+</div>
+	<!-- Mainly scripts -->
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="../../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src="../../js/plugins/datatables/FixedColumns-3.2.2/js/dataTables.fixedColumns.min.js"></script>
+    <script src="../../js/plugins/datatables/Select-1.2.0/js/dataTables.select.min.js"></script>
+    <script src="../../js/plugins/validate/jquery.validate.min.js"></script>
+	<script src="../../js/plugins/select2/select2.full.min.js"></script>
+	<script src="../../js/plugins/select2/zh-CN.js"  type="text/javascript"></script>
+    <!--<script src="../../js/plugins/validate/jquery-validate.bootstrap-tooltip.min.js"></script>-->
+
+	<script src="../../js/jquery.hash.min.js"></script>
+	<script src="../../i18n/zh-CN.js"  type="text/javascript"></script>
+	<script src="../../js/subindex.js" ></script>
+	<script src="../../js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(function(){
+        COM_TOOLS.fnTabPage('info_tab');
+        var bsTab_switch= false;
+        $('#info_tab a').on('show.bs.tab', function(e) {
+            if(!bsTab_switch){
+                COM_TOOLS.alert('请使用右侧按钮操作');
+                e.preventDefault();
+            }
+        });
+        $(document).on('click','.next_btn',function () {
+            if(!$('#tab_cont .active form').valid()){
+                bsTab_switch = false;
+                return false;
+            }
+            bsTab_switch = true;
+            $('#info_tab  .active').next().find('a').tab('show');
+            bsTab_switch = false;
+        });
+        $(document).on('click','.prev',function () {
+            bsTab_switch = true;
+            $('#info_tab  .active').prev().find('a').tab('show');
+            bsTab_switch = false;
+        })
+       /* $(document).on('click','#save_btn_form',function () {
+            if(!$('#tab_cont .active form').valid()){
+                return false;
+            }
+            var data = "";
+            $('form').each(function(i){
+                if(i = $('form').length-1){
+                    console.log(2)
+                    data+=$(this).serialize()
+                }else{
+                    console.log(1)
+                    data+=$(this).serialize()+'&';
+                }
+            })
+            console.log(data);
+        })*/
+})
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1089 @@
+
+
+
+<!doctype html>
+<html>
+<head>
+
+
+
+ 
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- mainly css -->
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/iconfont.css?v=20171212114242" rel="stylesheet">
+<link href="https://cdn.datatables.net/scroller/1.5.1/css/scroller.dataTables.min.css" rel="stylesheet">
+
+<link href="../css/style.css?v=20171212114242" id="cus_app_link" rel="stylesheet">
+
+    <title>test-3</title>
+    <style>
+        #demoaffix1.affix{ background-color: rgba(0,0,0,0.4); z-index: 9999; }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="min-height: 50px;">
+        <div class="p-sm col-xs-12 text-center" id="demoaffix1" data-spy="affix" data-offset-top="50">
+            
+            <button class="btn btn-primary btn-sm" type="button" onclick="savePermission()">保存</button>
+            
+            <button class="btn btn-success btn-sm" type="button" onclick="cumParentCallValue()">关闭</button>
+        </div>
+    </div>
+</div>
+    
+<div class="container">
+    <div class="row form-horizontal m-b-sm m-t-sm">
+        <div class="col-sm-12">
+        
+        
+
+
+<table id="ddd" class="table table-striped table-bordered" cellspacing="0" width="100%">
+ <thead>
+     <tr style="mso-height-source:userset;height:21.6pt" height="28">
+  <td class="xl36499" style="height:21.6pt;width:27pt" width="36" height="28"></td>
+  <td class="xl36551" colspan="4" style="mso-ignore:colspan;width:290pt" width="386">集团【童程童美】销售日报表--截止日期2018年07月7日</td>
+  <td class="xl36503" style="width:63pt" width="84"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:52pt" width="69"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:49pt" width="65"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:48pt" width="64"></td>
+  <td class="xl36503" style="width:45pt" width="60"></td>
+  <td class="xl36503" style="width:45pt" width="60"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:46pt" width="61"></td>
+  <td class="xl36503" style="width:52pt" width="69"></td>
+  <td class="xl36503" style="width:53pt" width="71"></td>
+  <td class="xl36810" style="width:79pt" width="105"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:49pt" width="65"></td>
+  <td class="xl36503" style="width:48pt" width="64"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:57pt" width="76"></td>
+  <td class="xl36503" style="width:51pt" width="68"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:52pt" width="69"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:44pt" width="58"></td>
+  <td class="xl36503" style="width:47pt" width="63"></td>
+  <td class="xl36500" style="width:59pt" width="78"></td>
+  <td class="xl36500" style="width:59pt" width="78"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:50pt" width="67"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:63pt" width="84"></td>
+  <td class="xl36500" style="width:45pt" width="60"></td>
+  <td class="xl36500" style="width:45pt" width="60"></td>
+  <td class="xl36501" style="width:99pt" width="132"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:44pt" width="58"></td>
+  <td class="xl36813" style="width:87pt" width="116"></td>
+  <td class="xl36502" style="width:61pt" width="81"></td>
+  <td class="xl36500" style="width:52pt" width="69"></td>
+  <td class="xl36500" style="width:47pt" width="63"></td>
+  <td class="xl36500" style="width:55pt" width="73"></td>
+  <td class="xl36500" style="width:52pt" width="69"></td>
+  <td class="xl36500" style="width:49pt" width="65"></td>
+  <td class="xl36500" style="width:51pt" width="68"></td>
+  <td class="xl36500" style="width:45pt" width="60"></td>
+  <td class="xl36500" style="width:47pt" width="63"></td>
+  <td class="xl36500" style="width:55pt" width="73"></td>
+  <td class="xl36664" style="width:44pt" width="59"></td>
+  <td class="xl36664" style="width:44pt" width="59"></td>
+  <td class="xl36664" style="width:44pt" width="59"></td>
+  <td class="xl36664" style="width:44pt" width="59"></td>
+  <td class="xl36500" style="width:60pt" width="80"></td>
+  <td class="xl36664" style="width:43pt" width="57"></td>
+  <td class="xl36664" style="width:43pt" width="57"></td>
+  <td class="xl36664" style="width:43pt" width="57"></td>
+  <td class="xl36664" style="width:43pt" width="57"></td>
+  <td class="xl36500" style="width:50pt" width="66"></td>
+  <td class="xl36664" style="width:44pt" width="58"></td>
+  <td class="xl36664" style="width:51pt" width="68"></td>
+  <td class="xl36664" style="width:44pt" width="58"></td>
+  <td class="xl36664" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:50pt" width="66"></td>
+  <td class="xl36664" style="width:45pt" width="60"></td>
+  <td class="xl36664" style="width:45pt" width="60"></td>
+  <td class="xl36664" style="width:45pt" width="60"></td>
+  <td class="xl36664" style="width:45pt" width="60"></td>
+  <td class="xl36500" style="width:55pt" width="73"></td>
+  <td class="xl36664" style="width:46pt" width="61"></td>
+  <td class="xl36664" style="width:46pt" width="61"></td>
+  <td class="xl36664" style="width:46pt" width="61"></td>
+  <td class="xl36664" style="width:46pt" width="61"></td>
+  <td class="xl36500" style="width:48pt" width="64"></td>
+  <td class="xl36664" style="width:41pt" width="55"></td>
+  <td class="xl36664" style="width:41pt" width="55"></td>
+  <td class="xl36664" style="width:41pt" width="55"></td>
+  <td class="xl36664" style="width:41pt" width="55"></td>
+  <td class="xl36500" style="width:46pt" width="61"></td>
+  <td class="xl36664" style="width:44pt" width="58"></td>
+  <td class="xl36664" style="width:50pt" width="67"></td>
+  <td class="xl36664" style="width:52pt" width="69"></td>
+  <td class="xl36664" style="width:44pt" width="58"></td>
+  <td class="xl36500" style="width:47pt" width="62"></td>
+  <td class="xl36664" style="width:51pt" width="68"></td>
+  <td class="xl36664" style="width:47pt" width="63"></td>
+  <td class="xl36664" style="width:43pt" width="57"></td>
+  <td class="xl36664" style="width:47pt" width="62"></td>
+  <td class="xl36813" style="width:101pt" width="134"></td>
+  <td class="xl36501" style="width:57pt" width="76"></td>
+  <td class="xl36813" style="width:92pt" width="123"></td>
+  <td class="xl36501" style="width:99pt" width="132"></td>
+  <td class="xl36501" style="width:81pt" width="108"></td>
+  <td class="xl36813" style="width:83pt" width="111"></td>
+  <td class="xl36503" style="width:53pt" width="71"></td>
+  <td class="xl36503" style="width:53pt" width="71"></td>
+ </tr>
+ <tr style="mso-height-source:userset;height:15.0pt" height="20">
+  <td class="xl36499" style="height:15.0pt" height="20"></td>
+  <td class="xl36503"></td>
+  <td class="xl36699"></td>
+  <td class="xl36863">1</td>
+  <td class="xl36500">3</td>
+  <td class="xl36863">4</td>
+  <td class="xl36864">5</td>
+  <td class="xl36500">6</td>
+  <td class="xl36863">7</td>
+  <td class="xl36864">8</td>
+  <td class="xl36500">9</td>
+  <td class="xl36863">10</td>
+  <td class="xl36864">11</td>
+  <td class="xl36500">12</td>
+  <td class="xl36863">13</td>
+  <td class="xl36864">14</td>
+  <td class="xl36500">15</td>
+  <td class="xl36863">16</td>
+  <td class="xl36864">17</td>
+  <td class="xl36500">18</td>
+  <td class="xl36863">19</td>
+  <td class="xl36864">20</td>
+  <td class="xl36500">21</td>
+  <td class="xl36863">22</td>
+  <td class="xl36864">23</td>
+  <td class="xl36500">24</td>
+  <td class="xl36863">25</td>
+  <td class="xl36864">26</td>
+  <td class="xl36500">27</td>
+  <td class="xl36863">28</td>
+  <td class="xl36864">29</td>
+  <td class="xl36500">30</td>
+  <td class="xl36863">31</td>
+  <td class="xl36864">32</td>
+  <td class="xl36500">33</td>
+  <td class="xl36863">34</td>
+  <td class="xl36864">35</td>
+  <td class="xl36500">36</td>
+  <td class="xl36863">37</td>
+  <td class="xl36864">38</td>
+  <td class="xl36500">39</td>
+  <td class="xl36863">40</td>
+  <td class="xl36864">41</td>
+  <td class="xl36500">42</td>
+  <td class="xl36863">43</td>
+  <td class="xl36864">44</td>
+  <td class="xl36500">45</td>
+  <td class="xl36863">46</td>
+  <td class="xl36864">47</td>
+  <td class="xl36500">48</td>
+  <td class="xl36863">49</td>
+  <td class="xl36864">50</td>
+  <td class="xl36500">51</td>
+  <td class="xl36863">52</td>
+  <td class="xl36864">53</td>
+  <td class="xl36500">54</td>
+  <td class="xl36863">55</td>
+  <td class="xl36864">56</td>
+  <td class="xl36500">57</td>
+  <td class="xl36863">58</td>
+  <td class="xl36864">59</td>
+  <td class="xl36500">60</td>
+  <td class="xl36863">61</td>
+  <td class="xl36864">62</td>
+  <td class="xl36500">63</td>
+  <td class="xl36863">64</td>
+  <td class="xl36864">65</td>
+  <td class="xl36500">66</td>
+  <td class="xl36863">67</td>
+  <td class="xl36864">68</td>
+  <td class="xl36500">69</td>
+  <td class="xl36863">70</td>
+  <td class="xl36864">71</td>
+  <td class="xl36500">72</td>
+  <td class="xl36863">73</td>
+  <td class="xl36864">74</td>
+  <td class="xl36500">75</td>
+  <td class="xl36863">76</td>
+  <td class="xl36864">77</td>
+  <td class="xl36500">78</td>
+  <td class="xl36863">79</td>
+  <td class="xl36864">80</td>
+  <td class="xl36500">81</td>
+  <td class="xl36863">82</td>
+  <td class="xl36864">83</td>
+  <td class="xl36500">84</td>
+  <td class="xl36864">85</td>
+  <td class="xl36500">86</td>
+  <td class="xl36864">87</td>
+  <td class="xl36500">88</td>
+  <td class="xl36864">89</td>
+  <td class="xl36500">90</td>
+  <td class="xl36864">91</td>
+  <td class="xl36500">92</td>
+  <td class="xl36864">93</td>
+  <td class="xl36500">94</td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36813"></td>
+  <td class="xl36502"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36500"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36500"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36500"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36500"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36500"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36500"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36500"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36500"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36664"></td>
+  <td class="xl36813"></td>
+  <td class="xl36501"></td>
+  <td class="xl36813"></td>
+  <td class="xl36501"></td>
+  <td class="xl36501"></td>
+  <td class="xl36813"></td>
+  <td class="xl36503"></td>
+  <td class="xl36503"></td>
+ </tr>
+ <tr class="xl36504" style="mso-height-source:userset;height:18.0pt" height="24">
+  <td rowspan="4" class="xl37124" style="border-bottom:.5pt solid black;
+  height:57.25pt;width:27pt" width="36" height="75">0</td>
+  <td rowspan="4" class="xl37110" style="border-bottom:.5pt solid black;
+  width:27pt" width="36">区域</td>
+  <td rowspan="4" class="xl37110" style="border-bottom:.5pt solid black;
+  width:30pt" width="40">城市</td>
+  <td rowspan="4" class="xl37140" style="width:176pt" width="234">中心名称</td>
+  <td colspan="50" class="xl37094" style="border-right:.5pt solid black;
+  width:2305pt" width="3046">当日数据</td>
+  <td colspan="52" class="xl37094" style="border-right:.5pt solid black;
+  border-left:none;width:2500pt" width="3307">当月累计</td>
+  <td colspan="8" class="xl37094" style="border-right:.5pt solid black;
+  border-left:none;width:398pt" width="530">各渠道缴费占比</td>
+  <td colspan="40" class="xl37094" style="border-right:.5pt solid black;
+  border-left:none;width:1848pt" width="2457">各渠道转化率</td>
+  <td colspan="3" class="xl37083" style="border-left:none;width:250pt" width="333">各产品线-当月累计缴费</td>
+  <td class="xl36716" style="width:99pt" width="132">　</td>
+  <td colspan="2" class="xl37085" style="border-right:1.0pt solid black;
+  width:164pt" width="219">当月月报-截止0701数据</td>
+  <td class="xl36504" style="width:53pt" width="71"></td>
+  <td class="xl36504" style="width:53pt" width="71"></td>
+ </tr>
+ <tr class="xl36505" style="mso-height-source:userset;height:13.9pt" height="18">
+  <td rowspan="3" class="xl37113" style="border-bottom:.5pt solid black;
+  height:39.25pt;width:57pt" width="76" height="51">信息量</td>
+  <td colspan="8" class="xl36506" style="width:371pt" width="490">信息量渠道分类</td>
+  <td rowspan="3" class="xl36506" style="width:44pt" width="58">承诺<br>
+    到访量</td>
+  <td colspan="8" class="xl36506" style="border-left:none;width:365pt" width="482">承诺到访量渠道分类</td>
+  <td rowspan="3" class="xl36506" style="width:44pt" width="58">实际<br>
+    到访量</td>
+  <td colspan="8" class="xl36506" style="border-left:none;width:352pt" width="464">实际到访量渠道分类</td>
+  <td colspan="11" class="xl37115" style="border-right:.5pt solid black;
+  width:490pt" width="648">报名量</td>
+  <td colspan="12" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:582pt" width="770">全款缴费量</td>
+  <td rowspan="3" class="xl37113" style="border-bottom:.5pt solid black;
+  width:49pt" width="65">信息量</td>
+  <td colspan="8" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:376pt" width="498">信息量渠道分类</td>
+  <td rowspan="3" class="xl37113" style="border-bottom:.5pt solid black;
+  width:52pt" width="69">承诺<br>
+    到访量</td>
+  <td colspan="8" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:352pt" width="464">承诺到访量渠道分类</td>
+  <td rowspan="3" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">实际<br>
+    到访量</td>
+  <td colspan="8" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:352pt" width="464">实际到访量渠道分类</td>
+  <td colspan="11" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:523pt" width="692">报名量</td>
+  <td colspan="12" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:604pt" width="800">全款缴费量</td>
+  <td rowspan="3" class="xl37129" style="border-bottom:.5pt solid black;
+  width:87pt" width="116">预算任务（元）</td>
+  <td rowspan="3" class="xl37128" style="border-bottom:.5pt solid black;
+  width:61pt" width="81">缴费<br>
+    完成率</td>
+  <td rowspan="3" class="xl36506" style="width:52pt" width="69">搜索</td>
+  <td rowspan="3" class="xl36506" style="width:47pt" width="63">口碑</td>
+  <td rowspan="3" class="xl36506" style="width:55pt" width="73">地推</td>
+  <td rowspan="3" class="xl36506" style="width:52pt" width="69">中心<br>
+    外呼</td>
+  <td rowspan="3" class="xl37113" style="border-bottom:.5pt solid black;
+  width:49pt" width="65">直访</td>
+  <td rowspan="3" class="xl36506" style="width:51pt" width="68">社群</td>
+  <td rowspan="3" class="xl37113" style="border-bottom:.5pt solid black;
+  width:45pt" width="60">集团<br>
+    400</td>
+  <td rowspan="3" class="xl36506" style="width:47pt" width="63">其他</td>
+  <td colspan="5" class="xl36506" style="border-left:none;width:231pt" width="309">搜索</td>
+  <td colspan="5" class="xl37115" style="border-right:.5pt solid black;
+  width:232pt" width="308">口碑</td>
+  <td colspan="5" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:233pt" width="308">地推</td>
+  <td colspan="5" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:230pt" width="306">中心外呼</td>
+  <td colspan="5" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:239pt" width="317">直访</td>
+  <td colspan="5" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:212pt" width="284">社群</td>
+  <td colspan="5" class="xl36506" style="width:236pt" width="313">集团400</td>
+  <td colspan="5" class="xl36506" style="border-left:none;width:235pt" width="312">其他</td>
+  <td colspan="2" class="xl37133" style="border-right:.5pt solid black;
+  width:158pt" width="210">少儿编程</td>
+  <td colspan="2" class="xl37133" style="border-right:.5pt solid black;
+  border-left:none;width:191pt" width="255">乐高机器人</td>
+  <td rowspan="3" class="xl37103" style="border-bottom:.5pt solid black;
+  width:81pt" width="108">课耗收入（元）</td>
+  <td rowspan="3" class="xl37095" style="border-bottom:.5pt solid black;
+  width:83pt" width="111">现金收入（元）</td>
+  <td class="xl36505" style="width:53pt" width="71"></td>
+  <td class="xl36505" style="width:53pt" width="71"></td>
+ </tr>
+ <tr class="xl36505" style="mso-height-source:userset;height:13.9pt" height="18">
+  <td rowspan="2" class="xl36506" style="height:25.35pt;
+  border-top:none;width:63pt" width="84" height="33">搜索</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">口碑</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">地推</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">中心<br>
+    外呼</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">直访</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">社群</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">集团400</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">其他</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">搜索</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">口碑</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:52pt" width="69">地推</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">中心<br>
+    外呼</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:49pt" width="65">直访</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">社群</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">集团400</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">其他</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">搜索</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">口碑</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">地推</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">中心<br>
+    外呼</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">直访</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">社群</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">集团400</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:44pt" width="58">其他</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:48pt" width="64">新增</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:45pt" width="60">续费</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:45pt" width="60">合计</td>
+  <td colspan="8" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:352pt" width="464">新增-渠道分类</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:46pt" width="61">新增</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:52pt" width="69">续费</td>
+  <td colspan="2" class="xl36508" style="width:132pt" width="176">合计</td>
+  <td colspan="8" class="xl37115" style="border-right:.5pt solid black;
+  width:352pt" width="464">新增-渠道分类</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:48pt" width="64">搜索</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">口碑</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:57pt" width="76">地推</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:51pt" width="68">中心<br>
+    外呼</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">直访</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">社群</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">集团400</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">其他</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">搜索</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">口碑</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">地推</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">中心<br>
+    外呼</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">直访</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">社群</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">集团400</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">其他</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">搜索</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">口碑</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">地推</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">中心<br>
+    外呼</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">直访</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">社群</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">集团400</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:44pt" width="58">其他</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:47pt" width="63">新增</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:59pt" width="78">续费</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:59pt" width="78">合计</td>
+  <td colspan="8" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:358pt" width="473">新增-渠道分类</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:63pt" width="84">新增</td>
+  <td rowspan="2" class="xl37113" style="border-bottom:.5pt solid black;
+  width:45pt" width="60">续费</td>
+  <td colspan="2" class="xl37119" style="border-right:.5pt solid black;
+  border-left:none;width:144pt" width="192">合计</td>
+  <td colspan="8" class="xl37115" style="border-right:.5pt solid black;
+  border-left:none;width:352pt" width="464">新增-渠道分类</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:55pt" width="73">总转率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:44pt" width="59">承诺<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:44pt" width="59">实际<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:44pt" width="59">报名率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:44pt" width="59">缴费率</td>
+  <td rowspan="2" class="xl36506" style="width:60pt" width="80">总转率</td>
+  <td rowspan="2" class="xl37132" style="width:43pt" width="57">承诺<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:43pt" width="57">实际<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:43pt" width="57">报名率</td>
+  <td rowspan="2" class="xl37132" style="width:43pt" width="57">缴费率</td>
+  <td rowspan="2" class="xl36506" style="width:50pt" width="66">实到转<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>缴费率</td>
+  <td rowspan="2" class="xl37132" style="width:44pt" width="58">承诺<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:51pt" width="68">实际<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:44pt" width="58">报名率</td>
+  <td rowspan="2" class="xl37132" style="width:44pt" width="58">缴费率</td>
+  <td rowspan="2" class="xl36506" style="width:50pt" width="66">实到转<span style="mso-spacerun:yes">&nbsp;&nbsp; </span>缴费率</td>
+  <td rowspan="2" class="xl37132" style="width:45pt" width="60">承诺<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:45pt" width="60">实际<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:45pt" width="60">报名率</td>
+  <td rowspan="2" class="xl37132" style="width:45pt" width="60">缴费率</td>
+  <td rowspan="2" class="xl36506" style="width:55pt" width="73">总转率</td>
+  <td rowspan="2" class="xl37132" style="width:46pt" width="61">承诺<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:46pt" width="61">实际<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:46pt" width="61">报名率</td>
+  <td rowspan="2" class="xl37132" style="width:46pt" width="61">缴费率</td>
+  <td rowspan="2" class="xl36506" style="width:48pt" width="64">总转率</td>
+  <td rowspan="2" class="xl37132" style="width:41pt" width="55">承诺<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:41pt" width="55">实际<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="width:41pt" width="55">报名率</td>
+  <td rowspan="2" class="xl37132" style="width:41pt" width="55">缴费率</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:46pt" width="61">总转率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:44pt" width="58">承诺<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:50pt" width="67">实际<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:52pt" width="69">报名率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:44pt" width="58">缴费率</td>
+  <td rowspan="2" class="xl36506" style="border-top:none;width:47pt" width="62">总转率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:51pt" width="68">承诺<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:47pt" width="63">实际<br>
+    到访率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:43pt" width="57">报名率</td>
+  <td rowspan="2" class="xl37132" style="border-top:none;width:47pt" width="62">缴费率</td>
+  <td rowspan="2" class="xl37135" style="border-bottom:.5pt solid black;
+  width:101pt" width="134">缴费金额（元）</td>
+  <td rowspan="2" class="xl37137" style="border-bottom:.5pt solid black;
+  width:57pt" width="76">占比</td>
+  <td rowspan="2" class="xl37135" style="border-bottom:.5pt solid black;
+  width:92pt" width="123">缴费金额（元）</td>
+  <td rowspan="2" class="xl37137" style="border-bottom:.5pt solid black;
+  width:99pt" width="132">占比</td>
+  <td class="xl36505" style="width:53pt" width="71"></td>
+  <td class="xl36505" style="width:53pt" width="71"></td>
+ </tr>
+ <tr class="xl36505" style="mso-height-source:userset;height:11.45pt" height="15">
+  <td class="xl36506" style="height:11.45pt;width:44pt" width="58" height="15">搜索</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">口碑</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">地推</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">中心外呼</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">直访</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">社群</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">集团400</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">其他</td>
+  <td class="xl36506" style="border-top:none;width:53pt" width="71">人数</td>
+  <td class="xl36507" style="border-top:none;border-left:none;
+  width:79pt" width="105">现金（元）</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">搜索</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">口碑</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">地推</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">中心外呼</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">直访</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">社群</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">集团400</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">其他</td>
+  <td class="xl36506" style="width:44pt" width="58">搜索</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">口碑</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">地推</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">中心<br>
+    外呼</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">直访</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">社群</td>
+  <td class="xl36506" style="border-left:none;width:50pt" width="67">集团400</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">其他</td>
+  <td class="xl36506" style="width:45pt" width="60">人数</td>
+  <td class="xl36508" style="border-left:none;width:99pt" width="132">现金（元）</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">搜索</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">口碑</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">地推</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">中心<br>
+    外呼</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">直访</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">社群</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">集团400</td>
+  <td class="xl36506" style="border-left:none;width:44pt" width="58">其他</td>
+  <td class="xl36505" style="width:53pt" width="71"></td>
+  <td class="xl36505" style="width:53pt" width="71"></td>
+ </tr>
+ <tr class="xl36505" style="display:none;mso-height-source:userset;
+  mso-height-alt:432" height="0">
+  <td class="xl36509" style="border-top:none;width:27pt" width="36">　</td>
+  <td class="xl36690" style="width:27pt" width="36">　</td>
+  <td class="xl36752" style="width:30pt" width="40">　</td>
+  <td class="xl36510" style="width:176pt" width="234">　</td>
+  <td class="xl36511" style="width:57pt" width="76">c56</td>
+  <td class="xl36511" style="width:63pt" width="84">d56</td>
+  <td class="xl36511" style="width:44pt" width="58">h56</td>
+  <td class="xl36511" style="width:44pt" width="58">g56</td>
+  <td class="xl36511" style="width:44pt" width="58">e56</td>
+  <td class="xl36511" style="width:44pt" width="58">j56</td>
+  <td class="xl36511" style="width:44pt" width="58">i56</td>
+  <td class="xl36511" style="width:44pt" width="58">f56</td>
+  <td class="xl36511" style="width:44pt" width="58">k56</td>
+  <td class="xl36511" style="width:44pt" width="58">l56</td>
+  <td class="xl36511" style="width:44pt" width="58">m56</td>
+  <td class="xl36511" style="width:44pt" width="58">q56</td>
+  <td class="xl36511" style="width:52pt" width="69">p56</td>
+  <td class="xl36511" style="width:44pt" width="58">n56</td>
+  <td class="xl36511" style="width:49pt" width="65">s56</td>
+  <td class="xl36511" style="width:44pt" width="58">r56</td>
+  <td class="xl36511" style="width:44pt" width="58">o56</td>
+  <td class="xl36511" style="width:44pt" width="58">t56</td>
+  <td class="xl36511" style="width:44pt" width="58">u56</td>
+  <td class="xl36511" style="width:44pt" width="58">v56</td>
+  <td class="xl36511" style="width:44pt" width="58">z56</td>
+  <td class="xl36511" style="width:44pt" width="58">y56</td>
+  <td class="xl36511" style="width:44pt" width="58">w56</td>
+  <td class="xl36511" style="width:44pt" width="58">ab56</td>
+  <td class="xl36511" style="width:44pt" width="58">aa56</td>
+  <td class="xl36511" style="width:44pt" width="58">x56</td>
+  <td class="xl36511" style="width:44pt" width="58">ac56</td>
+  <td class="xl36511" style="width:48pt" width="64">　</td>
+  <td class="xl36511" style="width:45pt" width="60">al56</td>
+  <td class="xl36511" style="width:45pt" width="60">az56</td>
+  <td class="xl36511" style="width:44pt" width="58">ad56</td>
+  <td class="xl36511" style="width:44pt" width="58">ah56</td>
+  <td class="xl36511" style="width:44pt" width="58">ag56</td>
+  <td class="xl36511" style="width:44pt" width="58">ae56</td>
+  <td class="xl36511" style="width:44pt" width="58">aj56</td>
+  <td class="xl36511" style="width:44pt" width="58">ai56</td>
+  <td class="xl36511" style="width:44pt" width="58">af56</td>
+  <td class="xl36511" style="width:44pt" width="58">ak56</td>
+  <td class="xl36511" style="width:46pt" width="61">　</td>
+  <td class="xl36511" style="width:52pt" width="69">av56</td>
+  <td class="xl36511" style="width:53pt" width="71">ba56</td>
+  <td class="xl36812" style="width:79pt" width="105">bh56</td>
+  <td class="xl36511" style="width:44pt" width="58">an56</td>
+  <td class="xl36511" style="width:44pt" width="58">ar56</td>
+  <td class="xl36511" style="width:44pt" width="58">aq56</td>
+  <td class="xl36511" style="width:44pt" width="58">ao56</td>
+  <td class="xl36511" style="width:44pt" width="58">at56</td>
+  <td class="xl36511" style="width:44pt" width="58">as56</td>
+  <td class="xl36511" style="width:44pt" width="58">ap56</td>
+  <td class="xl36511" style="width:44pt" width="58">au56</td>
+  <td class="xl36511" style="width:49pt" width="65">c132</td>
+  <td class="xl36511" style="width:48pt" width="64">d132</td>
+  <td class="xl36511" style="width:44pt" width="58">h132</td>
+  <td class="xl36511" style="width:57pt" width="76">g132</td>
+  <td class="xl36511" style="width:51pt" width="68">e132</td>
+  <td class="xl36511" style="width:44pt" width="58">j132</td>
+  <td class="xl36511" style="width:44pt" width="58">i132</td>
+  <td class="xl36511" style="width:44pt" width="58">f132</td>
+  <td class="xl36511" style="width:44pt" width="58">k132</td>
+  <td class="xl36511" style="width:52pt" width="69">l132</td>
+  <td class="xl36511" style="width:44pt" width="58">m132</td>
+  <td class="xl36511" style="width:44pt" width="58">q132</td>
+  <td class="xl36511" style="width:44pt" width="58">p132</td>
+  <td class="xl36511" style="width:44pt" width="58">n132</td>
+  <td class="xl36511" style="width:44pt" width="58">s132</td>
+  <td class="xl36511" style="width:44pt" width="58">r132</td>
+  <td class="xl36511" style="width:44pt" width="58">o132</td>
+  <td class="xl36511" style="width:44pt" width="58">t132</td>
+  <td class="xl36511" style="width:44pt" width="58">u132</td>
+  <td class="xl36511" style="width:44pt" width="58">v132</td>
+  <td class="xl36511" style="width:44pt" width="58">z132</td>
+  <td class="xl36511" style="width:44pt" width="58">y132</td>
+  <td class="xl36511" style="width:44pt" width="58">w132</td>
+  <td class="xl36511" style="width:44pt" width="58">ab132</td>
+  <td class="xl36511" style="width:44pt" width="58">aa132</td>
+  <td class="xl36511" style="width:44pt" width="58">x132</td>
+  <td class="xl36511" style="width:44pt" width="58">ac132</td>
+  <td class="xl36511" style="width:47pt" width="63">　</td>
+  <td class="xl36511" style="width:59pt" width="78">al132</td>
+  <td class="xl36511" style="width:59pt" width="78">az132</td>
+  <td class="xl36511" style="width:44pt" width="58">ad132</td>
+  <td class="xl36511" style="width:44pt" width="58">ah132</td>
+  <td class="xl36511" style="width:44pt" width="58">ag132</td>
+  <td class="xl36511" style="width:44pt" width="58">ae132</td>
+  <td class="xl36511" style="width:44pt" width="58">aj132</td>
+  <td class="xl36511" style="width:44pt" width="58">ai132</td>
+  <td class="xl36511" style="width:50pt" width="67">af132</td>
+  <td class="xl36511" style="width:44pt" width="58">ak132</td>
+  <td class="xl36511" style="width:63pt" width="84">　</td>
+  <td class="xl36511" style="width:45pt" width="60">av132</td>
+  <td class="xl36511" style="width:45pt" width="60">ba132</td>
+  <td class="xl36512" style="width:99pt" width="132">bh132</td>
+  <td class="xl36511" style="width:44pt" width="58">an132</td>
+  <td class="xl36511" style="width:44pt" width="58">ar132</td>
+  <td class="xl36511" style="width:44pt" width="58">aq132</td>
+  <td class="xl36511" style="width:44pt" width="58">ao132</td>
+  <td class="xl36511" style="width:44pt" width="58">at132</td>
+  <td class="xl36511" style="width:44pt" width="58">as132</td>
+  <td class="xl36511" style="width:44pt" width="58">ap132</td>
+  <td class="xl36511" style="width:44pt" width="58">au132</td>
+  <td class="xl36814" style="width:87pt" width="116">　</td>
+  <td class="xl36513" style="width:61pt" width="81">　</td>
+  <td class="xl36511" style="width:52pt" width="69">　</td>
+  <td class="xl36511" style="width:47pt" width="63">　</td>
+  <td class="xl36511" style="width:55pt" width="73">　</td>
+  <td class="xl36511" style="width:52pt" width="69">　</td>
+  <td class="xl36511" style="width:49pt" width="65">　</td>
+  <td class="xl36511" style="width:51pt" width="68">　</td>
+  <td class="xl36511" style="width:45pt" width="60">　</td>
+  <td class="xl36511" style="width:47pt" width="63">　</td>
+  <td class="xl36511" style="width:55pt" width="73">　</td>
+  <td class="xl36691" style="width:44pt" width="59">　</td>
+  <td class="xl36691" style="width:44pt" width="59">　</td>
+  <td class="xl36691" style="width:44pt" width="59">　</td>
+  <td class="xl36692" style="width:44pt" width="59">　</td>
+  <td class="xl36511" style="width:60pt" width="80">　</td>
+  <td class="xl36691" style="width:43pt" width="57">　</td>
+  <td class="xl36691" style="width:43pt" width="57">　</td>
+  <td class="xl36691" style="width:43pt" width="57">　</td>
+  <td class="xl36691" style="width:43pt" width="57">　</td>
+  <td class="xl36511" style="width:50pt" width="66">　</td>
+  <td class="xl36691" style="width:44pt" width="58">　</td>
+  <td class="xl36691" style="width:51pt" width="68">　</td>
+  <td class="xl36691" style="width:44pt" width="58">　</td>
+  <td class="xl36691" style="width:44pt" width="58">　</td>
+  <td class="xl36511" style="width:50pt" width="66">　</td>
+  <td class="xl36691" style="width:45pt" width="60">　</td>
+  <td class="xl36691" style="width:45pt" width="60">　</td>
+  <td class="xl36691" style="width:45pt" width="60">　</td>
+  <td class="xl36691" style="width:45pt" width="60">　</td>
+  <td class="xl36511" style="width:55pt" width="73">　</td>
+  <td class="xl36691" style="width:46pt" width="61">　</td>
+  <td class="xl36691" style="width:46pt" width="61">　</td>
+  <td class="xl36691" style="width:46pt" width="61">　</td>
+  <td class="xl36691" style="width:46pt" width="61">　</td>
+  <td class="xl36511" style="width:48pt" width="64">　</td>
+  <td class="xl36691" style="width:41pt" width="55">　</td>
+  <td class="xl36691" style="width:41pt" width="55">　</td>
+  <td class="xl36691" style="width:41pt" width="55">　</td>
+  <td class="xl36691" style="width:41pt" width="55">　</td>
+  <td class="xl36511" style="width:46pt" width="61">　</td>
+  <td class="xl36691" style="width:44pt" width="58">　</td>
+  <td class="xl36691" style="width:50pt" width="67">　</td>
+  <td class="xl36691" style="width:52pt" width="69">　</td>
+  <td class="xl36691" style="width:44pt" width="58">　</td>
+  <td class="xl36693" style="width:47pt" width="62">　</td>
+  <td class="xl36691" style="width:51pt" width="68">　</td>
+  <td class="xl36691" style="width:47pt" width="63">　</td>
+  <td class="xl36691" style="width:43pt" width="57">　</td>
+  <td class="xl36691" style="width:47pt" width="62">　</td>
+  <td class="xl36814" style="width:101pt" width="134">bh133</td>
+  <td class="xl36512" style="width:57pt" width="76">　</td>
+  <td class="xl36814" style="width:92pt" width="123">bh134</td>
+  <td class="xl36512" style="width:99pt" width="132">　</td>
+  <td class="xl36960" style="width:81pt" width="108">　</td>
+  <td class="xl36961" style="width:83pt" width="111">　</td>
+  <td class="xl36505" style="width:53pt" width="71"></td>
+  <td class="xl36505" style="width:53pt" width="71"></td>
+ </tr>
+ <tr style="mso-height-source:userset;height:21.6pt" height="28">
+  <td class="xl36855" style="height:21.6pt" height="28">集团<span style="display:
+  none">合计</span></td>
+  <td class="xl36856">　</td>
+  <td class="xl36856">　</td>
+  <td class="xl36857" style="border-left:none">　</td>
+  <td class="xl36986" style="border-left:none">1,799 </td>
+  <td class="xl36986" style="border-left:none">370 </td>
+  <td class="xl36986" style="border-left:none">38 </td>
+  <td class="xl36986" style="border-left:none">1,234 </td>
+  <td class="xl36986" style="border-left:none">44 </td>
+  <td class="xl36986" style="border-left:none">27 </td>
+  <td class="xl36986" style="border-left:none">1 </td>
+  <td class="xl36986" style="border-left:none">5 </td>
+  <td class="xl36986" style="border-left:none">80 </td>
+  <td class="xl36986" style="border-left:none">803 </td>
+  <td class="xl36986" style="border-left:none">322 </td>
+  <td class="xl36986" style="border-left:none">35 </td>
+  <td class="xl36986" style="border-left:none">264 </td>
+  <td class="xl36986" style="border-left:none">78 </td>
+  <td class="xl36986" style="border-left:none">16 </td>
+  <td class="xl36986" style="border-left:none">0 </td>
+  <td class="xl36986" style="border-left:none">8 </td>
+  <td class="xl36986" style="border-left:none">80 </td>
+  <td class="xl36986" style="border-left:none">870 </td>
+  <td class="xl36986" style="border-left:none">361 </td>
+  <td class="xl36986" style="border-left:none">75 </td>
+  <td class="xl36986" style="border-left:none">224 </td>
+  <td class="xl36986" style="border-left:none">105 </td>
+  <td class="xl36986" style="border-left:none">34 </td>
+  <td class="xl36986" style="border-left:none">3 </td>
+  <td class="xl36986" style="border-left:none">7 </td>
+  <td class="xl36986" style="border-left:none">61 </td>
+  <td class="xl36986" style="border-left:none">162 </td>
+  <td class="xl36986" style="border-left:none">23 </td>
+  <td class="xl36986" style="border-left:none">189 </td>
+  <td class="xl36986" style="border-left:none">70 </td>
+  <td class="xl36986" style="border-left:none">17 </td>
+  <td class="xl36986" style="border-left:none">38 </td>
+  <td class="xl36986" style="border-left:none">13 </td>
+  <td class="xl36986" style="border-left:none">13 </td>
+  <td class="xl36986" style="border-left:none">1 </td>
+  <td class="xl36986" style="border-left:none">2 </td>
+  <td class="xl36986" style="border-left:none">12 </td>
+  <td class="xl36986" style="border-left:none">181 </td>
+  <td class="xl36986" style="border-left:none">24 </td>
+  <td class="xl36986" style="border-left:none">205 </td>
+  <td class="xl36986" style="border-left:none">2,240,286 </td>
+  <td class="xl36820" style="border-left:none">76</td>
+  <td class="xl36820" style="border-left:none">23</td>
+  <td class="xl36820" style="border-left:none">39</td>
+  <td class="xl36820" style="border-left:none">15</td>
+  <td class="xl36820" style="border-left:none">14</td>
+  <td class="xl36820" style="border-left:none">2</td>
+  <td class="xl36820" style="border-left:none">3</td>
+  <td class="xl36820" style="border-left:none">9</td>
+  <td class="xl36820" style="border-left:none">10097</td>
+  <td class="xl36820" style="border-left:none">3614</td>
+  <td class="xl36820" style="border-left:none">204</td>
+  <td class="xl36820" style="border-left:none">5037</td>
+  <td class="xl36820" style="border-left:none">466</td>
+  <td class="xl36820" style="border-left:none">143</td>
+  <td class="xl36820" style="border-left:none">19</td>
+  <td class="xl36820" style="border-left:none">44</td>
+  <td class="xl36820" style="border-left:none">566</td>
+  <td class="xl36820" style="border-left:none">3073</td>
+  <td class="xl36820" style="border-left:none">1318</td>
+  <td class="xl36820" style="border-left:none">137</td>
+  <td class="xl36820" style="border-left:none">933</td>
+  <td class="xl36820" style="border-left:none">334</td>
+  <td class="xl36820" style="border-left:none">66</td>
+  <td class="xl36820" style="border-left:none">10</td>
+  <td class="xl36820" style="border-left:none">27</td>
+  <td class="xl36820" style="border-left:none">238</td>
+  <td class="xl36820" style="border-left:none">2428</td>
+  <td class="xl36820" style="border-left:none">998</td>
+  <td class="xl36820" style="border-left:none">200</td>
+  <td class="xl36820" style="border-left:none">642</td>
+  <td class="xl36820" style="border-left:none">276</td>
+  <td class="xl36820" style="border-left:none">105</td>
+  <td class="xl36820" style="border-left:none">13</td>
+  <td class="xl36820" style="border-left:none">15</td>
+  <td class="xl36820" style="border-left:none">171</td>
+  <td class="xl36820" style="border-left:none">595</td>
+  <td class="xl36820" style="border-left:none">122</td>
+  <td class="xl36820" style="border-left:none">717</td>
+  <td class="xl36820" style="border-left:none">227</td>
+  <td class="xl36820" style="border-left:none">72</td>
+  <td class="xl36820" style="border-left:none">126</td>
+  <td class="xl36820" style="border-left:none">46</td>
+  <td class="xl36820" style="border-left:none">74</td>
+  <td class="xl36820" style="border-left:none">7</td>
+  <td class="xl36820" style="border-left:none">5</td>
+  <td class="xl36820" style="border-left:none">45</td>
+  <td class="xl36820" style="border-left:none">696</td>
+  <td class="xl36820" style="border-left:none">171</td>
+  <td class="xl36820" style="border-left:none">829</td>
+  <td class="xl36986" style="border-left:none">7,932,001 </td>
+  <td class="xl36820" style="border-left:none">238</td>
+  <td class="xl36820" style="border-left:none">89</td>
+  <td class="xl36820" style="border-left:none">124</td>
+  <td class="xl36820" style="border-left:none">36</td>
+  <td class="xl36820" style="border-left:none">81</td>
+  <td class="xl36820" style="border-left:none">7</td>
+  <td class="xl36820" style="border-left:none">8</td>
+  <td class="xl36820" style="border-left:none">81</td>
+  <td class="xl36996" style="border-left:none">29,678,975 </td>
+  <td class="xl36514" style="border-left:none">26.7%</td>
+  <td class="xl36515">34.2%</td>
+  <td class="xl36821" style="border-left:none">12.8%</td>
+  <td class="xl36821" style="border-left:none">17.8%</td>
+  <td class="xl36821" style="border-left:none">5.2%</td>
+  <td class="xl36821" style="border-left:none">11.6%</td>
+  <td class="xl36821" style="border-left:none">1.0%</td>
+  <td class="xl36821" style="border-left:none">1.1%</td>
+  <td class="xl36822" style="border-left:none">11.6%</td>
+  <td class="xl36515" style="border-left:none">6.6%</td>
+  <td class="xl36516">36%</td>
+  <td class="xl36823" style="border-left:none">76%</td>
+  <td class="xl36823" style="border-left:none">23%</td>
+  <td class="xl36824" style="border-left:none">105%</td>
+  <td class="xl36821">43.6%</td>
+  <td class="xl36516">67%</td>
+  <td class="xl36823" style="border-left:none">146%</td>
+  <td class="xl36823" style="border-left:none">36%</td>
+  <td class="xl36823" style="border-left:none">124%</td>
+  <td class="xl36821" style="border-left:none">19.3%</td>
+  <td class="xl36823" style="border-left:none">19%</td>
+  <td class="xl36823" style="border-left:none">69%</td>
+  <td class="xl36823" style="border-left:none">20%</td>
+  <td class="xl36517" style="border-left:none">98%</td>
+  <td class="xl36515">13.0%</td>
+  <td class="xl36823" style="border-left:none">72%</td>
+  <td class="xl36823" style="border-left:none">83%</td>
+  <td class="xl36823" style="border-left:none">17%</td>
+  <td class="xl36824" style="border-left:none">78%</td>
+  <td class="xl36518">56.6%</td>
+  <td class="xl36823" style="border-left:none">46%</td>
+  <td class="xl36823" style="border-left:none">159%</td>
+  <td class="xl36823" style="border-left:none">70%</td>
+  <td class="xl36517" style="border-left:none">109%</td>
+  <td class="xl36515">36.8%</td>
+  <td class="xl36823" style="border-left:none">53%</td>
+  <td class="xl36823" style="border-left:none">130%</td>
+  <td class="xl36823" style="border-left:none">54%</td>
+  <td class="xl36824" style="border-left:none">100%</td>
+  <td class="xl36518">18.2%</td>
+  <td class="xl36823" style="border-left:none">61%</td>
+  <td class="xl36823" style="border-left:none">56%</td>
+  <td class="xl36823" style="border-left:none">33%</td>
+  <td class="xl36517" style="border-left:none">160%</td>
+  <td class="xl36515">14.3%</td>
+  <td class="xl36516">42%</td>
+  <td class="xl36823" style="border-left:none">72%</td>
+  <td class="xl36823" style="border-left:none">26%</td>
+  <td class="xl36823" style="border-left:none">180%</td>
+  <td class="xl36962">5,917,202 </td>
+  <td class="xl36953">75%</td>
+  <td class="xl36963">2,014,799 </td>
+  <td class="xl36953">25%</td>
+  <td class="xl36963">986,235 </td>
+  <td class="xl36964">1,183,933 </td>
+  <td class="xl36503"></td>
+  <td class="xl36503"></td>
+ </tr>
+ 
+ 
+ </thead>
+ <tbody>
+
+ 
+</tbody>
+</table>
+
+
+</p>
+        
+        
+        </div>
+    </div>
+</div>  
+<script src="../js/jquery-2.1.1.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/bootstrap-plugins-custom.js?v=20171212114242"></script>
+<script src="../js/plugins/datatables/datatables.min.js?v=20171212114242"></script>
+
+<script src="https://cdn.datatables.net/scroller/1.5.1/js/dataTables.scroller.min.js"></script>
+
+<script src="../i18n/zh-CN.js?v=20171212114242"></script>
+<script src="../js/plugins/layer/layer.js"></script>
+
+<script src="../js/plugins/validate/jquery.validate.custom.js"></script>
+
+<script src="../js/plugins/jquery-number/jquery.number.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="../js/jquery.mockjax.min.js" ></script>
+<script type="text/javascript" src="../demo-data.js"></script>
+
+<script>
+var aar = [];
+
+for(var t=0; t<15;t++){
+ aar.push({
+  "data": "node"+t
+ });
+}
+
+$('#ddd').DataTable({
+    //paging:false,
+    serverSide:true,
+    lengthChange:false, //是否允许用户改变表格每页显示的记录数，显示条数组件
+    ordering : false,//是否启用排序组件，优先级高于columns中的排序控制；
+    searching: false,
+    scrollY:        "500px",//可选，是否固定表格高度，不包括表头；
+    scrollX:        true,//可选是否显示水平滚动条；默认false;
+    scrollCollapse: true,
+    fixedColumns:{//可选，锁定左侧、右侧各两列，需引用列冻结包
+        leftColumns: 4
+    },
+    info:true,
+	deferRender:    true,
+    scroller:       true,
+	ajax{
+		url :'/dt/api/test'
+	},
+	columns: aar
+});
+</script>
+</body>
+</html>

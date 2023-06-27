@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <link rel="stylesheet" href="../css/animate.min.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/plugins/dataTables/datatables.min.css" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>手动调帐</title>
+    <style>
+      #js_dyRows > .panel > .panel-body {
+        position: relative;
+      }
+
+      #js_dyRows .close_remove {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .panel-heading {
+        padding: 5px 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- top bar -->
+    <div class="container-fluid">
+      <div class="row" style="min-height: 50px;">
+        <div
+          class="p-sm col-xs-12 text-center affix-top"
+          style="padding: 10px;"
+          id="demoaffix1"
+          data-spy="affix"
+          data-offset-top="50"
+        >
+          <button id="formSubmit" class="btn btn-primary btn-sm" type="button">确定</button>
+          <button id="formClose" class="btn btn-success btn-sm" type="button">取消</button>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <form id="js_subForm" class="form-horizontal cus-form-format p-sm">
+        <button id="js_addItem" type="button" class="btn btn-sm btn-success pull-right">
+          添加关联单
+        </button>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">缴费单可使用金额</label>
+          <div class="col-sm-3">
+            <input name="totalAmount" type="text" class="form-control input-sm" readonly />
+          </div>
+        </div>
+        <!-- dy rows -->
+        <div id="js_dyRows">
+          <!-- <div class="panel panel-default js-item">
+            <div class="panel-body bg-success">
+              <span class="close_remove glyphicon glyphicon-remove"></span>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">关联订单</label>
+                <div class="col-sm-4">
+                  <div class="input-group input-group-sm">
+                    <input
+                      type="text"
+                      class="form-control input-sm"
+                      value="test stock"
+                      readonly
+                      required
+                    />
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <label class="col-sm-2 control-label">订单金额</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control input-sm" readonly />
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </form>
+    </div>
+    <!-- muban -->
+    <div id="js_muban" class="hidden">
+      <div class="panel panel-default js-item">
+        <div class="panel-body bg-success">
+          <span class="close_remove glyphicon glyphicon-remove"></span>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">关联订单</label>
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm">
+                <input
+                  name="name1_{n}"
+                  type="text"
+                  class="form-control input-sm js-order-code"
+                  readonly
+                  required
+                />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary jd-open-dialog" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <label class="col-sm-2 control-label">订单金额</label>
+            <div class="col-sm-3">
+              <input
+                name="name2_{n}"
+                type="text"
+                class="form-control input-sm js-order-amount"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+    <script>
+      function add_item_fn(defDate) {
+        var o_ = $(clone_html.replace(new RegExp(/(_{n})/g), '_' + muban_idx))
+        $('#js_dyRows').append(o_)
+        muban_idx++
+      }
+      function get_obj_data(d) {
+        var o = {},
+          f_ = $(d).serializeArray()
+        $.each(f_, function (i, n) {
+          var name_ = n['name'].split('_')[0]
+          if (o[name_]) {
+            o[name_] = o[name_] + ',' + n['value']
+          } else {
+            o[name_] = n['value']
+          }
+        })
+        return o
+      }
+
+      // data
+      var muban_idx = 0
+      var clone_html = $('#js_muban').html()
+
+      // init
+      var ins_valid = $('#js_subForm').validate()
+
+      // event bind
+      $('#formSubmit').click(function () {
+        if (ins_valid.form()) {
+          var subData = get_obj_data('#js_subForm')
+          console.log('sub-', subData)
+          // ajax
+        }
+      })
+      $('#js_addItem')
+        .click(function () {
+          if (ins_valid.form()) {
+            add_item_fn()
+          }
+        })
+        .trigger('click')
+      $('#js_dyRows')
+        .on('click', '.close_remove', function () {
+          $(this).closest('.js-item').remove()
+        })
+        .on('click', '.jd-open-dialog', function () {
+          var p_item = $(this).closest('.js-item')
+          // 打开弹窗
+          
+          // 弹窗回调填入数据
+          p_item.find('.js-order-code').val(1).trigger('focusout.validate')
+          p_item.find('.js-order-amount').val(2)
+        })
+    </script>
+  </body>
+</html>

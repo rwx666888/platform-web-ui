@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>富文本编辑器</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    
+	<link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row" style="min-height: 50px;">
+		<div class="p-sm col-xs-12 text-center" style="padding:10px;" id="demoaffix1" data-spy="affix" data-offset-top="50">
+	    	<button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+	        <button class="btn btn-success btn-sm" type="button" onclick="cumParentCallValue()">关闭</button>
+	    </div>
+	</div>
+</div>
+<div class="container" >
+	<form class="form-horizontal">
+	<div class="form-group">
+		<label class="col-sm-2 control-label"><span class="text-danger">*</span> 姓名</label>
+		<div class="col-sm-3"><input class="form-control input-sm" type="text" placeholder=""></div>
+		<label class="col-sm-2 control-label">性别</label>
+		<div class="col-sm-3">
+			<label class="checkbox-inline i-checks"><input type="radio" checked value="option1" name="sexbox"> 男 </label>
+			<label class="checkbox-inline i-checks"><input type="radio" value="option2" name="sexbox"> 女 </label>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label">省份</label>
+		<div class="col-sm-3">
+			<select class="form-control input-sm">
+	            <option value="">- 请选择-</option>
+	            <option value="北京">北京</option>
+	            <option value="河北">河北</option>
+	            <option value="天津">天津</option>
+	        </select>
+		</div>
+		<label class="col-sm-2 control-label">是否本市</label>
+		<div class="col-sm-3">
+			<label class="checkbox-inline i-checks"> <input type="radio" checked value="option1" name="islocal1"> <i></i> 是 </label>
+			<label class="checkbox-inline i-checks"> <input type="radio" value="option2" name="islocal1"> <i></i> 否 </label>
+		</div>
+	</div>
+    <div class="form-group">
+        <!--<div class="col-sm-12">-->
+            <label class="col-sm-2 control-label">编辑内容</label>
+            <div class="col-sm-6" id="editor"></div>
+        <!--</div>-->
+    </div>
+    <div class="form-group">
+    	<div class="col-sm-offset-2 m-b-sm m-t-sm">
+	        <button class="btn btn-sm btn-info" type="button" onclick="getAllHtml()">获得整个html的内容</button>
+	        <button class="btn btn-sm btn-info" type="button" onclick="getContent()">获得内容</button>
+	        <button class="btn btn-sm btn-info" type="button" onclick="setContent()">写入内容</button>
+	        <button class="btn btn-sm btn-info" type="button" onclick="setContent(true)">追加内容</button>
+	        <button class="btn btn-sm btn-info" type="button" onclick="getPlainTxt()">获得带格式的纯文本</button>
+	        <button class="btn btn-sm btn-info" type="button" onclick="hasContent()">判断是否有内容</button>
+	        <button class="btn btn-sm btn-info" type="button" onmousedown="isFocus(event)">编辑器是否获得焦点</button>
+        </div>
+    </div>
+    <div class="form-group">
+    	<div class="col-sm-offset-2 m-b-sm m-t-sm">
+        	<button class="btn btn-sm btn-info" type="button" onclick="getText()">获得当前选中的文本</button>
+        	<button class="btn btn-sm btn-info" type="button" onclick="insertHtml()">插入给定的内容</button>
+        	<button class="btn btn-sm btn-info" type="button" id="enable" onclick="setEnabled()">可以编辑</button>
+        	<button class="btn btn-sm btn-info" type="button" onclick="setDisabled()">不可编辑</button>
+        	<button class="btn btn-sm btn-info" type="button" onclick=" UE.getEditor('editor').setHide()">隐藏编辑器</button>
+        	<button class="btn btn-sm btn-info" type="button" onclick=" UE.getEditor('editor').setShow()">显示编辑器</button>
+        </div>
+    </div>
+    <div class="form-group">
+    	<div class="col-sm-offset-2 m-b-sm m-t-sm">
+        	<button class="btn btn-sm btn-info" type="button" onclick="getLocalData()" >获取草稿箱内容</button>
+        	<button class="btn btn-sm btn-info" type="button" onclick="clearLocalData()" >清空草稿箱</button>
+        </div>
+    </div>
+    </form>
+</div>
+<!-- Mainly scripts -->
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../../js/plugins/layer/layer.js"></script>
+
+<script src="../../js/plugins/ueditor/ueditor.config.js"></script>
+<script src="../../js/plugins/ueditor/ueditor.all.min.js"></script>
+<script src="../../js/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script src="../../i18n/zh-CN.js" ></script>
+<script src="../../js/subindex.js" ></script>
+<script>
+	    //实例化编辑器
+	    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+	    var ue = UE.getEditor('editor',{
+	    	//UEDITOR_HOME_URL:'/platform-ui-local/js/plugins/ueditor/',	//为编辑器实例添加一个路径
+	    	//serverUrl:'',	//服务器统一请求接口路径
+	    	//initialFrameWidth: auto,
+			initialFrameHeight: 280,
+	    	toolbars: [
+			    [
+			        'undo', //撤销
+	                'redo', //重做
+	                'bold', //加粗
+	                'indent', //首行缩进
+	                'italic', //斜体
+	                'underline', //下划线
+	                'strikethrough', //删除线
+	                'subscript', //下标
+	                'fontborder', //字符边框
+	                'superscript', //上标
+	                'source', //源代码
+	                'pasteplain', //纯文本粘贴模式
+	                'selectall', //全选
+	                'removeformat', //清除格式
+	                'cleardoc', //清空文档
+	                'fontfamily', //字体
+	                'fontsize', //字号
+	                'simpleupload', //单图上传
+	                'insertimage', //多图上传
+	                'justifyleft', //居左对齐
+	                'justifyright', //居右对齐
+	                'justifycenter', //居中对齐
+	                'justifyjustify', //两端对齐
+	                'forecolor', //字体颜色
+	                'backcolor', //背景色
+			    ]
+			]
+	    });
+	    //UE.getEditor('editor').reset();
+	    //编辑器加载完成 设置iframe高度
+	    ue.ready( function( editor ) {
+	    	
+	    });
+    function isFocus(e){
+        alert(UE.getEditor('editor').isFocus());
+        UE.dom.domUtils.preventDefault(e)
+    }
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        UE.getEditor('editor').execCommand('insertHtml', value)
+    }
+    function getAllHtml() {
+        alert(UE.getEditor('editor').getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用ueditor')方法可以设置编辑器的内容");
+        UE.getEditor('editor').setContent('欢迎使用ueditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        UE.getEditor('editor').setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        UE.getEditor('editor').setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = UE.getEditor('editor').selection.getRange();
+        range.select();
+        var txt = UE.getEditor('editor').selection.getText();
+        alert(txt)
+    }
+
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(UE.getEditor('editor').hasContents());
+        alert(arr.join("\n"));
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = UE.dom.domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+
+    function getLocalData () {
+        alert(UE.getEditor('editor').execCommand( "getlocaldata" ));
+    }
+    function clearLocalData () {
+        UE.getEditor('editor').execCommand( "clearlocaldata" );
+        alert("已清空草稿箱")
+    }
+</script>
+</body>
+</html>

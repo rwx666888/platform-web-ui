@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>移动平台</title>
+<link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+
+<link href="../../css/bootstrap.min.css" rel="stylesheet">
+<!--<link href="../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+<link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/iconfont.css" type="text/css"/>
+<link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+<link href="../../css/animate.css" rel="stylesheet">
+<link href="../../css/style.css" rel="stylesheet">
+<style>
+
+    .md-2018113001-xxw {
+        /*background: #F9F9F9;*/
+        margin-bottom: 10px;
+    }
+
+    .md-2018113001-xxw .form-group {
+        background: #F9F9F9;
+        padding: 5px 15px;
+    }
+
+    .md-2018113001-xxw .del-btn-xxw {
+        font-size: 16px;
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+
+    .md-2018113001-xxw .del-btn-xxw:hover {
+        color: red;
+        background: #EEEEEE;
+    }
+
+    .md-2018113001-xxw label {
+        padding-top: 0 !important;
+        margin-right: 5px;
+    }
+
+    .md-2018113001-xxw input.form-control {
+        margin-right: 60px;
+        width: 200px;
+    }
+
+    .md-2018113001-xxw .border-class {
+        border: 1px solid #ddd;
+        padding: 10px 25px;
+    }
+
+    .md-2018113001-xxw .icheck-boxx {
+        cursor: pointer;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="row" style="min-height: 50px;">
+        <div class="p-sm col-xs-12 text-center affix-top" style="padding:10px;" id="demoaffix1" data-spy="affix" data-offset-top="50">
+            <button id="save_btn_form" class="btn btn-primary btn-sm" type="button">保存</button>
+            <button class="btn btn-success btn-sm" type="button" onclick="cumParentCallValue()">关闭</button>
+        </div>
+    </div>
+    <div class="row m-t-md">
+        <div class="col-sm-12">
+            <form id="form_id" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">接口名称</label>
+                    <div class="col-sm-4"><input class="form-control input-sm " type="text"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">接口服务地址</label>
+                    <div class="col-sm-4"><input class="form-control input-sm " type="text"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">接口调用频次</label>
+                    <div class="col-sm-3" style="padding-right:5px">
+                        <input style="" class="form-control input-sm " type="text">
+                    </div>
+                    <div class="col-sm-1" style="padding-left:0">
+                        <select style="    padding: 6px 1px;" class="form-control input-sm " type="text">
+                            <option value="1">次/小时</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">接口状态</label>
+                    <div class="col-sm-3">
+                        <div class="switch-on-off visible-md-block visible-lg-block"
+                             style="margin:2.5px 15px 0 0;">
+                            <input type="checkbox" id="switch-checkbox" checked="">
+                            <label class="switch-box" for="switch-checkbox">
+                                <div class="track">
+                                    <div class="knob"></div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">接口返回字段</label>
+                    <div class="col-sm-3">
+                        <button type="button" id="add_code_str" class="btn btn-sm btn-success" href="#">添加字段</button>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10 md-2018113001-xxw form-inline">
+                        <div class="inline border-class js-addlist-boxx">
+                           <!-- <div class="form-group">
+                                <label class="control-label">字段标记</label>
+                                <input cus-specialchars="true" required name="name1" class="form-control input-sm js-inputx" type="text">
+                                <label class="control-label">字段名称</label>
+                                <input required name="name2" class="form-control input-sm js-inputx" type="text">
+                                <label class="icheck-boxx"><input class="i-checks" type="checkbox">必须包含</label>
+                                <span class="js-del-btnx del-btn-xxw text-danger"><i class="glyphicon glyphicon-trash"></i></span>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">接口说明文档</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+
+<script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+
+<script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+
+<script src="../../js/plugins/jsTree/jstree.min.js"></script>
+<script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="../../js/plugins/layer/layer.js"></script>
+<script src="../../i18n/zh-CN.js"></script>
+<script src="../../js/plugins/iCheck/icheck.min.js"></script>
+
+<script src="../../js/subindex.js"></script>
+
+<script>
+
+  $(function () {
+    $('.i-checks').iCheck({
+      checkboxClass: 'icheckbox_square-green',
+      radioClass: 'iradio_square-green',
+    });
+
+    $('#add_code_str').click(function () {
+      var t = COM_TOOLS.get_UID('a');
+      var flag = true;
+      $('.md-2018113001-xxw').find('.js-inputx').each(function () {
+        if (!$('#form_id').validate().element(this)) {
+          flag = false;
+          return false;
+        }
+      });
+      if (flag) {
+        $('.js-addlist-boxx').append('<div class="form-group">' +
+          '<label class=" control-label">字段标记</label>' +
+          ' <input name="name1' + t + '"  ck-numorletteroruline="true" required class="form-control input-sm js-inputx" type="text">' +
+          ' <label class="control-label">字段名称</label>' +
+          ' <input name="name2' + t + '" required class="form-control input-sm js-inputx" type="text">' +
+          ' <label class="icheck-boxx"><input class="i-checks" type="checkbox">必须包含</label>' +
+          ' <span class="js-del-btnx del-btn-xxw text-danger"><i class="glyphicon glyphicon-trash"></i></span>' +
+          '</div>');
+        $('.i-checks').iCheck({
+          checkboxClass: 'icheckbox_square-green',
+          radioClass: 'iradio_square-green',
+        });
+        addborderFun();
+      }
+      return false;
+    });
+    $('.md-2018113001-xxw').on('click', '.js-del-btnx', function () {
+      $(this).closest('.form-group').remove();
+      addborderFun()
+    });
+
+    function addborderFun() {
+      var $b = $('.js-addlist-boxx');
+      if ($('.js-addlist-boxx .form-group').length > 0) {
+        if (!$b.hasClass('border-class')) {
+          $b.addClass('border-class')
+        }
+      }else {
+        $b.removeClass('border-class')
+      }
+    }
+    addborderFun()
+    $('#form_id').validate();
+
+  })
+</script>
+</body>
+
+</html>

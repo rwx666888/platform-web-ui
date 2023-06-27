@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>login</title>
+    <link rel="stylesheet" href="../../css/iconfont.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height: 100%;
+            background: url("../../images/login_page_bg.jpg") no-repeat  center center;
+        }
+        .md2017081801lty{
+            position:absolute;
+            top:15%;
+            left: 729px;
+            width:108px;
+            height:37px;
+            background:url('../../images/login_page_title_03.jpg') no-repeat;
+        }
+
+        .lg-cont-box{
+            position: absolute;
+            top:50%;
+            left: 50%;
+            margin-left: -500px;
+            margin-top: -235px;
+            width: 1000px;
+            height: 470px;
+        }
+        .md20170809-lty-tit {
+            font-size: 24px;
+            color: #299be4;
+            text-align: center;
+            width: 285px;
+            height: 30px;
+            position: absolute;
+            font-weight: 100;
+            margin-top: 20px;
+            top: 21%;
+            left: 649px;
+        }
+        .form-cont {
+            width:285px;
+            height: 210px;
+            position: absolute;
+            top: 35%;
+            left:653px;
+        }
+        .form-cont input {
+            padding-left:40px;
+            display: inline-block;
+            width: 100%;
+            height: 42px;
+            margin-top:9px;
+            border:1px solid #afadad;
+        }
+        .lg-cont-box input.last-yanzheng {
+            width: 118px;
+            padding-left:7px;
+        }
+        .form-cont>p {
+            position: relative;
+            margin-bottom: 9px;
+        }
+        .form-cont>p>i{
+            font-size: 18px;
+            position: absolute;
+            left: 13px;
+            top: 18px;
+            color: #a8a8a8;
+        }
+        .form-cont .lg-yzbox span {
+            display: inline-block;
+            margin-left:15px;
+        }
+        .lg-login {
+            display: block;
+            width:100%;
+            height: 42px;
+            margin-top:9px;
+            font-size: 18px;
+            color: #fff;
+            background: #ffb35b;
+            line-height: 42px;
+            text-align: center;
+        }
+        .lg-login:hover{
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-cont input:focus + i{
+            color: #39a5ff;
+        }
+    </style>
+</head>
+<body>
+<div class="lg-cont-box">
+    <div class="md2017081801lty"></div>
+    <h1 class="md20170809-lty-tit">达内客户关系管理系统</h1>
+    <div class="form-cont">
+        <p>
+            <input class="lg-usern" placeholder="用户名/手机号/邮箱" type="text">
+            <i class="tedufont tedu-icon50"></i>
+        </p>
+        <p>
+            <input class="lg-usern" placeholder="请输入登录密码" type="password">
+            <i class="tedufont tedu-icon49"></i>
+        </p>
+        <div class="lg-yzbox"><input placeholder="请输入验证码" class="last-yanzheng" type="text"><span><img src="../../images/images_yazhengma.gif"></span></div>
+        <span class="lg-login">登录</span>
+    </div>
+</div>
+
+</body>
+</html>

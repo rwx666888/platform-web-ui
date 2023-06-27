@@ -1,0 +1,132 @@
+<!-- 配置模板 start -->
+<!--  注意此模板中，禁止使用id|column_name作为name的属性值,此为框架保留关键字  -->
+
+<script type="text/template" id="template_select2_opt">
+  <div class="form-group">
+      <label>初始化方式：</label>
+      <div>
+          <label class="radio-inline">
+              <input type="radio" name="init_type" value="html" {{if init_type=='html' || !init_type }} checked="checked" {{/if}}> 本地html
+          </label>
+          <label class="radio-inline">
+              <input type="radio" name="init_type" value="ajax" {{if init_type=='ajax' }} checked="checked" {{/if}}> 远程ajax
+          </label>
+      </div>
+  </div>
+  <div class="form-group">
+      <label>接口地址（不包含项目路径/名称）：</label>
+      <input type="text" class="form-control" name="ajaxurl" value="{{ajaxurl}}">
+  </div>
+  <div class="form-group">
+      <label>请求类型：</label>
+      <select class="form-control" name="ajaxtype">
+          <option value="get" {{if ajaxtype=='get' }} selected="selected" {{/if}}>get</option>
+          <option value="post" {{if ajaxtype=='post' }} selected="selected" {{/if}}>post</option>
+      </select>
+  </div>
+  <div class="form-group">
+      <label>请求参数：（JSON）</label>
+      <textarea class="form-control" name="datafn">{{datafn}}</textarea>
+  </div>
+  <div class="form-group">
+      <label>配置信息：</label>
+      <textarea class="form-control" name="opt">{{opt}}</textarea>
+  </div>
+</script>
+
+<script type="text/template" id="template_input-radio_opt">
+  <div class="form-group">
+    <label>设置选取框组的key与value，格式(英文:,分隔)：k1:v1,k2:v2</label>
+    <textarea name="option_str" class="form-control" rows="6">{{option_str}}</textarea>
+  </div>
+</script>
+
+<script type="text/template" id="template_input-checkbox_opt">
+  {{include 'template_input-radio_opt'}}
+</script>
+
+<script type="text/template" id="template_input-radio-i_opt">
+  {{include 'template_input-radio_opt'}}
+</script>
+
+<script type="text/template" id="template_input-checkbox-i_opt">
+  {{include 'template_input-radio_opt'}}
+</script>
+
+<script type="text/template" id="template_form_valid">
+  <div class="checkbox">
+      <label><input type="checkbox" name="required" value="required" {{if required=='required' }} checked="checked" {{/if}}> 必填</label>
+  </div>
+  <div class="checkbox">
+      <label><input type="checkbox" name="digits" value="true" {{if digits=='true' }} checked="checked" {{/if}}> 只能是整数</label>
+  </div>
+  <div class="checkbox">
+      <label><input type="checkbox" name="ck-email" value="true" {{if $data['ck-email']=='true' }} checked="checked" {{/if}}> 邮箱</label>
+  </div>
+  <div class="checkbox">
+      <label><input type="checkbox" name="ck-phone" value="true" {{if $data['ck-phone']=='true' }} checked="checked" {{/if}}> 手机</label>
+  </div>
+</script>
+
+<script type="text/template" id="template_form_valid_code">
+  {{if required=='required' }} required="required" {{/if}}
+  {{if digits=='true' }} digits="true" {{/if}}
+  {{if $data['ck-email']=='true' }} ck-email="true" {{/if}}
+  {{if $data['ck-phone']=='true' }} ck-phone="true" {{/if}}
+</script>
+
+<template id="template_daterangepicker_opt">
+  <p class="help-block">(容我偷个懒吧！！！)</p>
+  <div class="form-group">
+    <label>配置信息（JSON）：<a href="//lianglei.net.cn/demo-ui/platform-help/htmldemo/daterangepicker-demo.html"
+        target="_blank">点击这里获取配置信息</a></label>
+    <textarea name="optjson" class="form-control" rows="6">{{optjson}}</textarea>
+  </div>
+</template>
+
+<script type="text/template" id="template_platform-dict_opt">
+  <div class="form-group">
+    <label>选择字典：</label>
+    <select class="form-control" name="dict_source">
+      <option value="">请选择</option>
+      {{each $imports._DIST_SOURCE_}}
+        <option value="{{$value.url}}" {{if dict_source==$value.url }} selected="selected" {{/if}}>{{$value.text}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>展现形式：</label>
+    <select class="form-control" name="dict_plugtype">
+      <option value="select" {{if dict_plugtype=='select' }} selected="selected" {{/if}}>下拉框</option>
+      <option value="select_level2" {{if dict_plugtype=='select_level2' }} selected="selected" {{/if}}>下拉框（二级联动）</option>
+      <option value="select_level3" {{if dict_plugtype=='select_level3' }} selected="selected" {{/if}}>下拉框（三级联动）</option>
+      <option value="tree" {{if dict_plugtype=='tree' }} selected="selected" {{/if}} disabled="disabled">树形组件</option>
+      <option value="tree_asyn" {{if dict_plugtype=='tree_asyn' }} selected="selected" {{/if}} disabled="disabled">树形组件（异步）</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>设置二级联动表单name：（默认："'一级name'_2"）</label>
+    <input type="text" class="form-control" name="sel_l2_name" value="{{sel_l2_name?sel_l2_name:ele_id_+ '_2'}}"/>
+  </div>
+  <div class="form-group">
+    <label>设置三级联动表单name：（默认："'一级name'_3"）</label>
+    <input type="text" class="form-control" name="sel_l3_name" value="{{sel_l3_name?sel_l3_name:ele_id_+ '_3'}}"/>
+  </div>
+</script>
+
+<script type="text/template" id="template_win-modal">
+  <div class="form-group">
+    <label>窗口名称：</label>
+    <input type="text" class="form-control" name="name" value="{{name}}">
+  </div>
+  <div class="form-group">
+    <label>接口地址（不包含项目路径/名称）：</label>
+    <input type="text" class="form-control" name="url" value="{{url}}">
+  </div>
+  <div class="form-group">
+    <label>配置信息（JSON）：<a href="//lianglei.net.cn/demo-ui/platform-help/htmldemo/layer-demo.html" target="_blank">查看详情</a></label>
+    <textarea class="form-control" name="opt">{{opt}}</textarea>
+  </div>
+</script>
+
+<!-- 配置模板 end -->

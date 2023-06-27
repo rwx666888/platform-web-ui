@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <title>DateRangePicker-demo</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/iconfont.css" rel="stylesheet" />
+        <link rel="stylesheet" href="../css/plugins/daterangepicker/daterangepicker.css">
+
+        <link rel="stylesheet" href="../css/style.css">
+        <style type="text/css">
+            pre {
+                white-space: pre-wrap;
+                white-space: -moz-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                word-wrap: break-word;
+            }
+            .demo-box {
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                position: relative;
+                border-radius: 5px;
+            }
+            .tab-content {
+                overflow-y: auto;
+                max-height: 400px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="panel panel-default m-t-md">
+                <div class="panel-heading">
+                    Date Range Picker&nbsp;&nbsp;&nbsp;具体参照官网地址：
+                    <a target="_blank" href="https://www.daterangepicker.com/">http://www.daterangepicker.com/</a>
+                </div>
+                <div class="panel-body">
+                    <form autocomplete="off" id="demo_opt">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>目标id</label>
+                                    <input type="text" class="form-control input-sm" name="id" id="drp_id" autocomplete="off" />
+                                </div>
+                                <div class="form-group">
+                                    <label>开始时间（双表）</label>
+                                    <input type="text" class="form-control input-sm" name="startDate" id="drp_range_start" readonly="" />
+                                </div>
+                                <div class="form-group">
+                                    <label>结束时间（双表）</label>
+                                    <input type="text" class="form-control input-sm" name="endDate" id="drp_range_end" readonly="" />
+                                </div>
+                                <div class="form-group">
+                                    <label>可选择的开始时间</label>
+                                    <input type="text" class="form-control input-sm" name="minDate" id="drp_select_start" readonly="" />
+                                </div>
+                                <div class="form-group">
+                                    <label>可选择的结束时间</label>
+                                    <input type="text" class="form-control input-sm" name="maxDate" id="drp_select_end" readonly="" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" class="js-inp-checkbox" name="showDropdowns" value="true" /> 年份月份视图
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+									<input type="checkbox" class="js-inp-checkbox" name="timePicker" value="true" />
+									时间视图
+								</label>
+                                    <input class="js_inp" id="drp_timePickerIncrement" name="timePickerIncrement" type="text" placeholder="分钟间隔,默认是5分钟">分钟
+                                </div>
+                                <div class="form-group">
+                                    <label>
+    									<input type="checkbox" class="js-inp-checkbox" name="singleDatePicker" value="true"  /> 开启单日历模式
+    								</label>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+									<input type="checkbox" class="js-inp-checkbox" name="linkedCalendars" value="true" />
+									双表联动
+								</label>
+                                </div>
+                                <!-- autoUpdateInput -->
+                                <div class="form-group">
+                                    <label><input type="checkbox" class="js-inp-checkbox" name="autoApply" value="true" />自动填写数据</label>
+                                    <p class="help-block" style="font-size: 12px;">（如果选中，则单日历且无时间框模式下，不显示确定、取消按钮）</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>选择器位置</label>
+                                    <div class="checkbox">
+                                        <label>
+										<input type="radio" class="js-inp-checkbox" name="opens" value="right" />
+										左下方
+									</label>
+                                        <label>
+										<input type="radio" class="js-inp-checkbox" name="opens" value="left" />
+										右下方
+									</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" class="js-inp-checkbox" id="js-check-days-btn" value="true" /> 限制可选日期跨度
+                                    </label>
+                                    <input type="text" class="js_inp" name="maxSpan--days" value="" disabled="disabled" />
+                                    <p class="help-block" style="font-size: 12px;">单位：天；整形，>=1；双日历有效</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>时间格式</label>
+                                    <input type="text" class="form-control input-sm js_inp" name="locale--format" id="drp_format" placeholder="YYYY-MM-DD HH:mm" />
+                                </div>
+                                <div class="form-group">
+                                    <label>最大年份 <span style="font-size: 12px; color: #999;"></span></label>
+                                    <input type="text" class="form-control input-sm js_inp" name="maxYear" id="drp_maxYear" placeholder="格式：YYYY，默认未来5年" />
+                                    <p class="help-block" style="font-size: 12px;"> moment().add(5, 'years').format('YYYY')</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>最小年份</label>
+                                    <input type="text" class="form-control input-sm js_inp" name="minYear" id="drp_minYear" placeholder="格式：YYYY，默认前5年" />
+                                    <p class="help-block" style="font-size: 12px;"> moment().add(-5, 'years').format('YYYY')</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row m-t-md">
+                        <h4 class="container">最终效果</h4>
+                        <div class="col-md-4">
+                            <div id="drp_demo" class="input-group date">
+                                <input type="text" class="form-control input-sm" readonly="" autocomplete="off">
+                                <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <pre id="dt_code" style="height: 300px;"></pre>
+                            <button type="button" class="btn btn-primary btn-xs" id="demo_copyorg_btn" style="position: absolute; top: 0px; right: 15px;">仅复制配置项信息</button>
+                        </div>
+                    </div>
+                    <div class="row p-md">
+                        <pre>
+时间格式：
+YYYY-MM-DD HH:mm:ss
+
+组件自带api：
+setStartDate(Date or string)：将日期范围选择器的当前所选开始日期设置为提供的日期
+setEndDate(Date or string)：将日期范围选择器的当前所选结束日期设置为提供的日期
+
+示例：
+$('#demo').data('daterangepicker').setStartDate('2020-01-16');
+
+组件自带event事件：
+show.daterangepicker：显示选择器时触发
+hide.daterangepicker：隐藏选择器时触发
+showCalendar.daterangepicker：显示日历时触发
+hideCalendar.daterangepicker：隐藏日历时触发
+apply.daterangepicker：单击应用按钮时，或单击预定义范围时触发
+cancel.daterangepicker：单击取消按钮时触发
+
+示例：
+$('#demo').on('cancel.daterangepicker', function(ev, picker) {
+  //do something, like clearing an input
+});
+
+//注意：如果需要初始化回显默认值（当前系统时间），请设置autoUpdateInput:true;
+</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联动 DEMO -->
+            <div class="panel panel-default m-t-md">
+                <div class="panel-heading">起始时间联动</div>
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <div class="input-group date" id="start_date_d">
+                                    <input class="form-control input-sm" type="text" name="start_end" id="start_end" readonly />
+                                    <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo2-js" role="tab" data-toggle="tab" aria-expanded="true">js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo2-js">
+                            <pre>
+$('#start_end').cusdaterangepicker({
+	singleDatePicker: false,
+})
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <script src="../js/plugins/moment/moment.min.js"></script>
+        <script src="../js/plugins//daterangepicker/daterangepicker.js"></script>
+
+        <script src="../i18n/zh-CN.js"></script>
+        <script src="../js/subindex.js" type="text/javascript"></script>
+
+        <script src="../js/plugins/beautifier/beautifier.min.js"></script>
+        <script src="../js/plugins/clipboard/clipboard.min.js"></script>
+        <script src="../js/plugins/art-template/template-web.js"></script>
+
+        <!-- 演示代码 -->
+        <script src="../js/jquery.mockjax.min.js"></script>
+        <script src="../demo-data.js"></script>
+
+        <script type="text/javascript">
+            /* 组件默认培训项补偿项 */
+            var plug_def_opt_ = $.extend(true, {
+                "maxSpan": {
+                    "days": ""
+                },
+                "autoApply": false
+            }, $.fn.daterangepicker.defaultOptions);
+
+            function getformOpt() {
+                var form_opt_ = COM_TOOLS.serializeObject('#demo_opt');
+                /* 整理数据结构 */
+                $.each(form_opt_, function (k, v) {
+                    if (k.indexOf('--') !== -1) {
+                        var c_ = k.split('--');
+                        if (!form_opt_.hasOwnProperty(c_[0])) {
+                            form_opt_[c_[0]] = {};
+                        }
+                        form_opt_[c_[0]][c_[1]] = v;
+                        delete form_opt_[k];
+                    }
+                });
+                $('#demo_opt :checkbox[name]').each(function () {
+                    var $this = $(this);
+                    form_opt_[$this.attr('name')] = $(this).prop('checked');
+                });
+                return form_opt_;
+            }
+
+            function clearPuginOpt(toEscape) {
+                //var plug_def_opt_ = $.fn.daterangepicker.defaultOptions;
+                var form_opt_ = getformOpt();
+                $.each(form_opt_, function (k1, v1) {
+                    if ($.type(v1) == 'object') {
+                        $.each(v1, function (k2, v2) {
+                            if ($.type(v2) == 'object') {
+                                $.each(v2, function (k3, v3) {
+                                    if (plug_def_opt_.hasOwnProperty(k1) && plug_def_opt_[k1].hasOwnProperty(k2) && (String(plug_def_opt_[k1][k2][k3]) == String(v3) || v3 === '')) {
+                                        delete form_opt_[k1][k2][k3];
+                                    } else {
+                                        $.isNumeric(v3) && (form_opt_[k1][k2][k3] = Number(v3));
+                                    }
+                                });
+                            } else {
+                                if (plug_def_opt_.hasOwnProperty(k1) && (String(plug_def_opt_[k1][k2]) == String(v2) || v2 === '')) {
+                                    delete form_opt_[k1][k2];
+                                } else {
+                                    $.isNumeric(v2) && (form_opt_[k1][k2] = Number(v2));
+                                }
+                            }
+                        });
+                    } else {
+                        if (String(plug_def_opt_[k1]) == String(v1) || v1 === '') {
+                            delete form_opt_[k1];
+                        } else {
+                            $.isNumeric(v1) && (form_opt_[k1] = Number(v1));
+                            if (toEscape && (k1 == 'minYear' || k1 == 'maxYear') && !$.isNumeric(v1)) { //不是数值则认为是公式
+                                form_opt_[k1] = Number((new Function("return " + v1))());
+                            }
+                        }
+                    }
+                });
+                $.each(form_opt_, function (nk, nv) {
+                    if ($.type(nv) == 'object' && $.isEmptyObject(nv)) {
+                        delete form_opt_[nk];
+                    }
+                });
+                return form_opt_;
+            }
+
+            function init_default_form() {
+                //var plug_def_opt_ = $.fn.daterangepicker.defaultOptions;
+                $('#demo_opt [name]').each(function () {
+                    var $this = $(this);
+                    var name_ = $this.attr('name');
+                    var type_ = $this.attr('type');
+                    if (name_) {
+                        //console.log('---name:', name_, 'type_', type_, 'value:', $this.val(), 'pval-', String(plug_def_opt_[name_]), 'bool', $.trim($this.val()) == String(plug_def_opt_[name_]))
+                        if (name_.indexOf('--') !== -1) {
+                            var nameP_ = name_.split('--');
+                            if (plug_def_opt_.hasOwnProperty(nameP_[0])) {
+                                if (plug_def_opt_[nameP_[0]].hasOwnProperty(nameP_[1])) {
+                                    if (type_ == 'checkbox' || type_ == 'radio') {
+                                        if ($.trim($this.val()) == String(plug_def_opt_[nameP_[0]][nameP_[1]])) {
+                                            $this.prop('checked', true);
+                                        }
+                                    } else {
+                                        $this.val(plug_def_opt_[nameP_[0]][nameP_[1]]);
+                                    }
+                                }
+                            }
+                        } else {
+                            if (plug_def_opt_.hasOwnProperty(name_)) {
+                                if (type_ == 'checkbox' || type_ == 'radio') {
+                                    if ($.trim($this.val()) == String(plug_def_opt_[name_])) {
+                                        $this.prop('checked', true);
+                                    }
+                                } else {
+                                    $this.val(plug_def_opt_[name_]);
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            
+            $(function () {
+                //初始化默认配置
+                init_default_form()
+
+                /* 开始时间 range */
+                $('#drp_range_start, #drp_range_end, #drp_select_start, #drp_select_end').cusdaterangepicker({
+                    showDropdowns: false,
+                    timePicker: true,
+                    // singleDatePicker: ,
+                    autoUpdateInput: false,
+                    locale: {
+                        format: 'YYYY-MM-DD HH:mm'
+                    }
+                }).on('apply.daterangepicker', function (e, picker) {
+                    // $(this).val(picker.startDate.format('YYYY-MM-DD'));
+                    cusDRPinit();
+                    showCode();
+                })
+
+                /*内容修改时*/
+                $('.js_inp').blur(function () {
+                    cusDRPinit();
+                    showCode();
+                });
+                $('.js-inp-checkbox').change(function () {
+                    cusDRPinit();
+                    showCode();
+                })
+                /*id修改时*/
+                $('#drp_id').change(function () {
+                    showCode();
+                });
+                /*最终设置*/
+                cusDRPinit();
+
+                function cusDRPinit() {
+                    var opt_ = clearPuginOpt(true);
+
+                    //console.log('opt_',opt_)
+
+                    $('#drp_demo').cusdaterangepicker('remove');
+                    $('#drp_demo').cusdaterangepicker(opt_);
+                }
+                /*代码显示*/
+                showCode();
+
+                function showCode() {
+                    var id_ = $.trim($('#drp_id').val()) ? $.trim($('#drp_id').val()) : 'demo';
+
+                    var opt_str = template.render($('#template_opt').html(), clearPuginOpt());
+
+                    var str_ = '$("#' + id_ + '").cusdaterangepicker(' + opt_str + ');';
+
+                    var html_ = '<div class="input-group date" id="demo">\n' +
+                        '<input class="form-control input-sm" type="text" name="start_date" readonly="readonly"/>\n' +
+                        '<span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span>\n' +
+                        '</div>';
+
+                    $('#dt_code').text('HTMl: \n' + beautifier.html(html_, _BEAUFLY_OPTION_) + '\n\n' +
+                        'JS:\n' + beautifier.js(str_, _BEAUFLY_OPTION_));
+                    hljs.highlightBlock($('#dt_code')[0]);
+                }
+
+                $('#js-check-days-btn').click(function () {
+                    var checked = $(this).prop('checked');
+                    $('#demo_opt [name="maxSpan--days"]').prop('disabled', !checked);
+                    checked && $('#demo_opt [name="singleDatePicker"]').prop('checked', false);
+                });
+                new ClipboardJS('#demo_copyorg_btn', {
+                    text: function (trigger) {
+                        return beautifier.js(template.render($('#template_opt').html(), clearPuginOpt()), _BEAUFLY_OPTION_);
+                    }
+                });
+            })
+            $(function () {
+                $('#start_end').cusdaterangepicker({
+                    singleDatePicker: false
+                })
+            });
+            /*导入jquery变量*/
+            template.defaults.imports.$ = $;
+        </script>
+
+        <script id="template_opt" type="text/template">
+            <% var len_1 = $imports.Object.keys($data||{}).length || 0; %> 
+            {{set index_1 = 0}} 
+            {{if len_1 > 0}}
+            {
+            <% $.each($data||{}, function (k1, v1) { %>
+                <% if ($.type(v1) == 'object') { %> 
+                    <% var len_2 = $imports.Object.keys(v1).length || 0; %> 
+                    {{set index_2 = 0}}
+                    {{k1}}:{
+                    <% $.each(v1, function (k2, v2) { %>
+                        <% if ($.type(v2) == 'object') { %> 
+                            <% var len_3 = $imports.Object.keys(v2).length || 0; %> 
+                            {{set index_3 = 0}}
+                            {{k2}}:{
+                                <% $.each(v2, function (k3, v3) { %> 
+                                    {{k3}}:{{@$.type(v3)=='string' ? '"'+v3+'"' : v3}}{{if index_3+1 != len_3}},{{/if}}
+                                    <% index_3++ %>
+                                <% }); %> }
+                        <% } else { %> 
+                            {{k2}}:{{@$.type(v2)=='string' ? '"'+v2+'"' : v2}}{{if index_2+1 != len_2}},{{/if}}
+                        <% } %>
+                        <% index_2++ %>
+                    <% }); %> 
+                    }{{if index_1+1 != len_1}},{{/if}}
+                <% } else { %> 
+                    {{k1}}:{{@$.type(v1)=='string' && (k1 != 'minYear' && k1 != 'maxYear') ? '"'+v1+'"' : v1}}{{if index_1+1 != len_1}},{{/if}}
+                <% } %>
+                <% index_1++ %>
+            <% }); %> 
+            }
+            {{/if}}
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+        <script>
+            $(function () {
+                $('pre').each(function (i, n) {
+                    hljs.highlightBlock(n);
+                });
+            });
+        </script>
+    </body>
+
+</html>

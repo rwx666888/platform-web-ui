@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>select2</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- 以下JS因演示demo需要，所以在head中引入 -->
+    <script src="../js/jquery-2.1.1.js"></script>
+
+    <!-- 以下js仅用于演示 -->
+    <script src="../js/plugins/beautifier/beautifier.min.js"></script>
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="../demo-data.js"></script>
+    <style>
+      pre {
+                white-space: pre-wrap;
+                white-space: -moz-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                word-wrap: break-word;
+            }
+            
+            .cus-demo-code-ol {
+                background: #F2F2F2;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .cus-demo-code-ol li {
+                margin-left: 45px;
+                line-height: 20px;
+                padding: 0 5px;
+                border-left: 1px solid #e2e2e2;
+                list-style-type: decimal-leading-zero;
+                background-color: #fff;
+            }
+            
+            .demo-box {
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                position: relative;
+                border-radius: 5px;
+            }
+            
+            .tab-content {
+                overflow-y: auto;
+                max-height: 400px;
+            }
+        </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h2>下拉框组件-select2</h2>
+        <p>jstree-demo</p>
+        <p>官网地址：
+          <a href="https://select2.github.io/" target="_blank">http://select2.github.io/</a>
+        </p>
+        <p class="text-danger">注：对于外层父元素是使用 .form-inline 样式时，需要对select元素添加一个固定宽度</p>
+        <p class="text-danger">例：&lt;select style=&quot;width: 100px;&quot;&gt;&lt;/select&gt;</p>
+      </div>
+      <!--自定义配置select开始-->
+      <!--<div class="row" style="margin-bottom:20px;">
+                <div class="col-md-12">
+                    <h4 style="background:#f5f5f5;padding:5px 0 5px 5px;border-radius:5px;border:1px solid #ddd;">自定义配置select</h4>
+                    <label for="sel_iscache">
+                        <input type="checkbox" class="js-inp-change" id="sel_iscache" checked="checked">
+                        是否将ajax数据缓存到本地搜索
+                        <input type="checkbox" class="js-inp-change" id="sel_multiple" checked="checked" style="margin-left:20px;">
+                        是否启用多选
+                    </label>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 20px;">
+                <h4 class="container">最终效果</h4>
+                <div class="col-md-4">
+                    <select  id="sel_demo_test" class="form-control" style="width: 300px;">
+                        <option value="-1">请选择</option>
+                    </select>
+                </div>
+                <div class="col-md-8">
+                <pre style="height:200px;background:#f5f5f5;border:1px solid #ccc;" id="sel_code"></pre>
+                </div>
+            </div>-->
+      <!--自定义配置select结束-->
+
+      <div class="panel panel-default">
+        <div class="panel-heading">常用方法及注意事项</div>
+        <div class="panel-body">
+          <div class="demo-box">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>事件名称</th>
+                  <th>描述</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>change</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>每当选择或删除选项时触发。（不建议使用）</td>
+                </tr>
+                <tr>
+                  <td><code>change.select2</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>每当选择或删除选项时触发。（建议使用）</td>
+                </tr>
+                <tr>
+                  <td><code>select2:closing</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Triggered before the dropdown is closed. This event can be prevented.</td>
+                </tr>
+                <tr>
+                  <td><code>select2:close</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Triggered whenever the dropdown is closed. <code>select2:closing</code><span class="copy-to-clipboard"
+                      title="Copy to clipboard"></span> is fired before this and can be prevented.</td>
+                </tr>
+                <tr>
+                  <td><code>select2:opening</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Triggered before the dropdown is opened. This event can be prevented.</td>
+                </tr>
+                <tr>
+                  <td><code>select2:open</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Triggered whenever the dropdown is opened. <code>select2:opening</code><span class="copy-to-clipboard"
+                      title="Copy to clipboard"></span> is fired before this and can be prevented.</td>
+                </tr>
+                <tr>
+                  <td><code>select2:selecting</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Triggered before a result is selected. This event can be prevented.</td>
+                </tr>
+                <tr>
+                  <td><code>select2:select</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Triggered whenever a result is selected. <code>select2:selecting</code><span class="copy-to-clipboard"
+                      title="Copy to clipboard"></span> is fired before this and can be prevented.</td>
+                </tr>
+                <tr>
+                  <td><code>select2:unselecting</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Triggered before a selection is removed. This event can be prevented.</td>
+                </tr>
+                <tr>
+                  <td><code>select2:unselect</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Triggered whenever a selection is removed. <code>select2:unselecting</code><span class="copy-to-clipboard"
+                      title="Copy to clipboard"></span> is fired before this and can be prevented.</td>
+                </tr>
+              </tbody>
+            </table>
+            <pre>
+/* 监听事件 */
+//当select2：select被触发时，选择的数据可以通过params.data属性访问： 注意：change事件中不包含params
+$('#mySelect2').on('select2:select', function (e) {
+    var data = e.params.data;
+    console.log(data);
+});
+//e.params.data 示例:
+{
+  "id": 1,
+  "text": "Tyto alba",
+  "genus": "Tyto",
+  "species": "alba"
+}
+
+/* 触发事件*/
+//您可以使用jQuery触发器方法在Select2控件上手动触发事件。 但是，如果您想将某些数据传递给事件的任何处理程序，则需要构建一个新的jQuery Event对象并触发它：
+var data = {
+  "id": 1,
+  "text": "Tyto alba",
+  "genus": "Tyto",
+  "species": "alba"
+};
+
+$('#mySelect2').trigger({
+    type: 'select2:select',
+    params: {
+        data: data
+    }
+});
+</pre>
+          </div>
+          <div class="demo-box">
+            <pre class="javascript" id="thedoc">
+组件：
+ &lt;script src=&quot;../js/plugins/select2/js/select2.full.min.js&quot;&gt;&lt;/script&gt;
+ &lt;link rel=&quot;stylesheet&quot; href=&quot;../js/plugins/select2/css/select2.css&quot;&gt;
+
+注意事项：
+ 1、【重要】数据源中 ID必须为字符串或者可转化为字符串的类型，不建议使用空值（''）；
+ 2、如果需要外部更改select2的内容需要触发select2的change事件，通知select2刷新视图；（例如：初始化默认选中项）
+      例如：$('selector').val('5').trigger('change.select2'); 
+      多选必须使用数组形式赋值：$('selector').val(['5','2']).trigger('change.select2');
+      注意：平台select2_init.API.setVal()及API.updateOption()方法已默认通知select2刷新视图，不需额外处理;
+ 3、隐藏搜索框 （option）： {minimumResultsForSearch: Infinity} ;注当允许用户手动输入时（tag:true）,无搜索框；
+ 4、打开、关闭下拉框 ：
+    $('#mySelect2').select2('open');
+    $('#mySelect2').select2('close');
+ 5、销毁
+    $('#mySelect2').select2('destroy');
+ 6、校验selec2是否初始化完成：
+    if ($('#mySelect2').hasClass("select2-hidden-accessible")) {/* 已初始化完成 */}
+ 7、禁用select2 
+    $('#mySelect2').prop('disabled',true);
+ 8、清空（重置）选项 
+    $('#mySelect2').val(null 或 对应‘请选择’项的value值，例如'').trigger('change.select2');
+ 9、选项修改后，触发validate校验（注意：平台select2_init方法已默认支持，不需额外处理）
+    $('selector').on('change.select2', function() {
+        $(this).trigger('focusout.validate').trigger('click.validate');
+    });
+10、【重要】使用平台select2_init方法以“非AJAX实时检索模式”初始化时，通过给select元素设置 selectedvalue 属性或通过js设置配置属性initValue,可自动实现初始化默认选中，为空或未设置则默认选中第一项；例如：
+    HTML方式：&lt;select selectedvalue=&quot;&#x9ED8;&#x8BA4;&#x9009;&#x4E2D;&#x9879;&#x7684;&#x503C;&#xFF08;key&#xFF09;&quot;&gt;&lt;/select&gt;
+    JS方式：select2_init('demoid',{initValue:'默认选中项的值（key）'});
+     
+</pre>
+          </div>
+          <div class="demo-box">
+            <h3>配置信息</h3>
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>属性名</th>
+                  <th>类型</th>
+                  <th>默认值</th>
+                  <th>描述</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>adaptContainerCssClass</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>adaptDropdownCssClass</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>ajax</code></td>
+                  <td>object</td>
+                  <td><code>null</code></td>
+                  <td>Provides support for
+                    <a href="/data-sources/ajax">ajax data sources</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>allowClear</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>boolean</td>
+                  <td><code>false</code></td>
+                  <td>Provides support for
+                    <a href="/selections#clearable-selections">clearable selections</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>amdBase</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>string</td>
+                  <td><code>./</code></td>
+                  <td>See
+                    <a href="/builds-and-modules#using-select2-with-amd-or-commonjs-loaders">Using Select2 with AMD or
+                      CommonJS loaders</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>amdLanguageBase</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>string</td>
+                  <td><code>./i18n/</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>See
+                    <a href="/builds-and-modules#using-select2-with-amd-or-commonjs-loaders">Using Select2 with AMD or
+                      CommonJS loaders</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>closeOnSelect</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>boolean</td>
+                  <td><code>true</code></td>
+                  <td>Controls whether the dropdown is
+                    <a href="/dropdown#forcing-the-dropdown-to-remain-open-after-selection">closed after a selection is
+                      made</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>containerCss</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>containerCssClass</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>string</td>
+                  <td><code>''</code></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>data</code></td>
+                  <td>array of objects</td>
+                  <td><code>null</code></td>
+                  <td>Allows rendering dropdown options from an
+                    <a href="/data-sources/arrays">array</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>dataAdapter</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td></td>
+                  <td><code>SelectAdapter</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Used to override the built-in
+                    <a href="/advanced/default-adapters/data">DataAdapter</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>debug</code></td>
+                  <td>boolean</td>
+                  <td><code>false</code></td>
+                  <td>Enable debugging messages in the browser console.</td>
+                </tr>
+                <tr>
+                  <td><code>dir</code></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>disabled</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>boolean</td>
+                  <td><code>false</code></td>
+                  <td>When set to <code>true</code>, the select control will be disabled.</td>
+                </tr>
+                <tr>
+                  <td><code>dropdownAdapter</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td></td>
+                  <td><code>DropdownAdapter</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Used to override the built-in
+                    <a href="/advanced/default-adapters/dropdown">DropdownAdapter</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>dropdownAutoWidth</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>boolean</td>
+                  <td><code>false</code></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>dropdownCss</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>dropdownCssClass</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>string</td>
+                  <td><code>''</code></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>dropdownParent</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>jQuery selector or DOM node</td>
+                  <td><code>$(document.body)</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Allows you to
+                    <a href="/dropdown#dropdown-placement">customize placement</a> of the dropdown.</td>
+                </tr>
+                <tr>
+                  <td><code>escapeMarkup</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>callback</td>
+                  <td><code>Utils.escapeMarkup</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Handles
+                    <a href="/dropdown#built-in-escaping">automatic escaping of content rendered by custom templates</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>initSelection</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>callback</td>
+                  <td></td>
+                  <td>See
+                    <a href="/upgrading/migrating-from-35#removed-the-requirement-of-initselection"><code>initSelection</code><span
+                        class="copy-to-clipboard" title="Copy to clipboard"></span></a>. <strong>This option was
+                      deprecated in Select2 v4.0, and will be removed in v4.1.</strong></td>
+                </tr>
+                <tr>
+                  <td><code>language</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>string or object</td>
+                  <td><code>EnglishTranslation</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Specify the
+                    <a href="/i18n#message-translations">language used for Select2 messages</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>matcher</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>A callback taking search <code>params</code><span class="copy-to-clipboard" title="Copy to clipboard"></span>
+                    and the <code>data</code> object.</td>
+                  <td></td>
+                  <td>Handles custom
+                    <a href="/searching#customizing-how-results-are-matched">search matching</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>maximumInputLength</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>integer</td>
+                  <td><code>0</code></td>
+                  <td>
+                    <a href="/searching#maximum-search-term-length">Maximum number of characters</a> that may be
+                    provided for a search term.</td>
+                </tr>
+                <tr>
+                  <td><code>maximumSelectionLength</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>integer</td>
+                  <td><code>0</code></td>
+                  <td>The maximum number of items that may be selected in a multi-select control. If the value of this
+                    option is less than 1, the number of selected items will not be limited.</td>
+                </tr>
+                <tr>
+                  <td><code>minimumInputLength</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>integer</td>
+                  <td><code>0</code></td>
+                  <td>
+                    <a href="/searching#minimum-search-term-length">Minimum number of characters required to start a
+                      search.</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>minimumResultsForSearch</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>integer</td>
+                  <td><code>0</code></td>
+                  <td>The minimum number of results required to
+                    <a href="/searching#limiting-display-of-the-search-box-to-large-result-sets">display the search box</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>multiple</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>boolean</td>
+                  <td><code>false</code></td>
+                  <td>This option enables multi-select (pillbox) mode. Select2 will automatically map the value of the
+                    <code>multiple</code><span class="copy-to-clipboard" title="Copy to clipboard"></span> HTML
+                    attribute to this option during initialization.</td>
+                </tr>
+                <tr>
+                  <td><code>placeholder</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>string or object</td>
+                  <td><code>null</code></td>
+                  <td>Specifies the
+                    <a href="/placeholders">placeholder</a> for the control.</td>
+                </tr>
+                <tr>
+                  <td><code>query</code></td>
+                  <td>A function taking <code>params</code><span class="copy-to-clipboard" title="Copy to clipboard"></span>
+                    (including a <code>callback</code><span class="copy-to-clipboard" title="Copy to clipboard"></span>)</td>
+                  <td><code>Query</code></td>
+                  <td><strong>This option was deprecated in Select2 v4.0, and will be removed in v4.1.</strong></td>
+                </tr>
+                <tr>
+                  <td><code>resultsAdapter</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td></td>
+                  <td><code>ResultsAdapter</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Used to override the built-in
+                    <a href="/advanced/default-adapters/results">ResultsAdapter</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>selectionAdapter</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td></td>
+                  <td><code>SingleSelection</code><span class="copy-to-clipboard" title="Copy to clipboard"></span> or
+                    <code>MultipleSelection</code><span class="copy-to-clipboard" title="Copy to clipboard"></span>,
+                    depending on the value of <code>multiple</code><span class="copy-to-clipboard" title="Copy to clipboard"></span>.</td>
+                  <td>Used to override the built-in
+                    <a href="/advanced/default-adapters/selection">SelectionAdapter</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>selectOnClose</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>boolean</td>
+                  <td><code>false</code></td>
+                  <td>Implements
+                    <a href="/dropdown#automatic-selection">automatic selection</a> when the dropdown is closed.</td>
+                </tr>
+                <tr>
+                  <td><code>sorter</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>callback</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><code>tags</code></td>
+                  <td>boolean / array of objects</td>
+                  <td><code>false</code></td>
+                  <td>Used to enable
+                    <a href="/tagging">free text responses</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>templateResult</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>callback</td>
+                  <td></td>
+                  <td>Customizes the way that
+                    <a href="/dropdown#templating">search results are rendered</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>templateSelection</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>callback</td>
+                  <td></td>
+                  <td>Customizes the way that
+                    <a href="/selections#templating">selections are rendered</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>theme</code></td>
+                  <td>string</td>
+                  <td><code>default</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Allows you to set the
+                    <a href="/appearance#themes">theme</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>tokenizer</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>callback</td>
+                  <td></td>
+                  <td>A callback that handles
+                    <a href="/tagging#automatic-tokenization-into-tags">automatic tokenization of free-text entry</a>.</td>
+                </tr>
+                <tr>
+                  <td><code>tokenSeparators</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>array</td>
+                  <td><code>[]</code></td>
+                  <td>The list of characters that should be used as token separators.</td>
+                </tr>
+                <tr>
+                  <td><code>width</code></td>
+                  <td>string</td>
+                  <td><code>resolve</code><span class="copy-to-clipboard" title="Copy to clipboard"></span></td>
+                  <td>Supports
+                    <a href="/appearance#container-width">customization of the container width</a>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 实例1 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">一、本地HTML初始化（带拼音检索）</div>
+        <div class="panel-body">
+          <div class="demo-box form-inline js-auto-init-demobox">
+
+            <div class="form-group">
+              <label>默认:</label>
+              <select id="sel_menu2_1" class="form-control" style="width: 200px;">
+                <option value="-1">请选择</option>
+                <option value="1">用户管理</option>
+                <option value="2">角色管理</option>
+                <option value="3">部门管理</option>
+                <option value="4">菜单管理</option>
+                <option value="5">订单查询</option>
+                <option value="6">订单导入</option>
+                <option value="7">订单删除</option>
+                <option value="8">订单撤销</option>
+                <option value="9">基础数据维护</option>
+                <option value="10">基础数据维护22</option>
+                <option value="11">基础数据维护333</option>
+                <option value="12">基础数据维护4444</option>
+                <option value="13">基础数据维护5555</option>
+                <option value="14">基础数据维护6666</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>带拼音检索:</label>
+              <select id="sel_menu2_2" class="form-control" style="width: 200px;">
+                <option value="-1">请选择</option>
+                <option value="1">用户管理</option>
+                <option value="2">角色管理</option>
+                <option value="3">部门管理</option>
+                <option value="4">菜单管理</option>
+                <option value="5">订单查询</option>
+                <option value="6">订单导入</option>
+                <option value="7">订单删除</option>
+                <option value="8">订单撤销</option>
+                <option value="9">基础数据维护</option>
+                <option value="10">基础数据维护22</option>
+                <option value="11">基础数据维护333</option>
+                <option value="12">基础数据维护4444</option>
+                <option value="13">基础数据维护5555</option>
+                <option value="14">基础数据维护6666</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>默认选中“订单导入”:</label>
+              <select id="sel_menu2_3" class="form-control" style="width: 200px;" selectedvalue="6">
+                <option value="-1">请选择</option>
+                <option value="1">用户管理</option>
+                <option value="2">角色管理</option>
+                <option value="3">部门管理</option>
+                <option value="4">菜单管理</option>
+                <option value="5">订单查询</option>
+                <option value="6">订单导入</option>
+                <option value="7">订单删除</option>
+                <option value="8">订单撤销</option>
+                <option value="9">基础数据维护</option>
+                <option value="10">基础数据维护22</option>
+                <option value="11">基础数据维护333</option>
+                <option value="12">基础数据维护4444</option>
+                <option value="13">基础数据维护5555</option>
+                <option value="14">基础数据维护6666</option>
+              </select>
+            </div>
+
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#new-demo3-html" role="tab" data-toggle="tab">html</a>
+            </li>
+            <li role="presentation">
+              <a href="#new-demo3-js" role="tab" data-toggle="tab">js</a>
+            </li>
+            <li role="presentation">
+              <a href="#new-demo3-css" role="tab" data-toggle="tab">css</a>
+            </li>
+
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="new-demo3-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="new-demo3-js">
+              <script class="js-auto-init-jscode">
+                $(function () {
+                                    //默认
+                                    var SEL2_ = COM_TOOLS.select2_init('sel_menu2_1');
+                                    SEL2_.changeCallback(function (e) { //当选择项发生变化时；
+
+                                    });
+                                    //带拼音检索:
+                                    COM_TOOLS.select2_init('sel_menu2_2', {
+                                        ispinyi: true //开启拼音检索
+                                    });
+                                    //默认选中“订单导入”
+                                    COM_TOOLS.select2_init('sel_menu2_3');
+                                });
+                            </script>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="new-demo3-css">
+              <pre>无</pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 实例1 结束 -->
+      <!-- 实例2 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">二、本地html初始化（多选）,注意optgroup是分组标签，非必须</div>
+        <div class="panel-body">
+          <div class="demo-box form-group js-auto-init-demobox">
+            <select id="sel_menu3" multiple="multiple" class="form-control">
+              <!-- <optgroup label="系统设置"> -->
+                <option value="1">用户管理</option>
+                <option value="2">角色管理</option>
+                <option value="3">部门管理</option>
+                <option value="4">菜单管理</option>
+              <!-- </optgroup>
+              <optgroup label="订单管理"> -->
+                <option value="5">订单查询</option>
+                <option value="6">订单导入</option>
+                <option value="7">订单删除</option>
+                <option value="8">订单撤销</option>
+              <!-- </optgroup>
+              <optgroup label="基础数据"> -->
+                <option value="9">基础数据维护</option>
+                <option value="10">基础数据维护22</option>
+                <option value="11">基础数据维护333</option>
+                <option value="12">基础数据维护4444</option>
+                <option value="13">基础数据维护5555</option>
+                <option value="14">基础数据维护6666</option>
+              <!-- </optgroup> -->
+            </select>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#demo2-html" role="tab" data-toggle="tab">html</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo2-js" role="tab" data-toggle="tab">js</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo2-css" role="tab" data-toggle="tab">css</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="demo2-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="demo2-js">
+              <script class="js-auto-init-jscode">
+                $(function () {
+                  /*demo2*/
+                  COM_TOOLS.select2_init('sel_menu3', {
+                      other: {
+                        closeOnSelect: false,
+                        //scrollAfterSelect: false,
+                        dropdownCssClass: 'cus-select2-dropdown-2', //可选，cus-select2-dropdown-1：选中的前面加对勾号；cus-select2-dropdown-2：前面添加拟态复选框；
+                        //maximumSelectionLength: 6, //最多选三个
+                        //placeholder: TEDU_MESSAGE.get("platform.plugin.validate.maxlength", [3]) //maxLength 不能多于三个
+                      }
+                  });
+                });
+              </script>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo2-css">
+              <pre>无</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 实例2 结束 -->
+      <!-- 实例3 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">三、本地JSON数据初始化或远程ajax数据初始化（只在初始化时请求一次，返回全部数据）</div>
+        <div class="panel-body">
+          <div class="demo-box js-auto-init-demobox">
+            <div class="form-group">
+              <label>远程ajax数据初始化: </label>
+              <select id="sel_menu4" class="form-control">
+                <option value="-1">请选择</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>远程ajax数据初始化（HTML属性方式）：</label>
+              <!--
+        data-opt_url="/select2/api" 【必须】接口地址；
+        data-opt_ajaxtype="get" 【可选】接口请求类型 默认get
+        opt_ajaxdata='{"param1":"参数1"}' 【可选】接口数据，同ajax-data；注意参数必须是标准JSON格式，且外面用英文单引号包裹；
+        selectedvalue="2" 【可选】初始化时的默认选中值,为空或未设置则默认选中第一项
+    -->
+              <select id="sel_menu4-1" class="form-control" data-opt_url="/select2/api" selectedvalue="2">
+                <option value="-1">请选择</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>本地JSON数据初始化: </label>
+              <select id="sel_menu4-2" class="form-control">
+                <option value="-1">请选择</option>
+              </select>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#demo3-html" role="tab" data-toggle="tab">html</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo3-js" role="tab" data-toggle="tab">js</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo3-css" role="tab" data-toggle="tab">css</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo3-data" js-auto-ajaxdata="/select2/api" role="tab" data-toggle="tab">ajaxData</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="demo3-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo3-js">
+              <script class="js-auto-init-jscode">
+                $(function () {
+                                    //远程ajax数据初始化
+                                    COM_TOOLS.select2_init('sel_menu4', '/select2/api', 'get');
+
+                                    //远程ajax数据初始化（HTML属性方式）
+                                    COM_TOOLS.select2_init('sel_menu4-1');
+
+                                    //本地JSON数据初始化
+                                    var data_ = [{
+                                        id: '0',
+                                        text: '0000'
+                                    }, {
+                                        id: '1',
+                                        text: '1111'
+                                    }, {
+                                        id: '2',
+                                        text: '2222'
+                                    }, {
+                                        id: '3',
+                                        text: '3333'
+                                    }, {
+                                        id: '4',
+                                        text: '4444'
+                                    }];
+                                    COM_TOOLS.select2_init('sel_menu4-2', data_);
+
+                                });
+                            </script>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo3-css">
+              <pre>无</pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo3-data">
+              <p class="help-block">数据源: ID必须为字符串或者可转化为字符串的类型，不建议使用 空值（''）</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 实例3结束 -->
+      <!-- 实例4 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">四、ajax实时检索加载数据（根据搜索关键词的变化实时发送AJAX请求）</div>
+        <div class="panel-body">
+          <div class="demo-box form-group js-auto-init-demobox">
+            <select id="sel_menu5" name="sel_menu5" multiple="multiple" class="form-control"></select>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#demo4-html" role="tab" data-toggle="tab">html</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo4-js" role="tab" data-toggle="tab">js</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo4-css" role="tab" data-toggle="tab">css</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo4-data" js-auto-ajaxdata="/select2/search/api" role="tab" data-toggle="tab">data</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="demo4-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo4-js">
+              <script class="js-auto-init-jscode">
+                $(function () {
+                                    //远程实时检索加载数据
+                                    var SEL2_ = COM_TOOLS.select2_init('sel_menu5', '/select2/search/api', 'get', false, {
+                                        iscache: false, //必须 设置为false时才是远程实时检索加载数据模式
+                                        multiple: true,
+                                        other: {
+                                            allowClear:true, //启用清除按钮
+                                            minimumInputLength: 1, //最少需要输入一个字符才可查询
+                                            placeholder: LOCAL_MESSAGE_DATA["platform.plugin.msg.enterSearch"] //"enterSearch" 请输入搜索内容
+                                        }
+                                    });
+                                    SEL2_.changeCallback(function (e) { //选中项改变时回调函数
+                                        console.log('当前选中值：', SEL2_.getVal()); //获取当前选中项的value;多选时为数组类型；
+                                    });
+
+                                });
+                            </script>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo4-css">
+              <pre>无</pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo4-data">
+              <p class="help-block">数据源: ID必须为字符串或者可转化为字符串的类型，不建议使用 空值（''）</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 实例4结束 -->
+
+      <!-- 实例5 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">五、select2数据内容更新</div>
+        <div class="panel-body">
+          <div class="demo-box form-group js-auto-init-demobox">
+            <div class="form-inline">
+              <div class="form-group">
+                <select id="test-05" style="width: 100px;">
+                  <option value="">-请选择-</option>
+                  <option value="1">数据一</option>
+                  <option value="2">数据二</option>
+                  <option value="3">数据三</option>
+                </select>
+                <button id="add-data" class="btn btn-sm btn-info">添加数据</button>
+                <button id="update-data" class="btn btn-sm btn-primary">全量覆盖数据</button>
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#demo5-html" role="tab" data-toggle="tab">html</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo5-js" role="tab" data-toggle="tab">js</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo5-css" role="tab" data-toggle="tab">css</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="demo5-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo5-js">
+              <script class="js-auto-init-jscode">
+                $(function () {
+                                    var SEL2_ = COM_TOOLS.select2_init('test-05');
+                                    $('#add-data').click(function () {
+                                        var html_ = '<option value="5">新增数据</option>';
+                                        SEL2_.select2.append(html_).trigger('change.select2'); //.trigger('change.select2'); 新增select数据后触发select2更新
+                                    });
+                                    $('#update-data').click(function () {
+                                        var html_ = '<option value="">-请选择-</option><option value="1">新数据一</option><option value="1">新数据二</option>';
+                                        SEL2_.updateOption(html_); //自动触发select2刷新视图并校验validate；
+                                    });
+                                });
+                            </script>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo5-css"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 实例5结束 -->
+
+      <!-- 实例6 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">六、select2选择及validata校验（注意：此实例只用于演示效果）</div>
+        <div class="panel-body">
+          <div class="demo-box form-group js-auto-init-demobox">
+            <div class="form-inline">
+              <div class="form-group">
+                <form id="test-form">
+                  <select id="test-06" name="test-vali" required="true" style="width: 100px;">
+                    <option value="">-请选择-</option>
+                    <option value="1">数据一</option>
+                    <option value="2">数据二</option>
+                    <option value="3">数据三</option>
+                  </select>
+                  <button type="button" id="test-vali" class="btn btn-sm btn-info">validate校验</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#demo6-html" role="tab" data-toggle="tab">html</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo6-js" role="tab" data-toggle="tab">js</a>
+            </li>
+            <li role="presentation">
+              <a href="#demo6-css" role="tab" data-toggle="tab">css</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="demo6-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo6-js">
+              <script class="js-auto-init-jscode">
+                $(function () {
+                                    COM_TOOLS.select2_init('test-06');
+                                    $('#test-form').validate();
+                                    $('#test-vali').click(function () {
+                                        $('#test-form').validate().form(); //仅用于demo演示需要，表单验证请使用"submitHandler";
+                                    });
+                                })
+                            </script>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo6-css"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 实例6结束 -->
+      <!--select2二级联动-->
+      <div class="panel panel-default">
+        <div class="panel-heading">七、select2 多级联动</div>
+        <div class="panel-body">
+          <p>示例代码请访问
+            <a href="iframe-demo/数据字典/数据字典-组件.html" target="_blank">数据字典-组件demo</a>；依次选择"数据源：国家行政区域"、下拉选择框（N级联动）</p>
+        </div>
+      </div>
+      <!--select2二级联动结束-->
+    </div>
+
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/select2/select2.full.min.js"></script>
+    <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+    <!--<script src="../js/plugins/validate/jquery-validate.bootstrap-tooltip.min.js"></script>-->
+    <script src="../js/pinyin.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+    <script src="../js/subindex.js"></script>
+
+    <script>
+      cusSelinit();
+            /*自定义配置select开始*/
+            $('.js-inp-change').change(function () {
+                cusSelinit();
+            })
+
+            function cusSelinit() {
+                var isCache = $('#sel_iscache').prop('checked'),
+                    isMultiple = $('#sel_multiple').prop('checked');
+                COM_TOOLS.select2_init('sel_demo_test', '/select2/api', 'get', '', {
+                    iscache: isCache,
+                    multiple: isMultiple
+                });
+            }
+
+            $(function () {
+                TEXT_get_jsDoc('select2_init', function (n) {
+                    $('#thedoc').append('\r\n\r\n' + n);
+                });
+            });
+        </script>
+
+    <link rel="stylesheet" type="text/css" href="../css/plugins/highlight/xcode.min.css" />
+    <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>
+      $(function() {
+        $('pre').each(function(i, n) {
+          //$(n).html(_demo_htmlencode_fn($(n).html()));
+          hljs.highlightBlock(n);
+        });
+      });
+    </script>
+  </body>
+
+</html>

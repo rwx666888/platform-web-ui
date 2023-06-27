@@ -1,0 +1,634 @@
+<!doctype html>
+<html>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<title>echarts-demo</title>
+	
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+<style>
+pre{
+white-space: pre-wrap;       
+white-space: -moz-pre-wrap;  
+white-space: -pre-wrap;      
+white-space: -o-pre-wrap;    
+word-wrap: break-word;       
+}
+	.demo-box{ margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; position: relative; border-radius: 5px;}
+	.tab-content{ overflow-y: auto; max-height: 400px;}
+	
+.selected input{color: #000;}
+</style>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+		  <h2>图表组件-echarts</h2>
+		  	<p style="font-size: 14px;">http://echarts.baidu.com/index.html</p>
+			<p style="font-size: 14px;">公共方法见:<a href="comTools-demo.html" target="_blank">常用公共方法库</a></p>
+<pre>
+/* 在没有通过 &lt;script src=&quot;../js/plugins/echarts/echarts.min.js&quot;&gt;&lt;/script&gt; 方式显式引入组件时，可以通过COM_TOOLS.requireJsFn()方法动态加载组件（组件不会重复加载） */
+COM_TOOLS.requireJsFn(['echarts'],[],function(){
+	//初始化echarts 例如
+	COM_TOOLS.eChartsTools.initOpt('#demobox01','line','数据','配置');
+});
+</pre>
+		</div>
+<!-- 实例1 开始 -->
+		<div class="panel panel-default">
+		  <div class="panel-heading">折线图（可点击节点，查看数据源）</div>
+		  <div class="panel-body">
+		    <div class="demo-box">
+				<div id="demobox01" style="width: 600px;height: 400px;"></div>
+				<div class="btn-group">
+					<button type="button" class="btn btn-info" id="demo1-btn1">更新数据</button>
+				</div>
+		    </div>
+		    <ul class="nav nav-tabs" role="tablist">
+			  <li role="presentation" class="active"><a href="#demo1-html" role="tab" data-toggle="tab">html</a></li>
+			  <li role="presentation"><a href="#demo1-js" role="tab" data-toggle="tab">js</a></li>
+			  <li role="presentation"><a href="#demo1-data" role="tab" data-toggle="tab">data</a></li>
+			</ul>
+			<div class="tab-content">
+			  <div role="tabpanel" class="tab-pane active" id="demo1-html">
+<pre>
+&lt;div id=&quot;demobox01&quot; style=&quot;width: 600px;height: 400px;&quot;&gt;&lt;/div&gt;
+</pre>
+			  </div>
+			  <div role="tabpanel" class="tab-pane" id="demo1-js">
+<pre>
+&lt;script src=&quot;../js/plugins/echarts/echarts.min.js&quot;&gt;&lt;/script&gt;
+
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox01','line',_data_,
+		{ //数据组配置
+			"p1":{
+				name:'直接访问',
+				type:'line'
+			},
+			"p2":{
+				name:'间接访问',
+				type:'line'
+			}
+		},
+		{ //数据项配置
+			name1:'坐标1',
+			name2:'坐标2',
+			name3:'坐标3'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	).on('click', function (params) {
+	    alert('name:'+params['name']+'\n value:'+params['value']+'\n seriesName:'+params['seriesName']);
+	});
+	$('#demo1-btn1').click(function(){
+		COM_TOOLS.eChartsTools.updateData('#demobox01',[
+		{
+			cname:"p1",
+			data:[
+				{name:"name1",value:Math.floor(Math.random()*100)},
+				{name:"name5",value:Math.floor(Math.random()*100)},
+				{name:"name3",value:Math.floor(Math.random()*100)},
+				{name:"name4",value:Math.floor(Math.random()*100)}
+			]
+		},
+		{
+			cname:"p2",
+			data:[
+				{name:"name1",value:Math.floor(Math.random()*100)},
+				{name:"name5",value:Math.floor(Math.random()*100)},
+				{name:"name3",value:Math.floor(Math.random()*100)},
+				{name:"name4",value:Math.floor(Math.random()*100)}
+			]
+		}
+		])
+	});
+});
+</pre>
+			  </div>
+			  <div role="tabpanel" class="tab-pane" id="demo1-data">
+<pre>
+_data_:服务器返回数据(json)
+[
+	{
+		cname:"p1",
+		data:[
+			{name:"name1",value:111},
+			{name:"name2",value:222},
+			{name:"name3",value:333},
+			{name:"name4",value:444}
+		]
+	},
+	{
+		cname:"p2",
+		data:[
+			{name:"name1",value:55},
+			{name:"name2",value:66},
+			{name:"name3",value:77},
+			{name:"name4",value:88}
+		]
+	}
+];
+</pre>
+			  </div>
+			</div>
+		  </div>
+		</div>		
+<!-- 实例1 结束 -->
+<!-- 实例2 开始 -->
+		<div class="panel panel-default">
+		  <div class="panel-heading">柱状图</div>
+		  <div class="panel-body">
+		    <div class="demo-box">
+<div id="demobox02" style="width: 600px;height: 400px;"></div>
+		    </div>
+		    <ul class="nav nav-tabs" role="tablist">
+			  <li role="presentation" class="active"><a href="#demo2-js" role="tab" data-toggle="tab">js</a></li>
+			</ul>
+			<div class="tab-content">
+			  <div role="tabpanel" class="tab-pane active" id="demo2-js">
+<pre>
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox02','bar',_data_,
+		{ //数据组配置
+			"p1":{
+				name:'直接访问',
+				type:'bar'
+			},
+			"p2":{
+				name:'间接访问',
+				type:'bar'
+			}
+		},
+		{ //数据项配置
+			name1:'坐标1',
+			name2:'坐标2',
+			name3:'坐标3'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	);
+});	
+</pre>
+			  </div>
+			</div>
+		  </div>
+		</div>		
+<!-- 实例2 结束 -->
+<!-- 实例3 开始 -->
+		<div class="panel panel-default">
+		  <div class="panel-heading">饼状图(远程地址：data:[url||get])</div>
+		  <div class="panel-body">
+		    <div class="demo-box">
+<div id="demobox03" style="width: 600px;height: 400px;"></div>
+		    </div>
+		    <ul class="nav nav-tabs" role="tablist">
+			  <li role="presentation" class="active"><a href="#demo3-js" role="tab" data-toggle="tab">js</a></li>
+			</ul>
+			<div class="tab-content">
+			  <div role="tabpanel" class="tab-pane active" id="demo3-js">
+<pre>
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox03','pie','/echarts/api',
+		{ //数据组配置
+			"p1":{
+				name:'直接访问',
+				type:'pie'
+			}
+		},
+		{ //数据项配置
+			name1:'坐标1',
+			name2:'坐标2',
+			name3:'坐标3'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	);
+});
+</pre>
+			  </div>
+			</div>
+		  </div>
+		</div>		
+<!-- 实例3 结束 -->
+<!-- 实例4 开始 -->
+		<div class="panel panel-default">
+		  <div class="panel-heading">漏斗图</div>
+		  <div class="panel-body">
+		    <div class="demo-box">
+<div id="demobox04" style="width: 600px;height: 400px;"></div>
+		    </div>
+		    <ul class="nav nav-tabs" role="tablist">
+			  <li role="presentation" class="active"><a href="#demo4-js" role="tab" data-toggle="tab">js</a></li>
+			</ul>
+			<div class="tab-content">
+			  <div role="tabpanel" class="tab-pane active" id="demo4-js">
+<pre>
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox04','funnel',_data_,
+		{ //数据组配置
+			"p1":{
+				label: {
+	                normal: {
+	                    formatter: '{b}预期'
+	                },
+	                emphasis: {
+	                    position:'inside',
+	                    formatter: '{b}预期: {c}'
+	                }
+	            },
+	            labelLine: {
+	                normal: {
+	                    show: false
+	                }
+	            },
+	            itemStyle: {
+	                normal: {
+	                    opacity: 0.7
+	                }
+	            },
+				name:'直接访问',
+				type:'funnel'
+			},
+			"p2":{
+				maxSize: '80%',
+	            label: {
+	                normal: {
+	                    position: 'inside',
+	                    formatter: '{c}',
+	                    textStyle: {
+	                        color: '#fff'
+	                    }
+	                },
+	                emphasis: {
+	                    position:'inside',
+	                    formatter: '{b}实际: {c}'
+	                }
+	            },
+	            itemStyle: {
+	                normal: {
+	                    opacity: 0.5,
+	                    borderColor: '#fff',
+	                    borderWidth: 2
+	                }
+	            },
+				name:'间接访问',
+				type:'funnel'
+			}
+		},
+		{ //数据项配置
+			name1:'坐标1',
+			name2:'坐标2',
+			name3:'坐标3'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	);
+});	
+</pre>
+			  </div>
+			</div>
+		  </div>
+		</div>		
+<!-- 实例4 结束 -->
+<!-- 实例5 开始 -->
+		<div class="panel panel-default">
+		  <div class="panel-heading">仪表盘</div>
+		  <div class="panel-body">
+		    <div class="demo-box">
+<div id="demobox05" style="width: 600px;height: 400px;"></div>
+<div class="btn-group">
+	<button type="button" class="btn btn-info" id="demo5-btn1">更新数据</button>
+</div>
+		    </div>
+		    <ul class="nav nav-tabs" role="tablist">
+			  <li role="presentation" class="active"><a href="#demo5-js" role="tab" data-toggle="tab">js</a></li>
+			</ul>
+			<div class="tab-content">
+			  <div role="tabpanel" class="tab-pane active" id="demo5-js">
+<pre>
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox05','gauge',[{cname:"p1",data:[{name:"name1",value:60}]}],
+		{ //数据组配置
+			"p1":{
+				name:'直接访问',
+				type:'gauge'
+			}
+		},
+		{ //数据项配置
+			name1:'比率'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	);
+	$('#demo5-btn1').click(function(){
+		COM_TOOLS.eChartsTools.updateData('#demobox05',[{cname:"p1",data:[{name:"name1",value:Math.floor(Math.random()*100)}]}])
+	});
+});
+</pre>
+			  </div>
+			</div>
+		  </div>
+		</div>		
+<!-- 实例5 结束 -->
+<!-- 实例6 开始 -->
+		<div class="panel panel-default">
+		  <div class="panel-heading">iframe方式</div>
+		  <div class="panel-body">
+		    <div class="demo-box">
+
+<iframe id="echars-iframe-box" width="100%" height="400" frameborder="0" scrolling="no" src="echarts-demo-include.html" data-src="echarts-demo-include.html" allowtransparency="yes"></iframe>
+
+<div class="btn-group">
+	<button type="button" class="btn btn-info" id="demo6-btn1">刷新</button>
+	<button type="button" class="btn btn-success" id="demo6-btn2">更新配置</button>
+</div>
+		    </div>
+		    <ul class="nav nav-tabs" role="tablist">
+		    	<li role="presentation" class="active"><a href="#demo6-html" role="tab" data-toggle="tab">html</a></li>
+				<li role="presentation" class=""><a href="#demo6-js" role="tab" data-toggle="tab">js</a></li>
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="demo6-html">
+<pre>
+	&lt;iframe id=&quot;echars-iframe-box&quot; width=&quot;100%&quot; height=&quot;400&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;echarts-demo-include.html&quot; data-src=&quot;echarts-demo-include.html&quot; allowtransparency=&quot;yes&quot;&gt;&lt;/iframe&gt;
+</pre>
+				</div>
+			  <div role="tabpanel" class="tab-pane" id="demo6-js">
+<pre>
+$(function(){
+	$('#demo6-btn1').click(function(){
+		$('#echars-iframe-box').attr('src',$('#echars-iframe-box').data('src')+'?'+Math.random());
+	});
+	var new_opt={"title": {"text": "fff"},"xAxis":{"name": "xxx"}};
+	$('#demo6-btn2').click(function(){
+		$('#echars-iframe-box').attr('src',$('#echars-iframe-box').data('src')+'?opt='+encodeURIComponent(JSON.stringify(new_opt))+'&m='+Math.random());
+	});
+});
+</pre>
+			  </div>
+			</div>
+		  </div>
+		</div>		
+<!-- 实例6 结束 -->
+
+	</div>	
+		
+	<script src="../js/jquery-2.1.1.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	
+	<script src="../js/plugins/echarts/echarts.js"></script>
+	
+	<script src="../js/plugins/layer/layer.js"></script>
+	<script src="../i18n/zh-CN.js" ></script>
+	<script src="../js/subindex.js"></script>
+	
+	<!-- 以下js仅用于演示 -->
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="../demo-data.js" ></script>
+
+	<script>
+var _data_=[
+	{
+		cname:"p1",
+		data:[
+			{name:"name1",value:111},
+			{name:"name2",value:222},
+			{name:"name3",value:333},
+			{name:"name4",value:444}
+		]
+	},
+	{
+		cname:"p2",
+		data:[
+			{name:"name1",value:55},
+			{name:"name2",value:66},
+			{name:"name3",value:77},
+			{name:"name4",value:88}
+		]
+	}
+];
+
+
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox01','line',_data_,
+		{ //数据组配置
+			"p1":{
+				name:'直接访问',
+				type:'line'
+			},
+			"p2":{
+				name:'间接访问',
+				type:'line'
+			}
+		},
+		{ //数据项配置
+			name1:'坐标1',
+			name2:'坐标2',
+			name3:'坐标3'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	).on('click', function (params) {
+	    alert('name:'+params['name']+'\n value:'+params['value']+'\n seriesName:'+params['seriesName']);
+	});
+	$('#demo1-btn1').click(function(){
+		COM_TOOLS.eChartsTools.updateData('#demobox01',[
+		{
+			cname:"p1",
+			data:[
+				{name:"name1",value:Math.floor(Math.random()*100)},
+				{name:"name5",value:Math.floor(Math.random()*100)},
+				{name:"name3",value:Math.floor(Math.random()*100)},
+				{name:"name4",value:Math.floor(Math.random()*100)}
+			]
+		},
+		{
+			cname:"p2",
+			data:[
+				{name:"name1",value:Math.floor(Math.random()*100)},
+				{name:"name5",value:Math.floor(Math.random()*100)},
+				{name:"name3",value:Math.floor(Math.random()*100)},
+				{name:"name4",value:Math.floor(Math.random()*100)}
+			]
+		}
+		])
+	});
+});
+
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox02','bar',_data_,
+		{ //数据组配置
+			"p1":{
+				name:'直接访问',
+				type:'bar'
+			},
+			"p2":{
+				name:'间接访问',
+				type:'bar'
+			}
+		},
+		{ //数据项配置
+			name1:'坐标1',
+			name2:'坐标2',
+			name3:'坐标3',
+			name4:'坐标4'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	);
+});	
+
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox03','pie','/echarts/api',
+		{ //数据组配置
+			"p1":{
+				name:'直接访问',
+				type:'pie'
+			}
+		},
+		{ //数据项配置
+			name1:'D坐标1',
+			name2:'D坐标2',
+			name3:'D坐标3'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	);
+});
+
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox04','funnel',_data_,
+		{ //数据组配置
+			"p1":{
+				label: {
+	                normal: {
+	                    formatter: '{b}预期'
+	                },
+	                emphasis: {
+	                    position:'inside',
+	                    formatter: '{b}预期: {c}'
+	                }
+	            },
+	            labelLine: {
+	                normal: {
+	                    show: false
+	                }
+	            },
+	            itemStyle: {
+	                normal: {
+	                    opacity: 0.7
+	                }
+	            },
+				name:'直接访问',
+				type:'funnel'
+			},
+			"p2":{
+				maxSize: '80%',
+	            label: {
+	                normal: {
+	                    position: 'inside',
+	                    formatter: '{c}',
+	                    textStyle: {
+	                        color: '#fff'
+	                    }
+	                },
+	                emphasis: {
+	                    position:'inside',
+	                    formatter: '{b}实际: {c}'
+	                }
+	            },
+	            itemStyle: {
+	                normal: {
+	                    opacity: 0.5,
+	                    borderColor: '#fff',
+	                    borderWidth: 2
+	                }
+	            },
+				name:'间接访问',
+				type:'funnel'
+			}
+		},
+		{ //数据项配置
+			name1:'F坐标1',
+			name2:'F坐标2',
+			name3:'F坐标3'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	);
+});	
+
+$(function(){
+	COM_TOOLS.eChartsTools.initOpt('#demobox05','gauge',[{cname:"p1",data:[{name:"name1",value:60}]}],
+		{ //数据组配置
+			"p1":{
+				name:'直接访问',
+				type:'gauge'
+			}
+		},
+		{ //数据项配置
+			name1:'比率'
+		},
+		{
+			title : {
+				text: '图表实例名称'
+			}
+		}
+	);
+	$('#demo5-btn1').click(function(){
+		COM_TOOLS.eChartsTools.updateData('#demobox05',[{cname:"p1",data:[{name:"name1",value:Math.floor(Math.random()*100)}]}])
+	});
+});
+$(function(){
+	$('#demo6-btn1').click(function(){
+		$('#echars-iframe-box').attr('src',$('#echars-iframe-box').data('src')+'?'+Math.random());
+	});
+	var new_opt={"title": {"text": "fff"},"xAxis":{"name": "xxx"}};
+	$('#demo6-btn2').click(function(){
+		$('#echars-iframe-box').attr('src',$('#echars-iframe-box').data('src')+'?opt='+encodeURIComponent(JSON.stringify(new_opt))+'&m='+Math.random());
+	});
+});
+
+
+	</script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css"/>
+<script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+<script>
+    $('pre').each(function(i,n){
+        hljs.highlightBlock(n);
+    });
+</script>
+	</body>
+</html>

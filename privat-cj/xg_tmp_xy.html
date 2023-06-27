@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>学员出勤</title>
+    <link rel="stylesheet" href="../css/animate.min.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/plugins/iCheck/custom.css" />
+    <link rel="stylesheet" href="../css/plugins/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="../css/plugins/select2/select2.min.css" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .m-title {
+        padding: 6px 15px;
+        background-color: #18a689;
+        color: #fff;
+      }
+      .m-title > span {
+        line-height: 22px;
+      }
+      .m-title .btn-cus {
+        border-color: #fff;
+        background-color: #18a689;
+        color: #fff;
+      }
+      /* base info */
+      .base-info-wrp .form-horizontal {
+        font-size: 12px;
+        min-height: 110px;
+      }
+      .base-info-wrp .form-horizontal .col-sm-4 {
+        padding-top: 7px;
+      }
+      /* stdu list */
+      .stud-list-wrp .stud-scroll {
+        max-height: 386px;
+        overflow-y: auto;
+      }
+      .stud-list-wrp .stud-ul {
+        min-height: 240px;
+      }
+      .stud-list-wrp .stud-ul:empty::after {
+        content: '-暂无相关数据-';
+        margin: 20px auto 0 auto;
+        color: #bbb;
+      }
+      .stud-list-wrp .stud-item {
+        width: 20%;
+        padding: 0 10px;
+        margin-bottom: 10px;
+      }
+      .stud-list-wrp .stud-item .avater {
+        position: relative;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .stud-list-wrp .stud-item .avater:before {
+        content: ' ';
+        display: block;
+        padding-top: 100%;
+        width: 100%;
+        background: url(data:image/png;base64,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)
+          no-repeat center center;
+        background-size: contain;
+      }
+      .stud-list-wrp .stud-item .avater > img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      .stud-list-wrp .stud-item .status {
+        position: absolute;
+        z-index: 10;
+        top: 4px;
+        right: 0;
+        padding: 0 4px;
+        border-radius: 3px 0 0 3px;
+        background-color: #f8ac59;
+        color: #fff;
+        font-size: 13px;
+      }
+      .stud-list-wrp .stud-item .status.s1 {
+        background-color: #18a689;
+      }
+      .stud-list-wrp .stud-item .status.s2 {
+        background-color: #ed5565;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid p-sm">
+      <!-- handle -->
+      <div class="m-b-md clearfix">
+        <div class="pull-right">
+          <div class="form-inline cus-form-format">
+            <div class="form-group form-group-sm">
+              <label>日期</label>
+              <div id="js_datetime" class="input-group date">
+                <input class="form-control input-sm" type="text" data-cur-date="" readonly />
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+            </div>
+            <div class="form-group form-group-sm">
+              <label>班级</label>
+              <input type="text" class="form-control" id="className" />
+            </div>
+            <div class="form-group form-group-sm">
+              <label>讲师</label>
+              <input type="text" class="form-control" id="teacher" />
+            </div>
+            <button type="button" class="btn btn-success btn-sm" id="searchBtn">搜索</button>
+            <!-- hight search -->
+            <div id="cus_highsearch_box" class="btn-group cus-gj-searchebox">
+              <button
+                type="button"
+                class="btn btn-warning btn-sm js-gjss-btn dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true"
+                data-itemurl="/kcrm-web/search/chooseSearch?moduleCode=expclass"
+                data-itemfn="doHSearch"
+              >
+                高级搜索</button
+              ><!-- 高级搜索 -->
+              <div class="dropdown-menu dropdown-menu-right p-sm" id="cus_moreSearchBox"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- table info -->
+      <div class="row">
+        <div class="col-sm-5">
+          <table
+            id="js_classTable"
+            class="table table-striped table-bordered nowrap"
+            cellspacing="0"
+            width="100%"
+          >
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div id="js_infoWrp" class="col-sm-7">
+          <!-- base info -->
+          <div class="base-info-wrp">
+            <h4 class="m-title clearfix">
+              <span>基本信息</span
+              ><button id="js_classDetails" class="btn btn-xs btn-cus pull-right">详情</button>
+            </h4>
+            <div id="js_baseInfo" class="form-horizontal form-label-sm cus-form-format">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">学管师</label>
+                <div class="col-sm-4 js-headmaster"></div>
+                <label class="col-sm-2 control-label">讲师</label>
+                <div class="col-sm-4 js-lecturer"></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">班级名称</label>
+                <div class="col-sm-4 js-className"></div>
+                <label class="col-sm-2 control-label">课程名称</label>
+                <div class="col-sm-4 js-courseName"></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">课程阶段</label>
+                <div class="col-sm-4 js-courseStage"></div>
+                <label class="col-sm-2 control-label">状态</label>
+                <div class="col-sm-4 js-classStatus"></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">课次</label>
+                <div class="col-sm-4 js-courseNum"></div>
+              </div>
+            </div>
+          </div>
+          <!-- stud list -->
+          <div class="stud-list-wrp">
+            <h4 class="m-title"><span>出勤记录</span></h4>
+            <div class="stud-scroll">
+              <ul id="js_studUl" class="list-unstyled clearfix stud-ul"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- script -->
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../js/plugins/validate/jquery.validate.custom.min.js"></script>
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/plugins/select2/select2.full.min.js"></script>
+    <script src="../js/plugins/layer/layer.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+    <script src="../js/plugins/moment/moment.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <!-- mock -->
+    <script>
+      $.mockjax({
+        url: '/classCheck/getClassSuperVision',
+        response: function (settings) {
+          this.responseText = {
+            draw: parseInt(settings.data['draw']) || 1,
+            recordsTotal: 50,
+            recordsFiltered: 50,
+            data: [
+              {
+                classStatus: '上课中',
+                classStatusCode: '2',
+                className: '阿斯顿发送到发',
+                classDateStr: '2020/09/22 11:11-11:11',
+                attandNums: '5/10',
+                leavaStuNums: '1',
+                unAttandNums: '4',
+                attandRadio: '100%',
+                lecturerName: '阿迪说法',
+                headmasterName: '卅饭店',
+                classHour: '2'
+              },
+              {
+                classStatus: '未上课',
+                classStatusCode: '0',
+                className: '阿斯顿发送到发',
+                classDateStr: '2020/09/22 11:11-11:11',
+                attandNums: '5/10',
+                leavaStuNums: '1',
+                unAttandNums: '4',
+                attandRadio: '100%',
+                lecturerName: '阿迪说法',
+                headmasterName: '卅饭店',
+                classHour: '2'
+              },
+              {
+                classStatus: '已上课',
+                classStatusCode: '1',
+                className: '阿斯顿发送到发',
+                classDateStr: '2020/09/22 11:11-11:11',
+                attandNums: '5/10',
+                leavaStuNums: '1',
+                unAttandNums: '4',
+                attandRadio: '100%',
+                lecturerName: '阿迪说法',
+                headmasterName: '卅饭店',
+                classHour: '2'
+              }
+            ]
+          }
+        }
+      })
+
+      $.mockjax({
+        url: '/classCheck/getCourseNumDetail',
+        responseText: {
+          code: 1,
+          data: {
+            classCode: 'RC201801200187',
+            className: 'Camp_L1A_180122_PD(AM浦东寒假班）', //班级名称
+            courseName: '少儿趣味编程课程', // 课程名称
+            courseStage: 'Level 1', //阶段名称
+            lecturer: '徐诗淇', //讲师
+            headmaster: '王宇兵', //学管师
+            classStatus: '已开班', //班级状态
+            courseNum: '1', //课次
+            classAttandDos: [
+              {
+                classCode: 'RC201801200187',
+                studentName: 'asdfasdf', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl:
+                  'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2034740944,4251903193&fm=26&gp=0.jpg' //图片
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: '阿斯顿发送到', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK002', //出勤状态code
+                attandName: '出勤', //出勤状态
+                imgUrl:
+                  'https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3256100974,305075936&fm=26&gp=0.jpg' //图片    直接放到img标签里就可以
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: 'asdfasdf', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK003', //出勤状态code
+                attandName: '阿斯顿发地方', //出勤状态
+                imgUrl:
+                  'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2714978353,1075402837&fm=111&gp=0.jpg' //图片
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: '阿斯顿发送到', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl: null //图片    直接放到img标签里就可以
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: 'asdfasdf', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl: null //图片
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: '阿斯顿发送到', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl: null //图片    直接放到img标签里就可以
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: 'asdfasdf', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl: null //图片
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: '阿斯顿发送到', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl: null //图片    直接放到img标签里就可以
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: '阿斯顿发送到', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl: null //图片    直接放到img标签里就可以
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: 'asdfasdf', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl: null //图片
+              },
+              {
+                classCode: 'RC201801200187',
+                studentName: '阿斯顿发送到', //学生姓名
+                studentCode: 'ST201711120790', // 学生编码
+                eventsTimeStr: null, //识别时间  （可能为空）
+                attandCode: 'CQQK001', //出勤状态code
+                attandName: '未出勤', //出勤状态
+                imgUrl: null //图片    直接放到img标签里就可以
+              }
+            ]
+          }
+        }
+      })
+    </script>
+    <!-- moack end -->
+    <script>
+      // 接口常量
+      var CONTEXT_PATH = ''
+
+      // 构建html 班级信息
+      function createHtmlByClassInfo(data) {
+        function liItem(item) {
+          var className = ''
+          if (item.attandCode == 'CQQK001') {
+            // 未出勤
+            className = 's2'
+          } else if (item.attandCode == 'CQQK002') {
+            // 出勤
+            className = 's1'
+          }
+
+          return (
+            '<li class="pull-left stud-item"><div class="item-box">' +
+            '<div class="avater"><span class="status ' +
+            className +
+            '">' +
+            item.attandName +
+            '</span><img src="' +
+            item.imgUrl +
+            '" ></div>' +
+            '<p class="text">' +
+            (item.studentName || '') +
+            '</p>' +
+            '<p class="text">' +
+            (item.eventsTimeStr || '--') +
+            '</p>' +
+            '</div></li>'
+          )
+        }
+        var liTmp = []
+        var tmpData = data.classAttandDos || []
+        for (var i = 0; i < tmpData.length; i++) {
+          liTmp.push(liItem(tmpData[i]))
+        }
+        // 基本信息
+        var $barse = $('#js_baseInfo')
+        $barse.find('.js-headmaster').text(data.headmaster)
+        $barse.find('.js-lecturer').text(data.lecturer)
+        $barse.find('.js-className').text(data.className)
+        $barse.find('.js-courseName').text(data.courseName)
+        $barse.find('.js-courseStage').text(data.courseStage)
+        $barse.find('.js-classStatus').text(data.classStatus)
+        $barse.find('.js-courseNum').text(data.courseNum)
+        // 出勤记录
+        $('#js_studUl').html(liTmp.join(''))
+      }
+      // 请求 班级信息
+      function getClassInfo(data) {
+        COM_TOOLS.loadingOverlay.open('js_infoWrp')
+        $.get(CONTEXT_PATH + '/classCheck/getCourseNumDetail').then(function (res) {
+          if (res.code == 1 && res.data) {
+            createHtmlByClassInfo(res.data)
+            COM_TOOLS.loadingOverlay.close('js_infoWrp')
+          } else {
+            COM_TOOLS.alert(res.msg)
+          }
+        })
+      }
+      /* 高级搜索触发方式 */
+      $('#cus_highsearch_box')
+        .on('click', '.js-gjss-btn', function () {
+          var tObj_ = $(this)
+          if (!tObj_.data('isload')) {
+            $('#cus_moreSearchBox').load(tObj_.data('itemurl'), function () {
+              tObj_.data('isload', true)
+            })
+          }
+        })
+        .on('click', '#cus_moreSearchBox', function () {
+          return false
+        })
+      $('#cus-gj-searchebtn').click(function () {
+        //高级搜索框中提交按钮事件
+        $(this).closest('.cus-gj-searchebox').removeClass('open')
+      })
+      //高级搜索回调
+      COM_TOOLS.private_obj_.doHSearch = function (data) {
+        searchParemOBj_['HQUERY_DATA'] = data
+        searchParemOBj_['HQUERY'] = 'TRUE'
+        COM_TOOLS.DT_ajaxReload(_TABLE)
+      }
+      // 普通搜索
+      $('#searchBtn').click(function () {
+        searchParemOBj_['end'] = $('#js_datetime>input').val()
+        searchParemOBj_['className'] = $.trim($('#className').val())
+        searchParemOBj_['teacher'] = $.trim($('#teacher').val())
+        COM_TOOLS.DT_ajaxReload(_TABLE)
+
+        triggerFirstRow = true
+      })
+      // datetime
+      var CUR_DATE = moment(new Date()).format('YYYY-MM-DD')
+      $('#js_datetime>input').val(CUR_DATE)
+      $('#js_datetime').datetimepicker()
+      // 触发第一行选中
+      var triggerFirstRow = true
+      // table
+      var searchParemOBj_ = {}
+      var _DT = COM_TOOLS.DT_init(
+        'js_classTable',
+        [
+          {
+            data: null,
+            title: '序号',
+            className: 'text-center',
+            width: '30px',
+            render: function (data, type, row, meta) {
+              return 1 + meta.row
+            }
+          },
+          {
+            data: 'className',
+            title: '班级'
+          },
+          {
+            data: 'attandNums',
+            title: '出勤'
+          },
+          {
+            data: 'classDateStr',
+            title: '上课时间'
+          },
+          {
+            data: 'headmasterName',
+            title: '学管师'
+          }
+        ],
+        CONTEXT_PATH + '/classCheck/getClassSuperVision',
+        'get',
+        searchParemOBj_,
+        {
+          selectStyle: 'single',
+          other: {
+            pageLength: 10
+          },
+          // jsInitComplete: function () {
+          //   this.rows(0).select()
+          // },
+          jsDrawCallback: function () {
+            if (triggerFirstRow) {
+              this.rows(0).select()
+              triggerFirstRow = false
+            }
+          }
+        }
+      )
+      var _TABLE = _DT.table
+      _TABLE.on('select', function (e, dt, type, indexes) {
+        if (type === 'row') {
+          var data = COM_TOOLS.DT_getSelectRowsSourceData(_TABLE)
+          getClassInfo(data)
+        }
+      })
+    </script>
+  </body>
+</html>

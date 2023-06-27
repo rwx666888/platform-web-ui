@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Schedule Course</title>
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/core/main.min.css" />
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/timeline/main.min.css" />
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/resource/timeline/main.min.css" />
+
+    <!-- <link rel="stylesheet" href="./js/plugins/fullcalender v4/daygrid/main.min.css" /> -->
+
+    <!-- <link rel="stylesheet" href="./js/plugins/fullcalender v4/timegrid/main.min.css" /> -->
+    <!-- <link rel="stylesheet" href="./js/plugins/fullcalender v4/bootstrap/main.min.css" /> -->
+
+    <!-- <link rel="stylesheet" href="./js/plugins/fullcalender v4/list/main.min.css" /> -->
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <style>
+      .fc-timeline-event .fc-title{
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- calender bar -->
+    <div id="js_calenderBar" class="calender-bar">
+      <button class="btn btn-primary btn-sm js-prev-week" type="button">上一周</button>
+      <button class="btn btn-primary btn-sm js-next-week" type="button">下一周</button>
+      <button class="btn btn-primary btn-sm js-cur-week" type="button">返回本周</button>
+    </div>
+    <!-- canlender -->
+    <div id="js_calender" class="calender-wrp"></div>
+    <script src="./js/plugins/fullcalender v4/core/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/bootstrap/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/locales/zh-cn.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/interaction/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/daygrid/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/timegrid/main.min.js"></script>
+
+    <!-- <script src="./js/plugins/fullcalender v4/list/main.min.js"></script> -->
+
+    <script src="./js/plugins/fullcalender v4/timeline/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/resource/common/main.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/resource/daygrid/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/resource/timeline/main.min.js"></script>
+
+    <!-- <script src="./js/plugins/fullcalender v4/moment/main.min.js"></script> -->
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script>
+      $(function() {
+        function formatWeek(date) {
+          var weekList = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+          var DATE_ = new Date(date)
+          var year_ = DATE_.getFullYear()
+          var month_ = DATE_.getMonth() + 1
+          var date_ = DATE_.getDate()
+          var bay_ = DATE_.getDay()
+          // return weekList[bay_] + ' ' + year_ + '-' + month_ + '-' + date_
+          return weekList[bay_] + ' ' + month_ + '-' + date_
+        }
+
+        var calenderEl = document.getElementById('js_calender')
+        var calenderInst = new FullCalendar.Calendar(calenderEl, {
+          schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+          // plugins: ['dayGrid', 'timeGrid', 'resourceDayGrid', 'bootstrap', 'list'],
+          // plugins: ['interaction','resourceTimeline', 'bootstrap'],
+          // plugins: ['resourceDayGrid', 'bootstrap'],
+          plugins: ['interaction', 'resourceTimeline'],
+          // plugins: ['dayGrid', 'bootstrap'],
+          // themeSystem: 'bootstrap',
+          droppable: true,
+          header: false,
+          // defaultDate: '2019-04-12',
+          // timeZone: 'UTC',
+          // defaultView: 'resourceDayGridWeek',
+          // defaultView: 'dayGridWeek',
+          defaultView: 'resourceTimelineWeek',
+          locale: 'zh-ch',
+          views: {},
+          editable: true, // 开启拖动和编辑
+          eventDurationEditable: false, // 禁止编辑
+          // eventStartEditable: false, // 禁止拖动
+          eventResourceEditable: false, // 只允许的同一资源拖动
+          // aspectRatio: 3,
+          height: 'auto',
+          // contentHeight: 600,
+          slotLabelFormat: function(obj) {
+            // console.log(obj)
+            // return '-1-'
+            // return date
+            // return
+            return formatWeek(obj.date.marker)
+          },
+          firstDay: 1,
+          // columnHeaderText
+          titleFormat: {
+            day: 'numeric'
+          },
+          timeGridEventMinHeight: '200',
+          resourceLabelText: '教室',
+          // slotDuration: "12:00:00",
+          slotDuration: {days: 1},
+          // columnHeaderHtml: function(date) {
+          //   console.log(date)
+          //   // return '-' + date + '-'
+          //   return formatWeek(date)
+          // },
+          slotWidth: 300, // 时间格宽度
+          timeGridEventMinHeight: 300,
+          resourceAreaWidth: '70px', // 左侧资源宽度
+          // weekNumbers: true,
+          eventClick: function(info){
+            console.log(info)
+          },
+          eventRender: function(info) {
+            console.log(info)
+            // return '-123-'
+          },
+          events: [
+            // {
+            //   resourceId: '001',
+            //   title: 'All Day Event',
+            //   start: '2019-04-11',
+            //   a: 1,
+            //   b: 2,
+            //   c: 3,
+            //   backgroundColor: '#f90',
+            //   classNames: 'abc'
+            // },
+            // {
+            //   resourceId: '001',
+            //   title: '18:00-19:00 少儿趣味编程',
+            //   start: '2019-04-14',
+            //   backgroundColor: '#f90',
+            // },
+            // {
+            //   resourceId: '001',
+            //   title: '18:00-19:00 少儿趣味编程',
+            //   start: '2019-04-14',
+            //   backgroundColor: '#f90',
+            // },
+            // {
+            //   resourceId: '003',
+            //   title: '18:00-19:00 少儿趣味编程',
+            //   start: '2019-04-08',
+            //   backgroundColor: '#f90',
+            // },
+            {
+              resourceId: '002',
+              title: '18:00 少儿趣味编程少儿趣味编程少儿趣味编程少儿趣味编程',
+              start: '2019-04-08'
+            },
+            // {
+            //   resourceId: '002',
+            //   title: '18:00 少儿趣味编程少儿趣味编程少儿趣味编程少儿趣味编程',
+            //   start: '2019-04-12'
+            // },
+            // {
+            //   resourceId: '002',
+            //   title: '18:00 少儿趣味编程少儿趣味编程少儿趣味编程少儿趣味编程',
+            //   start: '2019-04-12'
+            // },
+            // {
+            //   resourceId: '003',
+            //   title: 'All Day Event All Day Event All Day Event',
+            //   start: '2019-04-08',
+            //   backgroundColor: '#f90',
+            // },
+            // {
+            //   resourceId: '004',
+            //   title: '18:00 少儿趣味编程少儿趣味编程少儿趣味编程少儿趣味编程',
+            //   start: '2019-04-08'
+            // },
+            // {
+            //   resourceId: '005',
+            //   title: '18:00 少儿趣味编程少儿趣味编程少儿趣味编程少儿趣味编程',
+            //   start: '2019-04-09'
+            // },
+            // {
+            //   resourceId: '005',
+            //   title: '18:00 少儿趣味编程少儿趣味编程少儿趣味编程少儿趣味编程',
+            //   start: '2019-04-13'
+            // },
+            // {
+            //   resourceId: '005',
+            //   title: '18:00 少儿趣味编程少儿趣味编程少儿趣味编程少儿趣味编程',
+            //   start: '2019-04-13'
+            // },
+            // {
+            //   resourceId: '004',
+            //   title: 'All Day Event All Day Event All Day Event',
+            //   start: '2019-04-10',
+            //   backgroundColor: '#f90',
+            // },
+            // {
+            //   title: '阿斯顿发 暗示法 阿斯顿 阿斯顿发 阿斯顿发发',
+            //   start: '2019-04-11'
+            // },
+            // {
+            //   title: '阿斯顿发 暗示法 阿斯顿 阿斯顿发 阿斯顿发发',
+            //   start: '2019-04-12'
+            // }
+          ],
+          // resourceColumns: [
+          //   {
+          //     labelText: 'First Name',
+          //     field: 'fname'
+          //   },
+          //   {
+          //     labelText: 'Last Name',
+          //     field: 'lname'
+          //   }
+          // ],
+          // resourceText: function(resource) {
+          //   console.log(resource)
+
+          //   // return '-123-'
+          // },
+          resources: [
+            {
+              id: '001',
+              title: '王老师'
+            },
+            {
+              id: '002',
+              title: '李老师'
+            },
+            {
+              id: '003',
+              title: '高老师'
+            },
+            {
+              id: '004',
+              title: '蔡老师'
+            },
+            {
+              id: '005',
+              title: '张老师'
+            }
+            // {
+            //   title: 'All Day Event',
+            //   start: '2019-04-11'
+            // },
+            // {
+            //   title: '阿斯顿发 暗示法 阿斯顿 阿斯顿发 阿斯顿发发',
+            //   start: '2019-04-11'
+            // },
+            // {
+            //   title: '阿斯顿发 暗示法 阿斯顿 阿斯顿发 阿斯顿发发',
+            //   start: '2019-04-12'
+            // }
+          ]
+        })
+
+        calenderInst.render()
+
+        console.log(calenderInst)
+        // event
+        // calenderInst.changeView('dayGridWeek',{})
+        $('#js_calenderBar')
+          .on('click', '.js-prev-week', function() {
+            calenderInst.prev()
+          })
+          .on('click', '.js-next-week', function() {
+            calenderInst.next()
+          })
+          .on('click', '.js-cur-week', function() {
+            calenderInst.today()
+          })
+      })
+    </script>
+  </body>
+</html>

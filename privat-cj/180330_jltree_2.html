@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>教历树</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <style type="text/css">
+      p {
+        margin: 0;
+      }
+      /* 默认 */
+      .one-area {
+        width: 700px;
+        padding: 0 10px;
+        margin: 20px;
+        border: 1px solid #aaa;
+      }
+      .add-item {
+        margin: 10px 0;
+      }
+      .item-default {
+        margin-bottom: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px;
+      }
+      .item-default.show-b {
+        border-color: #eee;
+      }
+      .item-default .title-bar {
+        padding: 4px 8px;
+        line-height: 32px;
+        border-radius: 2px;
+      }
+      .item-default .title-bar .icon {
+        margin-top: 3px;
+        padding: 5px;
+        border: 1px solid #bbb;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+      .item-default .title-bar .icon:hover {
+        background-color: #ffa726;
+        border-color: #ffa726;
+        color: #fff;
+      }
+      .item-default .title-bar .name {
+        padding: 0 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .sort-itme.show {
+        min-height: 44px;
+        border: 1px dashed #ddd;
+        border-radius: 3px;
+        background-color: #fffbf5;
+      }
+      .add-item .title-bar {
+        padding: 4px 8px;
+        border-radius: 2px;
+        background-color: #bcefbc;
+        cursor: pointer;
+        line-height: 22px;
+      }
+      .add-item .title-bar:hover {
+        background-color: #cdffcd;
+      }
+      .item-create-area {
+        padding: 10px 1px 0 40px;
+      }
+      /* 张开关闭 */
+      .item-default .glyphicon-plus {
+        display: none;
+      }
+      .item-default.item-hide .glyphicon-plus {
+        display: block;
+      }
+      .item-default.item-hide .glyphicon-minus {
+        display: none;
+      }
+      .item-default.item-hide .item-create-area {
+        display: none;
+      }
+      .item-default .glyphicon-trash,
+      .item-default .glyphicon-pencil {
+        margin-right: 4px;
+      }
+      .item-default .icon.glyphicon-trash:hover {
+        background-color: #f44336;
+        border-color: #f44336;
+      }
+
+      .item-create-area.one-area {
+        padding-left: 10px;
+      }
+
+      /*.title-bar.bar-default{background-color: #ddd;}
+    	    .title-bar.bar-child{background-color: #F3F3F3;}*/
+      .level-1 > .title-bar {
+        background-color: #ddd;
+      }
+      .level-2 > .title-bar {
+        background-color: #f3f3f3;
+      }
+      .level-3 > .title-bar {
+        background-color: #f3f3f3;
+      }
+      .level-4 > .title-bar {
+        background-color: #f3f3f3;
+      }
+      .level-5 > .title-bar {
+        background-color: #f3f3f3;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="js_main_area">
+      <div class="item-create-area one-area">
+        <div class="sort-itme show sort-1">
+          <!--<div class="item-default level-1">
+                        <div class="title-bar">
+                            <span class="icon js-cut-sh pull-left glyphicon glyphicon-plus"></span>
+                            <span class="icon js-cut-sh pull-left glyphicon glyphicon-minus"></span>
+                            <span class="icon pull-right glyphicon glyphicon-move"></span>
+                            <span class="icon js-remove-item pull-right glyphicon glyphicon-trash"></span>
+                            <p class="name">阶段名称 1</p>
+                        </div>
+                        <div class="item-create-area cur-2-area"></div>
+                    </div>-->
+        </div>
+        <div class="add-item">
+          <div
+            id="js_first_add"
+            data-curlv="1"
+            class="title-bar text-center js-add-item"
+          >
+            添加内容
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--TEST-->
+    <div id="t_html">
+      <p>123</p>
+    </div>
+
+    <script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <script
+      src="../js/jquery-ui.1.12.1.sort.custom.min.js"
+      type="text/javascript"
+    ></script>
+    <!-- <script src="../js/jquery-ui.custom.min.js" type="text/javascript"></script> -->
+
+    <!-- <script src="js/jquery-ui-1.12.1.min.js" type="text/javascript"></script> -->
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../js/subindex.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var t_data = [
+        {
+          id: '1',
+          level: 1,
+          order: 1,
+          name: '阶段 01',
+          child: [
+            {
+              id: '11',
+              level: 2,
+              order: 1,
+              name: '视频 01',
+              type: 1, // 1 点播 2 直播
+              child: [
+                {
+                  id: '111',
+                  level: 3,
+                  order: 1,
+                  name: '模拟 01',
+                  child: []
+                }
+              ]
+            },
+            {
+              id: '12',
+              level: 2,
+              order: 2,
+              name: '视频 02',
+              type: 2
+              //child: []
+            }
+          ]
+        },
+        {
+          id: '2',
+          level: 1,
+          order: 2,
+          name: '阶段 02'
+          //child: []
+        },
+        {
+          id: '3',
+          level: 1,
+          order: 3,
+          name: '阶段 03',
+          child: [
+            {
+              id: '31',
+              level: 2,
+              name: '视频 01',
+              type: 1,
+              child: []
+            }
+          ]
+        }
+      ]
+
+      var t_data_02 = {
+        id: '8779F8AA7E544D119341B3BA6ED070C7',
+        level: 1,
+        name: '180503-测试阶段02-cj',
+        childList: [
+          {
+            parentId: null,
+            id: '8f2c64f22f254478bd399c578cac1478',
+            name: '小程序官方文档介绍',
+            descTag: null,
+            level: '2',
+            order: '1',
+            childList: null,
+            child: null,
+            type: '10131001',
+            extend1: null,
+            extend2: null,
+            extend3: null
+          },
+          {
+            parentId: null,
+            id: 'c8ca93ce899644c4a4ca416f615e2c39',
+            name: '微信小程序商城',
+            descTag: null,
+            level: '2',
+            order: '2',
+            childList: null,
+            child: null,
+            type: '10131001',
+            extend1: null,
+            extend2: null,
+            extend3: null
+          }
+        ],
+        desc: '阿发上发大水法师打发\r\n阿斯顿发生df阿斯顿发\r\n阿斯顿发'
+      }
+
+      // 初始化排序(需要多次)
+      function sortable_init(id, class_param, handle, opt) {
+        var $str = id + ' ' + class_param
+        if ($($str).sortable()) {
+          $($str).sortable('destroy')
+        }
+        $($str).sortable({
+          connectWith: $str, // 区域控制(上下一样)
+          //containment: id,
+          handle: handle,
+          change: function(evt, ui) {
+            console.log('change')
+            if (ui.sender) {
+              var sen_len = $(ui.sender).children().length
+              if (sen_len == 1) {
+                $(ui.sender).addClass('show')
+              }
+            }
+          },
+          remove: function(evt, ui) {
+            console.log('remove')
+            var evt_len = $(evt.target).children().length
+            if (!evt_len) {
+              $(evt.target).addClass('show')
+            }
+          },
+          receive: function(evt, ui) {
+            // 添加
+            console.log('receive')
+            var evt_len = $(evt.target).children().length
+            if (evt_len) {
+              $(evt.target).removeClass('show')
+            }
+          }
+        })
+      }
+      // 动态构造DOM
+      function dy_createDom(s_data, maxlv, param) {
+        var html = ''
+        if ($.type(s_data) == 'array') {
+          $.each(s_data, function(i, n) {
+            console.log('_DOM_')
+            var h_type = true
+
+            if (n.level >= maxlv) {
+              h_type = false
+            }
+
+            html +=
+              '<div class="item-default level-' +
+              n.level +
+              ' item-hide">' +
+              "<div id='" +
+              n.id +
+              "' data-sobj='" +
+              JSON.stringify(n) +
+              "' class='title-bar'>" +
+              (h_type
+                ? '<span class="icon js-cut-sh pull-left glyphicon glyphicon-plus"></span>'
+                : '') +
+              (h_type
+                ? '<span class="icon js-cut-sh pull-left glyphicon glyphicon-minus"></span>'
+                : '') +
+              '<span class="icon js-btn-move pull-right glyphicon glyphicon-move"></span>' +
+              '<span class="icon js-remove-item pull-right glyphicon glyphicon-trash"></span>' +
+              '<span class="icon js-edit-item pull-right glyphicon glyphicon-pencil"></span>' +
+              '<p class="name">' +
+              (n.type == 1 ? '【点播】' : n.type == 2 ? '【直播】' : '') +
+              n.name +
+              '</p>' +
+              '</div>' +
+              (h_type
+                ? '<div class="item-create-area cur-' +
+                  (n.level + 1) +
+                  '-area">'
+                : '') +
+              (h_type
+                ? '<div class="sort-itme ' +
+                  (!(n.child && n.child.length) ? 'show' : '') +
+                  ' sort-' +
+                  (n.level + 1) +
+                  '">'
+                : '') +
+              (h_type && !param ? dy_createDom(n.child, maxlv) : '') + // 注意
+              (h_type ? '</div>' : '') +
+              (h_type ? '<div class="add-item">' : '') +
+              (h_type
+                ? '<div data-curlv="' +
+                  (n.level + 1) +
+                  '" data-maxlv="' +
+                  maxlv +
+                  '" class="title-bar text-center js-add-item">添加内容</div>'
+                : '') +
+              (h_type ? '</div>' : '') +
+              (h_type ? '</div>' : '') +
+              '</div>'
+          })
+        }
+        return html
+      }
+
+      function dy_createDom3(arr, s_data, maxlv, param) {
+        if ($.type(s_data) == 'array') {
+          $.each(s_data, function(i, n) {
+            var h_type = true
+
+            if (n.level >= maxlv) {
+              h_type = false
+            }
+
+            var el_html = $(
+              '<div class="item-default level-' +
+                n.level +
+                ' item-hide">' +
+                "<div id='" +
+                n.id +
+                "' class='title-bar'>" +
+                (h_type
+                  ? '<span class="icon js-cut-sh pull-left glyphicon glyphicon-plus"></span>'
+                  : '') +
+                (h_type
+                  ? '<span class="icon js-cut-sh pull-left glyphicon glyphicon-minus"></span>'
+                  : '') +
+                '<span class="icon js-btn-move pull-right glyphicon glyphicon-move"></span>' +
+                '<span class="icon js-remove-item pull-right glyphicon glyphicon-trash"></span>' +
+                '<span class="icon js-edit-item pull-right glyphicon glyphicon-pencil"></span>' +
+                '<p class="name">' +
+                (n.type == 1 ? '【点播】' : n.type == 2 ? '【直播】' : '') +
+                n.name +
+                '</p>' +
+                '</div>' +
+                (h_type
+                  ? '<div class="item-create-area cur-' +
+                    (n.level + 1) +
+                    '-area">'
+                  : '') +
+                (h_type
+                  ? '<div class="sort-itme ' +
+                    (!(n.child && n.child.length) ? 'show' : '') +
+                    ' sort-' +
+                    (Number(n.level) + 1) +
+                    '">'
+                  : '') +
+                //+ ( (h_type && !param) ? dy_createDom( n.child, maxlv ) : '' ) // 注意
+                (h_type ? '</div>' : '') +
+                (h_type ? '<div class="add-item">' : '') +
+                (h_type
+                  ? '<div data-curlv="' +
+                    (Number(n.level) + 1) +
+                    '" data-maxlv="' +
+                    maxlv +
+                    '" class="title-bar text-center js-add-item">添加内容</div>'
+                  : '') +
+                (h_type ? '</div>' : '') +
+                (h_type ? '</div>' : '') +
+                '</div>'
+            )
+
+            el_html.find('.title-bar').data('sobj', n)
+            h_type &&
+              !param &&
+              el_html
+                .find('.sort-' + (n.level + 1))
+                .append(dy_createDom3([], n.child, maxlv))
+            arr.push(el_html)
+          })
+        }
+        return arr
+      }
+
+      function dy_createDom2(obj, s_data, maxlv, param, param_2) {
+        console.log('maxlv', maxlv)
+        //var $html;
+        if ($.type(s_data) == 'array') {
+          $.each(s_data, function(i, n) {
+            var h_type = true
+
+            if (n.level >= maxlv) {
+              h_type = false
+            }
+
+            var $html = $(
+              '<div class="item-default level-' +
+                n.level +
+                ' item-hide">' +
+                "<div id='" +
+                n.id +
+                "' class='title-bar'>" +
+                (h_type
+                  ? '<span class="icon js-cut-sh pull-left glyphicon glyphicon-plus"></span>'
+                  : '') +
+                (h_type
+                  ? '<span class="icon js-cut-sh pull-left glyphicon glyphicon-minus"></span>'
+                  : '') +
+                '<span class="icon js-btn-move pull-right glyphicon glyphicon-move"></span>' +
+                '<span class="icon js-remove-item pull-right glyphicon glyphicon-trash"></span>' +
+                '<span class="icon js-edit-item pull-right glyphicon glyphicon-pencil"></span>' +
+                '<p class="name">' +
+                (n.type == 1 ? '【点播】' : n.type == 2 ? '【直播】' : '') +
+                n.name +
+                '</p>' +
+                '</div>' +
+                (h_type
+                  ? '<div class="item-create-area cur-' +
+                    (n.level + 1) +
+                    '-area">'
+                  : '') +
+                (h_type
+                  ? '<div class="sort-itme ' +
+                    (!(n.child && n.child.length) ? 'show' : '') +
+                    ' sort-' +
+                    (Number(n.level) + 1) +
+                    '">'
+                  : '') +
+                //+ ( (h_type && !param) ? dy_createDom( n.child, maxlv ) : '' ) // 注意
+                (h_type ? '</div>' : '') +
+                (h_type ? '<div class="add-item">' : '') +
+                (h_type
+                  ? '<div data-curlv="' +
+                    (Number(n.level) + 1) +
+                    '" data-maxlv="' +
+                    maxlv +
+                    '" class="title-bar text-center js-add-item">添加内容</div>'
+                  : '') +
+                (h_type ? '</div>' : '') +
+                (h_type ? '</div>' : '') +
+                '</div>'
+            )
+            //console.log(n);
+            $html.find('.title-bar').data('sobj', n)
+            obj.append($html)
+            h_type &&
+              !param &&
+              dy_createDom2(
+                $html.find('.sort-' + (Number(n.level) + 1)),
+                n.child,
+                maxlv
+              )
+            //console.log($html.data());
+            /*if(param_2){
+                        console.log('append');
+                        
+                    }else{
+                        console.log('add');
+                    }*/
+            console.log('_DOM_', $html.html())
+
+            //param_2 && obj.append($html);
+          })
+        }
+        //return $html;
+      }
+
+      // 构建提交的数据
+      function sub_ajaxData(id) {
+        var el_obj = ''
+        if ($.type(id) == 'string') {
+          el_obj = $('#' + id)
+        } else if ($.type(id) == 'object') {
+          el_obj = id
+        }
+        var arr_obj = el_obj
+          .children('.item-create-area')
+          .children('.sort-itme')
+          .children('.item-default')
+        var res_arr = []
+        $.each(arr_obj, function(i, n) {
+          var $n = $(n)
+          var s_obj = $n.children('.title-bar').data('sobj')
+          s_obj.order = i + 1
+          if ($n.children('.item-create-area').children('.sort-itme').length) {
+            s_obj.child = sub_ajaxData($n)
+          }
+          res_arr.push(s_obj)
+        })
+        return res_arr
+      }
+      // 排序(正负升降)
+      function data_sort(s_data, name, sortby_) {
+        COM_TOOLS.arrayObjectSortBy(s_data, name, sortby_)
+        $.each(s_data, function(i, n) {
+          n.child && data_sort(n.child, name, sortby_)
+        })
+      }
+      // 数据初始化(回显)
+      function init_createDom(obj, max_lv) {
+        var u_param = COM_TOOLS.requestParam('type')
+        $('#js_first_add').data('maxlv', max_lv)
+        if (u_param == 'edit') {
+          /*$.post('', {}, function(res){
+                    
+                });*/
+
+          data_sort(t_data, 'order', 1)
+          //console.log('_cb_', dy_createDom2(t_data, max_lv).html());
+          obj.removeClass('show').append(dy_createDom3([], t_data, max_lv))
+          //dy_createDom2(obj, t_data, max_lv);
+          //$('#js_main_area').children('.item-create-area').children('.sort-itme').removeClass('show').append( dy_createDom2(t_data, max_lv) );
+          // 初始化各级排序(回显)
+          for (var clv = 1; clv <= max_lv; clv++) {
+            sortable_init('#js_main_area', '.sort-' + clv, '.js-btn-move')
+          }
+        }
+      }
+      init_createDom(
+        $('#js_main_area')
+          .children('.item-create-area')
+          .children('.sort-itme'),
+        2
+      )
+
+      $('#js_main_area')
+        .on('click', '.js-cut-sh', function() {
+          // 切换显引
+          var t_ = $(this)
+          var p_ = t_.closest('.item-default')
+          p_.children('.item-create-area').slideToggle(function() {
+            $(this).removeAttr('style')
+            p_.hasClass('item-hide')
+              ? p_.removeClass('item-hide')
+              : p_.addClass('item-hide')
+            p_.find('.item-default').addClass('item-hide')
+          })
+        })
+        .on('mouseenter mouseleave', '.title-bar', function(evt) {
+          // 显示边框
+          if (evt.type == 'mouseenter') {
+            $(this)
+              .closest('.item-default')
+              .addClass('show-b')
+          } else if (evt.type == 'mouseleave') {
+            $(this)
+              .closest('.item-default')
+              .removeClass('show-b')
+          }
+        })
+        .on('click', '.js-add-item', function() {
+          // 添加元素
+          var t_ = $(this)
+          var p_ = t_.closest('.item-create-area')
+          var cur_lv = t_.data('curlv'), // level
+            max_lv = t_.data('maxlv') // maxlv
+          var data_obj = ''
+
+          if (cur_lv == 1) {
+            data_obj = [{ id: '01', level: cur_lv, name: '阶段 01' }]
+          } else if (cur_lv == 2) {
+            data_obj = [{ id: '02', level: cur_lv, name: '视频 02', type: 1 }]
+          }
+          //p_.children('.sort-itme').append( dy_createDom2( data_obj, max_lv, true ) ); // 追加
+          //console.log(dy_createDom3( [], data_obj, max_lv, true ))
+          p_.children('.sort-itme').append(
+            dy_createDom3([], data_obj, max_lv, true)
+          ) // 追加
+          //dy_createDom2( p_.children('.sort-itme'), data_obj, max_lv, true )
+
+          var sort_len = p_.children('.sort-itme').children().length
+          if (sort_len) {
+            p_.children('.sort-itme').removeClass('show')
+          } else {
+            p_.children('.sort-itme').addClass('show')
+          }
+
+          // 刷新 sort 项目
+          sortable_init('#js_main_area', '.sort-' + cur_lv, '.js-btn-move')
+        })
+        .on('click', '.js-edit-item', function() {
+          // 修改
+          console.log(
+            $(this)
+              .parent()
+              .data('sobj')
+          )
+        })
+        .on('click', '.js-remove-item', function() {
+          // 删除元素
+          var p_ = $(this).closest('.item-create-area')
+          $(this)
+            .closest('.item-default')
+            .remove()
+          var sort_len = p_.children('.sort-itme').children().length
+          if (sort_len) {
+            p_.children('.sort-itme').removeClass('show')
+          } else {
+            p_.children('.sort-itme').addClass('show')
+          }
+        })
+    </script>
+  </body>
+</html>

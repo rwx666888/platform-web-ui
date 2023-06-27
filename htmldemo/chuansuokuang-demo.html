@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>jstree-demo</title>
+
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../js/plugins/lou-multi-select/css/multi-select.css">
+<style>
+    pre {
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+        height: 400px;
+        overflow: auto;
+    }
+
+    .demo-box {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        position: relative;;
+    }
+    .span_btn.btn{
+        border:1px solid #ccc;
+        width:100%;
+        margin-top: 3px;
+    }
+</style>
+<body>
+<div class="container">
+    <div class="jumbotron">
+        <h2>穿梭框组件</h2>
+        <p>单选,全选/获取节点/搜索以及默认选中指定节点
+            <br> 官网地址：<a href="//loudev.com/" target="_blank">http://loudev.com/</a></p>
+    </div>
+    <!-- 实例1 开始 -->
+    <div class="panel panel-default">
+        <div class="panel-heading">一、组件初始化以及默认选中指定节点回调</div>
+        <div class="panel-body">
+            <div class="demo-box">
+                <select id='selected-options' multiple='multiple'>
+                    <option value='elem_1' selected>elem 1</option>
+                    <option value='elem_2'>elem 2</option>
+                    <option value='elem_3'>elem 3</option>
+                    <option value='elem_4'>elem 4</option>
+                    <option value='elem_5'>elem 5</option>
+                    <option value='elem_6'>elem 6</option>
+                    <option value='elem_7'>elem 7</option>
+                    <option value='elem_8'>elem 8</option>
+                    <option value='elem_9'>elem 9</option>
+                    <option value='elem_10'>elem 10</option>
+                </select>
+            </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#demo1-html" role="tab" data-toggle="tab">html</a></li>
+                <li role="presentation"><a href="#demo1-js" role="tab" data-toggle="tab">js</a></li>
+                <li role="presentation"><a href="#demo1-css" role="tab" data-toggle="tab">css</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="demo1-html">
+<pre>
+&lt;select id='pre-selected-options' multiple='multiple'&gt;
+    &lt;option value='elem_1' selected&gt;elem 1&lt;/option&gt;
+    &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;
+    &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;
+    &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;
+    &lt;option value='elem_5'&gt;elem 5&lt;/option&gt;
+    &lt;option value='elem_6'&gt;elem 6&lt;/option&gt;
+    &lt;option value='elem_7'&gt;elem 7&lt;/option&gt;
+    &lt;option value='elem_8'&gt;elem 8&lt;/option&gt;
+    &lt;option value='elem_9'&gt;elem 9&lt;/option&gt;
+    &lt;option value='elem_10'&gt;elem 10&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="demo1-js">
+<pre>
+&lt;script src="../js/jquery-2.1.1.js"&gt;&lt;/script
+&lt;script src="../js/plugins/lou-multi-select/js/jquery.multi-select.js"&gt;&lt;/script&gt;
+
+$(function () {
+    $('#pre-selected-options').multiSelect().multiSelect('select', ['elem_2','elem_3']);//赋值;
+})
+</pre>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="demo1-css">
+<pre>
+&lt;link rel="stylesheet" type="text/css" href="../js/plugins/lou-multi-select/css/multi-select.css"&gt;
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 实例1 结束 -->
+    <!-- 实例2 开始 -->
+    <div class="panel panel-default">
+        <div class="panel-heading">二、搜索,全选,动态加载数据</div>
+        <div class="panel-body">
+            <div class="demo-box">
+                <select id='ajax-select'  >
+                    <option value='elem_1' selected>elem 1</option>
+                    <option value='elem_2'>elem 2</option>
+                    <option value='elem_3'>elem 3</option>
+                    <option value='elem_4'>elem 4</option>
+                    <option value='elem_5'>elem 5</option>
+                    <option value='elem_6'>elem 6</option>
+                    <option value='elem_7'>elem 7</option>
+                    <option value='elem_8'>elem 8</option>
+                    <option value='elem_9'>elem 9</option>
+                    <option value='elem_10'>elem 10</option>
+                </select>
+            </div>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#demo2-html" role="tab" data-toggle="tab">html</a></li>
+                <li role="presentation"><a href="#demo2-js" role="tab" data-toggle="tab">js</a></li>
+                <li role="presentation"><a href="#demo2-css" role="tab" data-toggle="tab">css</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="demo2-html">
+<pre>
+&lt;select id='search-select' multiple='multiple'&gt;
+    &lt;option value='elem_1' selected&gt;elem 1&lt;/option&gt;
+    &lt;option value='elem_2'&gt;elem 2&lt;/option&gt;
+    &lt;option value='elem_3'&gt;elem 3&lt;/option&gt;
+    &lt;option value='elem_4'&gt;elem 4&lt;/option&gt;
+    &lt;option value='elem_5'&gt;elem 5&lt;/option&gt;
+    &lt;option value='elem_6'&gt;elem 6&lt;/option&gt;
+    &lt;option value='elem_7'&gt;elem 7&lt;/option&gt;
+    &lt;option value='elem_8'&gt;elem 8&lt;/option&gt;
+    &lt;option value='elem_9'&gt;elem 9&lt;/option&gt;
+    &lt;option value='elem_10'&gt;elem 10&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="demo2-js">
+<pre>
+&lt;script src="../js/jquery-2.1.1.js"&gt;&lt;/script
+&lt;script src="../js/plugins/lou-multi-select/js/jquery.multi-select.js"&gt;&lt;/script&gt;
+
+$(function () {
+        $('#ajax-select').multiSelect()
+        var arrList = [
+            {"value":111,"text":"一百一十一"},
+            {"value":222,"text":"二百二十二"},
+            {"value":333,"text":"三百三十三"},
+            {"value":444,"text":"四百四十四"}
+        ];
+        $.each(arrList,function (i,n) {
+            $('#ajax-select').multiSelect('addOption', {
+                value: n.value,
+                text: n.text,
+                index: 3,//从第几个插入
+                nested: false
+            });
+        });
+})
+</pre>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="demo2-css">
+<pre>
+&lt;link rel="stylesheet" type="text/css" href="../js/plugins/lou-multi-select/css/multi-select.css"&gt;
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 实例1 结束 -->
+</div>
+
+
+<script src="../js/jquery-2.1.1.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+
+<script src="../i18n/zh-CN.js"></script>
+<script src="../js/plugins/lou-multi-select/js/jquery.quicksearch.js"></script>
+<script src="../js/plugins/lou-multi-select/js/jquery.multi-select.js"></script>
+
+<script>
+    $(function () {
+        $('#selected-options').multiSelect({
+            afterSelect: function(values){
+                alert("选中: "+values);
+            },
+            afterDeselect: function(values){
+                alert("取消选中: "+values);
+            }
+        })//.multiSelect('select', ['elem_2','elem_3']);//赋值;
+    });
+    $(function () {
+        //<button class='btn btn-sm' id='select_all'>全选</button>
+
+        /*$('#search-select').multiSelect({
+            selectableHeader: "<div style='width: 100%;'><input type='text' style='width:60%;margin-bottom: 5px;border-radius: 2px;border: 1px solid #bbb;' class='search-input' autocomplete='off' placeholder='try \"12\"'></div>",
+            selectionHeader: "<input type='text' style='width:100%;margin-bottom: 5px;border-radius: 2px;border: 1px solid #bbb;' class='search-input' autocomplete='off' placeholder='try \"4\"'>",
+            afterInit: function(ms){
+                var that = this,
+                    $selectableSearch = that.$selectableUl.prev(),
+                    $selectionSearch = that.$selectionUl.prev(),
+                    selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                    selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+                console.log(selectionSearchString);
+                that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                    .on('keydown', function(e){
+                        if (e.which === 40){
+                            that.$selectableUl.focus();
+                            return false;
+                        }
+                    });
+
+                that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                    .on('keydown', function(e){
+                        if (e.which == 40){
+                            that.$selectionUl.focus();
+                            return false;
+                        }
+                    });
+            },
+            afterSelect: function(){ //选中后回调
+                this.qs1.cache();
+                this.qs2.cache();
+            },
+            afterDeselect: function(){//取消选中后回调
+                this.qs1.cache();
+                this.qs2.cache();
+            }
+        });*/
+        $('#ajax-select').multiSelect({
+            selectableFooter:'<span class="btn btn-sm span_btn" id="select_all">全选</span>',
+            selectionFooter:'<span class="btn btn-sm span_btn" id="deselect_all">全部取消</span>',
+        })
+        var arrList = [{"value":111,"text":"一百一十一"},{"value":222,"text":"二百二十二"},{"value":333,"text":"三百三十三"},{"value":444,"text":"四百四十四"}];
+        $.each(arrList,function (i,n) {
+            $('#ajax-select').multiSelect('addOption', {
+                value: n.value,
+                text: n.text,
+                index: 3,//从第几个插入
+                nested: false
+            });
+        });
+
+    });
+    $(document).on("click","#select_all", function () {
+        $('#ajax-select').multiSelect('select_all');
+        return false;
+    });
+    $(document).on("click","#deselect_all", function () {
+        $('#ajax-select').multiSelect('deselect_all');
+        return false;
+    });
+</script>
+</body>
+</html>

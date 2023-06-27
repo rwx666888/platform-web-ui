@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+    <head>
+        
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+        <title>#####</title>
+    
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.16/cr-1.4.1/fc-3.2.4/rg-1.0.2/rr-1.2.3/sl-1.2.5/datatables.min.css"/>-->
+        <link href="css/plugins/select2/select2.min.css" rel="stylesheet">
+        <link href="css/plugins/jsTree/style.min.css" rel="stylesheet">
+        <link href="css/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
+    
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            .details-control {
+                background: url('images/details_open.png') no-repeat center center;
+                cursor: pointer;
+                display: inline-block;
+                height: 20px;
+                width: 20px;
+            }
+            tr.shown .details-control {
+                background: url('images/details_close.png') no-repeat center center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- 实例1 开始 -->
+            <div class="panel panel-default">
+              <div class="panel-heading">###</div>
+              <div class="panel-body">
+                <div class="demo-box">
+                    <table id="example9_1" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                        <thead>
+                        </thead>
+                        <tbody class="first_table">
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#demo1-html" role="tab" data-toggle="tab">html</a></li>
+                  <li role="presentation"><a href="#demo1-js" role="tab" data-toggle="tab">js</a></li>
+                  <li role="presentation"><a href="#demo1-css" role="tab" data-toggle="tab">css</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="demo1-html">
+            <pre>
+            //TODO
+            </pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="demo1-js">
+            <pre>
+            //TODO
+            </pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="demo1-css">
+            <pre>
+            //TODO
+            </pre>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <!-- 实例1 结束 -->
+        </div>
+        
+        
+        <script src="js/jquery-2.1.1.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/plugins/layer/layer.js"></script>
+        <script src="js/plugins/jsTree/jstree.min.js"></script>
+        <script src="js/pinyin.js"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="js/plugins/datatables/datatables.min.js"></script>
+        <!--<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/cr-1.4.1/fc-3.2.4/rg-1.0.2/rr-1.2.3/sl-1.2.5/datatables.min.js"></script>-->
+        <script src="js/plugins/select2/select2.full.min.js"></script>
+
+        <script src="js/plugins/jquery-number/jquery.number.min.js"></script>
+
+        <script src="js/jquery.hash.min.js"></script>
+        <script src="i18n/zh-CN.js"></script>
+        <script src="js/subindex.js"></script>
+        <script type="text/javascript" src="js/plugins/moment/moment.min.js" ></script>
+        <script src="js/plugins/daterangepicker/daterangepicker.min.js"></script>
+        
+        <!-- 以下js仅用于演示 -->
+        <script src="js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="demo-data.js" ></script>
+        
+        <script>
+            $(document).ready(function() {
+                var searchParemOBj_ = { //示例
+                    'asd': 112
+                };
+                var DT_ = COM_TOOLS.DT_init('example9_1', [{
+                        "data": null,
+                        "title": '序号',
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    }, {
+                        "data": "office",
+                        "width": "30px",
+                        "title": "keke",
+                        render: function(data, type, row, meta){
+                            console.log('asdasd')
+                            return '<span class="details-control no-Sel-obj"></span><span>' + data +'</span>';
+                        }
+                    }, {
+                        "data": "first_name",
+                        "className": "text-center",
+                        "title": '姓名'
+                    }, {
+                        "data": "position",
+                        "className": "text-center",
+                        "title": '地址'
+                    }],
+                    '/dt/api',
+                    'get',
+                    searchParemOBj_, {
+                        jsTrDblclick: function(trdata, jqdom) {
+                            alert('当前操作行ID为：' + trdata['first_name']);
+                        },
+                        other: {
+                            pagingType: "simple_numbers_no_totalpage",
+                            fixedColumns:{//可选，锁定左侧、右侧各两列，需引用列冻结包
+                                leftColumns: 2,
+                            },
+                            preDrawCallback:function(){
+                                console.log('###!!')
+                            }
+                        }
+                    }
+                );
+                window.table1 = DT_.table;
+                function makeChildRow(tr, str) {
+                    var tb = tr.closest('.dataTables_wrapper');
+                    if(tb.length == 0){
+                        console.log('#',0)
+                        return false;
+                    }
+                    var nodeid = tb.attr('id').replace(/_wrapper$/gi,'');
+                    if(!nodeid){
+                        console.log('#',1)
+                        return false;
+                    }
+                    if(!$('#'+nodeid).length){
+                        console.log('#',2)
+                        return false;
+                    }
+                    var index_ = tr.data('cindex') || 0;
+                    
+                    var getFristPrev = function(node){
+                        if(node.hasClass('js-child-tr')){
+                            return getFristPrev(node.prev('tr'));
+                        }else{
+                            return node;
+                        }
+                    };
+                    var tableTr = getFristPrev(tr);
+                    var table = $('#'+nodeid).DataTable();
+                    var r = table.row(tableTr);
+                    
+                    if(tr.hasClass('js-child-tr')){
+                        tr.after(str);
+                    }else{
+                        r.child(str).show();
+                    }
+                    
+                    if(index_ == 0){
+                        /*if(r.child.isShown()) {
+                            tr.removeClass('shown');
+                            r.child.hide();
+                        } else {
+                            table.rows().every(function() {
+                                this.child.hide();
+                                this.nodes().to$().removeClass('shown');
+                            })
+                            tr.addClass('shown');
+                            r.child(str).show();
+                        }*/
+                    }else{
+                        // '[data-cindex="'+ index_ +'"]'
+                    }
+                    tr.addClass('shown');
+                    
+                    
+                }
+                $('#example9_1').on('click', '.details-control', function(e) {
+                    e.stopPropagation();
+                    console.log(123)
+                    var tr = $(this).closest('tr');
+                    var index_ = parseInt(tr.data('cindex') || 0) + 1;
+                    var prevTr = '';
+                    for(var i =0; i < index_; i++){
+                        prevTr+='<td></td>';
+                    }
+                    console.log(prevTr)
+                    var str = $('<tr class="js-child-tr" data-cindex="'+(index_)+'"><td></td>'+ prevTr +'<td><span class="details-control no-Sel-obj"></span>333</td><td>444</td></tr><tr class="js-child-tr" data-cindex="'+(index_)+'"><td></td>'+ prevTr +'<td><span class="details-control no-Sel-obj"></span>@333</td><td>444</td></tr>');
+                    makeChildRow(tr, str);
+                });
+            })
+        </script>
+        <div class=""  style="width: 400px;">
+            <input id="demo" value="" />
+        </div>
+        <div class=""  style="height: 400px;">
+            
+        </div>
+        <script>
+$('#demo').daterangepicker({
+    ranges:{
+        '今日': [moment(), moment()],
+        '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        '本周': [moment().startOf('week'), moment().endOf('week')],
+        '上周': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+        '本月': [moment().startOf('month'), moment().endOf('month')],
+        '上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+        '过去30天': [moment().subtract(29, 'days'), moment()],
+    },
+    alwaysShowCalendars: true,
+    locale:{
+        "format": 'YYYY-MM-DD',
+        "separator": " 至 ",
+        "applyLabel": "确定",
+        "cancelLabel": "取消",
+        "fromLabel": "起始时间",
+        "toLabel": "结束时间'",
+        "customRangeLabel": "自定义",
+        "weekLabel": "W",
+        "daysOfWeek": ["日", "一", "二", "三", "四", "五", "六"],
+        "monthNames": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        "firstDay": 1
+    },
+    startDate: moment().subtract(29, 'days'),
+    endDate: moment()
+}, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+});
+        </script>
+    </body>

@@ -1,0 +1,306 @@
+<!doctype html>
+<html>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>layer-demo弹窗</title>
+
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+  <link href="../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css" rel="stylesheet">
+  <link href="../js/plugins/datatables/FixedColumns-3.2.2/css/fixedColumns.bootstrap.min.css" rel="stylesheet">
+  <link href="../js/plugins/datatables/Select-1.2.0/css/select.bootstrap.min.css" rel="stylesheet">
+
+  <link href="../css/animate.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+
+  <!-- 以下JS因演示demo需要，所以在head中引入 -->
+  <script src="../js/jquery-2.1.1.js"></script>
+
+  <!-- 以下js仅用于演示 -->
+  <script src="../js/plugins/beautifier/beautifier.min.js"></script>
+  <script src="../js/jquery.mockjax.min.js"></script>
+  <script type="text/javascript" src="../demo-data.js"></script>
+  <style>
+    pre {
+      white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -pre-wrap;
+      white-space: -o-pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .demo-box {
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      position: relative;
+      border-radius: 5px;
+    }
+
+    .tab-content {
+      overflow-y: auto;
+      max-height: 400px;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h2>弹窗组件-layer（只限框架中使用）</h2>
+        <p style="font-size: 14px;">支持跨iframe、多弹窗；
+          PS：本实例只是对原组件进行交互封装，最大限度的保留了原组件的配置属性（源码有定制修改，不能直接用官方版本覆盖升级）；官网地址：http://layer.layui.com/
+        </p>
+        <p style="font-size: 14px;">
+          <span class="text-danger">手册地址：</span><a href="comTools-demo.html" target="_blank">comTools-demo.html</a>
+          <br />1. 新增自定义配置项:[option] other:{"noTriEnd":true}可阻止cancel时触发end回调方法*/;
+          <br />2. 修改组件 layer.close(index,noTriEnd_); [cumCloseWin(index,noTriEnd_)]方法,@description 关闭指定的弹窗;* @param
+          {Number} index 需关闭的弹窗的index; * @param {Boolean} noTriEnd_ 是否阻止触发END回调方法；true
+          <br />3. 因原组件部分方法在特定场景下 存在已知的层级BUG，固建议使用COM_TOOLS.alert()替换layer.msg(); COM_TOOLS.confirm()替换layer.confirm();
+          <br />4. 新增自定义配置项：[option] other:{cusOffsetLeft:0} 控制弹窗定位左侧偏移量，默认0，如果是右侧定位，请使用负数；
+          <br />5. 新增自定义配置项：[option] other:{"btnStyleArr": []} 自定义弹窗按钮组样式类 默认：无；示例： ['btn-info','btn-danger']
+          <br />6. <span class="text-danger">注意: 当层类型为 信息框(type:0)或 加载层(type:3)时， 只能最多同时存在一个，后面的会销毁之前的同类型层；</span>
+        </p>
+
+      </div>
+      <!-- 实例1 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">新建弹窗</div>
+        <div class="panel-body">
+          <div class="demo-box js-auto-init-demobox">
+            <div class="btn-group">
+              <button class="btn btn-default" id="demo1-btn1">默认大小</button>
+              <button class="btn btn-default" id="demo1-btn2">指定大小['400px','300px']</button>
+              <button class="btn btn-default" id="demo1-btn3">自适应大小（只限内容窗.非iframe）</button>
+              <button class="btn btn-default" id="demo1-btn4">带回调函数</button>
+              <button class="btn btn-default" id="demo1-btn5" title="可用于子页面中添加、修改数据，提交后刷新父页面">点击右上角X关闭不触发end方法回调</button>
+              <button class="btn btn-default" id="demo1-btn6">关闭[close()]是否触发回调</button>
+              <button class="btn btn-default" id="demo1-btn7">加载中遮罩层（3秒自动销毁）</button>
+              <button class="btn btn-default" id="demo1-btn8">一般询问框</button>
+              <button class="btn btn-default" id="demo1-btn9">询问框+自定义按钮样式</button>
+              <button class="btn btn-default" id="demo1-btn10">alert消息框</button>
+              <button class="btn btn-default" id="demo1-btn11">右下角公告信息</button>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#demo1-js" role="tab" data-toggle="tab">js</a></li>
+            <li role="presentation"><a href="#demo1-css" role="tab" data-toggle="tab">css</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="demo1-js">
+              <script class="js-auto-init-jscode">
+                /**
+             * 依赖 
+             * jquery-2.1.1.js 、
+             * bootstrap.min.js 、
+             * plugins/layer/layer.js
+             * subindex.js
+             * */
+              $(function () {
+                $('#demo1-btn1').click(function(){
+                  cumParentWinModal('默认大小','demolayer.html');
+                });
+                $('#demo1-btn2').click(function(){
+                  cumParentWinModal('指定大小','demolayer.html',{area:['400px', '300px']});
+                });
+                $('#demo1-btn3').click(function(){
+                  cumParentWinModal('自适应大小','<div class="p-m">这里是需要显示的HTML内容或$("demo")选择器<span class="text-danger">(选择器不能跨iframe)</span></div>',{type:1,area:['auto', 'auto']});
+                });
+                $('#demo1-btn4').click(function(){
+                  cumParentWinModal('带回调函数','demolayer2.html',{
+                    end:function(){COM_TOOLS.alert('关闭了');},
+                    success:function(layero,ind_){//弹窗对象，索引
+                      //新打开的iframe窗口(demolayer2.html)的 window对象； window.yourfun()
+                      var win_= parent[layero.find('iframe')[0]['name']]; 
+                      //调用子页面中的方法 yourfun；
+                      win_.COM_TOOLS.private_obj_.yourfun('@@');
+                      //得到iframe页(demolayer2.html)的body对象
+                      var ele_ = parent.layer.getChildFrame('body', ind_); 
+                      //得到iframe页的body内容
+                      console.log(ele_.html());
+                      //给新打开的iframe窗口中id="test_msg_box"的元素赋值
+                      ele_.find('#test_msg_box').prepend('<br/><br/><span class="text-danger">Hi，我是从父页来的</span><br/><br/>');
+                    }
+                  });
+                });
+                $('#demo1-btn5').click(function(){
+                  cumParentWinModal('点击右上角X关闭不触发end方法回调','<div class="p-m"><button class="btn btn-info" onclick="layer.closeAll()">关闭</button></div>',{
+                    end:function(){COM_TOOLS.alert('关闭了,例如可执行刷新方法 tabel.ajax.reload()');/* 例如执行刷新方法 tabel.ajax.reload() */},
+                    other:{"noTriEnd":true}, //关键，必须指定该参数 才可以阻止 点击右上角X关闭不触发end方法回调；（自定义方法，非官方API）
+                    cancel:function(){COM_TOOLS.alert('你点击的右上角关闭按钮，但不执行end方法');},
+                    type:1,
+                    area:['auto', 'auto']
+                  });
+                });
+                $('#demo1-btn6').click(function(){
+                  cumParentWinModal('关闭[close()]是否触发回调','<div class="p-m"><button class="btn btn-info" onclick="layer.close($(this).closest(\'.layui-layer\').attr(\'times\'),true)">关闭但不触发回调</button> <button class="btn btn-error" onclick="layer.close($(this).closest(\'.layui-layer\').attr(\'times\'))">关闭并触发回调（默认）</button></div>',{
+                    end:function(){COM_TOOLS.alert('关闭了,例如可执行刷新方法 tabel.ajax.reload()');/* 例如执行刷新方法 tabel.ajax.reload() */},
+                    other:{"noTriEnd":true}, //关键，必须指定该参数 才可以阻止 点击右上角X关闭不触发end方法回调；（自定义方法，非官方API）
+                    cancel:function(){COM_TOOLS.alert('你点击的右上角关闭按钮，但不执行end方法');},
+                    type:1,
+                    area:['auto', 'auto']
+                  });
+                });
+                $('#demo1-btn7').click(function(){ //加载中遮罩层（3秒自动销毁）
+                  COM_TOOLS.loadingShade.open(3); //开启 并设置3秒后自动关闭；缺省：0，不自动关闭
+                  //COM_TOOLS.loadingShade.close(); //关闭
+                });
+                $('#demo1-btn8').click(function(){
+                  COM_TOOLS.confirm('一般询问框');
+                });
+                $('#demo1-btn9').click(function(){
+                  COM_TOOLS.confirm('询问框+自定义按钮样式',{
+                    btnStyleArr:['btn-info','btn-danger','btn-primary','btn-default','btn-warning','btn-success'],
+                    btn:['btnName1','btnName2','btnName3','btnName4','btnName5','btnName6']
+                  });
+                });
+                $('#demo1-btn10').click(function(){
+                  COM_TOOLS.alert('alert消息框');
+                });
+                $('#demo1-btn11').click(function(){
+                  cumParentWinModal('右下角公告信息','hello!!',{
+                    type:1, //关键
+                    other:{
+                      offset:'rb', // 位置：右下角
+                      cusOffsetLeft:-30 //据右侧偏移量
+                    }, //关键
+                    area:'auto'
+                  });
+                });
+              });
+          </script>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo1-css">
+              <pre>
+组件包
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 实例1 结束 -->
+      <!-- 实例2 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">新建弹窗并传递数据</div>
+        <div class="panel-body">
+          <div class="demo-box">
+            <p>两种方式：</p>
+            <p>1. 框架内透传方式（字符串或对象），异步（页面“加载完成后”才有此数据）</p>
+            <p>2. URL方式（字符串）</p>
+            <p>差异请查看DEMO1</p>
+            <div class="btn-group">
+              <button class="btn btn-default" id="demo2-btn1">DEMO1</button>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#demo2-js" role="tab" data-toggle="tab">js</a></li>
+            <li role="presentation"><a href="#demo2-css" role="tab" data-toggle="tab">css</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="demo2-js">
+              <script class="js-auto-init-jscode">
+                $(function () {
+                  $('#demo2-btn1').click(function() {
+                    cumParentWinModal('框架内透传方式（字符串或对象），异步（页面“加载完成后”才有此数据）', 'demolayer2.html?name1=value1&name2=value2', {
+                      callid: {
+                        name1: 'value1',
+                        name2: 'value2'
+                      }
+                    });
+                  });
+                  $('#demo2-btn2').click(function() {
+                    cumParentWinModal('URL方式（字符串）', 'demolayer2.html?name1=value1&name2=value2');
+                  });
+                });
+              </script>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="demo2-css">
+              <pre>
+组件包
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 实例2 结束 -->
+      <!-- 实例3 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">子页面操作父页面中的回调方法（全局，生存周期为父页面销毁前）</div>
+        <div class="panel-body">
+          
+          <pre>
+/* 父页面声明处理方法 */
+// ps：fn[n],名称示例，随意起名，本页面中不重复即可
+COM_TOOLS.private_obj_={fn1:function(yourData){[yourCode||yourFn]},fn2:function(yourData){[yourCode||yourFn]}} //不建议此形式
+//等同于（建议）
+COM_TOOLS.private_obj_.fn1=function(yourData){[yourCode||yourFn]};
+COM_TOOLS.private_obj_.fn2=function(yourData){[yourCode||yourFn]};
+//等同于
+COM_TOOLS.private_obj_.fn1=yourFn1;
+COM_TOOLS.private_obj_.fn2=yourFn2;
+/*  子页面如何调用 */
+COM_TOOLS.callParentWinFn('fn1',[yourData]);
+COM_TOOLS.callParentWinFn('fn2',[yourData]);
+</pre>
+        </div>
+      </div>
+      <!-- 实例3 结束 -->
+      <!-- 实例4 开始 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">子页面操作父页面中的回调方法（局部，生存周期为在父页面中打开下一个窗口前销毁）</div>
+        <div class="panel-body">
+          <pre language="javascript">
+/* 父页面声明处理方法 */
+/* ps：fn[n],名称示例，随意起名，本页面中可重复，每次子弹窗打开前会销毁  */
+//(建议的形式)
+$('.btn').click(function(){ //点击按钮打开弹窗
+  cumParentWinModal('新建弹窗','url',{
+    callback:{
+      fn1:function(yourData){[yourCode||yourFn]},   //函数内如有操作input元素的值时，请使用.trigger('focusout.validate')触发验证; select、单复选框使用.trigger('click.validate')触发验证
+      fn2:function(yourData){[yourCode||yourFn]}
+    }
+  });
+});
+//或者(不建议的形式)
+$('.btn').click(function(){ //点击按钮打开弹窗
+  cumParentWinModal('新建弹窗','url',{callback:{fn1:'cbfn1',fn2:'cbfn2'}});
+  COM_TOOLS.setCacheFnForChildWin(
+    {
+      cbfn1:function(yourData){[yourCode||yourFn]},
+      cbfn2:function(yourData){[yourCode||yourFn]}
+    }
+  );
+});
+
+/*  子页面如何调用 */
+COM_TOOLS.callParentWinCacheFn('fn1',[yourData]);
+</pre>
+        </div>
+      </div>
+      <!-- 实例4 结束 -->
+
+    </div>
+
+
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/layer/layer3.1.1.js"></script>
+
+
+    <script src="../js/jquery.hash.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+    <script src="../js/subindex.js"></script>
+    <script src="../js/plugins/pace/pace.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+    <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+    <script>
+
+      $(function() {
+        $('pre').each(function(i, n) {
+          hljs.highlightBlock(n);
+        });
+      });
+    </script>
+  </body>
+</html>

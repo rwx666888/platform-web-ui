@@ -1,0 +1,271 @@
+<!--  -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>X-editable</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="../css/plugins/x-editable/bootstrap-editable.css">
+
+        <link rel="stylesheet" href="../css/style.css">
+
+        <!-- 以下JS因演示demo需要，所以在head中引入 -->
+        <script src="../js/jquery-2.1.1.js"></script>
+
+        <!-- 以下js仅用于演示 -->
+        <script src="../js/plugins/beautifier/beautifier.min.js"></script>
+        <script src="../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../demo-data.js"></script>
+        <style>
+            pre {
+                white-space: pre-wrap;
+                white-space: -moz-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                word-wrap: break-word;
+            }
+            
+            .cus-demo-code-ol {
+                background: #F2F2F2;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .cus-demo-code-ol li {
+                margin-left: 45px;
+                line-height: 20px;
+                padding: 0 5px;
+                border-left: 1px solid #e2e2e2;
+                list-style-type: decimal-leading-zero;
+                background-color: #fff;
+            }
+            
+            .demo-box {
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                position: relative;
+                border-radius: 5px;
+            }
+            
+            .tab-content {
+                overflow-y: auto;
+                /*max-height: 400px;*/
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h2>X-editable 组件</h2>
+                <p>文本元素编辑组件</p>
+                <p style="font-size: 14px;">官网：
+                    <a href="https://vitalets.github.io/x-editable/">http://vitalets.github.io/x-editable/</a>
+                </p>
+                <p style="font-size: 14px;">官网DOCS：
+                    <a href="https://vitalets.github.io/x-editable/docs.html">http://vitalets.github.io/x-editable/docs.html</a>
+                </p>
+                <p style="font-size: 14px;">官网DEMO：
+                    <a href="https://vitalets.github.io/x-editable/demo-bs3.html">http://vitalets.github.io/x-editable/demo-bs3.html</a>
+                </p>
+            </div>
+
+            <!-- 实例1 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">示例</div>
+                <div class="panel-body">
+                    <div class="demo-box js-auto-init-demobox">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">默认</label>
+                                <div class="col-sm-4">
+                                    <p class="control-label pull-left" id="js_editable01">我是内容哦</p>
+                                </div>
+                                <label class="col-sm-2 control-label">带校验的</label>
+                                <div class="col-sm-4">
+                                    <p class="control-label pull-left" id="js_editable02">嘻嘻</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">选择框</label>
+                                <div class="col-sm-4">
+                                    <p class="control-label pull-left" id="js_editable03" data-type="select">我是内容哦</p>
+                                </div>
+                                <label class="col-sm-2 control-label">checklist</label>
+                                <div class="col-sm-4">
+                                    <p class="control-label pull-left" id="js_editable04" data-type="checklist">嘻嘻</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">ajax 示例</label>
+                                <div class="col-sm-4">
+                                    <p class="control-label pull-left" id="js_editable05" data-url="/api/test" data-name="name1" data-pk="abcd">我是内容哦</p>
+                                </div>
+                                <label class="col-sm-2 control-label">inline 模式</label>
+                                <div class="col-sm-4">
+                                    <p class="control-label pull-left" id="js_editable06" data-url="/api/test" data-name="name1" data-pk="abcd">我是内容哦</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">事件触发</label>
+                                <div class="col-sm-10"><span id="js_editable07" class="js-item-xe">随便的内容</span><span style="margin-left: 30px; cursor: pointer;" class="js-open-xe text-info">配置</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-html">
+                            <pre class="js-auto-init-htmlcode"><!-- 启用“js-auto-init”后此处不需要编写代码；否则填写转义后的HTML代码 --></pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-js">
+                            <script class="js-auto-init-jscode">
+                                $(function () {
+                                    $.fn.editable.defaults.emptytext = '空'
+                                    $.fn.editable.defaults.emptyclass = 'text-primary'
+                                    $.fn.editable.defaults.error = function () {
+                                        return '请求发送错误';
+                                    }
+
+                                    $('#js_editable01').editable();
+
+                                    $('#js_editable02').editable({
+                                        validate: function (value) {
+                                            if ($.trim(value) == '') {
+                                                return '不能为空';
+                                            }
+                                        }
+                                    });
+
+                                    $('#js_editable03').editable({
+                                        source: [{
+                                                text: '内容1',
+                                                value: '1'
+                                            },
+                                            {
+                                                text: '内容2',
+                                                value: '2'
+                                            },
+                                            {
+                                                text: '内容3',
+                                                value: '3'
+                                            },
+                                        ]
+                                    });
+
+                                    $('#js_editable04').editable({
+                                        source: [{
+                                                text: '内容1',
+                                                value: '1'
+                                            },
+                                            {
+                                                text: '内容2',
+                                                value: '2'
+                                            },
+                                            {
+                                                text: '内容3',
+                                                value: '3'
+                                            },
+                                        ]
+                                    });
+
+                                    $('#js_editable05').editable({
+                                        success: function (res, newVal) {
+                                            console.log('success--', res, newVal);
+                                            // return {newValue: null}
+                                            return {
+                                                success: false,
+                                                msg: 'abc'
+                                            }
+                                            // return '123'
+                                        }
+                                    });
+
+                                    $('#js_editable05').on('save', function (e, editable) {
+                                        console.log(e, editable);
+                                    })
+
+                                    $('#js_editable06').editable({
+                                        mode: 'inline'
+                                    })
+                                    $('#js_editable07').editable({
+                                        mode: 'inline',
+                                        toggle: 'manual'
+                                    }).on('hidden', function (e) {
+                                        console.log(arguments.length);
+                                        // console.log($(this));
+                                        if (arguments.length != 2) return
+                                        $(this).next('.js-open-xe').show()
+                                    })
+                                    $(document).on('click.open', '.js-open-xe', function (e) {
+                                        e.stopPropagation();
+                                        $(this).hide().prev('.js-item-xe').editable('show');
+                                    })
+                                });
+                            </script>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-css">
+                            <pre>&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/plugins/x-editable/bootstrap-editable.css&quot;&gt;</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例1 结束 -->
+
+            <!-- 说明 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">说明</div>
+                <div class="panel-body">
+                    <pre class="hljs javascript">
+dom节点中配置的 data-* 默认优先级高于 js 中配置的
+默认的请求字段包含：{name: 'xx', value: 'xxx', pk: 'xx'}
+        </pre>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+        <script src="../js/plugins/x-editable/bootstrap-editable.min.js"></script>
+
+        <script type="text/javascript" src="../i18n/zh-CN.js"></script>
+        <script type="text/javascript" src="../js/subindex.js"></script>
+        <script>
+            $.mockjax({
+                url: "/api/test",
+                dataType: "json",
+                response: function (settings) {
+                    this.responseText = {
+                        success: true
+                    };
+                }
+            });
+        </script>
+        
+        <link rel="stylesheet" type="text/css" href="../css/plugins/highlight/xcode.min.css" />
+        <script src="//cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+        <script>
+            $(function () {
+                $('pre').each(function (i, n) {
+                    //$(n).html(_demo_htmlencode_fn($(n).html()));
+                    hljs.highlightBlock(n);
+                });
+            });
+        </script>
+    </body>
+
+</html>

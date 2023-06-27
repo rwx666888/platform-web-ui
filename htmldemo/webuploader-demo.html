@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>WebUploader-Demo</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/plugins/webUploader/cus_uploader.css" />
+    <style type="text/css">
+      pre {
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .demo-box {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        position: relative;
+        border-radius: 5px;
+      }
+
+      .jumbotron p {
+        font-size: 14px !important;
+      }
+
+      .hide-inp2 {
+        display: none !important;
+      }
+    </style>
+    <!-- 以下JS因演示demo需要，所以在head中引入 -->
+    <script src="../js/jquery-2.1.1.js"></script>
+
+    <!-- 以下js仅用于演示 -->
+    <script src="../js/plugins/beautifier/beautifier.min.js"></script>
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="../demo-data.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h3>文件上传WebUploader</h3>
+        <p>WebUploader是由Baidu
+          WebFE(FEX)团队开发的一个简单的以HTML5为主，FLASH为辅的现代文件上传组件。在现代的浏览器里面能充分发挥HTML5的优势，同时又不摒弃主流IE浏览器，沿用原来的FLASH运行时，兼容IE6+。</p>
+        <p>官网地址：<a href="https://fex.baidu.com/webuploader/" target="_blank">http://fex.baidu.com/webuploader/</a></p>
+        <p class="text-info">组件包</p>
+        <p>webuploader.min.js</p>
+        <p class="text-danger">Uploader.swf 注：使用FLASH上传时需要</p>
+        <p class="text-danger">注：点击上传按钮后，自动修改为禁止操作。只有在返回成功和请求错误是才可继续</p>
+      </div>
+      <h3>实例演示</h3>
+      <!--DEMO 1-->
+      <div class="panel panel-default">
+        <div class="panel-heading">选择文件并上传</div>
+        <div class="panel-body">
+          <div class="demo-box js-auto-init-demobox">
+            <form id="t_form_01">
+              <div class="form-group">
+                <p class="control-label col-sm-3">文件上传(文件):</p>
+                <!-- 一般文件上传 -->
+                <button id="btn_dy_upload" type="button" class="btn btn-sm btn-info js-dy-creation">选择并上传</button>
+              </div>
+              <div class="form-group">
+                <p class="control-label col-sm-3">文件上传(文件,显示文件名):</p>
+                <!-- 一般文件上传，显示文件名，回显的文件赋值的到“data-fpath” -->
+                <button id="btn_dy_upload2" type="button" data-fpath="文件路径/11.txt"
+                  class="btn btn-sm btn-info js-dy-creation">选择并上传</button>
+              </div>
+              <div class="form-group">
+                <p class="control-label col-sm-3">文件上传(图片):</p>
+                <!-- 上传图片文件（width，height为显示区域的大小） -->
+                <img id="img_dy_upload" width="70" height="40" class="js-dy-creation" />
+              </div>
+            </form>
+
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#demo1-html" role="tab" data-toggle="tab"
+                aria-expanded="true">html</a></li>
+            <li role="presentation" class=""><a href="#demo1-js" role="tab" data-toggle="tab"
+                aria-expanded="false">js</a></li>
+            <li role="presentation" class=""><a href="#demo1-css" role="tab" data-toggle="tab"
+                aria-expanded="false">css</a></li>
+            <li role="presentation" class=""><a href="#demo1-data" js-auto-ajaxdata="up_api_01" role="tab"
+                data-toggle="tab">ajaxData</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="demo1-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div class="tab-pane" id="demo1-js">
+              <script class="js-auto-init-jscode">
+                /**
+                 * @description 自定义原生上传; 数据回显时:btn类型回显的数据填写按钮的 data-fpath 属性上，img 类型回显的数据填写在 src 上即可。
+                 * @param {String} id 必填， 触发对象的 id;
+                 * @param {String} hide_id 选填，隐藏域对应的 id 及 name; 默认为 (@id)_hide 格式，(@id)为上面的参数id;
+                 * @param {Object} option 选填，配置信息;
+                 */
+
+                /*
+                var option = {
+                    serve_url:  string // 接口
+                    serve_name: string // 对应字段，默认: upload
+                    required： boolean // validate校验，默认：false
+                    isname: boolean // 文件名称是否显示，默认：false
+                    uptype: object // 后台用于区分存储类型，例: {'category' :'header'}
+                    filetype: array // 格式类型，例：['txt', 'png']
+                    filesize: number // 文件大小单位kb，默认：10MB，例：(10*1024)
+                    success: function(res, obj) // 请求成功时回调
+                }
+                */
+                /*DEMO1*/
+                $(function() {
+                  COM_TOOLS._view.cusFileUpload('btn_dy_upload', 'test_inpt_name', {
+                    serve_url: 'up_api_01'
+                  });
+                  COM_TOOLS._view.cusFileUpload('btn_dy_upload2', 'test_inpt_name2', {
+                    serve_url: 'up_api_01',
+                    isname: true
+                  });
+                  COM_TOOLS._view.cusFileUpload('img_dy_upload', {
+                    serve_url: 'up_api_02'
+                  });
+                });
+              </script>
+            </div>
+            <div class="tab-pane" id="demo1-css">
+              <pre>
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/bootstrap.min.css&quot;/&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/style.css&quot; /&gt;
+</pre>
+            </div>
+            <div class="tab-pane" id="demo1-data"></div>
+          </div>
+        </div>
+      </div>
+
+      <!--DEMO4-->
+      <div class="panel panel-default">
+        <div class="panel-heading">非组件文件上传</div>
+        <div class="panel-body">
+          <div class="demo-box js-auto-init-demobox">
+            <p id="fileName4">文件名称:</p>
+            <div class="row">
+              <div class="col-sm-12">
+                <button id="selectBtn4" type="button" class="btn btn-sm btn-info">选择文件</button>
+                <button id="upLoadBtn4" type="button" class="btn btn-sm btn-info">上传文件</button>
+                <input id="inpFile4" class="hide-inp2" type="file" />
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#demo4-html" role="tab" data-toggle="tab"
+                aria-expanded="true">html</a></li>
+            <li role="presentation" class=""><a href="#demo4-js" role="tab" data-toggle="tab"
+                aria-expanded="false">js</a></li>
+            <li role="presentation" class=""><a href="#demo4-css" role="tab" data-toggle="tab"
+                aria-expanded="false">css</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="demo4-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div class="tab-pane" id="demo4-js">
+              <script class="js-auto-init-jscode">
+                /*DEMO4*/
+                $(function() {
+                  $('#selectBtn4').on('click', function() {
+                    return $('#inpFile4').click();
+                  });
+                  $('#inpFile4').on('change', function(evt) {
+                    var files_ = evt.target.files[0];
+                    $('#fileName4').text('文件名称：' + files_.name);
+                  });
+                  $('#upLoadBtn4').on('click', function() {
+                    var dataF = new FormData();
+                    // 'myFile' 为后台所接受该文件所对应的字段名
+                    dataF.append('myFile', $('#inpFile4')[0].files[0]);
+                    $.ajax({
+                      type: 'POST',
+                      processData: false, //必须
+                      contentType: false, //必须
+                      url: '', //上传路径
+                      data: dataF,
+                      success: function(data) {
+                        console.log(data);
+                      }
+                    });
+                  });
+                });
+              </script>
+            </div>
+            <div class="tab-pane" id="demo4-css">
+              <pre>
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/bootstrap.min.css&quot;/&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/style.css&quot;/&gt;
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--DEMO5-->
+      <div class="panel panel-default">
+        <div class="panel-heading">webuploader组件并支持MD5校验</div>
+        <div class="panel-body">
+          <div class="demo-box">
+            <div class="row">
+              <div class="col-sm-12 js-auto-init-demobox">
+                <button id="selectBtn3" type="button" class="btn btn-sm btn-info">选择文件并上传</button>
+                <input id="inpFile3" multiple="multiple" class="hidden" type="file" />
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#demo5-html" role="tab" data-toggle="tab"
+                aria-expanded="true">html</a></li>
+            <li role="presentation" class=""><a href="#demo5-js" role="tab" data-toggle="tab"
+                aria-expanded="false">js</a></li>
+            <li role="presentation" class=""><a href="#demo5-css" role="tab" data-toggle="tab"
+                aria-expanded="false">css</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="demo5-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div class="tab-pane" id="demo5-js">
+              <script class="js-auto-init-jscode">
+                $(function() {
+                  //文件上传
+                  var uploader2 = WebUploader.create({
+                    //swf文件路径
+                    swf: '../js/plugins/webUploader/Uploader.swf',
+                    //文件接收服务端。
+                    server: "java_url",
+                    //开启MD5之后，必须关闭压缩(默认 false 不压缩，如开启需配置压缩质量:{quality: 90})
+                    compress: false,
+                    //文件类别，自定义
+                    formData: {
+                      'category': 'header'
+                    },
+                    //设置文件上传域的name
+                    fileVal: 'upload',
+                    // MD5校验
+                    needmd5: false,
+                    //验证文件总数量, 超出则不允许加入队列
+                    fileNumLimit: 2
+                    //限制上传文件类型
+                    /*accept:{
+                        extensions: 'txt',
+                    } */
+                  });
+                  uploader2.on('fileQueued', function(file) {
+                    COM_TOOLS.loadingBtn.open($('#selectBtn3'));
+                    if (uploader2.options.needmd5) {
+                      this.md5File(file.source).fail(function() {
+                        COM_TOOLS.loadingBtn.close($('#selectBtn3'));
+                      }).then(function(ret) { // 处理完成后触发
+                        file.filemd5 = ret;
+                        uploader2.upload(file);
+                      });
+                    } else {
+                      uploader2.upload(file);
+                    }
+                  }).on('uploadBeforeSend', function(block, data) {
+                    data.md5 = block.file.filemd5;
+                  }).on('uploadSuccess', function(file, re) {
+                    if (re._raw.state == 1) {
+                      // 成功
+                    } else if (re._raw != 'ERROR') {
+                      // 失败
+                    }
+                    COM_TOOLS.loadingBtn.close($('#selectBtn3'));
+                  }).on('error', function(type) {
+                    if (type == 'Q_EXCEED_NUM_LIMIT') {
+                      COM_TOOLS.alert("文件数量超出限制");
+                    }
+                    if (type == 'Q_EXCEED_SIZE_LIMIT') {
+                      COM_TOOLS.alert("文件大小超出限制");
+                    }
+                    if (type == 'Q_TYPE_DENIED') {
+                      COM_TOOLS.alert("文件类型错误");
+                    }
+                    COM_TOOLS.loadingBtn.close($('#selectBtn3'));
+                  });
+                  /*选择与上传*/
+                  $('#selectBtn3').on('click', function() {
+                    return $('#inpFile3').click();
+                  });
+                  $('#inpFile3').on('change', function(evt) {
+                    uploader2.reset();
+                    var files_ = evt.target.files;
+                    if (files_) {
+                      uploader2.addFiles(files_);
+                      if (uploader2.getFiles().length > 0) {
+                        $(this).val('');
+                      }
+                    }
+                  });
+                });
+              </script>
+            </div>
+            <div class="tab-pane" id="demo5-css">
+              <pre></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEMO 06 -->
+      <div class="panel panel-default">
+        <div class="panel-heading">webuploader的多文件上传</div>
+        <div class="panel-body">
+          <div class="demo-box">
+            <div class="row">
+              <div class="col-sm-12 js-auto-init-demobox">
+                <button id="btn_upload_mult" type="button" class="btn btn-sm btn-info js-dy-creation">选择并上传</button>
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#demo6-html" role="tab" data-toggle="tab"
+                aria-expanded="true">html</a></li>
+            <li role="presentation" class=""><a href="#demo6-js" role="tab" data-toggle="tab"
+                aria-expanded="false">js</a></li>
+            <li role="presentation" class=""><a href="#demo6-css" role="tab" data-toggle="tab"
+                aria-expanded="false">css</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="demo6-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div class="tab-pane" id="demo6-js">
+              <script class="js-auto-init-jscode">
+                /* DOME 06 */
+                /* 引入文件
+                  "../js/plugins/webUploader/webuploader.min.js"   
+                  "../js/plugins/webUploader/cus_uploader.js"
+                */
+                $(function() {
+                  cus_mult_upload('btn_upload_mult');
+                });
+              </script>
+            </div>
+            <div class="tab-pane" id="demo6-css">
+              <pre>
+// &#x7EC4;&#x4EF6;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/plugins/webUploader/cus_uploader.css&quot;/&gt;
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--DEMO 07-->
+      <div class="panel panel-default">
+        <div class="panel-heading">webuploader的多文件上传（支持上传后预览、删除）</div>
+        <div class="panel-body">
+          <div class="demo-box">
+            <div class="row">
+              <div class="col-sm-12 js-auto-init-demobox">
+                <input autocomplete="off" data-file_names=""
+                  value="https://www.baidu.com/img/bd_logo1.png,https://s1.sinaimg.cn/mw690/006wmg2Hzy73dot1Fug80"
+                  type="text" id="js_upload_preview" />
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#demo7-html" role="tab" data-toggle="tab"
+                aria-expanded="true">html</a></li>
+            <li role="presentation" class=""><a href="#demo7-js" role="tab" data-toggle="tab"
+                aria-expanded="false">js</a></li>
+            <li role="presentation" class=""><a href="#demo7-css" role="tab" data-toggle="tab"
+                aria-expanded="false">css</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="demo7-html">
+              <pre class="js-auto-init-htmlcode"><!-- 启用“js-auto-init”后此处不需要编写代码；否则填写转义后的HTML代码 --></pre>
+            </div>
+            <div class="tab-pane" id="demo7-js">
+              <script class="js-auto-init-jscode">
+                /* 引入文件
+                  "../js/plugins/webUploader/webuploader.min.js"   
+                  "../js/plugins/webUploader/cus_uploader_preview"
+                */
+                /* DOME 07 */
+                $(function() {
+                  mult_upload_preview('js_upload_preview');
+                });
+              </script>
+
+            </div>
+            <div class="tab-pane" id="demo7-css">
+              <pre>
+// &#x7EC4;&#x4EF6;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/plugins/webUploader/cus_uploader.css&quot;/&gt;
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--DEMO 08-->
+      <div class="panel panel-default">
+        <div class="panel-heading">webuploader的多文件上传（支持上传后显示文件原名称、删除）</div>
+        <div class="panel-body">
+          <div class="demo-box">
+            <div class="row">
+              <div class="col-sm-12 js-auto-init-demobox">
+                <input autocomplete="off" data-file_names="张三.txt|李四.txt"
+                  value="https://www.baidu.com/img/bd_logo1.png,https://s1.sinaimg.cn/mw690/006wmg2Hzy73dot1Fug80"
+                  type="text" id="js_upload_preview_file" />
+              </div>
+            </div>
+          </div>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#demo8-html" role="tab" data-toggle="tab"
+                aria-expanded="true">html</a></li>
+            <li role="presentation" class=""><a href="#demo8-js" role="tab" data-toggle="tab"
+                aria-expanded="false">js</a></li>
+            <li role="presentation" class=""><a href="#demo8-css" role="tab" data-toggle="tab"
+                aria-expanded="false">css</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="demo8-html">
+              <pre class="js-auto-init-htmlcode"></pre>
+            </div>
+            <div class="tab-pane" id="demo8-js">
+              <script class="js-auto-init-jscode">
+                /* 引入文件
+                  "../js/plugins/webUploader/webuploader.min.js"   
+                  "../js/plugins/webUploader/cus_uploader_preview"
+                */
+
+                /* DOME 08 */
+                $(function() {
+                  mult_upload_preview('js_upload_preview_file', {
+                    file_type: 'file'
+                  });
+                });
+              </script>
+            </div>
+            <div class="tab-pane" id="demo8-css">
+              <pre>
+// &#x7EC4;&#x4EF6;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/plugins/webUploader/cus_uploader.css&quot;/&gt;
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <script src="../js/bootstrap.min.js"></script>
+
+    <script src="../js/plugins/webUploader/webuploader.min.js"></script>
+    <script src="../js/plugins/webUploader/cus_uploader.js"></script>
+    <script src="../js/plugins/webUploader/cus_uploader_preview.js"></script>
+
+    <script src="../js/plugins/layer/layer.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+    <script src="../js/subindex.js"></script>
+
+    <script type="text/javascript">
+      $.mockjax({
+        url: "up_api_01",
+        dataType: "json",
+        response: function(settings) {
+          //this.responseText = 'ERROR';
+          this.responseText = {
+            state: 1,
+            path: 'text_url'
+          };
+        }
+      });
+      $.mockjax({
+        url: "up_api_02",
+        dataType: "json",
+        response: function(settings) {
+          this.responseText = {
+            state: 1,
+            path: 'text_url'
+          };
+        }
+      });
+    </script>
+    <script>
+      /* 这里是测试内容  */
+      $(function() {
+        var a = 1;
+      })
+    </script>
+    <link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+    <script src="//cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+    <script>
+      $(function() {
+        $('pre').each(function(i, n) {
+          //$(n).html(_demo_htmlencode_fn($(n).html()));
+          hljs.highlightBlock(n);
+        });
+      });
+    </script>
+  </body>
+</html>

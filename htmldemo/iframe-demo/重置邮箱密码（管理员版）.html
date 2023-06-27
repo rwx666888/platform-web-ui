@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>重置邮箱密码（管理员版）</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/iconfont.css" rel="stylesheet">
+
+    <link href="../../css/style.css" rel="stylesheet">
+    <style>
+        .container-fluid {
+            max-width: 450px;
+            padding-top: 20px;
+            font-size: 14px;
+        }
+
+        input[type=text]::-ms-clear {
+            display: none;
+        }
+
+        input[type=password]::-ms-reveal {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .cus-tit{
+                display: none;
+            }
+        }
+        .md-1001 > .btn:nth-child(2){
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="text-center font-bold m-b-lg cus-tit" style="font-size: 16px;">重置邮箱密码（管理员版）</div>
+    <div class="pwd-box" id="form">
+        <div class="form-group">
+            <label>邮箱： <span></span></label>
+            <div class="input-group">
+                <input checktype="email" type="email" class="form-control err-class" id="exampleInputEmail1" placeholder="请输入公司邮箱">
+                <span class="input-group-addon" style="background-color:#eee;">@tedu.cn</span>
+                <span class="input-group-btn">
+                    <button id="sear_btn" type="button" class="btn btn-warning">查询</button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="p-sm bg-warning">
+                
+                <p>张三</p>
+                <p>达内集团/XX/XX</p>
+                <p>手机：123****123</p>
+            </div>
+        </div>
+        <div class="md-1001">
+            <button id="submit" disabled="disabled" type="button" class="btn btn-success btn-block" style="margin-top: 15px;">信息确认无误，重置密码</button>
+            <button disabled="disabled" type="button" class="btn btn-success btn-block" style="margin-top: 15px;">无此操作权限</button>
+        </div>
+        <div class="bg-success p-sm" style="margin-top: 15px; padding-right: 50px; position: relative;">
+            <span id="foo_text">1231w22w23</span>
+            <button id="btn01" type="button" data-clipboard-target="#foo_text" class="btn btn-primary btn-xs" style="position: absolute; top: 15px;
+                right:10px;">复制</button>
+        </div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/plugins/clipboard/clipboard.min.js"></script>
+<script>
+    $(function () {
+        new ClipboardJS('#btn01');
+        $('#sear_btn').click(function(){
+            var email_val = $.trim($('#exampleInputEmail1').val());
+            var flag_ = !!email_val;
+            if(flag_){
+                $('#exampleInputEmail1').closest('.form-group').removeClass('has-error');
+                //TODO 去查询
+                $('#submit').prop('disabled',false);
+            }else{
+                $('#exampleInputEmail1').closest('.form-group').addClass('has-error');
+                $('#submit').prop('disabled',true);
+            }
+        });
+    });
+
+</script>
+</body>
+
+</html>

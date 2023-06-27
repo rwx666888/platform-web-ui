@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Form-demo</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="../css/plugins/select2/select2.min.css" rel="stylesheet">
+        <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../css/style.css">
+<style>
+pre{
+white-space: pre-wrap;       
+white-space: -moz-pre-wrap;  
+white-space: -pre-wrap;      
+white-space: -o-pre-wrap;    
+word-wrap: break-word;       
+}
+    .demo-box{ margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; position: relative; border-radius: 5px;}
+    .tab-content{ overflow-y: auto; max-height: 400px;}
+    .mar-bottom{margin-bottom:20px;}
+    .test-box{height:50px;background:#eee;line-height: 50px;text-align:center;font-size:16px;}
+    .test-grid [class^=col-]{margin-bottom: 20px;}
+</style>
+    </head>
+
+    <body>
+        <div class="container">
+            <!--2017.11.17-->
+            <div class="panel panel-default m-t-sm">
+                <div class="panel-heading">平台按钮样式、背景、字体颜色整理</div>
+                <div class="panel-body">
+                     <div class="row">
+                        <div class="col-sm-12">
+                            <label class="control-label">按钮颜色：</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <button class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i>删除(btn-danger)</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-sm btn-info"><i class="glyphicon glyphicon-save"></i>导出(btn-info)</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-sm btn-success"><i class="glyphicon glyphicon-pencil"></i>修改(btn-success)</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-menu-hamburger"></i>分配(btn-warning)</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-plus"></i>新建(btn-primary)</button>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-sm btn-primary" id="test_btn01">
+                                <i class="glyphicon glyphicon-text-background"></i> 加载中（点击）
+                            </button>
+                        </div>
+                    </div>
+<br>
+<pre>
+&lt;button class=&quot;btn btn-sm btn-danger&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-remove&quot;&gt;&lt;/i&gt;&#x5220;&#x9664;(btn-danger)&lt;/button&gt;
+&lt;button class=&quot;btn btn-sm btn-info&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-save&quot;&gt;&lt;/i&gt;&#x5BFC;&#x51FA;(btn-info)&lt;/button&gt;
+&lt;button class=&quot;btn btn-sm btn-success&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt;&#x4FEE;&#x6539;(btn-success)&lt;/button&gt;
+&lt;button class=&quot;btn btn-sm btn-warning&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-menu-hamburger&quot;&gt;&lt;/i&gt;&#x5206;&#x914D;(btn-warning)&lt;/button&gt;
+&lt;button class=&quot;btn btn-sm btn-primary&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-plus&quot;&gt;&lt;/i&gt;&#x65B0;&#x5EFA;(btn-primary)&lt;/button&gt;
+
+&lt;button class=&quot;btn btn-sm btn-primary&quot; id=&quot;test_btn01&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-text-background&quot;&gt;&lt;/i&gt; &#x52A0;&#x8F7D;&#x4E2D;&#xFF08;&#x70B9;&#x51FB;&#xFF09;&lt;/button&gt;
+$('#test_btn01').click(function(){ //给按钮‘#test_btn01’，添加加载中状态
+    COM_TOOLS.loadingBtn.open($(this));
+    setTimeout(function(){
+        COM_TOOLS.loadingBtn.close('test_btn01');
+    },2000);
+});
+</pre>
+
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-sm-12">
+                            <label class="control-label">文本颜色：</label>
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-sm-12">
+                            <p class="text-primary">(text-primary)测试文本测试文本测试文本测试文本</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-success">(text-success)测试文本测试文本测试文本测试文本</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-info">(text-info)测试文本测试文本测试文本测试文本</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-warning">(text-warning)测试文本测试文本测试文本测试文本</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                             <p class="text-danger">(text-danger)测试文本测试文本测试文本测试文本</p>
+                        </div>
+                    </div>
+<pre>
+&lt;p class=&quot;text-primary&quot;&gt;(text-primary)&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&lt;/p&gt;
+&lt;p class=&quot;text-success&quot;&gt;(text-success)&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&lt;/p&gt;
+&lt;p class=&quot;text-info&quot;&gt;(text-info)&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&lt;/p&gt;
+&lt;p class=&quot;text-warning&quot;&gt;(text-warning)&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&lt;/p&gt;    
+&lt;p class=&quot;text-danger&quot;&gt;(text-danger)&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&#x6D4B;&#x8BD5;&#x6587;&#x672C;&lt;/p&gt;  
+</pre>
+                     <div class="row" style="margin-top:20px;">
+                        <div class="col-sm-12">
+                            <label class="control-label">背景颜色：</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="p-sm bg-danger">bg-danger</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="p-sm bg-info">bg-info</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="p-sm bg-warning">bg-warning</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="p-sm bg-success">bg-success</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="p-sm bg-primary">bg-primary</p>
+                        </div>
+                    </div>
+<pre>
+&lt;p class=&quot;p-sm bg-danger&quot;&gt;bg-danger&lt;/p&gt;
+&lt;p class=&quot;p-sm bg-info&quot;&gt;bg-info&lt;/p&gt;    
+&lt;p class=&quot;p-sm bg-warning&quot;&gt;bg-warning&lt;/p&gt;   
+&lt;p class=&quot;p-sm bg-success&quot;&gt;bg-success&lt;/p&gt;
+&lt;p class=&quot;p-sm bg-primary&quot;&gt;bg-primary&lt;/p&gt;
+</pre>   
+                </div> 
+            </div>
+            <div class="panel panel-default m-t-sm">
+                <div class="panel-heading">栅格系统</div>
+                <div class="panel-body">
+                    <div class="row show-grid">
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                        <div class="col-md-1">.col-md-1</div>
+                    </div>
+                    <div class="row show-grid">
+                      <div class="col-md-8">.col-md-8</div>
+                      <div class="col-md-4">.col-md-4</div>
+                    </div>
+                    <div class="row show-grid">
+                      <div class="col-md-4">.col-md-4</div>
+                      <div class="col-md-4">.col-md-4</div>
+                      <div class="col-md-4">.col-md-4</div>
+                    </div>
+                    <div class="row show-grid">
+                          <div class="col-md-6">.col-md-6</div>
+                          <div class="col-md-6">.col-md-6</div>
+                        </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo6-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo6-html">
+<pre>
+&lt;div class=&quot;container&quot;&gt;    
+    &lt;div class=&quot;row&quot;&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+      &lt;div class=&quot;col-md-1&quot;&gt;.col-md-1&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+      &lt;div class=&quot;col-md-8&quot;&gt;.col-md-8&lt;/div&gt;
+      &lt;div class=&quot;col-md-4&quot;&gt;.col-md-4&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+      &lt;div class=&quot;col-md-4&quot;&gt;.col-md-4&lt;/div&gt;
+      &lt;div class=&quot;col-md-4&quot;&gt;.col-md-4&lt;/div&gt;
+      &lt;div class=&quot;col-md-4&quot;&gt;.col-md-4&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;row&quot;&gt;
+      &lt;div class=&quot;col-md-6&quot;&gt;.col-md-6&lt;/div&gt;
+      &lt;div class=&quot;col-md-6&quot;&gt;.col-md-6&lt;/div&gt;
+    &lt;/div&gt;    
+&lt;/div&gt;    
+</pre>                            
+                        </div>
+                    </div>
+                </div>
+            	<div class="panel-heading">宽度百分比：在超小屏幕下显示一行两列；在小屏幕（大于等于768px）下显示一行3列；在中等屏幕（大于等于992px）显示一行四列</div>
+            	<div class="panel-body">
+            		<div class="row test-grid">
+						<div class="col-md-3 col-sm-4 col-xs-6"><div class="test-box">.col-md-3.col-sm-4.col-xs-6</div></div>
+						<div class="col-md-3 col-sm-4 col-xs-6"><div class="test-box">.col-md-3.col-sm-4.col-xs-6</div></div>
+						<div class="clearfix visible-xs-block"></div>
+						<div class="col-md-3 col-sm-4 col-xs-6"><div class="test-box">.col-md-3.col-sm-4.col-xs-6</div></div>
+						<div class="col-md-3 col-sm-4 col-xs-6"><div class="test-box">.col-md-3.col-sm-4.col-xs-6</div></div>
+						<div class="clearfix visible-md-block visible-xs-block"></div>
+						<div class="col-md-3 col-sm-4 col-xs-6"><div class="test-box">.col-md-3.col-sm-4.col-xs-6</div></div>
+						<div class="col-md-3 col-sm-4 col-xs-6"><div class="test-box">.col-md-3.col-sm-4.col-xs-6</div></div>
+						<div class="clearfix visible-xs-block"></div>
+						<div class="col-md-3 col-sm-4 col-xs-6"><div class="test-box">.col-md-3.col-sm-4.col-xs-6</div></div>
+						<div class="col-md-3 col-sm-4 col-xs-6"><div class="test-box">.col-md-3.col-sm-4.col-xs-6</div></div>
+					</div>
+					<ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo8-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                    	<div class="tab-pane active" id="demo8-html">
+<pre>
+&lt;div class=&quot;row test-grid&quot;&gt;
+    &lt;div class=&quot;col-md-3 col-sm-4 col-xs-6&quot;&gt;&lt;div class=&quot;test-box&quot;&gt;.col-md-3.col-sm-4.col-xs-6&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;col-md-3 col-sm-4 col-xs-6&quot;&gt;&lt;div class=&quot;test-box&quot;&gt;.col-md-3.col-sm-4.col-xs-6&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;clearfix visible-xs-block&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;col-md-3 col-sm-4 col-xs-6&quot;&gt;&lt;div class=&quot;test-box&quot;&gt;.col-md-3.col-sm-4.col-xs-6&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;col-md-3 col-sm-4 col-xs-6&quot;&gt;&lt;div class=&quot;test-box&quot;&gt;.col-md-3.col-sm-4.col-xs-6&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;clearfix visible-md-block visible-xs-block&quot;&gt;&lt;/div&gt;//&#x6CE8;&#xFF1A;&#x5F53;&#x5185;&#x5BB9;&#x533A;&#x57DF;&#x9AD8;&#x5EA6;&#x56FA;&#x5B9A;&#xFF0C;&#x6B64;&#x4EE3;&#x7801;&#x53EF;&#x7701;&#x7565;&#xFF1B;&#x5F53;&#x5185;&#x5BB9;&#x533A;&#x57DF;&#x9AD8;&#x5EA6;&#x4E0D;&#x56FA;&#x5B9A;&#xFF0C;&#x53EF;&#x6839;&#x636E;&#x5177;&#x4F53;&#x60C5;&#x51B5;&#x6DFB;&#x52A0;&#x6B64;&#x4EE3;&#x7801;
+    &lt;div class=&quot;col-md-3 col-sm-4 col-xs-6&quot;&gt;&lt;div class=&quot;test-box&quot;&gt;.col-md-3.col-sm-4.col-xs-6&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;col-md-3 col-sm-4 col-xs-6&quot;&gt;&lt;div class=&quot;test-box&quot;&gt;.col-md-3.col-sm-4.col-xs-6&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;clearfix visible-xs-block&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;col-md-3 col-sm-4 col-xs-6&quot;&gt;&lt;div class=&quot;test-box&quot;&gt;.col-md-3.col-sm-4.col-xs-6&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;col-md-3 col-sm-4 col-xs-6&quot;&gt;&lt;div class=&quot;test-box&quot;&gt;.col-md-3.col-sm-4.col-xs-6&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;	
+</pre>                   		
+                    	</div>
+                    </div>
+            	</div>
+            </div>
+            <div class="panel panel-default m-t-sm" id="codeblock_panel">
+                <div class="panel-heading">默认面板样式</div>
+                <div class="panel-body">
+                    <div class="bs-example">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">面板标题</div>
+                            <div class="panel-body">
+                                                        面板内容
+                            </div>
+                        </div>
+                        <div class="panel panel-info">
+                            <div class="panel-heading">情景面板标题(panel-info)</div>
+                            <div class="panel-body">
+                                                        面板内容
+                            </div>
+                        </div>
+                        <div class="panel panel-success">
+                            <div class="panel-heading">情景面板标题(panel-success)</div>
+                            <div class="panel-body">
+                                                        面板内容
+                            </div>
+                        </div>
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">情景面板标题(panel-warning)</div>
+                            <div class="panel-body">
+                                                        面板内容
+                            </div>
+                        </div>
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">情景面板标题(panel-danger)</div>
+                            <div class="panel-body">
+                                                        面板内容
+                            </div>
+                        </div>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">情景面板标题(panel-primary)</div>
+                            <div class="panel-body">
+                                                        面板内容
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo7-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo7-html">
+<pre>
+&lt;div class=&quot;panel panel-default&quot;&gt;
+  &lt;div class=&quot;panel-heading&quot;&gt;Panel heading without title&lt;/div&gt;
+  &lt;div class=&quot;panel-body&quot;&gt;
+    Panel content
+  &lt;/div&gt;
+&lt;/div&gt;    
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="panel panel-default m-t-sm">
+                <!--默认表单样式 -->
+                <div class="panel-heading">默认表单样式</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="demo-box">
+                                <form>
+                                    <div class="form-group">
+                                        <label class="control-label"><span class="text-danger">*</span>文本框</label>
+                                        <input class="form-control input-sm" type="text" name="name11" id="name11" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><span class="text-danger">*</span>日期选择框</label>
+                                        <div class="input-group date" id="name12_date">
+                                            <input class="form-control input-sm" type="text" name="name12" id="name12" readonly/>
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"> 
+                                        <label class="control-label"><span class="text-danger">*</span>下拉选项框</label>
+                                            <select class="form-control input-sm" name="name13" id="name13">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1">1</option>
+                                                <option value="1">2</option>
+                                            </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><span class="text-danger">*</span>单选框</label><br />
+                                        <label class="checkbox-inline i-checks"><input type="radio" name="name14_01" value="1" checked> 1</label>
+                                        <label class="checkbox-inline i-checks"><input type="radio" name="name14_01" value="2"> 2</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><span class="text-danger">*</span>复选框</label><br />
+                                        <label class="radio-inline i-checks"><input type="checkbox" name="name15_01[]" minlength="2" required value="1"> 1</label>
+                                        <label class="radio-inline i-checks"><input type="checkbox" name="name15_01[]" minlength="2" required value="2"> 2</label>
+                                        <label class="radio-inline i-checks"><input type="checkbox" name="name15_01[]" minlength="2" required value="3"> 3</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><span class="text-danger">*</span>文本域</label>
+                                        <textarea class="form-control" id="name15" name="name16" rows="5"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-js" role="tab" data-toggle="tab" aria-expanded="false">js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo1-html">
+<pre>
+&lt;form&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x6587;&#x672C;&#x6846;&lt;/label&gt;
+        &lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;name11&quot; id=&quot;name11&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x65E5;&#x671F;&#x9009;&#x62E9;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;input-group date&quot; id=&quot;name12_date&quot;&gt;
+            &lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;name12&quot; id=&quot;name12&quot; readonly/&gt;
+            &lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt; 
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x4E0B;&#x62C9;&#x9009;&#x9879;&#x6846;&lt;/label&gt;
+        &lt;select class=&quot;form-control input-sm&quot; name=&quot;name13&quot; id=&quot;name13&quot;&gt;
+            &lt;option value=&quot;&quot;&gt;- &#x8BF7;&#x9009;&#x62E9; -&lt;/option&gt;
+            &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+            &lt;option value=&quot;1&quot;&gt;2&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x5355;&#x9009;&#x6846;&lt;/label&gt;&lt;br /&gt;
+        &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;name14_01&quot; value=&quot;1&quot; checked&gt; 1&lt;/label&gt;
+        &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;name14_01&quot; value=&quot;2&quot;&gt; 2&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x590D;&#x9009;&#x6846;&lt;/label&gt;&lt;br /&gt;
+        &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name15_01[]&quot; minlength=&quot;2&quot; required value=&quot;1&quot;&gt; 1&lt;/label&gt;
+        &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name15_01[]&quot; minlength=&quot;2&quot; required value=&quot;2&quot;&gt; 2&lt;/label&gt;
+        &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name15_01[]&quot; minlength=&quot;2&quot; required value=&quot;3&quot;&gt; 3&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x6587;&#x672C;&#x57DF;&lt;/label&gt;
+        &lt;textarea class=&quot;form-control&quot; id=&quot;name15&quot; name=&quot;name16&quot; rows=&quot;5&quot;&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                        </div>
+                        <div class="tab-pane" id="demo1-js">
+<pre>
+//&#x4F7F;&#x7528;&#x4E86;datetimepicker&#x53CA;icheck&#x7EC4;&#x4EF6;,&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x5BF9;&#x5E94;&#x7684;js&#x53CA;css    
+&lt;link href=&quot;../css/plugins/iCheck/custom.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;../js/plugins/iCheck/icheck.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+$(&#x27;.i-checks&#x27;).iCheck({
+    checkboxClass: &#x27;icheckbox_square-green&#x27;,
+    radioClass: &#x27;iradio_square-green&#x27;,
+}).on(&#x27;ifChecked&#x27;, function(){  //&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;validate&#x9A8C;&#x8BC1;&#x9700;&#x8981;&#x7528;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;
+      $(this).closest(&#x27;form&#x27;).validate().element(this);
+});
+
+$(&#x27;#name12_date&#x27;).datetimepicker();
+COM_TOOLS.select2_init(&#x27;name13&#x27;);
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--内联表单-->
+            <div class="panel panel-default m-t-sm">
+                <div class="panel-heading">内联表单</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label class="control-label"><span class="text-danger">*</span>文本框</label>
+                                <input class="form-control input-sm" type="text" name="name17" id="name17" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"><span class="text-danger">*</span>日期选择框</label>
+                                <div class="input-group date" id="name18_date">
+                                    <input class="form-control input-sm" type="text" name="name18" id="name18" readonly/>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"><span class="text-danger">*</span>下拉选项框</label>
+                                <select class="form-control input-sm" name="name19" id="name19" style="width:200px;">
+                                    <option value="">- 请选择 -</option>
+                                    <option value="1">1</option>
+                                    <option value="1">2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"><span class="text-danger">*</span>单选框</label>
+                                <label class="checkbox-inline i-checks"><input type="radio" name="name20_01" value="1" checked> 1</label>
+                                <label class="checkbox-inline i-checks"><input type="radio" name="name20_01" value="2"> 2</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label"><span class="text-danger">*</span>复选框</label>
+                                <label class="radio-inline i-checks"><input type="checkbox" name="name21_01[]" minlength="2" required value="1"> 1</label>
+                                <label class="radio-inline i-checks"><input type="checkbox" name="name21_01[]" minlength="2" required value="2"> 2</label>
+                                <label class="radio-inline i-checks"><input type="checkbox" name="name21_01[]" minlength="2" required value="3"> 3</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" style="vertical-align:top;"><span class="text-danger">*</span>文本域</label>
+                                <textarea class="form-control" id="name29" name="name29" rows="5"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo2-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo2-js" role="tab" data-toggle="tab" aria-expanded="false">js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo2-html">
+<pre>
+&lt;form class=&quot;form-inline&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x6587;&#x672C;&#x6846;&lt;/label&gt;
+        &lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;name17&quot; id=&quot;name17&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x65E5;&#x671F;&#x9009;&#x62E9;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;input-group date&quot; id=&quot;name18_date&quot;&gt;
+            &lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;name18&quot; id=&quot;name18&quot; readonly/&gt;
+            &lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x4E0B;&#x62C9;&#x9009;&#x9879;&#x6846;&lt;/label&gt;
+        &lt;select class=&quot;form-control input-sm&quot; name=&quot;name19&quot; id=&quot;name19&quot; style=&quot;width:200px;&quot;&gt;
+            &lt;option value=&quot;&quot;&gt;- &#x8BF7;&#x9009;&#x62E9; -&lt;/option&gt;
+            &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+            &lt;option value=&quot;1&quot;&gt;2&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x5355;&#x9009;&#x6846;&lt;/label&gt;
+        &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;name20_01&quot; value=&quot;1&quot; checked&gt; 1&lt;/label&gt;
+        &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;name20_01&quot; value=&quot;2&quot;&gt; 2&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x590D;&#x9009;&#x6846;&lt;/label&gt;
+        &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name21_01[]&quot; minlength=&quot;2&quot; required value=&quot;1&quot;&gt; 1&lt;/label&gt;
+        &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name21_01[]&quot; minlength=&quot;2&quot; required value=&quot;2&quot;&gt; 2&lt;/label&gt;
+        &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name21_01[]&quot; minlength=&quot;2&quot; required value=&quot;3&quot;&gt; 3&lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;control-label&quot; style=&quot;vertical-align:top;&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x6587;&#x672C;&#x57DF;&lt;/label&gt;
+        &lt;textarea class=&quot;form-control&quot; id=&quot;name29&quot; name=&quot;name29&quot; rows=&quot;5&quot;&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                        </div>
+                        <div class="tab-pane" id="demo2-js">
+<pre>
+//&#x4F7F;&#x7528;&#x4E86;datetimepicker&#x53CA;icheck&#x7EC4;&#x4EF6;,&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x5BF9;&#x5E94;&#x7684;js&#x53CA;css    
+&lt;link href=&quot;../css/plugins/iCheck/custom.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;../js/plugins/iCheck/icheck.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+$(&#x27;.i-checks&#x27;).iCheck({
+    checkboxClass: &#x27;icheckbox_square-green&#x27;,
+    radioClass: &#x27;iradio_square-green&#x27;,
+}).on(&#x27;ifChecked&#x27;, function(){  //&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;validate&#x9A8C;&#x8BC1;&#x9700;&#x8981;&#x7528;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;
+      $(this).closest(&#x27;form&#x27;).validate().element(this);
+});
+$('#name18_date').datetimepicker();
+COM_TOOLS.select2_init('name19');
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--水平表单-->
+            <div class="panel panel-default m-t-sm">
+                <div class="panel-heading">水平表单</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-3">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><span class="text-danger">*</span>文本框</label>
+                                        <div class="col-sm-10"><input class="form-control input-sm" type="text" name="name30" id="name30" /></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><span class="text-danger">*</span>日期选择框</label>
+                                        <div class="col-sm-10">
+                                            <div class="input-group date" id="name31_date">
+                                                <input class="form-control input-sm" type="text" name="name31" id="name31" readonly/>
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">下拉选项框</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control input-sm" name="name32" id="name32">
+                                                <option value="">- 请选择 -</option>
+                                                <option value="1">1</option>
+                                                <option value="1">2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><span class="text-danger">*</span>单选框</label>
+                                        <div class="col-sm-10">
+                                            <label class="checkbox-inline i-checks"><input type="radio" name="name33_01" value="1" checked> 1</label>
+                                            <label class="checkbox-inline i-checks"><input type="radio" name="name33_01" value="2"> 2</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><span class="text-danger">*</span>复选框</label>
+                                        <div class="col-sm-10">
+                                            <label class="radio-inline i-checks"><input type="checkbox" name="name34_01[]" minlength="2" required value="1"> 1</label>
+                                            <label class="radio-inline i-checks"><input type="checkbox" name="name34_01[]" minlength="2" required value="2"> 2</label>
+                                            <label class="radio-inline i-checks"><input type="checkbox" name="name34_01[]" minlength="2" required value="3"> 3</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2  control-label"><span class="text-danger">*</span>文本域</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" id="name35" name="name35" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo3-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo3-js" role="tab" data-toggle="tab" aria-expanded="false">js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo3-html">
+<pre>
+&lt;form class=&quot;form-horizontal&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x6587;&#x672C;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;&lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;name30&quot; id=&quot;name30&quot; /&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x65E5;&#x671F;&#x9009;&#x62E9;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;
+            &lt;div class=&quot;input-group date&quot; id=&quot;name31_date&quot;&gt;
+                &lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;name31&quot; id=&quot;name31&quot; readonly/&gt;
+                &lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x4E0B;&#x62C9;&#x9009;&#x9879;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;
+            &lt;select class=&quot;form-control input-sm&quot; name=&quot;name32&quot; id=&quot;name32&quot;&gt;
+                &lt;option value=&quot;&quot;&gt;- &#x8BF7;&#x9009;&#x62E9; -&lt;/option&gt;
+                &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+                &lt;option value=&quot;1&quot;&gt;2&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x5355;&#x9009;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;
+            &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;name33_01&quot; value=&quot;1&quot; checked&gt; 1&lt;/label&gt;
+            &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;name33_01&quot; value=&quot;2&quot;&gt; 2&lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x590D;&#x9009;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name34_01[]&quot; minlength=&quot;2&quot; required value=&quot;1&quot;&gt; 1&lt;/label&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name34_01[]&quot; minlength=&quot;2&quot; required value=&quot;2&quot;&gt; 2&lt;/label&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name34_01[]&quot; minlength=&quot;2&quot; required value=&quot;3&quot;&gt; 3&lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2  control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x6587;&#x672C;&#x57DF;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;
+            &lt;textarea class=&quot;form-control&quot; id=&quot;name35&quot; name=&quot;name35&quot; rows=&quot;5&quot;&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                        </div>
+                        <div class="tab-pane" id="demo3-js">
+<pre>
+//&#x4F7F;&#x7528;&#x4E86;datetimepicker&#x53CA;icheck&#x7EC4;&#x4EF6;,&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x5BF9;&#x5E94;&#x7684;js&#x53CA;css    
+&lt;link href=&quot;../css/plugins/iCheck/custom.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;../js/plugins/iCheck/icheck.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+$(&#x27;.i-checks&#x27;).iCheck({
+    checkboxClass: &#x27;icheckbox_square-green&#x27;,
+    radioClass: &#x27;iradio_square-green&#x27;,
+}).on(&#x27;ifChecked&#x27;, function(){  //&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;validate&#x9A8C;&#x8BC1;&#x9700;&#x8981;&#x7528;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;
+      $(this).closest(&#x27;form&#x27;).validate().element(this);
+});
+$(&#x27;#name31_date&#x27;).datetimepicker();
+COM_TOOLS.select2_init(&#x27;name32&#x27;);
+
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+           <div class="panel panel-default m-t-sm">
+                <!-- 多行两列DEMO -->
+                <div class="panel-heading">多行两列DEMO</div>
+                <div class="panel-body">
+                    <form class="form-horizontal" id="t_form_02">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文本框</label>
+                            <div class="col-sm-4"><input class="form-control input-sm" type="text" name="name21" id="name21" /></div>
+                            <label class="col-sm-2 control-label">日期选择框</label>
+                            <div class="col-sm-4">
+                                <div class="input-group date" id="name22_date">
+                                    <input class="form-control input-sm" type="text" name="name12" id="name22" readonly/>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="text-danger">*</span> 原生select</label>
+                            <div class="col-sm-4">
+                                <select class="form-control input-sm" name="name23" id="name23">
+                                    <option value="">- 请选择 -</option>
+                                    <option value="1">1</option>
+                                    <option value="1">2</option>
+                                </select>
+                            </div>
+                            <label class="col-sm-2 control-label"><span class="text-danger">*</span> select2组件</label>
+                            <div class="col-sm-4">
+                                <select class="form-control input-sm" name="name24" id="name24">
+                                    <option value="">- 请选择 -</option>
+                                    <option value="1">1</option>
+                                    <option value="1">2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文本域</label>
+                            <div class="col-sm-4">
+                                <textarea class="form-control" id="name25" name="name25" rows="5"></textarea>
+                            </div>
+                            <label class="col-sm-2 control-label"><span class="text-danger">*</span>单选框</label>
+                            <div class="col-sm-4">
+                                <label class="checkbox-inline i-checks"><input type="radio" name="name26_01" value="1" checked> 1</label>
+                                <label class="checkbox-inline i-checks"><input type="radio" name="name26_01" value="2"> 2</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">自定义多选</label>
+                            <div class="col-sm-4">
+                                <div id="t_cus_mult">
+                                    <div class="cus-mult-hide">
+                                        <input type="text" name="hideinp_id" id="hideinp_id" required="required"/>
+                                        <input type="text" name="hideinp_name" id="hideinp_name"/>
+                                    </div>
+                                    <div class="cus-mult-choice"></div>
+                                    <button class="btn btn-sm btn-primary pull-right cus-mult-btn" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+                            <label class="col-sm-2 control-label"><span class="text-danger">*</span>复选框</label>
+                            <div class="col-sm-4">
+                                <label class="radio-inline i-checks"><input type="checkbox" name="name28_01[]" minlength="2" required value="1"> 1</label>
+                                <label class="radio-inline i-checks"><input type="checkbox" name="name28_01[]" minlength="2" required value="2"> 2</label>
+                                <label class="radio-inline i-checks"><input type="checkbox" name="name28_01[]" minlength="2" required value="3"> 3</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密码输入框</label>
+                            <div class="col-sm-4">
+                                <input class="form-control input-sm" type="text" name="name36" id="js_password">
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo4-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo4-js" role="tab" data-toggle="tab" aria-expanded="false">js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo4-html">
+<pre>
+&lt;form class=&quot;form-horizontal&quot; id=&quot;t_form_02&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x6587;&#x672C;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;&lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;name21&quot; id=&quot;name21&quot; /&gt;&lt;/div&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x65E5;&#x671F;&#x9009;&#x62E9;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;div class=&quot;input-group date&quot; id=&quot;name22_date&quot;&gt;
+                &lt;input class=&quot;form-control input-sm&quot; type=&quot;text&quot; name=&quot;name12&quot; id=&quot;name22&quot; readonly/&gt;
+                &lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt; &#x539F;&#x751F;select&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;select class=&quot;form-control input-sm&quot; name=&quot;name23&quot; id=&quot;name23&quot;&gt;
+                &lt;option value=&quot;&quot;&gt;- &#x8BF7;&#x9009;&#x62E9; -&lt;/option&gt;
+                &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+                &lt;option value=&quot;1&quot;&gt;2&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt; select2&#x7EC4;&#x4EF6;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;select class=&quot;form-control input-sm&quot; name=&quot;name24&quot; id=&quot;name24&quot;&gt;
+                &lt;option value=&quot;&quot;&gt;- &#x8BF7;&#x9009;&#x62E9; -&lt;/option&gt;
+                &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+                &lt;option value=&quot;1&quot;&gt;2&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x6587;&#x672C;&#x57DF;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;textarea class=&quot;form-control&quot; id=&quot;name25&quot; name=&quot;name25&quot; rows=&quot;5&quot;&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x5355;&#x9009;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;name26_01&quot; value=&quot;1&quot; checked&gt; 1&lt;/label&gt;
+            &lt;label class=&quot;checkbox-inline i-checks&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;name26_01&quot; value=&quot;2&quot;&gt; 2&lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x81EA;&#x5B9A;&#x4E49;&#x591A;&#x9009;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;div id=&quot;t_cus_mult&quot;&gt;
+                &lt;div class=&quot;cus-mult-hide&quot;&gt;
+                    &lt;input type=&quot;text&quot; name=&quot;hideinp_id&quot; id=&quot;hideinp_id&quot; required=&quot;required&quot;/&gt;
+                    &lt;input type=&quot;text&quot; name=&quot;hideinp_name&quot; id=&quot;hideinp_name&quot;/&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;cus-mult-choice&quot;&gt;&lt;/div&gt;
+                &lt;button class=&quot;btn btn-sm btn-primary pull-right cus-mult-btn&quot; type=&quot;button&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-search&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;&lt;span class=&quot;text-danger&quot;&gt;*&lt;/span&gt;&#x590D;&#x9009;&#x6846;&lt;/label&gt;
+        &lt;div class=&quot;col-sm-4&quot;&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name28_01[]&quot; minlength=&quot;2&quot; required value=&quot;1&quot;&gt; 1&lt;/label&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name28_01[]&quot; minlength=&quot;2&quot; required value=&quot;2&quot;&gt; 2&lt;/label&gt;
+            &lt;label class=&quot;radio-inline i-checks&quot;&gt;&lt;input type=&quot;checkbox&quot; name=&quot;name28_01[]&quot; minlength=&quot;2&quot; required value=&quot;3&quot;&gt; 3&lt;/label&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                        </div>
+                        <div class="tab-pane" id="demo4-js">
+<pre>
+//&#x4F7F;&#x7528;&#x4E86;datetimepicker&#x3001;select2&#x3001;icheck&#x7EC4;&#x4EF6;&#xFF0C;&#x9700;&#x8981;&#x6DFB;&#x52A0;js&#x548C;css    
+&lt;link href=&quot;../css/plugins/iCheck/custom.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script src=&quot;../js/plugins/iCheck/icheck.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+$(&#x27;.i-checks&#x27;).iCheck({
+    checkboxClass: &#x27;icheckbox_square-green&#x27;,
+    radioClass: &#x27;iradio_square-green&#x27;,
+}).on(&#x27;ifChecked&#x27;, function(){  //&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E86;validate&#x9A8C;&#x8BC1;&#x9700;&#x8981;&#x7528;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;
+      $(this).closest(&#x27;form&#x27;).validate().element(this);
+});    
+    
+$(&#x27;#name22_date&#x27;).datetimepicker();
+COM_TOOLS.select2_init(&#x27;name24&#x27;);
+
+var t_FN = COM_TOOLS.cus_mult_choice(&#x27;t_cus_mult&#x27;, function() {
+    cumParentWinModal(&#x27;&#x4FE1;&#x606F;&#x6E20;&#x9053;&#x27;, &#x27;../htmldemo/iframe-demo/selectpage2.html&#x27;, {
+        &quot;area&quot;: [&#x27;600px&#x27;, &#x27;430px&#x27;],
+        callback: {
+            fn1: function(d) {
+                t_FN.removeAll();
+            },
+            fn2: function(d) { //&#x56DE;&#x663E;&#x503C;
+                t_FN.addItem(d.itemid, d.itemtext);
+            }
+        }
+    });
+}, 2, &#x27;hideinp_id&#x27;, &#x27;hideinp_name&#x27;);
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--新增-->
+           <div class="panel panel-default m-t-sm">
+                <!-- 多行两列 -->
+                <div class="panel-heading">多行两列（6:6）</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="container-fluid">
+                            <form class="form-horizontal form-label-sm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 text-right control-label ">标题标</label>
+                                            <div class="col-sm-10"><input type="text" placeholder="2:10" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label class="col-sm-2 text-right control-label ">标题标</label>
+                                            <div class="col-sm-10"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 text-right control-label ">标题标</label>
+                                            <div class="col-sm-9"><input type="text" placeholder="3:9" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label class="col-sm-3 text-right control-label ">标题标</label>
+                                            <div class="col-sm-9"><input type="text" class="form-control input-sm" /></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 text-right control-label">标题标题</label>
+                                            <div class="col-sm-8"><input type="text" placeholder="4:8" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label class="col-sm-4 text-right control-label">标题标题</label>
+                                            <div class="col-sm-8"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 text-right control-label">标题标题标</label>
+                                            <div class="col-sm-7"><input type="text" placeholder="5:7" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                         <div class="form-group">
+                                            <label class="col-sm-5 text-right control-label">标题标题标</label>
+                                            <div class="col-sm-7"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo3-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo3-html">
+<pre>
+&lt;div class=&quot;container-fluid&quot;&gt;
+    &lt;form class=&quot;form-horizontal form-label-sm&quot;&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;col-sm-6&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-2 text-right control-label &quot;&gt;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-10&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;2:10&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-sm-6&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-2 text-right control-label &quot;&gt;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-10&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;col-sm-6&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-3 text-right control-label &quot;&gt;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-9&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;3:9&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-sm-6&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-3 text-right control-label &quot;&gt;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-9&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot; /&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;col-sm-6&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-4 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-8&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;4:8&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-sm-6&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-4 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-8&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;col-sm-6&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-5 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-7&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;5:7&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-sm-6&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-5 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-7&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <div class="panel panel-default m-t-sm">
+                <!-- 多行三列 -->
+                <div class="panel-heading">多行三列（4:4:4）</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="container-fluid">
+                            <form class="form-horizontal form-label-sm">
+                                   <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 text-right control-label">标题标</label>
+                                            <div class="col-sm-9"><input type="text" placeholder="3:9" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                         <div class="form-group">
+                                            <label class="col-sm-3 text-right control-label">标题标</label>
+                                            <div class="col-sm-9"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                         <div class="form-group">
+                                            <label class="col-sm-3 text-right control-label">标题标</label>
+                                            <div class="col-sm-9"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 text-right control-label">标题标题</label>
+                                            <div class="col-sm-8"><input type="text" placeholder="4:8" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                         <div class="form-group">
+                                            <label class="col-sm-4 text-right control-label">标题标题</label>
+                                            <div class="col-sm-8"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-4">
+                                         <div class="form-group">
+                                            <label class="col-sm-4 text-right control-label">标题标题</label>
+                                            <div class="col-sm-8"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="col-sm-5 text-right control-label">标题标题标</label>
+                                            <div class="col-sm-7"><input type="text" placeholder="5:7" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                         <div class="form-group">
+                                            <label class="col-sm-5 text-right control-label">标题标题标</label>
+                                            <div class="col-sm-7"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                     <div class="col-sm-4">
+                                         <div class="form-group">
+                                            <label class="col-sm-5 text-right control-label">标题标题标</label>
+                                            <div class="col-sm-7"><input type="text" class="form-control input-sm"/></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo5-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo5-html">
+<pre>
+&lt;div class=&quot;container-fluid&quot;&gt;
+    &lt;form class=&quot;form-horizontal form-label-sm&quot;&gt;
+           &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-3 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-9&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;3:9&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-3 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-9&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-3 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-9&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-4 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-8&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;4:8&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-4 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-8&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+             &lt;div class=&quot;col-sm-4&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-4 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-8&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-5 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-7&quot;&gt;&lt;input type=&quot;text&quot; placeholder=&quot;5:7&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-5 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-7&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+             &lt;div class=&quot;col-sm-4&quot;&gt;
+                 &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;col-sm-5 text-right control-label&quot;&gt;&#x6807;&#x9898;&#x6807;&#x9898;&#x6807;&lt;/label&gt;
+                    &lt;div class=&quot;col-sm-7&quot;&gt;&lt;input type=&quot;text&quot; class=&quot;form-control input-sm&quot;/&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default m-t-sm">
+            	<div class="panel-heading">小于768px显示多列</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="container-fluid">
+                           <form class="form-horizontal cus-form-format">
+			  					<div class="form-group">
+								    <label for="inputEmail3" class="col-sm-2 control-label">标题</label>
+								    <div class="col-sm-4">
+								      <input type="text" class="form-control" >
+									</div>
+								    <label for="inputEmail3" class="col-sm-2 control-label">标题</label>
+								    <div class="col-sm-4">
+								      <input type="text" class="form-control" >
+								    </div>
+			  					</div>
+								<div class="form-group">
+								    <label for="inputPassword3" class="col-sm-2 control-label">标题</label>
+								    <div class="col-sm-4">
+								      <input type="text" class="form-control" >
+								    </div>
+								    <label for="inputPassword3" class="col-sm-2 control-label">标题</label>
+								    <div class="col-sm-4">
+								      <input type="text" class="form-control" >
+								    </div>
+								</div>
+							</form>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo8-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo8-html">
+<pre>
+&lt;div class=&quot;container-fluid&quot;&gt;
+    &lt;form class=&quot;form-horizontal cus-form-format&quot;&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;&quot; class=&quot;col-sm-2 control-label&quot;&gt;&#x6807;&#x9898;&lt;/label&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                &lt;input type=&quot;text&quot; class=&quot;form-control&quot; &gt;
+            &lt;/div&gt;
+            &lt;label for=&quot;&quot; class=&quot;col-sm-2 control-label&quot;&gt;&#x6807;&#x9898;&lt;/label&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                &lt;input type=&quot;text&quot; class=&quot;form-control&quot; &gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;&quot; class=&quot;col-sm-2 control-label&quot;&gt;&#x6807;&#x9898;&lt;/label&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                &lt;input type=&quot;text&quot; class=&quot;form-control&quot; &gt;
+            &lt;/div&gt;
+            &lt;label for=&quot;&quot; class=&quot;col-sm-2 control-label&quot;&gt;&#x6807;&#x9898;&lt;/label&gt;
+            &lt;div class=&quot;col-sm-4&quot;&gt;
+                &lt;input type=&quot;text&quot; class=&quot;form-control&quot; &gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+</pre>
+                    	</div>
+                    </div>
+                </div>
+            </div>                   
+            
+            
+            <div class="panel panel-default m-t-sm">
+                <div class="panel-heading">flex布局</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <style>
+                            .placeholder{
+                                margin: 5px;
+                                background: #DDDDDD;
+                                padding: 8px;
+                                text-align: center;
+                            }
+                        </style>                        
+                        
+                        <div class="layout-flex">
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                        </div>
+                        <div class="layout-flex">
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                        </div>
+                        <div class="layout-flex">
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                        </div>
+                        <div class="layout-flex">
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                        </div>
+                        <div class="layout-flex">
+                            <div><div class="placeholder">flex-demo</div></div>
+                            <div class="layout-flex__item"><div class="placeholder">flex-demo</div></div>
+                            <div><div class="placeholder">flex-demo</div></div>
+                        </div>
+    
+                        
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo9-html" role="tab" data-toggle="tab" aria-expanded="true">html</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="demo9-html">
+<pre>
+&lt;!-- 注意：'&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;' 为演示demo，使用时不包含div.placeholder --&gt;
+
+&lt;div class=&quot;layout-flex&quot;&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;layout-flex&quot;&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;layout-flex&quot;&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;layout-flex&quot;&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;layout-flex&quot;&gt;
+    &lt;div&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;layout-flex__item&quot;&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;div class=&quot;placeholder&quot;&gt;flex-demo&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        	
+        	
+       
+        </div>
+
+        <script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+
+        <script src="../js/plugins/layer/layer.js" type="text/javascript"></script>
+        <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+        <script src="../js/plugins/select2/select2.full.min.js" type="text/javascript"></script>
+        <script src="../js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+        <script src="../i18n/zh-CN.js"></script>
+        <script src="../js/plugins/validate/jquery.validate.custom.min.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../js/tedu-languge.js" type="text/javascript"></script>
+        <script src="../js/subindex.js" type="text/javascript"></script>
+        <!-- 以下js仅用于演示 -->
+        <script src="../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../demo-data.js"></script>
+
+        <script type="text/javascript">
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            }).on('ifChanged', function(){
+                $(this).closest('form').validate().element(this);
+            });
+
+            /*DEMO-01*/
+            $(function() {
+                $('#name12_date').datetimepicker();
+                COM_TOOLS.select2_init('name13');
+            });
+            /*DEMO-02*/
+           $(function(){
+                $('#name18_date').datetimepicker();
+                COM_TOOLS.select2_init('name19');
+                COM_TOOLS._view.cusPWD('js_password')
+           })
+            /*DEMO-03*/
+           $(function(){
+               $('#name31_date').datetimepicker();
+               COM_TOOLS.select2_init('name32');
+           })
+           
+           
+           
+            $(function() {
+                $('#name22_date').datetimepicker();
+                COM_TOOLS.select2_init('name24');
+                
+                var t_FN = COM_TOOLS.cus_mult_choice('t_cus_mult', function() {
+                    cumParentWinModal('信息渠道', '../htmldemo/iframe-demo/selectpage2.html', {
+                        "area": ['600px', '430px'],
+                        callback: {
+                            fn1: function(d) {
+                                t_FN.removeAll();
+                            },
+                            fn2: function(d) { //回显值
+                                t_FN.addItem(d.itemid, d.itemtext);
+                            }
+                        }
+                    });
+                }, 2, 'hideinp_id', 'hideinp_name');
+            });
+            
+            $('#test_btn01').click(function(){
+                COM_TOOLS.loadingBtn.open($(this));
+                setTimeout(function(){
+                    COM_TOOLS.loadingBtn.close('test_btn01');
+                },2000);
+            });
+        </script>
+
+        <!-- 代码格式用 -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+        <script>
+            $('pre').each(function(i, n) {
+                hljs.highlightBlock(n);
+            });
+        </script>
+    </body>
+
+</html>

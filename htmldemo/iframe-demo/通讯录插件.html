@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>jstree-demo</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/iconfont.css" type="text/css" />
+    <link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <style>
+
+    </style>
+
+    <body>
+        <div class="btn" id="aa">点击打开通讯录组件</div>
+
+        <div class="orgtree-selectedlist-box">
+            <ul class="orgtree-item-list clearfix">
+                <li class="orgtree-item">
+                    <i class="the-icon glyphicon glyphicon-folder-close"></i>部门
+                </li>
+                <li class="orgtree-item">
+                    <i class="the-icon glyphicon glyphicon-user"></i>张三
+                </li>
+                <li class="orgtree-item">
+                    <i class="the-icon glyphicon glyphicon-user"></i>张三
+                </li>
+                <li class="orgtree-item">
+                    <i class="the-icon glyphicon glyphicon-folder-close"></i>部门
+                </li>
+                <li class="orgtree-item">
+                    <i class="the-icon glyphicon glyphicon-user"></i>张三
+                </li>
+                <li class="orgtree-item">
+                    <i class="the-icon glyphicon glyphicon-user"></i>张三
+                </li>
+            </ul>
+        </div>
+        <div id="hhhhh" style="border: 1px solid #ddd; padding: 10px;"></div>
+        <div>
+        <textarea id="aa_hidden" class="" autocomplete="off">
+            [{
+                "code": "code_0_1_2_1_2",
+                "type": "0"
+            },
+            {
+                "code": "code_0_1_1",
+                "type": "0"
+            },
+            {
+                "code": "code_0_1_2",
+                "type": "1"
+            },
+            {
+                "code": "code_0_2_2_1_2",
+                "type": "1"
+            }]
+        </textarea>
+        </div>
+        <div class="btn" id="bb" style="margin: 20px;">点击打开通讯录组件</div>
+        <div>
+            <textarea id="bb_hidden" class="" autocomplete="off">
+            [{
+                "code": "code_0_1_2_1_2",
+                "type": "0"
+            },
+            {
+                "code": "code_0_2_2_1_2",
+                "type": "1"
+            }]
+        </textarea>
+        </div>
+
+        <form id="tyu">
+
+            <input name="a" type="text" id="gg" />
+        </form>
+        <script src="../../js/jquery-2.1.1.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/plugins/jsTree/jstree.min.js"></script>
+        <script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="../../js/plugins/layer/layer.js"></script>
+        <script src="../../i18n/zh-CN.js"></script>
+        <script src="../../js/subindex.js"></script>
+        <!--<script src="../../js/plugins/subindexSource/sub.js"></script>-->
+
+        <!--jquery.mockjax.min.js仅限于demo演示模拟数据使用-->
+        <script src="../../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../../demo-data.js"></script>
+
+        <script>
+
+            $(function () {
+
+                COM_TOOLS._model.orgModel('aa', 'aa_hidden',{max_num:5, only_sel_people: true});
+                
+                COM_TOOLS._model.orgModel('bb', 'bb_hidden',{max_num:8});
+
+            });
+
+        </script>
+
+    </body>
+
+</html>

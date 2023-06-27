@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>数据字典管理</title>
+    <link href="../../../css/animate.css" rel="stylesheet">
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/iconfont.css" rel="stylesheet">
+    <link href="../../../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="../../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link href="../../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+    <link href="../../../css/style.css" rel="stylesheet">
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+        }
+
+        #js_tree_cj {
+            padding-bottom: 10px;
+        }
+        .red-x {
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body class="flex-box-ltr-2col flex-has-leftbar">
+<div class="flex-box-left">
+    <div class="" style="height: 100%; padding:80px 15px 20px; position: relative; ">
+        <div style="position: absolute; left: 0; top: 0;width: 100%; padding: 10px 15px 0;">
+            <div class="input-group input-group-sm">
+                <div class="cus-input-inside-icon">
+                    <input id="ipt55" type="text" class="form-control input-sm">
+                </div>
+                <span class="input-group-btn">
+                            <button id="btn_search1" type="button" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-search"></i></button>
+                        </span>
+            </div>
+        </div>
+        <div class="jstree-box-cont" id="js_tree_overflowbox" style="height: 100%;">
+            <div id="js_tree_cj"></div>
+        </div>
+    </div>
+</div>
+<div class="flex-box-content">
+    <div class="flex-box-leftbar">
+        <div class="cbar-box">
+            <i class="glyphicon glyphicon-triangle-left"></i>
+            <i class="glyphicon glyphicon-triangle-right"></i>
+        </div>
+    </div>
+    <div class="container-fluid flex-box-overflow">
+        <div class="cus-page-form clearfix" style="padding: 3px 0 0;">
+            <div class="pull-left form-inline" style="padding-right: 20px;">
+                <div class="row" style="padding: 3px 0;">
+                    <div class="col-xs-12">
+                        <p style="display: inline-block; margin: 0; padding: 0 10px 0 0;">
+                            <label class="">
+                                <input id="check_all" type="checkbox" name="name21_01[]" value="1"> 全局搜索
+                            </label>
+                        </p>
+                        <label class="cus-lab">标签名称:</label>
+                        <input id="ipt11" type="text" class="form-control input-sm">
+                        <label class="cus-lab">编码:</label>
+                        <input id="ipt12" type="text" class="form-control input-sm">
+                        <button id="cumBtn_search" class="btn btn-sm btn-success">搜索</button>
+                        <button class="btn btn-sm btn-success">扩展列显隐</button>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="pull-right">
+                <div class="row" style="padding: 3px 0;">
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary btn-sm cus-btn-width" type="button" id="cumBtn_add"><i class="glyphicon glyphicon-plus"></i> 新建</button>
+                        <button class="btn btn-success btn-sm cus-btn-width" type="button" id="cumBtn_edit"><i class="glyphicon glyphicon-pencil"></i> 修改</button>
+                        <button class="btn btn-danger btn-sm cus-btn-width" type="button" id="cumBtn_delete"><i class="glyphicon glyphicon-trash"></i> 删除</button>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <table id="js_dt_cj" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+        <div class="" style="height: 600px;">222 &lt;p&gt;rrr&lt;/p&gt; aaa</div>
+    </div>
+</div>
+
+
+<script src="../../../js/jquery-2.1.1.js"></script>
+<script src="../../../js/bootstrap.min.js"></script>
+
+<script src="../../../js/plugins/layer/layer.js"></script>
+<script src="../../../js/plugins/jsTree/jstree.min.js"></script>
+<script src="../../../js/plugins/datatables/datatables.min.js"></script>
+<script src="../../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script src="../../../i18n/zh-CN.js"></script>
+<script src="../../../js/subindex.js"></script>
+
+<!-- 以下js仅用于演示 -->
+<script src="../../../js/jquery.mockjax.min.js"></script>
+<script type="text/javascript" src="../../../demo-data.js"></script>
+<script type="text/javascript">
+    $(function () {
+        /* 布局左侧伸缩条 */
+        $('.flex-box-leftbar .cbar-box').click(function () {
+            var _w = $('.flex-box-ltr-2col');
+            if (_w.hasClass('flex-box-w-min')) {
+                _w.removeClass('flex-box-w-min');
+            } else {
+                _w.addClass('flex-box-w-min');
+            }
+            DT_.table && DT_.table.columns.adjust(); //重新计算表格宽度
+        });
+        //return false;
+        /* 滚动条 */
+        $("#js_tree_overflowbox").mCustomScrollbar({
+            //setWidth: '270',
+            //setHeight: bodyH_ - 50,
+            axis: 'yx',
+            scrollbarPosition: 'outside',
+            theme: "dark-3"
+        });
+        var deptArr = {},
+            old_id;
+        var treeObjList = {
+            editFunc: function (tit, url_, node_, ref) { //重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+                cumParentWinModal(tit, url_, {
+                    'area': ['380px', '240px'],
+                    'callid': {
+                        'node': node_,
+                        'ref': ref
+                    },
+                    'callback': {
+                        fn2: 'fn1'
+                    }
+                })
+                COM_TOOLS.setCacheFnForChildWin({
+                    fn1: saveFun
+                });
+            },
+            create: function (node_, ref) {
+                if (!node_.id.length) {
+                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]); //请选择节点
+                    return false;
+                }
+                treeObjList.editFunc(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTmo_tit"], ['add-jstree.html?edit=0'], node_, ref);
+            },
+            rename: function (node_, ref) {
+                if (!node_.id.length) {
+                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]); //请选择节点
+                    return false;
+                }
+                treeObjList.editFunc(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_tit"], ['add-jstree.html?edit=1&nodeName=' + node_.text], node_, ref);
+            },
+            del: function (node_, ref) {
+                if (!node_.id.length) {
+                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]);
+                    return false;
+                }
+                /*'delConfirm':确认删除吗?*/
+                COM_TOOLS.confirm("确认删除吗？", function (index) {
+                    cumCloseWin(index);
+                    //$.post('',{},function(d){
+                    ref.delete_node(node_.id); //需在回调成功后才执行
+                    //},'json');
+                });
+            },
+            moveNode: function (node_, type) {
+                var ref = $('#js_tree_cj').jstree(true);
+                var newPar_node = ref.get_node(node_.parent); //目标父节点
+                if (!newPar_node.id) {
+                    return false;
+                }
+                var pos_ = ''; //目标节点下的位置
+                switch (type) {
+                    case 'up':
+                        pos_ = $.inArray(node_.id, newPar_node.children) - 1;
+                        break;
+                    case 'down':
+                        pos_ = $.inArray(node_.id, newPar_node.children) + 2;
+                        break;
+                    case 'left':
+                        pos_ = 'after';
+                        break;
+                    case 'right':
+                        pos_ = 'last';
+                        newPar_node = ref.get_prev_dom(node_, true);
+                        break;
+                }
+                if (pos_ !== '') {
+                    /*接口成功后，再修改节点
+                    COM_TOOLS.ajaxFn({
+                        url: '',
+                        data: {},
+                        success: function (d_) {
+
+                        }
+                    }, 3, overlayboxid_);*/
+                    ref.move_node(node_, newPar_node, pos_);
+                    console.log('#1111-pos_', pos_);
+                }
+                //ref.move_node(node_);
+            },
+            checkUp: function (node_) {
+                var ref = $('#js_tree_cj').jstree(true);
+                return !!ref.get_prev_dom(node_, true);
+            },
+            checkDown: function (node_) {
+                var ref = $('#js_tree_cj').jstree(true);
+                return !!ref.get_next_dom(node_, true);
+            },
+            checkLeft: function (node_) {
+                var ref = $('#js_tree_cj').jstree(true);
+                return node_.parent != '0';
+            },
+            checkRight: function (node_) {
+                var ref = $('#js_tree_cj').jstree(true);
+                return !!ref.get_prev_dom(node_, true);
+            }
+
+        };
+
+        function saveFun(obj) {
+            console.log(obj);
+            if (obj.editNum == 0) {
+                obj['ref'].create_node(obj['node'].id, {
+                    "text": obj['text']
+                });
+                obj['ref'].open_node(obj['node'].id);
+            } else if (obj.editNum == 1) {
+                obj['ref'].set_text(obj['node'], obj['text']); //更改节点内容
+            }
+        };
+
+        var jstree_ = $('#js_tree_cj').jstree({
+            'core': {
+                "multiple" : false,
+                "check_callback": true,
+                'data': [ //静态数据,如果数据有中 parent 字段所对应的 id 不存在会报错
+                    {
+                        "id": 11,
+                        "parent": 0,
+                        "text": "集团集团集团集团1"
+                    },
+                    {
+                        "id": 21,
+                        "parent": 11,
+                        "text": "部门部门部门部门部门部门部门部门部门1"
+                    },
+                    {
+                        "id": 22,
+                        "parent": 11,
+                        "text": "部门2"
+                    },
+                    {
+                        "id": 13,
+                        "parent": 0,
+                        "text": "集团 2"
+                    },
+                    {
+                        "id": 31,
+                        "parent": 13,
+                        "text": "部门1"
+                    },
+                    {
+                        "id": 32,
+                        "parent": 13,
+                        "text": "部门2"
+                    }
+                ]
+                /*{
+                    'url': function (node) {
+                        return node.id === '0'?'demo-tree-data-root.json':'demo-tree-data-child.json';
+                    },
+                    'data': function (node) {	//发送的data
+                        return {'id': node.id};
+                    },
+                    'success':function(d){
+                        if(str_id==""){	//获取首个节点
+                            str_id = d[0]['id'];
+                           }
+                        //可做处理
+                        return d;
+                    }
+                }*/
+            },
+            "search":{
+                show_only_matches:true,//只显示搜索到的数据
+               /* show_only_matches_children:true, //是否可显示搜索到节点的子节点,默认为false不可显示
+                ajax:{
+                    url:"/jstree6/searchapi"
+                }*/
+            },
+            'contextmenu': {
+                show_at_node: false,
+                items: function (node) {
+                    var temp = {
+                        "add_c": {
+                            "icon": 'glyphicon glyphicon-plus',
+                            "label": "添加字典项",
+                            "action": function (data) {
+                                treeObjList.create(node, $('#js_tree_cj').jstree(true));
+                            }
+                        },
+                        "add_b": {
+                            "icon": 'glyphicon glyphicon-asterisk',
+                            "label": '添加数据单元',
+                            "action": function (data) {
+                                COM_TOOLS.alert('添加数据单元')
+                            },
+                            "_disabled": function () { //菜单禁止操作
+                                // return node.parent == 0;
+                            }
+                        },
+                        "import": {
+                            "icon": 'glyphicon glyphicon-log-in',
+                            "label": '批量导入',
+                            "separator_after": true,
+                            "action": function (data) {
+                                COM_TOOLS.alert('批量导入')
+                            },
+                            "_disabled": function () { //菜单禁止操作
+                                // return node.parent == 0;
+                            }
+                        },
+                     /*   "rename": {
+                            "icon": 'glyphicon glyphicon-pencil',
+                            "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTrename_node"],
+                            "separator_after": true,
+                            "action": function (data) {
+                                treeObjList.rename(node, $('#js_tree_cj').jstree(true));
+                            }
+                        },*/
+                        "move_up": {
+                            "icon": 'glyphicon glyphicon-arrow-up',
+                            "label": '上移',
+                            "action": function (data) {
+                                treeObjList.moveNode(node, 'up');
+                            },
+                            "_disabled": function () { //菜单禁止操作
+                                return !treeObjList.checkUp(node);
+                            }
+                        },
+                        "move_down": {
+                            "icon": 'glyphicon glyphicon-arrow-down',
+                            "label": '下移',
+                            "action": function (data) {
+                                console.log('@222222', data, '--#--', node)
+                                treeObjList.moveNode(node, 'down');
+                            },
+                            "_disabled": function () { //菜单禁止操作
+                                return !treeObjList.checkDown(node);
+                            }
+                        },
+                        "move_left": {
+                            "icon": 'glyphicon glyphicon-indent-right',
+                            "label": '升级',
+                            "action": function (data) {
+                                console.log('@222222', data, '--#--', node)
+                                treeObjList.moveNode(node, 'left');
+                            },
+                            "_disabled": function () { //菜单禁止操作
+                                return !treeObjList.checkLeft(node);
+                            }
+                        },
+                        "move_right": {
+                            "icon": 'glyphicon glyphicon-indent-left',
+                            "label": '降级',
+                            "separator_after": true,
+                            "action": function (data) {
+                                console.log('@222222', data, '--#--', node)
+                                treeObjList.moveNode(node, 'right');
+                            },
+                            "_disabled": function () { //菜单禁止操作
+                                return !treeObjList.checkRight(node);
+                            }
+                        },
+                        "open": {
+                            "icon": 'glyphicon glyphicon-off',
+                            "label": '启用/禁用',
+                            "action": function (data) {
+                                var ref = $('#js_tree_cj').jstree(true);
+                                console.log(node);
+                                if (!ref.is_disabled(node.id)){
+                                    ref.disable_node(node.id)
+                                }else {
+                                    ref.enable_node(node.id)
+                                }
+                            }
+                        },
+                        "del": {
+                            "icon": 'glyphicon glyphicon-remove red-x',
+                            "label": '<span class="red-x">'+LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTdel_node"]+'</span>',
+                            "action": function (data) {
+                                console.log(node);
+                                var childL_ = node.children.length;
+                                if (childL_ > 0) {
+                                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_notdel"]);
+                                    return false;
+                                }
+                                treeObjList.del(node, $('#js_tree_cj').jstree(true));
+                            }
+                        },
+
+                    };
+                    return temp;
+                }
+            },
+            'types': { //可自定义树的图标
+                'default': {
+                    'icon': 'text-info tedufont tedu-icon43'
+                },
+                'root': {
+                    'icon': 'text-danger tedufont tedu-icon6'
+                }
+            },
+            'plugins': ['types', 'contextmenu', 'wholerow','search'] //dnd开启拖拽功能
+        }).on('ready.jstree', function (e, n) { /* jstree-绑定 */
+            console.log('==============')
+                var str_id = 11;
+                jstree_.jstree(true).select_node([str_id], false, true); //tree加载完之后让a1,b2 节点选中
+                old_id = str_id;
+                refreshDT({
+                    'id': str_id
+                }); //第一次时需要启用
+            console.log(old_id);
+        }).on('activate_node.jstree', function (e, data) { //用 select_node.jstree 时,通过 select_node() 方法调用时会报错 data.event 未定义
+                //判断左右击
+                // if (data.event.which == 1) {
+                var id_ = data.node.id;
+                if (old_id != id_) {
+                    old_id = id_;
+                    searchParemOBj_ = {
+                        'id': id_
+                    };
+                    DT_.setAjaxData(searchParemOBj_);
+                }
+            $('#check_all').prop("checked", false);
+                // }
+            }).on('move_node.jstree', function (e, data) {
+                var id_ = data.node.id;
+                deptArr['cj_' + id_] = {
+                    'tar_id': id_,
+                    'parent': data['parent'],
+                    'old_parent': data['old_parent']
+                };
+            });
+        $('#btn_search1').click(function () {
+                var v = $('#ipt55').val();
+            $('#js_tree_cj').jstree(true).search(v); //搜索
+        });
+        /*     $('#cumBtn_refresh').click(function () {
+                 //如果是对树节点的添加/修改/删除等操作禁止用刷新方法
+                 jstree_.jstree(true).refresh_node();
+             });
+             $('#cumBtn_save').click(function () {
+                 if ($.isEmptyObject(deptArr)) {
+                     return false;
+                 }
+                 COM_TOOLS.alert('确认修改节点', {
+                     time: 0, //6s后自动关闭   ;默认关闭时间，毫秒数； 0：不自动关闭（慎用）
+                     btn: ['确认', '取消'],
+                     btn1: function (index) {
+                         console.log(deptArr);
+                         deptArr = {};
+                     },
+                     btn2: function (index) {
+                         layer.close(index);
+                     },
+                     shade: 0.3 //背景蒙版,透明度
+                 });
+             });*/
+
+        /*datatable*/
+        var DT_ = {},
+            searchParemOBj_ = {};
+
+        function refreshDT(obj) {
+            DT_ = COM_TOOLS.DT_init('js_dt_cj', [{
+                "data": null,
+                "title": "序号",
+                "className": "text-center",
+                "width": "30px",
+                render: function (data, type, row, meta) { /*显示行号*/
+                    return 1 + meta.row;
+                }
+            }, {
+                "data": null,
+                "title": "选项",
+                "className": "select-checkbox",
+                "defaultContent": ''
+            }, {
+                "data": "first_name",
+                "title": "标题1"
+            }, {
+                "data": "last_name",
+                "title": "标题2"
+            }, {
+                "data": "position",
+                "title": "标题3",
+                "className": "text-right"
+            }, {
+                "data": null,
+                "title": "标题4",
+                render: function (data, type, row, meta) { /*显示行号*/
+                    return '<button type="button" class="js-check-btn no-Sel-obj btn btn-success btn-xs">查看权限</button> <button type="button" class="js-px-btn no-Sel-obj btn btn-success btn-xs">排序</button>';
+                }
+            }], '/dt/api', 'get', obj, {
+                other: {
+                    destroy: true
+                },
+                selectStyle: 'os',
+                jsInitComplete: function (settings) {
+                    console.log(settings);
+                    $(settings.nTBody).on('click', '.js-check-btn', function () {
+                        COM_TOOLS.alert("暂未开放");
+                    })
+                    /*.on('row-reorder',function ( e, diff, edit ){   //拖拽事件
+                                                var result={};
+                                                for ( var i=0, ien=diff.length ; i<ien ; i++ ) {
+                                                    var rowData = table_.row( diff[i].node ).data();
+                                                    result['cj_'+rowData['DT_RowId']]={'tar_id':rowData['DT_RowId'],'position':diff[i].newData,'old_position':diff[i].oldData};
+                                                }
+                                                console.log(result);
+                                                if($.isEmptyObject(result)){
+                                                    return false;
+                                                }
+                                            })*/
+                    ;
+                }
+            });
+        };
+        $('#check_all').change(function(){
+            if($(this).is(':checked')){
+                jstree_.jstree(true).deselect_all()
+            }
+        });
+        $('#cumBtn_search').click(function() {
+            var id_ = '';
+            if(!$('#check_all').is(':checked')){
+                id_ =  jstree_.jstree(true).get_selected(true).length?jstree_.jstree(true).get_selected(true)[0].id:'';
+            }
+            var v1 = $.trim($('#ipt11').val());
+            var v2 = $.trim($('#ipt12').val());
+            searchParemOBj_ = {
+                // 'xx': txt_,
+                id:id_,
+                'a':v1,
+                'b':v2
+            };
+            console.log(searchParemOBj_)
+            DT_.setAjaxData(searchParemOBj_);
+        });
+    });
+</script>
+</body>
+
+</html>

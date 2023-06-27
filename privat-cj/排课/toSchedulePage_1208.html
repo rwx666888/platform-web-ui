@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>fullCalendar</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!--<link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">-->
+
+    <link href="../../css/animate.css" rel="stylesheet" />
+    <link
+      href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../css/plugins/select2/select2.min.css" />
+    <link href="../../css/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+    <link href="../../css/style.css" rel="stylesheet" />
+    <style>
+      /*自习*/
+      .cus-ca-class0 {
+        background-color: #777777 !important;
+      }
+
+      /*阶段*/
+      .cus-ca-class1 {
+        background-color: #00c0ef !important;
+      }
+
+      .cus-ca-class2 {
+        background-color: #3c8dbc !important;
+      }
+
+      .cus-ca-class3 {
+        background-color: #39cccc !important;
+      }
+
+      .cus-ca-class4 {
+        background-color: #f39c12 !important;
+      }
+
+      .cus-ca-class5 {
+        background-color: #f012be !important;
+      }
+
+      .cus-ca-class6 {
+        background-color: #00a65a !important;
+      }
+
+      .cus-ca-class7 {
+        background-color: #ff851b !important;
+      }
+
+      .cus-ca-class8 {
+        background-color: #f44336 !important;
+      }
+
+      .cus-playerday-bg {
+        background-color: #f8f8f8;
+      }
+
+      .cus-wanzixi-bg {
+        opacity: 0.7;
+      }
+
+      .cus-label-xs,
+      .js-label-xs-creat,
+      .js-label-xs-addone,
+      .js-label-xs-btnwd {
+        font-weight: 400;
+        font-size: 20px;
+        cursor: pointer;
+        color: #f8ac59;
+        margin-right: 5px;
+      }
+
+      .tooltip-inner {
+        text-align: left;
+      }
+
+      .js-week-btn-statue {
+        position: absolute;
+        left: 100%;
+        top: 0;
+      }
+
+      #endclass_iconobj {
+        font-size: 12px;
+        color: #fff;
+        background: #ed5565;
+        padding: 3px 5px;
+        vertical-align: top;
+        border-radius: 3px;
+      }
+
+      .cus-shenhe-bg {
+        background-image: url('images/calendar-cur-bg.png');
+        background-repeat: no-repeat;
+        background-position: 0 0;
+      }
+
+      .kuaijie-form-box button {
+        margin: 0 8px 8px 0;
+      }
+
+      .table-condensed > tbody > tr > td,
+      .table-condensed > tbody > tr > th,
+      .table-condensed > tfoot > tr > td,
+      .table-condensed > tfoot > tr > th,
+      .table-condensed > thead > tr > td,
+      .table-condensed > thead > tr > th {
+        padding: 4px;
+        line-height: 1.3;
+      }
+
+      /*170809-cj*/
+      #calendar_win_child_box {
+        min-height: 105px;
+      }
+
+      .cus-ts-btn {
+        padding: 0px 3px;
+      }
+
+      .cus-ts-span {
+        display: inline-block;
+        padding-top: 1px;
+        width: 20px;
+        border: 1px solid #f90;
+        border-radius: 10px;
+      }
+
+      .calendar-class-time {
+        display: inline-block;
+        margin-top: 4px;
+      }
+
+      .calendar-class-time .cus-end-time {
+        margin-left: 23px;
+      }
+
+      .calendar-class-time .ts-inp {
+        width: 100px !important;
+      }
+
+      .calendar-class-time .ts-inp2 {
+        width: 50px !important;
+      }
+
+      .cus-alert-right {
+        text-align: right;
+        margin-bottom: 0;
+      }
+
+      .fc-cusBtnSave-button {
+        background-color: #1ab394;
+        color: #fff;
+        border-color: #1ab394;
+      }
+
+      .cus-info {
+        height: 27px;
+        line-height: 27px;
+        font-size: 12px;
+        color: #999;
+      }
+
+      .cus-info .cus-info-color {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 5.5px;
+        width: 16px;
+        height: 16px;
+      }
+
+      .cus-info > span {
+        margin-right: 4px;
+      }
+
+      .cus-info .cus-wz {
+        display: inline-block;
+        margin-top: 2px;
+      }
+
+      .cus-form-wrp > .form-group {
+        float: left;
+        width: 50%;
+      }
+
+      .cus-form-wrp > .form-group:first-child {
+        padding-right: 10px;
+      }
+
+      .cus-form-wrp > .form-group:last-child,
+      .cus-form-wrp > .form-group:nth-child(2) {
+        padding-left: 10px;
+      }
+
+      .calendar-class-time .js-t-start {
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- calendar -->
+    <div class="container">
+      <div class="row space-15">
+        <div class="col-sm-12">
+          <div id="calendar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 整天/单条 -->
+    <div class="event-calendar-win" id="calendar_win" style="display: none;">
+      <div class="form p-sm">
+        <div class="cus-form-box">
+          <!-- wrp -->
+          <div class="cus-form-wrp clearfix">
+            <div class="form-group">
+              <label>讲师</label>
+              <div class="input-group input-group-sm">
+                <input
+                  class="form-control"
+                  readonly="readonly"
+                  type="text"
+                  id="calendar_win_tea_val"
+                />
+                <input class="form-control" type="hidden" id="calendar_win_tea_val_hide" />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary js-choice-teacher" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>教室</label>
+              <div class="input-group input-group-sm">
+                <input
+                  class="form-control"
+                  readonly="readonly"
+                  type="text"
+                  id="calendar_win_room_name"
+                />
+                <input class="form-control" type="hidden" id="calendar_win_room_itemid" />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary js-choice-classroom" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="cus-form-wrp clearfix">
+            <!-- 全天 天数 -->
+            <div id="js_quan_date" class="form-group">
+              <label>天数</label>
+              <input class="form-control input-sm" id="calendar_win_day_val" value="1" />
+            </div>
+            <!-- 单条 时间 -->
+            <div
+              id="js_dtp_box"
+              class="form-group"
+              style="padding-left: 0; padding-right: 10px; display: none;"
+            >
+              <label>上课时间</label>
+              <div class="input-group input-group-sm date" id="jsevent_win_date_box">
+                <input
+                  id="jsevent_win_date_val"
+                  type="text"
+                  name="name20"
+                  class="form-control input-sm"
+                  readonly="readonly"
+                  value=""
+                />
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="cus-form-wrp clearfix">
+            <div class="form-group">
+              <label>单次课课时</label>
+              <select class="form-control input-sm js-single-classhour" disabled></select>
+            </div>
+            <div class="form-group">
+              <label>上课时长</label>
+              <input class="form-control input-sm js-class-minute" readonly />
+            </div>
+          </div>
+          <div class="cus-form-wrp clearfix">
+            <div class="form-group">
+              <label>是否休息</label>
+              <div class="form-group">
+                <label class="checkbox-inline">
+                  <input class="js-isrest" type="radio" name="rest" value="1" disabled /> 是
+                </label>
+                <label class="checkbox-inline">
+                  <input class="js-isrest" type="radio" name="rest" value="0" disabled /> 否
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>总休息时长</label>
+              <div class="form-group">
+                <select class="form-control input-sm js-total-rest" disabled>
+                  <option value="0">-请选择-</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>上课时段</label>
+            <div class="form-group pull-right">
+              <button class="js-add-classtime btn cus-ts-btn btn-primary" type="button">
+                <i class="glyphicon glyphicon-plus"></i>
+              </button>
+            </div>
+            <div class="form-inline" id="calendar_win_child_box">
+              <div class="calendar-class-time">
+                <!-- 上下午 无用 -->
+                <div class="form-group hidden">
+                  <select class="js-sel-day-time form-control input-sm">
+                    <option value="-1">请选择</option>
+                    <option value="1">上午</option>
+                    <option value="2">下午</option>
+                    <option value="3">晚上</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>开始</label>
+                  <div class="input-group input-group-sm date">
+                    <select class="js-t-start js-st-h ts-inp2 form-control input-sm"></select>
+                    <select class="js-t-start js-st-m ts-inp2 form-control input-sm"></select>
+                  </div>
+                </div>
+                <div class="form-group cus-end-time">
+                  <label>结束</label>
+                  <div class="input-group input-group-sm date">
+                    <!-- <select class="js-t-end ts-inp form-control input-sm" disabled></select> -->
+                    <input class="js-t-end form-control input-sm ts-inp" type="text" readonly />
+                  </div>
+                </div>
+                <div class="js-re-class-time form-group" style="display: none;">
+                  <button class="btn cus-ts-btn btn-primary" type="button">
+                    <i class="glyphicon glyphicon-minus"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>知识点</label>
+            <select
+              class="form-control input-sm"
+              multiple="multiple"
+              name="knowledgeId"
+              id="knowledgeId"
+            >
+              <option value="1">用户管理</option>
+              <option value="2">角色管理</option>
+              <option value="3">部门管理</option>
+              <option value="4">菜单管理</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>备注</label>
+            <textarea class="form-control" id="calendar_win_desc_val"></textarea>
+            <!-- <input class="form-control input-sm" id="calendar_win_desc_val" /> -->
+          </div>
+          <!-- btn wrp -->
+          <button class="btn btn-info btn-sm js-wm-q" onclick="creat_ca_event_fun(this)">
+            创建
+          </button>
+          <button
+            style="display: none;"
+            class="btn btn-info btn-sm js-wm-s"
+            onclick="edit_ca_event(this)"
+          >
+            保存
+          </button>
+          <!-- <button
+            style="display: none;"
+            class="btn btn-danger btn-sm js-wm-s"
+            onclick="del_ca_event_fun()"
+          >
+            删除
+          </button> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../../js/jquery-ui.custom.min.js"></script>
+    <script src="../../js/plugins/moment/moment.min.js"></script>
+    <script src="../../js/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script src="../../js/plugins/fullcalendar/zh-cn.js"></script>
+    <script src="../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../js/plugins/select2/select2.full.min.js"></script>
+
+    <script src="../../i18n/zh-CN.js"></script>
+    <script src="../../js/subindex.js"></script>
+    <!--<script src="../../js/plugins/iCheck/icheck.min.js"></script>-->
+    <!-- <script src="../../js/plugins/fullcalendar/demo-calendar-3_1030.js"></script> -->
+    <script src="./js/demo-calendar-3_210406.js"></script>
+
+    <!-- moack -->
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/arrangeCourse/queryLecturerClash',
+        responseText: {
+          index: 0
+        }
+      });
+    </script>
+    <!-- moack end -->
+
+    <script>
+      var CL_DEFAULE_CONFIG = {
+        eClass: [
+          'cus-ca-class3',
+          'cus-ca-class6',
+          'cus-ca-class1',
+          'cus-ca-class2',
+          'cus-ca-class4',
+          'cus-ca-class8'
+        ],
+        cType: {
+          //班级类型key
+          d1: 1, //常规班
+          d2: 2 //寒暑假班
+        }
+      };
+
+      var CCID_ = COM_TOOLS.requestParam('ccid') == 'row_3' ? 1 : 2; //演示使用
+      /* 事件样式列表 */
+      /**
+		 * CLASS_obj_ 阶段对象 json-object
+		    cId:'a001', //班级ID
+		    cName:'班级名称',
+		    leverName:'阶段名称',
+		    teaId:'t001', //讲师ID
+		    teaName:'讲师姓名',
+		    cType:1 //班级类型  1：年度班；2：短期班
+		 * */
+      var CLASS_obj_ = {
+        cId: 'a001',
+        cName: '班级名称1',
+        cTimeAll: 6, //总课时数，初始化数据时使用
+        // cStartDay: '2019-07-05', //开课日期，初始化数据时使用
+        cStartDay: moment().format('YYYY-MM-DD'), //开课日期，初始化数据时使用
+        ccName: '课程名称1',
+        leverName: '阶段名称1',
+        teaId: 't001',
+        teaName: '讲师姓名1',
+        classroom: '教室1',
+        classroomId: 'r001',
+        cType: CCID_, //班级类型  1：年度班；2：短期班
+        cPoiList: ['1', '2', '3'], // new 课时数组
+        cRestList: ['5分钟', '10分钟', '15分钟', '20分钟'], // new 休息时长数组
+        child: [
+          //课程，初始化数据时使用
+          {
+            eTime: 2, //时间 1：上午； 2：下午； 3：晚上
+            eStartTime: '09:00', // 开始时间
+            eEndTime: '09:45', //结束时间
+            ePoi: '1',
+            eRest: '10分钟', // new 休息时间，没有为 0
+            eClassTime: 45
+            // new 上课时长
+          }
+          /*{
+			    eTime: 2, //时间 1：上午； 2：下午； 3：晚上
+			    eStartTime: "14:00", // 开始时间
+			    eEndTime: "16:00", //结束时间
+			    ePoi: 2
+			}*/
+        ]
+      };
+      /**
+       * EVENTS_arr_ 事件源数据 json-object
+       */
+      var EVENTS_arr_ = [];
+      var WEEKDAYS_ = []; //工作日
+      var PLAYDAYS_ = []; //休息日
+      var WEEKDAYS_PRIVATE_ = []; //当前系列班逻辑工作日
+
+      // var CONTEXT_PATH = '${contextPath}';
+      var CONTEXT_PATH = '';
+
+      // 初始化数据-本地模拟
+      function init_data_fun() {
+        if (
+          CLASS_obj_.cTimeAll &&
+          CLASS_obj_.cTimeNum &&
+          CLASS_obj_.cStartDay &&
+          CLASS_obj_.child.length > 0
+        ) {
+          if (
+            Math.ceil(CLASS_obj_.cTimeAll / CLASS_obj_.cTimeNum) !==
+            CLASS_obj_.cTimeAll / CLASS_obj_.cTimeNum
+          ) {
+            COM_TOOLS.alert('元数据错误![error:001]'); //日总课时数必须能够被总课时数整除
+            return false;
+          }
+          var sday_ = CLASS_obj_.cStartDay,
+            daynum_ = Math.ceil(CLASS_obj_.cTimeAll / CLASS_obj_.cTimeNum);
+
+          calender_plu_tool.add_ca_event(
+            sday_,
+            CLASS_obj_['teaId'],
+            CLASS_obj_['teaName'],
+            CLASS_obj_['classroom'],
+            CLASS_obj_['classroomId'],
+            daynum_,
+            CLASS_obj_.cType,
+            '',
+            CLASS_obj_.child
+          );
+        } else {
+          COM_TOOLS.alert('元数据错误![error:002]');
+        }
+      }
+
+      /* 获取初始化信息 */
+      function getInitInfo() {
+        ///k12crm-web/arrangeCourse/getSchedule
+        $.getJSON(
+          CONTEXT_PATH + '/arrangeCourse/getSchedule',
+          { cId: COM_TOOLS.requestParam('cId') },
+          function (d) {
+            if (d.result == 1) {
+              CLASS_obj_ = d.list;
+              EVENTS_arr_ = CLASS_obj_.cSchedule;
+
+              cus_FN_cj.handleRest(CLASS_obj_.cRestList, 'remove');
+              cus_FN_cj.handleRest(CLASS_obj_.child, 'remove');
+
+              // 课时-时长
+              cus_FN_cj.createOption('.js-single-classhour', CLASS_obj_.cPoiList);
+              cus_FN_cj.createOption('.js-total-rest', CLASS_obj_.cRestList);
+
+              cus_FN_cj.handleRest(EVENTS_arr_, 'remove');
+
+              calendar = calendar_init_fun();
+              CLASS_obj_.cTimeNum = cus_FN_cj.sumNewEpoi(CLASS_obj_.child);
+            } else {
+              COM_TOOLS.alert('初始化数据获取失败');
+            }
+            COM_TOOLS.loadingShade.close();
+          }
+        );
+      }
+
+      //保存提交数据
+      function saveScheduleInfo() {
+        if (cus_FN_cj.sumNewEpoi(EVENTS_arr_, 1) != CLASS_obj_.cTimeAll) {
+          COM_TOOLS.alert(
+            '总课时数：' +
+              CLASS_obj_.cTimeAll +
+              '，缺少课时：' +
+              (CLASS_obj_.cTimeAll - cus_FN_cj.sumNewEpoi(EVENTS_arr_, 1)) +
+              '，请补全。'
+          );
+          return false;
+        }
+
+        COM_TOOLS.loadingShade.open();
+        // 拷贝一份用于数据提交
+        var cloneEvent = $.extend(true, [], EVENTS_arr_);
+        cus_FN_cj.handleRest(cloneEvent, 'add');
+
+        var o_ = {};
+        (o_['cId'] = CLASS_obj_['cId']), (o_['cSchedule'] = cloneEvent);
+
+        $.post(
+          CONTEXT_PATH + '/arrangeCourse/save',
+          { scheduleInfo: JSON.stringify(o_) },
+          function (res) {
+            if (res.length > 0) {
+              if (res[0].cId == 'data_error') {
+                COM_TOOLS.alert(res[0].cName, 6000);
+              } else {
+                // COM_TOOLS.alert('有' + res.length + '条数据存在冲突！');
+                COM_TOOLS.alert('课表冲突，无法保存！');
+
+                var conflict_List = [];
+                for (var i = 0, len = res.length; i < len; i++) {
+                  conflict_List.push(res[i].eId);
+                }
+                cus_FN_cj.judgmentConflict(conflict_List);
+              }
+            } else if (res.length == 0) {
+              cus_FN_cj.deleteState('estate');
+              refetch_ca_draw();
+              COM_TOOLS.alert('提交成功！');
+            } else {
+              COM_TOOLS.alert('提交成功！');
+            }
+            COM_TOOLS.loadingShade.close();
+          }
+        );
+      }
+      //讲师冲突校验
+      function checkTeachAjax(evt, ajaxParam, callback) {
+        $(evt).attr('disabled', true);
+
+        if (CLASS_obj_['cMode'] != 'BJMS002') {
+          $.post(CONTEXT_PATH + '/arrangeCourse/queryLecturerClash', ajaxParam, function (res) {
+            if (res.index == 0) {
+              //不冲突
+              callback && callback();
+            } else if (res.index == 1) {
+              var errorMsg = '';
+              // 提示文字-讲师冲突
+              if (res.list.length) {
+                var html_arr = [],
+                  list_ = res.list;
+                for (var i = 0, ilen = list_.length; i < ilen; i++) {
+                  html_arr.push(
+                    '&nbsp;',
+                    list_[i]['cName'],
+                    '&nbsp;',
+                    list_[i]['dateClash'],
+                    '&nbsp;',
+                    list_[i]['eStartTime'] + '-' + list_[i]['eEndTime'],
+                    '&nbsp;发生冲突<br>'
+                  );
+                }
+                errorMsg += '<p class="cus-alert-right">该讲师在<br>' + html_arr.join('') + '</p>';
+                //COM_TOOLS.alert('<p class="cus-alert-right">该讲师在<br>'+ html_arr.join('') +'</p>', {shade: 0.01, time: 0, btn: ['知道了']});
+              }
+
+              // 提示文字-教室冲突
+              if (res.list2.length) {
+                var html_arr = [],
+                  list_ = res.list2;
+                for (var i = 0, ilen = list_.length; i < ilen; i++) {
+                  html_arr.push(
+                    '&nbsp;',
+                    list_[i]['cName'],
+                    '&nbsp;',
+                    list_[i]['dateClash'],
+                    '&nbsp;',
+                    list_[i]['eStartTime'] + '-' + list_[i]['eEndTime'],
+                    '&nbsp;发生冲突<br>'
+                  );
+                }
+                errorMsg += '<p class="cus-alert-right">该教室在<br>' + html_arr.join('') + '</p>';
+              }
+
+              COM_TOOLS.alert(errorMsg, { shade: 0.01, time: 0, btn: ['知道了'] });
+            }
+
+            $(evt).removeAttr('disabled');
+          });
+        } else {
+          callback && callback();
+
+          $(evt).removeAttr('disabled');
+        }
+      }
+
+      $(function () {
+        // 正式环境
+        // COM_TOOLS.loadingShade.open();
+        // getInitInfo();
+
+        // 本地模拟用
+        cus_FN_cj.handleRest(CLASS_obj_.cRestList, 'remove');
+        cus_FN_cj.handleRest(CLASS_obj_.child, 'remove');
+
+        CLASS_obj_.cTimeNum || (CLASS_obj_.cTimeNum = cus_FN_cj.sumNewEpoi(CLASS_obj_.child));
+        EVENTS_arr_.length == 0 && init_data_fun();
+        calendar = calendar_init_fun();
+        // 课时-时长 本地模拟用
+        cus_FN_cj.createOption('.js-single-classhour', CLASS_obj_.cPoiList);
+        cus_FN_cj.createOption('.js-total-rest', CLASS_obj_.cRestList);
+        // 本地模拟用 end
+
+        // 弹窗相关事件
+        cus_FN_cj.winTar = $('#calendar_win');
+        cus_FN_cj.timeTar = $('#calendar_win_child_box'); // 时间条 dom
+        cus_FN_cj.cloneHtml = cus_FN_cj.timeTar.html();
+
+        // 初始化-开始-下拉项
+        cus_FN_cj.createStartTimeOption();
+
+        $(document)
+          .on('click.teacher', '.js-choice-teacher', function (e) {
+            // 全天/单条-讲师
+            cumParentWinModal('选择讲师', 'selectpage1.html', {
+              area: ['600px', '430px'],
+              callid: 'calendar_win_tea_val'
+            });
+          })
+          .on('click.classroom', '.js-choice-classroom', function (e) {
+            // 全天/单条-教室
+            cumParentWinModal(
+              '选择教室',
+              CONTEXT_PATH +
+                '/classroomBase/toChoosePage?orgCoreCode=${classInfo.orgCoreCode}&classDateStr=' +
+                $('#jsevent_win_date_val').val() +
+                '&classStyle=${classInfo.classStyle}',
+              { callid: 'calendar_win_room' }
+            );
+          });
+      });
+    </script>
+  </body>
+</html>

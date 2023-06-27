@@ -1,0 +1,297 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>编辑规则</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/iconfont.css" rel="stylesheet">
+
+        <link href="../../../css/plugins/iCheck/custom.css" rel="stylesheet">
+        <link href="../../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="../../../css/plugins/select2/select2.min.css" rel="stylesheet">
+
+        <link href="../../../css/animate.css" rel="stylesheet">
+        <link href="../../../css/style.css" rel="stylesheet">
+        <style>
+            #dd span {
+                margin: 8px;
+            }
+            .md-funwin {
+                padding: 15px;
+            }
+            .md-funwin .fun-list-box {
+                padding: 10px;
+                list-style: none;
+            }
+            .md-funwin .fun-list-box .item {
+                float: left;
+                margin: 5px 8px;
+                border: 1px solid #ddd;
+                padding: 3px 15px;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+            .md-funwin .fun-list-box .item:hover {
+                background: #dfdfdf;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-fluid p-sm">
+            <form class="form-horizontal" autocomplete="off">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">规则名称：</label>
+                    <div class="col-sm-5">
+                        <input type="email" class="form-control" placeholder="规则名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">模板：</label>
+                    <div class="col-sm-7">
+                        <div class="form-group form-inline">
+                            <div class="col-sm-12">
+                                <label>短信模板：</label>
+                                <select class="form-control">
+                                    <option>未选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-inline">
+                            <div class="col-sm-12">
+                                <label>微信消息模板：</label>
+                                <select class="form-control">
+                                    <option>未选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-inline">
+                            <div class="col-sm-12">
+                                <label>邮件模板：</label>
+                                <select class="form-control">
+                                    <option>未选择</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">匹配规则：</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="layout-flex bg-warning" style="padding: 15px 0;">
+                                    <div class="checkbox" style="width: 160px;">
+                                        <label class="js-ruleType cus-icheck">
+                                            <input class="cus-icheck" type="radio" name="rule_rus" value="0" checked> 按部门与岗位
+                                        </label>
+                                    </div>
+                                    <div class="layout-flex__item">
+                                        <div class="layout-flex" style="margin-bottom: 10px;">
+                                            <div style="width:100px;">
+                                                <button type="button" class="btn btn-sm btn-success " id="btn_department">请选择部门</button>
+                                            </div>
+                                            <div class="layout-flex__item">
+                                                <div style="padding-right:15px;">
+                                                    <textarea id="department" class="" autocomplete="off"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layout-flex">
+                                            <div style="width:100px;">
+                                                <!-- <button type="button" class="btn btn-sm btn-success ">请选择岗位</button> -->
+                                                <label class="control-label">请选择岗位：</label>
+                                            </div>
+                                            <div class="layout-flex__item">
+                                                <div style="padding-right:15px;">
+                                                    <select class="form-control input-sm" id="role" name="role"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="bg-warning" style="padding: 15px;">
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <label class="js-ruleType cus-icheck">
+                                                <input class="cus-icheck" type="radio" name="rule_rus" value="0"> 高级配置
+                                            </label>
+                                            <span class="text-success" style="margin-left: 20px; cursor: pointer;" id="js_ruleA_edit">编辑</span>
+                                            <span class="text-success" style="margin-left: 20px; cursor: pointer;" id="js_ruleA_save">保存</span>
+                                        </div>
+                                        <div class="pull-right">
+                                            <span class="text-danger" style="text-decoration: underline; cursor: pointer;">验证规则</span>
+                                            <span class="text-success" style="margin-left: 20px; cursor: pointer;" id="js_open_funwin">函数库</span>
+                                        </div>
+                                    </div>
+                                    <div class="md-2019040901">
+                                        <textarea id="textarea1" class="form-control" rows="3" style="font-size: 16px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">推送时间：</label>
+                    <div class="col-sm-8">
+                        <div class="form-group form-inline">
+                            <div class="col-sm-12">
+                                <label><input type="radio" name="push_timetype" value="" checked="checked"> 每天：</label>
+                                <input type="email" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group form-inline">
+                            <div class="col-sm-12">
+                                <label><input type="radio" name="push_timetype" value="" checked="checked"> 指定日期：</label>
+                                <input type="email" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group form-inline">
+                            <div class="col-sm-12">
+                                <label><input type="radio" name="push_timetype" value="" checked="checked"> crontab：</label>
+                                <input type="email" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div style="padding: 15px 0; margin-top: 25px; border-top: 1px solid #ddd;">
+                <div class="row">
+                    <div class="col-sm-5 col-sm-offset-3">
+                        <button class="btn btn-sm btn-primary">保存</button>
+                        <span class="text-muted">（务必先校验<abbr title="看来你也是闲人！！！">规则</abbr>及范围无误后，再保存！！！）</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 函数库模板 -->
+        <div class="md-funwin" id="md_funwin" style="display: none;">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active">
+                    <a href="#home-1" data-toggle="tab">用户变量</a>
+                </li>
+                <li role="presentation">
+                    <a href="#profile-1" data-toggle="tab">系统变量</a>
+                </li>
+                <li role="presentation">
+                    <a href="#messages-1" data-toggle="tab">函数</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home-1">
+                    <ul class="fun-list-box clearfix">
+                        <li class="item" title="用户姓名">[[userName]]</li>
+                        <li class="item" title="用户年龄">[[userAge]]</li>
+                        <li class="item" title="用户入职日期">[[userJoinDate]]</li>
+                        <li class="item" title="用户入职年限">[[userJoinYearNum]]</li>
+                        <li class="item" title="用户生日">[[userBrithday]]</li>
+                        <li class="item" title="岗位">[[userPosition]]</li>
+                        <li class="item" title="所在部门">[[userOrg]]</li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile-1">
+                    <ul class="fun-list-box clearfix">
+                        <li class="item" title="系统日期(yyyy-mm-dd)">[[sysDay]]</li>
+                        <li class="item" title="系统时间(HH:ii)">[[sysTime]]</li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages-1">
+                    <ul class="fun-list-box clearfix">
+                        <li class="item" title="时间格式化">DayFormat('时间')</li>
+                        <li class="item" title="乘">*</li>
+                        <li class="item" title="除">/</li>
+                        <li class="item" title="加">+</li>
+                        <li class="item" title="减">-</li>
+                        <li class="item" title="等于">=</li>
+                        <li class="item" title="小括号">()</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="../../../js/jquery-2.1.1.js"></script>
+        <script src="../../../js/bootstrap.min.js"></script>
+        <script src="../../../js/plugins/layer/layer.js"></script>
+
+        <script src="../../../js/plugins/pace/pace.min.js"></script>
+        <script src="../../../i18n/zh-CN.js"></script>
+        <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+        <script src="../../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="../../../js/plugins/jquery-number/jquery.number.min.js"></script>
+        <script src="../../../js/plugins/select2/select2.full.min.js"></script>
+
+        <script src="../../../js/subindex.js"></script>
+        <script src="../../../js/plugins/iCheck/icheck.min.js"></script>
+        <script src="../../../js/jquery.mockjax.min.js"></script>
+        <script>
+            /* 在光标处插入文字 */
+            function insertTextIncusPos(obj, str) {
+                if (document.selection) {
+                    var sel = document.selection.createRange();
+                    sel.text = str;
+                } else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+                    var startPos = obj.selectionStart,
+                        endPos = obj.selectionEnd,
+                        cursorPos = startPos,
+                        tmpStr = obj.value;
+                    obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
+                    cursorPos += str.length;
+                    obj.selectionStart = obj.selectionEnd = cursorPos;
+                } else {
+                    obj.value += str;
+                }
+            }
+            /* 将光标移动到末尾 */
+            function movePosToEnd(obj) {
+                obj.focus();
+                var len = obj.value.length;
+                if (document.selection) {
+                    var sel = obj.createTextRange();
+                    sel.moveStart('character', len);
+                    sel.collapse();
+                    sel.select();
+                } else if (typeof obj.selectionStart == 'number' && typeof obj.selectionEnd == 'number') {
+                    obj.selectionStart = obj.selectionEnd = len;
+                }
+            }
+            /* 校验规则 */
+            function checkrulesFn(){
+                var str = $('#textarea1').val().replace(/\s/g,'');
+                if(str){
+                    //var t = TEDU_MESSAGE.format(str, _RULEOBJ);
+                    console.log('1',str)
+                }else{
+                    COM_TOOLS.alert2('规则不能为空');
+                }
+            }
+
+            $(function () {
+                $('#md_funwin .fun-list-box .item').click(function () {
+                    insertTextIncusPos($('#textarea1').get(0), $.trim($(this).text()));
+                });
+
+                $('#js_open_funwin').click(function () {
+                    cumCurWinModal('函数库', $('#md_funwin'), self, {
+                        type: 1,
+                        "area": ['400px', '80%'],
+                        other: {
+                            shade: 0
+                        }
+                    });
+                });
+                
+                $('#js_ruleA_save').click(function(){
+                    checkrulesFn()
+                });
+            });
+        </script>
+    </body>
+
+</html>

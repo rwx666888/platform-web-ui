@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../../../css/iconfont.css" rel="stylesheet">
+    <link href="../../../css/animate.css" rel="stylesheet">
+    <link href="../../../css/style.css" rel="stylesheet">
+    <style>
+        hr {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body class="container-fluid m-t-md">
+<div>
+
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="text-danger">*</span>模板名称</label>
+            <div class="col-sm-6">
+                <input name="" class="form-control input-sm">
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-6">
+                支持输入变量词：[[姓名]]，[[公司]]，输入后将替换为生日员工所对应的信息
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="text-danger">*</span>标题</label>
+            <div class="col-sm-6">
+                <input placeholder="不超过128个字节（支持变量）" name="" class="form-control input-sm">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="text-danger">*</span>正文</label>
+            <div class="col-sm-6">
+                <textarea placeholder="（支持变量）" name="" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" style="padding-top: 20px;"><span class="text-danger">*</span>封面图</label>
+            <div class="col-sm-6">
+                <!--<button class="btn btn-sm">添加封面图片</button>-->
+                <span>建议尺寸:1068*455</span>
+                <img id="img_dy_upload" width="100" height="60" class="js-dy-creation"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="text-danger">*</span>摘要</label>
+            <div class="col-sm-6">
+                <textarea id="textarea3" placeholder="不超过512个字节（支持变量）" name="" class="form-control"></textarea>
+                <p class="">
+                    还可以输入<span  class="js-total_num text-info">512</span>个字
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <hr>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-info btn-sm">保存</button>
+                <button class="btn btn-info btn-sm">预览</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="../../../js/jquery-2.1.1.js"></script>
+<script src="../../../js/bootstrap.min.js"></script>
+<script src="../../../js/jquery-ui-1.10.4.min.js"></script>
+
+<script src="../../../js/plugins/layer/layer.js"></script>
+
+<script src="../../../i18n/zh-CN.js"></script>
+<script src="../../../js/subindex.js"></script>
+
+<!-- 以下js仅用于演示 -->
+<script>
+    $(function () {
+        COM_TOOLS._view.cusFileUpload('img_dy_upload');
+        function getStrleng(str) {//获取字符串长度
+            var len = 0;
+            for (var i = 0; i < str.length; i++) {
+                if (str.charCodeAt(i) > 127 || str.charCodeAt(i) == 94) {
+                    len += 2;
+                } else {
+                    len++;
+                }
+            }
+            return len;
+        }
+
+        function limitLength(obj, num) {
+            var val_input = obj.val(),
+                val_length = getStrleng(val_input);
+            var span_ = obj.next().find('.js-total_num');
+            span_.text(num - Number(val_length));
+            if (val_length > num) {
+                obj.val(val_input.substring(0, num));
+                span_.text('0');
+            } else {
+                return;
+            }
+        }
+
+        $("#textarea3").keyup(function () {
+            limitLength($(this), 512);
+        });
+    })
+</script>
+</body>
+</html>

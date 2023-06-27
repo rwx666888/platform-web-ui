@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>选择服务商模板</title>
+
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/iconfont.css" rel="stylesheet">
+
+        <link href="../../../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+        <link href="../../../css/animate.css" rel="stylesheet">
+        <link href="../../../css/style.css" rel="stylesheet">
+        <style>
+            .md-2019062401 .md_hd {
+                border-bottom: 1px solid #ddd;
+                padding: 0px 10px 15px;
+            }
+            .md-2019062401 .md_bd {
+                padding-top: 20px;
+            }
+            .md-2019062401 .md_bd .item {
+                position: relative;
+                border-radius: 5px;
+                float: left;
+                margin: 0 15px 15px 0;
+            }
+            .md-2019062401 .md_bd .item .bg {
+                background: #f1f1f1;
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
+            .md-2019062401 .md_bd .item:hover {
+                background: #e1e1e1;
+            }
+            .md-2019062401 .md_bd .item .text {
+                padding: 15px 10px;
+                display: table-cell;
+                vertical-align: middle;
+                height: 80px;
+                width: 280px;
+                margin: 0;
+                font-weight: normal;
+                cursor: pointer;
+            }
+            .md-2019062401 .md_bd .item .t-radio {
+                opacity: 0;
+                display: none;
+            }
+            .md-2019062401 .md_bd .item .c-radio {
+                font-size: 18px;
+                color: #18a689;
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                display: none;
+            }
+            .md-2019062401 .md_bd .item .t-radio:checked+.c-radio {
+                display: inline-block;
+            }
+            .md-2019062401 .md_bd .item .t-radio:checked~.bg {
+                box-shadow: 0 0 5px #18a689;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-fluid" style="padding: 20px;">
+            <div class="md-2019062401">
+                <div class="md_hd form-inline clearfix">
+                    <button type="button" class="btn btn-sm btn-primary pull-right" id="save_btn">选的插入</button>
+                    <span>匹配到的服务商账号：</span>
+                    <select class="form-control input-sm" style="margin-right: 15px;">
+                        <option value="">全部</option>
+                        <option value="">1</option>
+                        <option value="">2</option>
+                    </select>
+                    <a href="#">查看服务商限制规则</a>
+                </div>
+                <div class="md_bd clearfix" id="js_cbox">
+                    <div class="item">
+                        <input type="radio" id="mm-001" class="t-radio" value="001" name="modle-01" data-id="001" data-pname="阿里" data-puser="aaa" data-content="模板内容" autocomplete="off" />
+                        <i class="c-radio tedufont tedu-icon63"></i>
+                        <span class="bg"></span>
+                        <label class="text" for="mm-001">【签名】模板内容[uuu]模板内容 1</label>
+                    </div>
+                    <div class="item">
+                        <input type="radio" id="mm-002" class="t-radio" value="002" name="modle-01" data-id="002" data-pname="阿里1" data-puser="aaa2" data-content="模板内容" autocomplete="off" />
+                        <i class="c-radio tedufont tedu-icon63"></i>
+                        <span class="bg"></span>
+                        <label class="text" for="mm-002">【签名】模板内容[uuu]模板内容 1</label>
+                    </div>
+                    <div class="item">
+                        <input type="radio" id="mm-003" class="t-radio" value="003" name="modle-01" autocomplete="off" />
+                        <i class="c-radio tedufont tedu-icon63"></i>
+                        <span class="bg"></span>
+                        <label class="text" for="mm-003">【签名】模板内容[uuu]模板内容 1</label>
+                    </div>
+                    <div class="item">
+                        <input type="radio" id="mm-004" class="t-radio" value="004" name="modle-01" autocomplete="off" />
+                        <i class="c-radio tedufont tedu-icon63"></i>
+                        <span class="bg"></span>
+                        <label class="text" for="mm-004">【签名】模板内容[uuu]模板内容 1</label>
+                    </div>
+                    <div class="item">
+                        <input type="radio" id="mm-005" class="t-radio" value="005" name="modle-01" autocomplete="off" />
+                        <i class="c-radio tedufont tedu-icon63"></i>
+                        <span class="bg"></span>
+                        <label class="text" for="mm-005">【签名】模板内容[uuu]模板内容 1</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mainly scripts -->
+        <script src="../../../js/jquery-2.1.1.js"></script>
+        <script src="../../../js/bootstrap.min.js"></script>
+        <script src="../../../js/plugins/layer/layer.js"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="../../../i18n/zh-CN.js" type="text/javascript"></script>
+        <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+        <script src="../../../js/plugins/datatables/datatables.min.js"></script>
+        <script src="../../../js/subindex.js"></script>
+
+        <!-- demo演示数据 -->
+        <script src="../../../js/jquery.mockjax.min.js"></script>
+        <script src="../../../demo-data.js"></script>
+
+        <script>
+            $(function () {
+                /**
+                 * 构造列表视图，注意必须使用data-api绑定数据，以防英文双引号的影响
+                 * @param {Object} list ajax-数据
+                 */
+                function make_item(list) {
+                    var $arr = $('#js_cbox');
+                    if (list) {
+                        $.each(list, function (i, n) {
+                            var $dom_ = $('<div class="item">' +
+                                '<input type="radio" id="mm-001" class="t-radio" value="001" name="modle-01" autocomplete="off"/>' +
+                                '<i class="c-radio tedufont tedu-icon63"></i>' +
+                                '<span class="bg"></span>' +
+                                '<label class="text" for="mm-001">【签名】模板内容[uuu]模板内容 1</label>' +
+                                '</div>');
+                                $dom_.data({
+                                    id:n.id,
+                                    pname:n.pname,
+                                    puser:n.puser,
+                                    content:n.content
+                                });
+                            $arr.append($dom_);
+                        });
+                    } else {
+                        $arr.html('<p style="padding:20px 0; text-align:center;">该账号下暂时模板！</p>');
+                    }
+                }
+                // 页面加载时，切换服务商时ajax刷新数据
+                //TODO ajax 成功后调用 make_item 
+                $("#save_btn").click(function () {
+                    cumParentCallValue(function () {
+                        COM_TOOLS.callParentWinCacheFn('save', $('[name="modle-01"]:checked').data());
+                    }); //关闭弹窗
+                });
+            });
+        </script>
+    </body>
+
+</html>

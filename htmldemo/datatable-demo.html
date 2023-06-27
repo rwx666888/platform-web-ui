@@ -1,0 +1,3686 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>datatable-demo</title>
+
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+        <link href="../css/plugins/select2/select2.min.css" rel="stylesheet">
+        <link href="../css/plugins/jsTree/style.min.css" rel="stylesheet">
+
+        <link href="../css/animate.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
+        <style>
+            pre {
+                white-space: pre-wrap;
+                white-space: -moz-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                word-wrap: break-word;
+            }
+            
+            .demo-box {
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                position: relative;
+                border-radius: 5px;
+            }
+            
+            .tab-content {
+                overflow-y: auto;
+                max-height: 400px;
+            }
+            
+            .selected input {
+                color: #000;
+            }
+            
+            td.details-control {
+                background: url('../images/details_open.png') no-repeat center center;
+                cursor: pointer;
+            }
+            
+            tr.shown td.details-control {
+                background: url('../images/details_close.png') no-repeat center center;
+            }
+            
+            .tree-box-crm {
+                position: absolute;
+                border: 1px solid #1ab394;
+                overflow: auto;
+                max-height: 400px;
+                min-width: 200px;
+                top: 33px;
+                left: 0;
+                z-index: 999;
+                background: #fff;
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h2>表格组件-datatable</h2>
+                <p style="font-size: 14px;">Datatable组件可实现表格分页、排序、搜索、行列冻结等功能；常用jquery UI版本；bootstrap版本是基于该版本之上的； 官网地址：https://datatables.net/ 中文社区：http://datatables.club/</p>
+                <p style="font-size: 14px;">公共方法见:
+                    <a href="comTools-demo.html" target="_blank">常用公共方法库</a>
+                </p>
+            </div>
+            <!-- 实例1 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">服务器ajax分页（单表头、多选、全选、行双击、分页、自适应高度、列宽、列文字对齐方向、文字溢出显示...、分页：不显示总页数）</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <table id="example1" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <!--<tr>
+                            <th>序号</th>
+                            <th><span class="cus-checkbox-all"></span></th>
+                            <th>姓名</th>
+                            <th>客户类型</th>
+                            <th>居右</th>
+                            <th>居中</th>
+                            <th>下次回访日期</th>
+                            <th>咨询顾问</th>
+                            <th>创建人</th>
+                            <th>创建时间</th>
+                            <th>中心</th>
+                        </tr>-->
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                        <div class="form-inline">
+                            <div class="form-group" style="margin-bottom: 10px;">
+                                <label>搜索示例1：</label><input class="form-control" id="demo1-input1">
+                                <label>搜索示例2：</label><input class="form-control" id="demo1-input2">
+                                <div class="btn-group md-dropdown-ll0328">
+                                    <button type="button" id="demo1-input3" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        显示、隐藏指定列  <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu js-col-selbar">
+                                        <li>
+                                            <label><input class="js-input" type="checkbox"> 写啥啥啥</label>
+                                        </li>
+                                        <li>
+                                            <label><input class="js-input" type="checkbox"> 写啥啥啥</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info" id="demo1-btn1">获取选中行ID（多选）</button>
+                            <button type="button" class="btn btn-default" id="demo1-btn2">获取选中行input值（多选）</button>
+                            <button type="button" class="btn btn-default" id="demo1-btn3">搜索</button>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-data" role="tab" data-toggle="tab">ajaxData</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-html">
+                            <pre>
+&lt;table id=&quot;example1&quot; class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-js">
+                            <pre>
+基础
+&lt;script src=&quot;../js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/layer/layer.js&quot;&gt;&lt;/script&gt;
+
+组件
+&lt;script src=&quot;../js/plugins/datatables/datatables.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/jquery-number/jquery.number.min.js&quot;&gt;&lt;/script&gt; //&#x6570;&#x5B66;&#x683C;&#x5F0F;
+
+&#x6846;&#x67B6;&#x65B9;&#x6CD5;
+&lt;script src=&quot;../i18n/zh-CN.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/subindex.js&quot; &gt;&lt;/script&gt;
+
+$(document).ready(function() {
+    var searchParemOBj_ = { //示例
+        'asd': 112
+    };
+    var DT_ = COM_TOOLS.DT_init('example1', [{
+            "data": null,
+            "title": '序号',
+            "className": "text-center",
+            "width": "30px",
+            render: function(data, type, row, meta) { /*显示行号*/
+                return 1 + meta.row;
+            }
+        }, {
+            "data": null,
+            "width": "30px",
+            "title": '&lt;span class=&quot;cus-checkbox-all&quot;&gt;&lt;/span&gt;',
+            "className": "select-checkbox",
+            "defaultContent": ''
+        }, {
+            "data": "first_name",
+            "title": '标题1'
+        }, {
+            "data": "last_name",
+            "title": '标题2'
+        }, {
+            "data": "position",
+            "title": '标题3',
+            "className": "text-right",
+            "width": "50px", //文字溢出显示...
+            "render": function(data, type, row, meta) {
+                return &#x27;&lt;span title=&quot;&#x27; + data + &#x27;&quot; class=&quot;spanwhite-space&quot; style=&quot;width: 50px;&quot;&gt;&#x27; + data + &#x27;&lt;/span&gt;&#x27;;
+            }
+        }, {
+            "data": "office",
+            "title": '标题4',
+            "className": "text-center"
+        }, {
+            "data": "start_date",
+            "title": '标题5'
+        }, {
+            "data": "salary",
+            "title": '标题6',
+            "render": function(data, type, row, meta) {
+                return $.number(data, 2); //货币格式 function( number, 小数位数, 小数位标识（.）, 千分位标识（,） )
+            }
+        }, {
+            "data": "node1",
+            "title": '标题7',
+            "render": function(data, type, row, meta) {
+                return &#x27;&lt;input type=&quot;text&quot; name=&quot;name1&quot; class=&quot;input-sm no-Sel-obj js-getval&quot; value=&quot;&#x27; + data + &#x27;&quot;/&gt;&#x27;;
+            }
+        }, {
+            "data": "node2",
+            "title": '标题8',
+            "render": function(data, type, row, meta) {
+                return &#x27;&lt;input type=&quot;text&quot; name=&quot;name2&quot; class=&quot;input-sm no-Sel-obj js-getval&quot; value=&quot;&#x27; + data + &#x27;&quot;/&gt;&#x27;;
+            }
+        }, {
+            "data": "node3",
+            "title": '标题9',
+            "render": function(data, type, row, meta) {
+                return &#x27;&lt;input type=&quot;text&quot; name=&quot;name3&quot; class=&quot;input-sm no-Sel-obj js-getval&quot; value=&quot;&#x27; + data + &#x27;&quot;/&gt;&#x27;;
+            }
+        }],
+        '/dt/api',
+        'get',
+        searchParemOBj_,
+        {
+            jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象，例如：获取行id
+                alert('当前操作行ID为：'+trdata['first_name']);
+            },
+            other: {//（可选）自定义分页插件，不显示总页数
+                pagingType: "simple_numbers_no_totalpage"
+            }
+        }
+    );
+
+    var table = DT_.table;
+
+    table.on('page.dt', function() { //分页回调事件
+        var info = table.page.info();
+        //searchParemOBj_['aaa']=info.page;
+        console.log('Showing page: ' + info.page + ' of ' + info.pages);
+    });
+
+    $('#demo1-btn1').click(function() { //COM_TOOLS.DT_getSelectRowsSourceData(table,'first_name') 返回所有选中行的'first_name'数组
+        alert(DT_.getSelectRowsData('first_name').toString() || '未选中'); //[推荐] 与下面代码效果一致
+        // alert(COM_TOOLS.DT_getSelectRowsSourceData(table, 'first_name').toString() || '未选中'); //示例
+    });
+    $('#demo1-btn2').click(function() {
+        alert(JSON.stringify(COM_TOOLS.DT_getSelectRowsInputData(table)));
+    });
+    /*搜索按钮方案*/
+    $('#demo1-btn3').click(function() {
+        searchParemOBj_['searchNameVal'] = $.trim($('#demo1-input1').val());
+        searchParemOBj_['searchPhoneVal'] = $.trim($('#demo1-input2').val());
+        DT_.setAjaxData(searchParemOBj_); //默认修改搜索数据并刷新表格，如果：DT_.setAjaxData(searchParemOBj_, true);则不刷新表格，只修改搜索数据
+    });
+    
+    /* 详情窗示例 */
+    COM_TOOLS.infoTipsFn($(COM_TOOLS.DT_getNode(table, 'body')),'.spanwhite-space',
+        function($obj){
+            var rowData = COM_TOOLS.DT_getRowsSourceData(table, $obj.closest('td'))[0];
+            return rowData.position;
+        },
+        {
+            placement:'right',
+            imageZoom:true
+        }
+    );
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-css">
+                            <pre>
+基础
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+组件
+&lt;link href=&quot;../css/plugins/dataTables/datatables.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+框架
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-data">
+                            <pre>
+{
+    "draw": 1, //必要。Datatables(客户端)发送的draw是多少那么服务器就返回多少。 这里注意，作者出于安全的考虑，强烈要求把这个转换为整形，即数字后再返回，而不是纯粹的接受然后返回，这是 为了防止跨站脚本（XSS）攻击。
+    "recordsTotal": 57, //必要。即没有过滤的记录数（数据库里总共记录数） 
+    "recordsFiltered": 57, //必要。过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数） 
+    "data": [//必要。
+        {
+            "name":"Angelica",
+            "age":"Ramos",
+            "office":"System Architect",
+            "address":"London",
+            "date":"9th Oct 09",
+            "salary":"$2,875"
+        },
+        {
+            "name":"Ashton",
+            "age":"Cox",
+            "office":"Technical Author",
+            "address":"San Francisco",
+            "date":"12th Jan 09",
+            "salary":"$4,800"
+        },
+        ...
+    ]
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例1 结束 -->
+            <!-- 实例2开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">本地数据（json-data）初始化</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <table id="example2" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo2-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo2-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo2-data" role="tab" data-toggle="tab">Data</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo2-html">
+                            <pre>
+&lt;table id=&quot;example2&quot; class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo2-js">
+                            <pre>
+$(document).ready(function() {
+    var DT_ = COM_TOOLS.DT_init('example2', [{
+            "data": null,
+            "title": '序号',
+            "className": "text-center",
+            "width": "30px",
+            render: function(data, type, row, meta) { /*显示行号*/
+                return 1 + meta.row;
+            }
+        }, {
+            "data": null,
+            "width": "30px",
+            "title": '&lt;span class=&quot;cus-checkbox-all&quot;&gt;&lt;/span&gt;',
+            "className": "select-checkbox",
+            "defaultContent": ''
+        }, {
+            "data": "first_name",
+            "title": '标题1'
+        }, {
+            "data": "last_name",
+            "title": '标题2'
+        }, {
+            "data": "position",
+            "title": '标题3',
+            "className": "text-right",
+            "width": "50px", //文字溢出显示...
+            "render": function(data, type, row, meta) {
+                return '&lt;span title=&quot;&#x27; + data + &#x27;&quot; class=&quot;spanwhite-space&quot; style=&quot;width: 50px;&quot;&gt;&#x27; + data + &#x27;&lt;/span&gt;';
+            }
+        }, {
+            "data": "office",
+            "title": '标题4',
+            "className": "text-center"
+        }, {
+            "data": "start_date",
+            "title": '标题5'
+        }],
+        demo_dt_data_.data,
+        {
+            jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象，例如：获取行id
+                alert('当前操作行ID为：' + trdata['first_name']);
+            },
+            other: { //（可选）自定义分页插件
+                pagingType: "simple"
+            }
+        }
+    );
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo2-data">
+                            <pre class="javascript"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例2 结束 -->
+            <!-- 实例3 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">本地静态数据（EL或C标签遍历输出，500行*30列以下可考虑使用该模式，<span class="text-danger">注意默认为第一列初始化排序，</span>支持客户端分页、搜索、排序、行拖拽等、字数过多换行显示[都掉table-class中的 nowrap]）</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <table id="example3" class="table table-striped table-bordered" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>Name</th>
+                                    <th width="100">Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect System Architect System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Garrett Winters</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Ashton Cox</td>
+                                    <td>Junior Technical Author</td>
+                                    <td>San Francisco</td>
+                                    <td>66</td>
+                                    <td>2009/01/12</td>
+                                    <td>$86,000</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012/03/29</td>
+                                    <td>$433,060</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Airi Satou</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>33</td>
+                                    <td>2008/11/28</td>
+                                    <td>$162,700</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61</td>
+                                    <td>2012/12/02</td>
+                                    <td>$372,000</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Herrod Chandler</td>
+                                    <td>Sales Assistant</td>
+                                    <td>San Francisco</td>
+                                    <td>59</td>
+                                    <td>2012/08/06</td>
+                                    <td>$137,500</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>Rhona Davidson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>Tokyo</td>
+                                    <td>55</td>
+                                    <td>2010/10/14</td>
+                                    <td>$327,900</td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Colleen Hurst</td>
+                                    <td>Javascript Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>39</td>
+                                    <td>2009/09/15</td>
+                                    <td>$205,500</td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Sonya Frost</td>
+                                    <td>Software Engineer</td>
+                                    <td>Edinburgh</td>
+                                    <td>23</td>
+                                    <td>2008/12/13</td>
+                                    <td>$103,600</td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>Jena Gaines</td>
+                                    <td>Office Manager</td>
+                                    <td>London</td>
+                                    <td>30</td>
+                                    <td>2008/12/19</td>
+                                    <td>$90,560</td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>Quinn Flynn</td>
+                                    <td>Support Lead</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2013/03/03</td>
+                                    <td>$342,000</td>
+                                </tr>
+                                <tr>
+                                    <td>13</td>
+                                    <td>Charde Marshall</td>
+                                    <td>Regional Director</td>
+                                    <td>San Francisco</td>
+                                    <td>36</td>
+                                    <td>2008/10/16</td>
+                                    <td>$470,600</td>
+                                </tr>
+                                <tr>
+                                    <td>14</td>
+                                    <td>Haley Kennedy</td>
+                                    <td>Senior Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>43</td>
+                                    <td>2012/12/18</td>
+                                    <td>$313,500</td>
+                                </tr>
+                                <tr>
+                                    <td>15</td>
+                                    <td>Tatyana Fitzpatrick</td>
+                                    <td>Regional Director</td>
+                                    <td>London</td>
+                                    <td>19</td>
+                                    <td>2010/03/17</td>
+                                    <td>$385,750</td>
+                                </tr>
+                                <tr>
+                                    <td>16</td>
+                                    <td>Michael Silva</td>
+                                    <td>Marketing Designer</td>
+                                    <td>London</td>
+                                    <td>66</td>
+                                    <td>2012/11/27</td>
+                                    <td>$198,500</td>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td>Paul Byrd</td>
+                                    <td>Chief Financial Officer (CFO)</td>
+                                    <td>New York</td>
+                                    <td>64</td>
+                                    <td>2010/06/09</td>
+                                    <td>$725,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-group form-inline">
+                            <label>自定义搜索（age）</label><input class="form-control" id="demo3-input1" type="text" placeholder="search age" />
+                            <br />行拖拽后的结果：（必须依照后台序号进行排序）<br />
+                            <pre id="demo3-logbox"></pre>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo3-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo3-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo3-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo3-html">
+                            <pre>
+&lt;table id=&quot;example3&quot; class=&quot;table table-striped table-bordered&quot; cellspacing=&quot;0&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;&#x5E8F;&#x53F7;&lt;/th&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th width=&quot;100&quot;&gt;Position&lt;/th&gt;
+            &lt;th&gt;Office&lt;/th&gt;
+            &lt;th&gt;Age&lt;/th&gt;
+            &lt;th&gt;Start date&lt;/th&gt;
+            &lt;th&gt;Salary&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;Tiger Nixon&lt;/td&gt;
+            &lt;td&gt;System Architect System Architect System Architect&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;61&lt;/td&gt;
+            &lt;td&gt;2011/04/25&lt;/td&gt;
+            &lt;td&gt;$320,800&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;Garrett Winters&lt;/td&gt;
+            &lt;td&gt;Accountant&lt;/td&gt;
+            &lt;td&gt;Tokyo&lt;/td&gt;
+            &lt;td&gt;63&lt;/td&gt;
+            &lt;td&gt;2011/07/25&lt;/td&gt;
+            &lt;td&gt;$170,750&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td&gt;Ashton Cox&lt;/td&gt;
+            &lt;td&gt;Junior Technical Author&lt;/td&gt;
+            &lt;td&gt;San Francisco&lt;/td&gt;
+            &lt;td&gt;66&lt;/td&gt;
+            &lt;td&gt;2009/01/12&lt;/td&gt;
+            &lt;td&gt;$86,000&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;4&lt;/td&gt;
+            &lt;td&gt;Cedric Kelly&lt;/td&gt;
+            &lt;td&gt;Senior Javascript Developer&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;22&lt;/td&gt;
+            &lt;td&gt;2012/03/29&lt;/td&gt;
+            &lt;td&gt;$433,060&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td&gt;Airi Satou&lt;/td&gt;
+            &lt;td&gt;Accountant&lt;/td&gt;
+            &lt;td&gt;Tokyo&lt;/td&gt;
+            &lt;td&gt;33&lt;/td&gt;
+            &lt;td&gt;2008/11/28&lt;/td&gt;
+            &lt;td&gt;$162,700&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;6&lt;/td&gt;
+            &lt;td&gt;Brielle Williamson&lt;/td&gt;
+            &lt;td&gt;Integration Specialist&lt;/td&gt;
+            &lt;td&gt;New York&lt;/td&gt;
+            &lt;td&gt;61&lt;/td&gt;
+            &lt;td&gt;2012/12/02&lt;/td&gt;
+            &lt;td&gt;$372,000&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;7&lt;/td&gt;
+            &lt;td&gt;Herrod Chandler&lt;/td&gt;
+            &lt;td&gt;Sales Assistant&lt;/td&gt;
+            &lt;td&gt;San Francisco&lt;/td&gt;
+            &lt;td&gt;59&lt;/td&gt;
+            &lt;td&gt;2012/08/06&lt;/td&gt;
+            &lt;td&gt;$137,500&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;8&lt;/td&gt;
+            &lt;td&gt;Rhona Davidson&lt;/td&gt;
+            &lt;td&gt;Integration Specialist&lt;/td&gt;
+            &lt;td&gt;Tokyo&lt;/td&gt;
+            &lt;td&gt;55&lt;/td&gt;
+            &lt;td&gt;2010/10/14&lt;/td&gt;
+            &lt;td&gt;$327,900&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;9&lt;/td&gt;
+            &lt;td&gt;Colleen Hurst&lt;/td&gt;
+            &lt;td&gt;Javascript Developer&lt;/td&gt;
+            &lt;td&gt;San Francisco&lt;/td&gt;
+            &lt;td&gt;39&lt;/td&gt;
+            &lt;td&gt;2009/09/15&lt;/td&gt;
+            &lt;td&gt;$205,500&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;10&lt;/td&gt;
+            &lt;td&gt;Sonya Frost&lt;/td&gt;
+            &lt;td&gt;Software Engineer&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;23&lt;/td&gt;
+            &lt;td&gt;2008/12/13&lt;/td&gt;
+            &lt;td&gt;$103,600&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;11&lt;/td&gt;
+            &lt;td&gt;Jena Gaines&lt;/td&gt;
+            &lt;td&gt;Office Manager&lt;/td&gt;
+            &lt;td&gt;London&lt;/td&gt;
+            &lt;td&gt;30&lt;/td&gt;
+            &lt;td&gt;2008/12/19&lt;/td&gt;
+            &lt;td&gt;$90,560&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;12&lt;/td&gt;
+            &lt;td&gt;Quinn Flynn&lt;/td&gt;
+            &lt;td&gt;Support Lead&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;22&lt;/td&gt;
+            &lt;td&gt;2013/03/03&lt;/td&gt;
+            &lt;td&gt;$342,000&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;13&lt;/td&gt;
+            &lt;td&gt;Charde Marshall&lt;/td&gt;
+            &lt;td&gt;Regional Director&lt;/td&gt;
+            &lt;td&gt;San Francisco&lt;/td&gt;
+            &lt;td&gt;36&lt;/td&gt;
+            &lt;td&gt;2008/10/16&lt;/td&gt;
+            &lt;td&gt;$470,600&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;14&lt;/td&gt;
+            &lt;td&gt;Haley Kennedy&lt;/td&gt;
+            &lt;td&gt;Senior Marketing Designer&lt;/td&gt;
+            &lt;td&gt;London&lt;/td&gt;
+            &lt;td&gt;43&lt;/td&gt;
+            &lt;td&gt;2012/12/18&lt;/td&gt;
+            &lt;td&gt;$313,500&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;15&lt;/td&gt;
+            &lt;td&gt;Tatyana Fitzpatrick&lt;/td&gt;
+            &lt;td&gt;Regional Director&lt;/td&gt;
+            &lt;td&gt;London&lt;/td&gt;
+            &lt;td&gt;19&lt;/td&gt;
+            &lt;td&gt;2010/03/17&lt;/td&gt;
+            &lt;td&gt;$385,750&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;16&lt;/td&gt;
+            &lt;td&gt;Michael Silva&lt;/td&gt;
+            &lt;td&gt;Marketing Designer&lt;/td&gt;
+            &lt;td&gt;London&lt;/td&gt;
+            &lt;td&gt;66&lt;/td&gt;
+            &lt;td&gt;2012/11/27&lt;/td&gt;
+            &lt;td&gt;$198,500&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;17&lt;/td&gt;
+            &lt;td&gt;Paul Byrd&lt;/td&gt;
+            &lt;td&gt;Chief Financial Officer (CFO)&lt;/td&gt;
+            &lt;td&gt;New York&lt;/td&gt;
+            &lt;td&gt;64&lt;/td&gt;
+            &lt;td&gt;2010/06/09&lt;/td&gt;
+            &lt;td&gt;$725,000&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo3-js">
+                            <pre>
+基础
+&lt;script src=&quot;../js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/layer/layer.js&quot;&gt;&lt;/script&gt;
+
+&#x7EC4;&#x4EF6;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/RowReorder-1.1.2/js/dataTables.rowReorder.min.js&quot;&gt;&lt;/script&gt;
+
+&#x6846;&#x67B6;&#x65B9;&#x6CD5;
+&lt;script src=&quot;../i18n/zh-CN.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/subindex.js&quot; &gt;&lt;/script&gt;    
+    
+$(document).ready(function() {
+    var table = $(&#x27;#example3&#x27;).DataTable({
+        rowReorder: { //&#x542F;&#x7528;&#x62D6;&#x62FD;
+            selector: &#x27;tr&#x27;
+        },
+        pageLength: 5, //&#x6BCF;&#x9875;&#x663E;&#x793A;&#x6761;&#x6570;&#xFF1B;paging=false &#x65F6;&#x8BE5;&#x503C;&#x4E3A; -1
+        lengthChange: true, //&#x662F;&#x5426;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x6539;&#x53D8;&#x8868;&#x683C;&#x6BCF;&#x9875;&#x663E;&#x793A;&#x7684;&#x8BB0;&#x5F55;&#x6570;&#xFF0C;&#x663E;&#x793A;&#x6761;&#x6570;&#x7EC4;&#x4EF6;
+        lengthMenu: [5, 10, 15, 20], //&#x914D;&#x7F6E;&#x53EF;&#x9009;&#x7684;&#x6BCF;&#x9875;&#x663E;&#x793A;&#x7684;&#x8BB0;&#x5F55;&#x6570;
+        ordering: true, //&#x662F;&#x5426;&#x542F;&#x7528;&#x6392;&#x5E8F;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x9AD8;&#x4E8E;columns&#x4E2D;&#x7684;&#x6392;&#x5E8F;&#x63A7;&#x5236;&#xFF1B;
+        searching: true, //&#x662F;&#x5426;&#x542F;&#x7528;&#x81EA;&#x5E26;&#x641C;&#x7D22;&#x7EC4;&#x4EF6;&#xFF1B;
+        processing: false, //&#x663E;&#x793A;&#x52A0;&#x8F7D;&#x4E2D;&#xFF0C;serverSide=true&#x65F6;&#x751F;&#x6548;
+        serverSide:false //&#x5BA2;&#x6237;&#x7AEF;&#x6A21;&#x5F0F;
+    });
+    $(&#x27;#demo3-input1&#x27;).on(&#x27;keyup&#x27;,function() {
+        table.column(3).search($(this).val()).draw();
+    });
+    //&#x62D6;&#x62FD;&#x4EA4;&#x4E92;&#x4E8B;&#x4EF6;
+    table.on(&#x27;row-reorder&#x27;,function ( e, diff, edit ){
+        var result = &#x27;&#x27;;
+ 
+        for ( var i=0, ien=diff.length ; i&lt;ien ; i++ ) {
+            var rowData = table.row( diff[i].node ).data();
+ 
+            result += rowData[1]+&#x27; &#x65B0;&#x4F4D;&#x7F6E; &#x27;+
+                diff[i].newData+&#x27; (&#x65E7;&#x4F4D;&#x7F6E; &#x27;+diff[i].oldData+&#x27;)&lt;br&gt;&#x27;;
+        }
+ 
+        $(&#x27;#demo3-logbox&#x27;).html( &#x27;&#x7ED3;&#x679C;&#xFF1A;&lt;br&gt;&#x27;+result );
+    });
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo3-css">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+&#x7EC4;&#x4EF6;
+&lt;link href=&quot;../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css&quot; rel=&quot;stylesheet&quot;&gt;   
+&lt;link href=&quot;../js/plugins/datatables/RowReorder-1.1.2/css/rowReorder.bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+框架
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例3 结束 -->
+            <!-- 实例4 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">服务器ajax分页(行内有按钮，双击操作，指定行添加背景色)</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <table id="example4" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>操作</th>
+                                    <th>姓名</th>
+                                    <th>职位</th>
+                                    <th>账户</th>
+                                    <th>中心</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo4-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo4-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo4-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo4-html">
+                            <pre>
+&lt;table id=&quot;example4&quot; class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;&#x64CD;&#x4F5C;&lt;/th&gt;
+            &lt;th&gt;&#x59D3;&#x540D;&lt;/th&gt;
+            &lt;th&gt;&#x804C;&#x4F4D;&lt;/th&gt;
+            &lt;th&gt;&#x8D26;&#x6237;&lt;/th&gt;
+            &lt;th&gt;&#x4E2D;&#x5FC3;&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo4-js">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;script src=&quot;../js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/layer/layer.js&quot;&gt;&lt;/script&gt;
+
+&#x7EC4;&#x4EF6;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js&quot;&gt;&lt;/script&gt;
+
+&#x6846;&#x67B6;&#x65B9;&#x6CD5;
+&lt;script src=&quot;../i18n/zh-CN.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/subindex.js&quot; &gt;&lt;/script&gt;    
+
+$(document).ready(function() {
+    var searchParemOBj={};
+    var DT_=COM_TOOLS.DT_init(&#x27;example4&#x27;,[ 
+            {
+                &quot;data&quot;: &quot;DT_RowId&quot;,
+                &quot;render&quot;: function(data, type, row, meta) {
+                    return &#x27;&lt;button class=&quot;btn btn-success btn-xs&quot; type=&quot;button&quot;&gt;&#x9009;&#x62E9;&lt;/button&gt;&#x27;;
+                }
+            }, {
+                &quot;data&quot;: &quot;name1&quot;
+            }, {
+                &quot;data&quot;: &quot;name2&quot;
+            }, {
+                &quot;data&quot;: &quot;name3&quot;
+            }, {
+                &quot;data&quot;: &quot;name4&quot;,
+                &quot;render&quot;: function(data, type, row, meta) {
+                    return &#x27;&lt;div class=&quot;onoffswitch&quot;&gt;&#x27; +
+                        &#x27;&lt;input type=&quot;checkbox&quot; checked class=&quot;onoffswitch-checkbox&quot; id=&quot;&#x27; + meta[&#x27;settings&#x27;][&#x27;sTableId&#x27;] + &#x27;_in_&#x27; + meta[&#x27;row&#x27;] + &#x27;&quot;&gt;&#x27; +
+                        &#x27;&lt;label class=&quot;onoffswitch-label&quot; for=&quot;&#x27; + meta[&#x27;settings&#x27;][&#x27;sTableId&#x27;] + &#x27;_in_&#x27; + meta[&#x27;row&#x27;] + &#x27;&quot;&gt;&#x27; +
+                        &#x27;&lt;span class=&quot;onoffswitch-inner&quot;&gt;&lt;/span&gt;&lt;span class=&quot;onoffswitch-switch&quot;&gt;&lt;/span&gt;&#x27; +
+                        &#x27;&lt;/label&gt;&lt;/div&gt;&#x27;;
+                }
+            }
+        ],
+        &#x27;/dt/api2&#x27;,
+        &#x27;post&#x27;,
+        searchParemOBj,
+        {
+          other:{
+                paging: false,
+                info: false,
+                destroy: true,
+                createdRow: function(row, data, dataIndex) {/*&#x6307;&#x5B9A;&#x884C;&#x6DFB;&#x52A0;&#x80CC;&#x666F;&#x8272;*/
+                    if(data[&#x27;name1&#x27;].indexOf(&#x27;&#x987E;&#x95EE;&#x27;) !== -1) {
+                        $(row).addClass(&#x27;bg-danger&#x27;);
+                    }
+                }
+            }
+        }
+    );
+    var table=DT_.table;
+    
+    table.on(&#x27;click&#x27;, &#x27;tbody button&#x27;, function() {
+        var t_ = $(this).closest(&#x27;tr&#x27;);
+        //setParentObjVal(t_); //&#x4EC5;&#x9650;&#x6846;&#x67B6;&#x4E2D;&#x4F7F;&#x7528;
+        alert(COM_TOOLS.DT_getRowsSourceData(table,t_,&#x27;name1&#x27;));
+    }).on(&#x27;dblclick&#x27;, &#x27;tbody button&#x27;, function() {
+        return false;
+    }).on(&#x27;dblclick&#x27;, &#x27;tbody tr&#x27;, function() {
+        var t_ = $(this);
+        //setParentObjVal(t_); //&#x4EC5;&#x9650;&#x6846;&#x67B6;&#x4E2D;&#x4F7F;&#x7528;
+        alert(COM_TOOLS.DT_getRowsSourceData(table,t_,&#x27;name1&#x27;));
+    });
+
+    //&#x5173;&#x95ED;&#x5F39;&#x7A97;&#x5E76;&#x8BBE;&#x7F6E;&#x56DE;&#x663E;&#x503C;,&#x53EA;&#x9650;&#x5728;CRM iframe&#x7A97;&#x53E3;&#x9875;&#x9762;&#x4E2D;&#x5E94;&#x7528;
+    function setParentObjVal(obj) {
+        cumParentCallValue(function() {
+            if(cum_Modalindex_ &gt; 0) {
+                var b_ = parent.layer.getChildFrame(&#x27;body&#x27;, cum_Modalindex_); //&#x83B7;&#x53D6;&#x4E0A;&#x4E00;&#x4E2A;&#x76EE;&#x6807;&#x5F39;&#x7A97;body&#x5BF9;&#x8C61;
+                if(cum_ModalValobj) {
+                    parent.$(&#x27;#&#x27; + cum_ModalValobj, b_).val(obj.data(&#x27;itemtext&#x27;));
+                    //&#x8BBE;&#x7F6E;hidden input &#x7684;&#x503C;&#xFF1A;
+                    parent.$(&#x27;#&#x27; + cum_ModalValobj + &#x27;_hide&#x27;, b_).val(obj.data(&#x27;itemid&#x27;));
+                    /*
+                     * &#x83B7;&#x53D6;&#x4E0A;&#x4E00;&#x4E2A;&#x76EE;&#x6807;&#x5F39;&#x7A97;&#x7684; window&#x5BF9;&#x8C61;
+                     * var p_win = parent.window[&quot;layui-layer-iframe&quot;+cum_Modalindex_];
+                     * &#x8C03;&#x7528;&#x76EE;&#x6807;&#x5F39;&#x7A97;&#x4E2D;&#x5B9A;&#x4E49;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;p_win.yourfunction();
+                     */
+                }
+            }
+        });
+    }
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo4-css">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+&#x7EC4;&#x4EF6;
+&lt;link href=&quot;../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css&quot; rel=&quot;stylesheet&quot;&gt;   
+框架
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例4 结束 -->
+
+            <!-- DEMO5 开始  -->
+            <div class="panel panel-default">
+                <div class="panel-heading">启用行内编辑</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <table id="example5" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th><span class="cus-checkbox-all"></span></th>
+                                    <th>姓名</th>
+                                    <th>客户类型</th>
+                                    <th>下次回访日期</th>
+                                    <th>咨询顾问</th>
+                                    <th>创建人</th>
+                                    <th>创建时间</th>
+                                    <th>中心</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info" id="demo5-btn1">编辑</button>
+                            <button type="button" class="btn btn-info" id="demo5-btn2">保存</button>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo5-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo5-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo5-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo5-html">
+                            <pre>
+&lt;table id=&quot;example5&quot; class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;&#x5E8F;&#x53F7;&lt;/th&gt;
+            &lt;th&gt;&lt;span class=&quot;cus-checkbox-all&quot;&gt;&lt;/span&gt;&lt;/th&gt;
+            &lt;th&gt;&#x59D3;&#x540D;&lt;/th&gt;
+            &lt;th&gt;&#x5BA2;&#x6237;&#x7C7B;&#x578B;&lt;/th&gt;
+            &lt;th&gt;&#x4E0B;&#x6B21;&#x56DE;&#x8BBF;&#x65E5;&#x671F;&lt;/th&gt;
+            &lt;th&gt;&#x54A8;&#x8BE2;&#x987E;&#x95EE;&lt;/th&gt;
+            &lt;th&gt;&#x521B;&#x5EFA;&#x4EBA;&lt;/th&gt;
+            &lt;th&gt;&#x521B;&#x5EFA;&#x65F6;&#x95F4;&lt;/th&gt;
+            &lt;th&gt;&#x4E2D;&#x5FC3;&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo5-js">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;script src=&quot;../js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/layer/layer.js&quot;&gt;&lt;/script&gt;
+
+&#x7EC4;&#x4EF6;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/Select-1.2.0/js/dataTables.select.min.js&quot;&gt;&lt;/script&gt;
+
+&#x6846;&#x67B6;&#x65B9;&#x6CD5;
+&lt;script src=&quot;../i18n/zh-CN.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/subindex.js&quot;&gt;&lt;/script&gt;
+    
+/*demo5*/
+$(document).ready(function() {
+    var searchParemOBj_ = {
+        &#x27;gg&#x27;: 33
+    };
+    var DT_ = COM_TOOLS.DT_init(&#x27;example5&#x27;, [{
+            &quot;data&quot;: null,
+            &quot;className&quot;: &quot;text-center&quot;,
+            &quot;width&quot;: &quot;30px&quot;,
+            render: function(data, type, row, meta) { /*&#x663E;&#x793A;&#x884C;&#x53F7;*/
+                return 1 + meta.row;
+            }
+        }, {
+            &quot;data&quot;: null,
+            &quot;className&quot;: &quot;select-checkbox&quot;,
+            &quot;defaultContent&quot;: &#x27;&#x27;
+        }, {
+            &quot;data&quot;: &quot;first_name&quot;
+        }, {
+            &quot;data&quot;: &quot;last_name&quot;
+        }, {
+            &quot;data&quot;: &quot;start_date&quot;
+        }, {
+            &quot;data&quot;: &quot;salary&quot;,
+            &quot;render&quot;: function(data, type, row, meta) {
+                return $.number(data, 2); //&#x8D27;&#x5E01;&#x683C;&#x5F0F; function( number, &#x5C0F;&#x6570;&#x4F4D;&#x6570;, &#x5C0F;&#x6570;&#x4F4D;&#x6807;&#x8BC6;&#xFF08;.&#xFF09;, &#x5343;&#x5206;&#x4F4D;&#x6807;&#x8BC6;&#xFF08;,&#xFF09; )
+            }
+        }, {
+            &quot;name&quot;: &quot;node1&quot;, //&#x6B64;&#x5904;&#x8981;&#x4E0E;&#x540E;&#x53F0;&#x5B57;&#x6BB5;&#x4E00;&#x81F4;
+            &quot;data&quot;: &quot;node1&quot;
+        }, {
+            &quot;name&quot;: &quot;node2&quot;, //&#x6B64;&#x5904;&#x8981;&#x4E0E;&#x540E;&#x53F0;&#x5B57;&#x6BB5;&#x4E00;&#x81F4;
+            &quot;data&quot;: &quot;node2&quot;
+        }, {
+            &quot;data&quot;: &quot;node3&quot;
+        }],
+        &#x27;/dt/api&#x27;,
+        &#x27;get&#x27;,
+        searchParemOBj_, {
+            other: {
+                select: {
+                    selector: &#x27;td:not(td:has(input))&#x27; //&#x9009;&#x62E9;&#x9650;&#x5236;&#x89C4;&#x5219;&#xFF0C;&#x4E0D;&#x80FD;&#x9009;&#x4E2D;&#x542B;&#x6709;input&#x7684;td
+                }
+            }
+        }
+    )
+
+    $(&#x27;#demo5-btn1&#x27;).on(&#x27;click&#x27;, function() {
+        COM_TOOLS.DT_tdToinpEdit(DT_.table, [&#x27;node1:name&#x27;, &#x27;node2:name&#x27;]);
+    });
+    $(&#x27;#demo5-btn2&#x27;).on(&#x27;click&#x27;, function() {
+        var data_ = COM_TOOLS.DT_inpTotdSave(DT_.table, [&#x27;node1:name&#x27;, &#x27;node2:name&#x27;]);
+        //TODO
+        if(data_) {
+            //&#x5728;&#x901A;&#x8FC7;AJAX&#x628A; data_ &#x6570;&#x636E;&#x53D1;&#x9001;&#x7ED9;&#x540E;&#x53F0;
+        }
+    });
+});
+
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo5-css">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+&#x7EC4;&#x4EF6;
+&lt;link href=&quot;../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css&quot; rel=&quot;stylesheet&quot;&gt;   
+&#x6846;&#x67B6;
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- DEMO5 结束  -->
+            <!-- DEMO6 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">动态计算选中行内特定单元格数值(点击含有input的td或class='no-Sel-obj'的元素，不触发行选中)</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="input-group"><span class="input-group-addon">计算结果:</span><input id="sumSel" type="text" class="form-control input-sm " value="0" /></div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="radio-inline">
+                          <input class="inp-radio" type="radio" name="inlineRadioOptions" value="1" checked="true"> 选中行后计算
+                        </label>
+                                <label class="radio-inline">
+                          <input class="inp-radio" type="radio" name="inlineRadioOptions" value="2"> 自动全表格计算
+                        </label>
+                            </div>
+                        </div>
+                        <table id="example6" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th><span class="cus-checkbox-all"></span></th>
+                                    <th>姓名</th>
+                                    <th>客户类型</th>
+                                    <th>下次回访日期</th>
+                                    <th>咨询顾问</th>
+                                    <th>创建人</th>
+                                    <th>创建时间</th>
+                                    <th>中心</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info" id="demo6-btn1">获取数据</button>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo6-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo6-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo6-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo6-html">
+                            <pre>
+&lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-sm-4&quot;&gt;
+        &lt;div class=&quot;input-group&quot;&gt;&lt;span class=&quot;input-group-addon&quot;&gt;&#x8BA1;&#x7B97;&#x7ED3;&#x679C;:&lt;/span&gt;&lt;input id=&quot;sumSel&quot; type=&quot;text&quot; class=&quot;form-control input-sm &quot; value=&quot;0&quot;/&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-sm-4&quot;&gt;
+        &lt;label class=&quot;radio-inline&quot;&gt;
+          &lt;input class=&quot;inp-radio&quot; type=&quot;radio&quot; name=&quot;inlineRadioOptions&quot; value=&quot;1&quot; checked=&quot;true&quot;&gt; &#x9009;&#x4E2D;&#x884C;&#x540E;&#x8BA1;&#x7B97;
+        &lt;/label&gt;
+        &lt;label class=&quot;radio-inline&quot;&gt;
+          &lt;input class=&quot;inp-radio&quot; type=&quot;radio&quot; name=&quot;inlineRadioOptions&quot; value=&quot;2&quot;&gt; &#x81EA;&#x52A8;&#x5168;&#x8868;&#x683C;&#x8BA1;&#x7B97;
+        &lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;table id=&quot;example6&quot; class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;&#x5E8F;&#x53F7;&lt;/th&gt;
+            &lt;th&gt;&lt;span class=&quot;cus-checkbox-all&quot;&gt;&lt;/span&gt;&lt;/th&gt;
+            &lt;th&gt;&#x59D3;&#x540D;&lt;/th&gt;
+            &lt;th&gt;&#x5BA2;&#x6237;&#x7C7B;&#x578B;&lt;/th&gt;
+            &lt;th&gt;&#x4E0B;&#x6B21;&#x56DE;&#x8BBF;&#x65E5;&#x671F;&lt;/th&gt;
+            &lt;th&gt;&#x54A8;&#x8BE2;&#x987E;&#x95EE;&lt;/th&gt;
+            &lt;th&gt;&#x521B;&#x5EFA;&#x4EBA;&lt;/th&gt;
+            &lt;th&gt;&#x521B;&#x5EFA;&#x65F6;&#x95F4;&lt;/th&gt;
+            &lt;th&gt;&#x4E2D;&#x5FC3;&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo6-js">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;script src=&quot;../js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/layer/layer.js&quot;&gt;&lt;/script&gt;
+
+&#x7EC4;&#x4EF6;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/Select-1.2.0/js/dataTables.select.min.js&quot;&gt;&lt;/script&gt;
+
+&#x6846;&#x67B6;&#x65B9;&#x6CD5;
+&lt;script src=&quot;../i18n/zh-CN.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/subindex.js&quot;&gt;&lt;/script&gt;
+
+/*demo6*/
+$(document).ready(function() {
+    var searchParemOBj_ = {};
+    var DT_=COM_TOOLS.DT_init(&#x27;example6&#x27;,[
+        {
+            &quot;data&quot;: null,
+            &quot;className&quot;: &quot;text-center&quot;,
+            &quot;width&quot;: &quot;30px&quot;,
+            render: function(data, type, row, meta) { /*&#x663E;&#x793A;&#x884C;&#x53F7;*/
+                return 1 + meta.row;
+            }
+        }, {
+            &quot;data&quot;: null,
+            &quot;className&quot;: &quot;select-checkbox&quot;,
+            &quot;defaultContent&quot;: &#x27;&#x27;
+        }, {
+            &quot;data&quot;: &quot;first_name&quot;
+        }, {
+            &quot;data&quot;: &quot;last_name&quot;
+        }, {
+            &quot;data&quot;: &quot;start_date&quot;
+        }, {
+            &quot;data&quot;: &quot;salary&quot;,
+            &quot;className&quot;: &quot;text-success no-Sel-obj cus-text-link js-cus-event1&quot;,
+            &quot;render&quot;: function(data, type, row, meta) {
+                return $.number(data, 2); //&#x8D27;&#x5E01;&#x683C;&#x5F0F; function( number, &#x5C0F;&#x6570;&#x4F4D;&#x6570;, &#x5C0F;&#x6570;&#x4F4D;&#x6807;&#x8BC6;&#xFF08;.&#xFF09;, &#x5343;&#x5206;&#x4F4D;&#x6807;&#x8BC6;&#xFF08;,&#xFF09; )
+            }
+        }, {
+            &quot;name&quot;: &quot;node1&quot;, //&#x91CD;&#x70B9;&#xFF1A;&#x8981;&#x53C2;&#x4E0E;&#x8BA1;&#x7B97;&#x7684;TD
+            &quot;data&quot;: &quot;node1&quot;,
+            &quot;render&quot;: function(data, type, row, meta) {
+                return &#x27;&lt;input type=&quot;text&quot; name=&quot;node1&quot; class=&quot;input-sm js-getval&quot; value=&quot;&#x27; + data + &#x27;&quot;/&gt;&#x27;;
+            }
+        }, {
+            &quot;data&quot;: &quot;node2&quot;
+        }, {
+            &quot;data&quot;: &quot;node3&quot;
+        }],
+        &#x27;/dt/api&#x27;,
+        &#x27;get&#x27;,
+        searchParemOBj_
+    );
+    var table=DT_.table;
+    
+    $(&#x27;.inp-radio&#x27;).on(&#x27;click&#x27;, function() {
+        var val_ = $(this).val();
+        if(val_ == 1) {
+            $(&#x27;#example6&#x27;).off().on(&#x27;click&#x27;, &#x27;tbody tr&#x27;, function(e) {
+                if(e.target.nodeName==&#x27;INPUT&#x27;){
+                    return false;
+                }
+                var sum_=$(&#x27;#sumSel&#x27;).val();
+                if($(this).hasClass(&#x27;selected&#x27;)){
+                    var new_sum=sum_-table.row($(this)).nodes().to$().find(&#x27;input[type=text]&#x27;).val();
+                }else{
+                    var new_sum=COM_TOOLS.fnFloatSum(sum_, table.row($(this)).nodes().to$().find(&#x27;input[type=text]&#x27;).val());
+                }
+                 $(&#x27;#sumSel&#x27;).val(new_sum);
+                 
+            }).on(&#x27;change&#x27;, &#x27;tbody input[type=text]&#x27;, function(event) {
+                $(&#x27;#sumSel&#x27;).val(COM_TOOLS.DT_getInputSum(table, [&#x27;node1:name&#x27;]));
+            });
+            
+        } else {
+            $(&#x27;#example6&#x27;).off().on(&#x27;change&#x27;, &#x27;tbody input[type=text]&#x27;, function(event) {
+                $(&#x27;#sumSel&#x27;).val(COM_TOOLS.DT_getInputSum(table, [&#x27;node1:name&#x27;], true));
+            });
+        }
+    });
+    $(&#x27;.inp-radio:eq(0)&#x27;).trigger(&#x27;click&#x27;);
+    $(&#x27;#demo6-btn1&#x27;).click(function() {
+        alert(JSON.stringify(COM_TOOLS.DT_getSelectRowsInputData(table, $(&#x27;.inp-radio:eq(1)&#x27;).prop(&#x27;checked&#x27;))));
+    });
+    
+    table.on(&#x27;click&#x27;, &#x27;tbody .js-cus-event1&#x27;, function() {
+        var t_=$(this).closest(&#x27;tr&#x27;);
+        alert(JSON.stringify(COM_TOOLS.DT_getRowsSourceData(table,t_)));
+        //TODO
+    })
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo6-css">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+&#x7EC4;&#x4EF6;
+&lt;link href=&quot;../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css&quot; rel=&quot;stylesheet&quot;&gt;   
+&#x6846;&#x67B6;
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- DEMO6 结束  -->
+            <!-- DEMO7 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">复合表头、锁定表头表尾以及列并计算列的和值</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <table id="example7" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" rowspan="2">Name</th>
+                                    <th class="text-center" colspan="3">Position</th>
+                                    <th class="text-center" colspan="2">Office</th>
+                                    <th class="text-center" colspan="4">Age</th>
+                                </tr>
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22.33</td>
+                                    <td>2012/03/29</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22.33</td>
+                                    <td>2012/03/29</td>
+                                    <td>5060</td>
+                                </tr>
+                                <tr>
+                                    <td>Airi Satou</td>
+                                    <td>Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>33.33</td>
+                                    <td>2008/11/28</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22.33</td>
+                                    <td>2012/03/29</td>
+                                    <td>1700</td>
+                                </tr>
+                                <tr>
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61.33</td>
+                                    <td>2012/12/02</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22.33</td>
+                                    <td>2012/03/29</td>
+                                    <td>2000</td>
+                                </tr>
+                                <tr>
+                                    <td>Brielle Williamson</td>
+                                    <td>Integration Specialist</td>
+                                    <td>New York</td>
+                                    <td>61.33</td>
+                                    <td>2012/12/02</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>22</td>
+                                    <td>2012/03/29</td>
+                                    <td>2000</td>
+                                </tr>
+                            </tbody>
+                            <tfoot style="color: #ff6600;">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Position</th>
+                                    <th>Office</th>
+                                    <th>Age</th>
+                                    <th>Start date</th>
+                                    <th>Salary</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info" id="demo7-btn1">获取第7列与第9列的和(索引下标)</button>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo7-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo7-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo7-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo7-html">
+                            <pre>
+&lt;table id=&quot;example7&quot; class=&quot;table table-striped table-bordered&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th class=&quot;text-center&quot; rowspan=&quot;2&quot;&gt;Name&lt;/th&gt;
+            &lt;th class=&quot;text-center&quot;  colspan=&quot;3&quot;&gt;Position&lt;/th&gt;
+            &lt;th  class=&quot;text-center&quot;  colspan=&quot;2&quot;&gt;Office&lt;/th&gt;
+            &lt;th class=&quot;text-center&quot;  colspan=&quot;4&quot;&gt;Age&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Position&lt;/th&gt;
+            &lt;th&gt;Office&lt;/th&gt;
+            &lt;th&gt;Age&lt;/th&gt;
+            &lt;th&gt;Start date&lt;/th&gt;
+            &lt;th&gt;Position&lt;/th&gt;
+            &lt;th&gt;Office&lt;/th&gt;
+            &lt;th&gt;Age&lt;/th&gt;
+            &lt;th&gt;Start date&lt;/th&gt;
+            &lt;th&gt;Salary&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;              
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Cedric Kelly&lt;/td&gt;
+            &lt;td&gt;Senior Javascript Developer&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;22&lt;/td&gt;
+            &lt;td&gt;2012/03/29&lt;/td&gt;
+            &lt;td&gt;Senior Javascript Developer&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;22&lt;/td&gt;
+            &lt;td&gt;2012/03/29&lt;/td&gt;
+            &lt;td&gt;5060&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Airi Satou&lt;/td&gt;
+            &lt;td&gt;Accountant&lt;/td&gt;
+            &lt;td&gt;Tokyo&lt;/td&gt;
+            &lt;td&gt;33&lt;/td&gt;
+            &lt;td&gt;2008/11/28&lt;/td&gt;
+            &lt;td&gt;Senior Javascript Developer&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;22&lt;/td&gt;
+            &lt;td&gt;2012/03/29&lt;/td&gt;
+            &lt;td&gt;1700&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Brielle Williamson&lt;/td&gt;
+            &lt;td&gt;Integration Specialist&lt;/td&gt;
+            &lt;td&gt;New York&lt;/td&gt;
+            &lt;td&gt;61&lt;/td&gt;
+            &lt;td&gt;2012/12/02&lt;/td&gt;
+            &lt;td&gt;Senior Javascript Developer&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;22&lt;/td&gt;
+            &lt;td&gt;2012/03/29&lt;/td&gt;
+            &lt;td&gt;2000&lt;/td&gt;
+        &lt;/tr&gt;&lt;tr&gt;
+            &lt;td&gt;Brielle Williamson&lt;/td&gt;
+            &lt;td&gt;Integration Specialist&lt;/td&gt;
+            &lt;td&gt;New York&lt;/td&gt;
+            &lt;td&gt;61&lt;/td&gt;
+            &lt;td&gt;2012/12/02&lt;/td&gt;
+            &lt;td&gt;Senior Javascript Developer&lt;/td&gt;
+            &lt;td&gt;Edinburgh&lt;/td&gt;
+            &lt;td&gt;22&lt;/td&gt;
+            &lt;td&gt;2012/03/29&lt;/td&gt;
+            &lt;td&gt;2000&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot style=&quot;color: #ff6600;&quot;&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Position&lt;/th&gt;
+            &lt;th&gt;Office&lt;/th&gt;
+            &lt;th&gt;Age&lt;/th&gt;
+            &lt;th&gt;Start date&lt;/th&gt;
+            &lt;th&gt;Position&lt;/th&gt;
+            &lt;th&gt;Office&lt;/th&gt;
+            &lt;th&gt;Age&lt;/th&gt;
+            &lt;th&gt;Start date&lt;/th&gt;
+            &lt;th&gt;Salary&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo7-js">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;script src=&quot;../js/jquery-2.1.1.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/layer/layer.js&quot;&gt;&lt;/script&gt;
+
+&#x7EC4;&#x4EF6;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/datatables/Select-1.2.0/js/dataTables.select.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src="../js/plugins/datatables/FixedColumns-3.2.2/js/dataTables.fixedColumns.min.js"&gt;&lt;/script&gt;
+
+&#x6846;&#x67B6;&#x65B9;&#x6CD5;
+&lt;script src=&quot;../i18n/zh-CN.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/subindex.js&quot;&gt;&lt;/script&gt;
+
+/*demo7*/
+$(document).ready(function() {
+    var table = $('#example7').DataTable({
+        scrollY:        "100px",//可选，是否固定表格高度，不包括表头；
+        scrollCollapse: true,//与scrollY结合使用，是否固定高度，默认false;
+        scrollX: true,
+        paging: false,
+        serverSide:false ,//客户端模式        
+        select: {
+            style: 'mutil',
+            info: false
+        }, //是否启用选中状态，需引入选中组件包，style:'mutil'为多选，默认单选'os'
+        fixedColumns: {//锁定左侧1列
+            leftColumns: 2,
+            drawCallback:function(){
+                COM_TOOLS.DT_getColumnSum($('#example7').DataTable(),[3,7,9],true);
+            }
+        }
+    });
+    $('#demo7-btn1').click(function(){
+        alert(COM_TOOLS.DT_getColumnSum(table,[7]));
+    })
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo7-css">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+&#x7EC4;&#x4EF6;
+&lt;link href=&quot;../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css&quot; rel=&quot;stylesheet&quot;&gt;
+&#x6846;&#x67B6;
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEMO7 结束  -->
+            <!-- DEMO8 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">rowsGroup合并行（合并数据相同的行）</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <table id="example8" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th><span class="cus-checkbox-all"></span></th>
+                                    <th>姓名</th>
+                                    <th>客户类型</th>
+                                    <th>下次回访日期</th>
+                                    <th>咨询顾问</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo8-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo8-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo8-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo8-html">
+                            <pre>
+&lt;table id=&quot;example8&quot; class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;&#x5E8F;&#x53F7;&lt;/th&gt;
+            &lt;th&gt;&lt;span class=&quot;cus-checkbox-all&quot;&gt;&lt;/span&gt;&lt;/th&gt;
+            &lt;th&gt;&#x59D3;&#x540D;&lt;/th&gt;
+            &lt;th&gt;&#x5BA2;&#x6237;&#x7C7B;&#x578B;&lt;/th&gt;
+            &lt;th&gt;&#x4E0B;&#x6B21;&#x56DE;&#x8BBF;&#x65E5;&#x671F;&lt;/th&gt;
+            &lt;th&gt;&#x54A8;&#x8BE2;&#x987E;&#x95EE;&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo8-js">
+                            <pre>
+&#x9644;&#x52A0;&#x7EC4;&#x4EF6;&#xFF1A;
+&lt;script src=&quot;../js/plugins/datatables/RowsGroup/dataTables.rowsGroup.js&quot;&gt;&lt;/script&gt;
+
+//RowsGroup&#x901A;&#x8FC7;DT&#x5217;&#x9009;&#x62E9;&#x5668;&#x6216;&#x8005;&#x5BF9;&#x5E94;&#x7684;&#x5217;&#x4E0B;&#x6807;&#x9009;&#x6267;&#x884C;&#x5BF9;&#x8C61;&#xFF0C;&#x4F7F;&#x8BE5;&#x5217;&#x5185;&#x76F8;&#x90BB;&#x7684;&#x6570;&#x636E;&#x76F8;&#x540C;&#x9879;&#x8FDB;&#x884C;&#x5408;&#x5E76;
+$(function() {
+    var searchParemOBj_ = {};
+    var DT_=COM_TOOLS.DT_init(&#x27;example8&#x27;,[
+        {
+            &quot;data&quot;: null,
+            &quot;className&quot;: &quot;text-center&quot;,
+            &quot;width&quot;: &quot;30px&quot;,
+            render: function(data, type, row, meta) { /*&#x663E;&#x793A;&#x884C;&#x53F7;*/
+                return 1 + meta.row;
+            }
+        }, {
+            &quot;data&quot;: null,
+            &quot;className&quot;: &quot;select-checkbox&quot;,
+            &quot;defaultContent&quot;: &#x27;&#x27;
+        }, {
+            &quot;data&quot;: &quot;uname&quot;
+        }, {
+            &quot;data&quot;: &quot;utype&quot;,
+            &quot;name&quot;: &quot;utype&quot;, //&#x9700;&#x8981;&#x4EBA;&#x5DE5;&#x7EF4;&#x62A4;&#x8BE5;&#x5B57;&#x6BB5;
+            &quot;className&quot;: &quot;text-center&quot;
+        }, {
+            &quot;data&quot;: &quot;udate&quot;,
+            &quot;className&quot;: &quot;text-right&quot;
+        }, {
+            &quot;data&quot;: &quot;uxname&quot;,
+            &quot;className&quot;: &quot;text-center&quot;
+        }
+    ],
+     [{
+            &quot;uname&quot;: &quot;&#x738B;&#x5927;1&quot;,
+            &quot;utype&quot;: &quot;&#x5927;&#x5BA2;&#x6237;&quot;,
+            &quot;udate&quot;: &quot;04-21&quot;,
+            &quot;uxname&quot;: &quot;&#x54A8;&#x8BE2;1&quot;
+        }, {
+            &quot;uname&quot;: &quot;&#x738B;&#x5927;2&quot;,
+            &quot;utype&quot;: &quot;&#x5927;&#x5BA2;&#x6237;&quot;,
+            &quot;udate&quot;: &quot;04-21&quot;,
+            &quot;uxname&quot;: &quot;&#x54A8;&#x8BE2;1&quot;
+        }, {
+            &quot;uname&quot;: &quot;&#x738B;&#x5927;3&quot;,
+            &quot;utype&quot;: &quot;&#x5927;&#x5BA2;&#x6237;&quot;,
+            &quot;udate&quot;: &quot;04-21&quot;,
+            &quot;uxname&quot;: &quot;&#x54A8;&#x8BE2;2&quot;
+        }, {
+            &quot;uname&quot;: &quot;&#x738B;&#x5927;4&quot;,
+            &quot;utype&quot;: &quot;&#x5927;&#x5BA2;&#x6237;&quot;,
+            &quot;udate&quot;: &quot;04-21&quot;,
+            &quot;uxname&quot;: &quot;&#x54A8;&#x8BE2;3&quot;
+        }, {
+            &quot;uname&quot;: &quot;&#x738B;&#x5927;5&quot;,
+            &quot;utype&quot;: &quot;&#x5927;&#x5BA2;&#x6237;&quot;,
+            &quot;udate&quot;: &quot;04-21&quot;,
+            &quot;uxname&quot;: &quot;&#x54A8;&#x8BE2;3&quot;
+        }, {
+            &quot;uname&quot;: &quot;&#x738B;&#x5927;6&quot;,
+            &quot;utype&quot;: &quot;&#x5927;&#x5BA2;&#x6237;&quot;,
+            &quot;udate&quot;: &quot;04-21&quot;,
+            &quot;uxname&quot;: &quot;&#x54A8;&#x8BE2;2&quot;
+        }],
+        &#x27;get&#x27;,
+        searchParemOBj_,
+        {
+            other:{
+                rowsGroup: [&#x27;utype:name&#x27;, 5]
+            }
+        }
+    );
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo8-css">
+                            <pre>
+&#x57FA;&#x7840;
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+&#x7EC4;&#x4EF6;
+&lt;link href=&quot;../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css&quot; rel=&quot;stylesheet&quot;&gt;
+&#x6846;&#x67B6;
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- DEMO8 结束  -->
+            <!--DEMO09 开始-->
+            <div class="panel panel-default">
+                <div class="panel-heading">三层表格嵌套</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <table id="example9" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody class="first_table">
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo9-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo9-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo9-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo9-data" role="tab" data-toggle="tab">ajaxData</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo9-html">
+                            <pre>
+&lt;table id=&quot;example9&quot; class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo9-js">
+                            <pre>
+$(document).ready(function() {
+    var searchParemOBj_ = { //示例
+        'asd': 112
+    };
+    var DT_ = COM_TOOLS.DT_init('example9', [{
+            "data": null,
+            "title": '序号',
+            "className": "text-center",
+            "width": "30px",
+            render: function(data, type, row, meta) { /*显示行号*/
+                return 1 + meta.row;
+            }
+        }, {
+            "data": null,
+            "width": "30px",
+            "title": "操作",
+            "className": "details-control no-Sel-obj",
+            "defaultContent": ''
+        }, {
+            "data": "first_name",
+            "className": "text-center",
+            "title": '姓名'
+        }, {
+            "data": "position",
+            "className": "text-center",
+            "title": '地址'
+        }],
+        '/dt/api',
+        'get',
+        searchParemOBj_, {
+            jsTrDblclick: function(trdata, jqdom) {
+                alert('当前操作行ID为：' + trdata['first_name']);
+            },
+            other: {
+                pagingType: "simple_numbers_no_totalpage"
+            }
+        }
+    );
+    var table = DT_.table;
+    function checkShow(tb, tr, str) {
+        var r = tb.row(tr);
+        if(r.child.isShown()) {
+            tr.removeClass('shown');
+            r.child.remove();
+        } else {
+            tb.rows().every(function() {
+                this.child.remove();
+                this.nodes().to$().removeClass('shown');
+            })
+            tr.addClass('shown');
+            r.child(str).show();
+        }
+    }
+    $('#example9').on('click', 'tbody.first_table td.details-control', function(e) {
+        e.stopPropagation();
+        var tr = $(this).closest('tr');
+        var str = '&lt;table id=&quot;table-1&quot; cellpadding=&quot;5&quot;  class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border:1px solid #ddd;&quot;&gt;&lt;thead&gt;&lt;/thead&gt;&lt;tbody class=&quot;second_table&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;';
+        checkShow(table, tr, str);
+        var DT_1 = COM_TOOLS.DT_init('table-1', [{
+                "data": null,
+                "title": '序号',
+                "className": "text-center",
+                "width": "30px",
+                render: function(data, type, row, meta) { /*显示行号*/
+                    return 1 + meta.row;
+                }
+            }, {
+                "data": null,
+                "width": "30px",
+                "title": "操作",
+                "className": "details-control no-Sel-obj",
+                "defaultContent": ''
+            }, {
+                "data": "first_name",
+                "className": "text-center",
+                "title": '姓名'
+            }, {
+                "data": "position",
+                "className": "text-center",
+                "title": '地址'
+            }],
+            '/dt/api',
+            'get',
+            '', {
+                other: {
+                    paging: false,
+                    info: false
+                }
+            }
+        );
+        var table_ = DT_1.table;
+        table_.on('click', 'tbody.second_table td.details-control', function(e) {
+            e.stopPropagation();
+            var tr_ = $(this).closest('tr');
+            var str_ = '&lt;table id=&quot;table-2&quot; cellpadding=&quot;5&quot;  class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot; style=&quot;border:1px solid #ddd;&quot;&gt;&lt;thead&gt;&lt;/thead&gt;&lt;tbody class=&quot;second_table&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;';
+            checkShow(table_, tr_, str_);
+            var DT_2 = COM_TOOLS.DT_init('table-2', [{
+                    "data": null,
+                    "title": '序号',
+                    "className": "text-center",
+                    "width": "30px",
+                    render: function(data, type, row, meta) { /*显示行号*/
+                        return 1 + meta.row;
+                    }
+                }, {
+                    "data": "last_name",
+                    "title": "姓",
+                    "className": "text-center",
+                }, {
+                    "data": "first_name",
+                    "className": "text-center",
+                    "title": '名称'
+                }, {
+                    "data": "position",
+                    "className": "text-center",
+                    "title": '地址'
+                }],
+                '/dt/api',
+                'get',
+                '', {
+                    other: {
+                        paging: false,
+                        info: false
+                    }
+                }
+            );
+            var table_2 = DT_2.table;
+        })
+    })
+    table.on('page.dt', function() { //分页回调事件
+        var info = table.page.info();
+        console.log('Showing page: ' + info.page + ' of ' + info.pages);
+    });
+})
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo9-css">
+                            <pre>
+基础
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+组件
+&lt;link href=&quot;../css/plugins/dataTables/datatables.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+框架
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo9-data">
+                            <pre>
+{
+    "draw": 1, //必要。Datatables(客户端)发送的draw是多少那么服务器就返回多少。 这里注意，作者出于安全的考虑，强烈要求把这个转换为整形，即数字后再返回，而不是纯粹的接受然后返回，这是 为了防止跨站脚本（XSS）攻击。
+    "recordsTotal": 57, //必要。即没有过滤的记录数（数据库里总共记录数） 
+    "recordsFiltered": 57, //必要。过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数） 
+    "data": [//必要。
+        {
+            "name":"Angelica",
+            "age":"Ramos",
+            "office":"System Architect",
+            "address":"London",
+            "date":"9th Oct 09",
+            "salary":"$2,875"
+        },
+        {
+            "name":"Ashton",
+            "age":"Cox",
+            "office":"Technical Author",
+            "address":"San Francisco",
+            "date":"12th Jan 09",
+            "salary":"$4,800"
+        },
+        ...
+    ]
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例1 结束 -->
+            <!--DEMO09 结束-->
+            <!--demo10 开始-->
+            <div class="panel panel-default">
+                <div class="panel-heading">表格行内编辑及新增数据</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="row">
+                            <div class="col-sm-6"><button class="btn btn-primary" type="button" id="add_man">新增角色</button>&nbsp;&nbsp;<button class="btn btn-warning" type="button" id="refresh_btn">刷新数据</button>&nbsp;&nbsp;<button class="btn btn-success" id="save_btn" type="button">保存数据</button>&nbsp;&nbsp;<button class="btn btn-danger" id="all_delete_btn" type="button">批量删除</button></div>
+                        </div>
+                        <table id="example10" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo10-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo10-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo10-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo10-data" role="tab" data-toggle="tab">ajaxData</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo10-html">
+                            <pre>
+&lt;table id=&quot;example10&quot; class=&quot;table table-striped table-bordered nowrap&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+    &lt;thead&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo10-js">
+                            <pre>
+$(function() {
+    /*demo10*/
+    var counter = 0; //&#x8BA1;&#x6570;&#x5668;&#x4E3A;&#x521D;&#x59CB;&#x5316;&#x6BCF;&#x884C;&#x7684;select
+    var DT_ = COM_TOOLS.DT_init(&#x27;example10&#x27;, [{
+            &quot;data&quot;: &quot;js_by_id&quot;,
+            &quot;title&quot;: &#x27;id&#x27;,
+            //&quot;visible&quot;: false
+            &quot;width&quot;: 30
+        },
+        {
+            &quot;data&quot;: null,
+            &quot;width&quot;: &quot;30px&quot;,
+            &quot;title&quot;: &#x27;&lt;span class=&quot;cus-checkbox-all&quot;&gt;&lt;/span&gt;&#x27;,
+            &quot;className&quot;: &quot;select-checkbox&quot;,
+            &quot;defaultContent&quot;: &#x27;&#x27;
+        },
+        {
+            &quot;data&quot;: &quot;roleName&quot;,
+            &quot;title&quot;: &#x27;&#x89D2;&#x8272;&#x540D;&#x79F0;&#x27;,
+            &quot;name&quot;: &quot;roleName&quot;
+        },
+        {
+            &quot;data&quot;: &quot;organizationName&quot;,
+            &quot;title&quot;: &#x27;&#x7EC4;&#x7EC7;&#x540D;&#x79F0;&#x27;,
+            &quot;name&quot;: &quot;organizationName&quot;
+        },
+        {
+            &quot;data&quot;: &quot;isCharge&quot;,
+            &quot;title&quot;: &#x27;&#x662F;&#x5426;&#x4E3B;&#x7BA1;&#x27;,
+            &quot;name&quot;: &quot;isCharge&quot;,
+            render: function(data) {
+                return data == 1 ? &#x27;&lt;span style=&quot;color:green;&quot;&gt;&#x662F;&lt;/span&gt;&#x27; : data == 0 ? &#x27;&lt;span style=&quot;color:red;&quot;&gt;&#x5426;&lt;/span&gt;&#x27; : data;
+            }
+        },
+        {
+            &quot;data&quot;: null,
+            &quot;title&quot;: &#x27;&#x64CD;&#x4F5C;&#x27;,
+            &quot;defaultContent&quot;: &#x27;&lt;button class=&quot;btn btn-danger btn-xs delet_btn no-Sel-obj&quot;&gt;&#x5220;&#x9664;&lt;/button&gt;&amp;nbsp;&amp;nbsp;&#x27;
+        }
+    ], &#x27;/dt/role/api&#x27;, &#x27;get&#x27;, {}, {
+        jsInitComplete: function(settings, json) {
+            counter = this.rows().count(); //&#x8FD9;&#x91CC;&#x7684;this &#x6307;&#x5411;&#x7684;&#x662F;datatable&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#xFF0C;&#x7B49;&#x540C;&#x4E8E;DT_.table&#xFF1B;
+        },
+        other: {
+            paging: false,
+            pageLength: -1,
+            processing: false, //&#x663E;&#x793A;&#x52A0;&#x8F7D;&#x4E2D;serverSide=true&#x65F6;&#x751F;&#x6548;
+            serverSide: false, //&#x662F;&#x5426;&#x5F00;&#x59CB;&#x670D;&#x52A1;&#x5668;&#x6A21;&#x5F0F;
+            select: {
+                style: &#x27;mutil&#x27; 
+            },
+            orderFixed: [0, &#x27;desc&#x27;],
+            ordering: true,
+            columnDefs: [{
+                &quot;orderable&quot;: false,
+                &quot;targets&quot;: &quot;_all&quot;
+            }],
+            ajax: {
+                &quot;dataSrc&quot;: function(dd) {
+                    var D_ = dd.data;
+                    for(var i = 0, ien = D_.length; i &lt; ien; i++) {
+                        D_[i][&#x27;js_by_id&#x27;] = 1 + i;
+                    }
+                    return D_;
+                }
+            }
+        }
+    });
+    var table = DT_.table;
+    window.yyy = table;
+    
+    var API_drop_jstree_ = null;
+    /*select&#x672C;&#x5730;&#x7F13;&#x5B58;&#x6570;&#x636E;*/
+    var SELECT_DATA_ROLE=[{//SELECT_DATA_ROLE
+        &quot;id&quot;: &quot;1&quot;,
+        &quot;text&quot;: &quot;&#x89D2;&#x8272;1&quot;
+        },
+        {
+            &quot;id&quot;: &quot;2&quot;,
+            &quot;text&quot;: &quot;&#x89D2;&#x8272;2&quot;
+        },
+        {
+            &quot;id&quot;: &quot;3&quot;,
+            &quot;text&quot;: &quot;&#x89D2;&#x8272;3&quot;
+        }];
+    function addRow() {
+        API_drop_jstree_ = null;
+        ++counter;
+        var $jRow = $(&#x27;&lt;tr class=&quot;js-add-data bg-info js-editor&quot;&gt;&#x27; +
+            &#x27;&lt;td&gt;&#x27; + counter + &#x27;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&#x27;+
+            &#x27;&lt;td&gt;&lt;select style=&quot;width:300px;height:30px;&quot; name=&quot;role-name&quot; multiple=&quot;multiple&quot; class=&quot; role-name form-control input-sm&quot; id=&quot;js_role_&#x27; + counter + &#x27;&quot;&gt;&lt;/select&gt;&lt;/td&gt;&#x27; +
+            &#x27;&lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;org-name&quot; readonly=&quot;readonly&quot; placeholder=&quot;&#x8BF7;&#x9009;&#x62E9;&quot; data-jstree=&quot;js-tree-box&quot; class=&quot;org-name form-control js-tree-box js-input input-sm&quot; /&gt;&lt;input type=&quot;hidden&quot; name=&quot;name5&quot; class=&quot;tree-show-hiddenVal js-input&quot;&gt;&lt;/td&gt;&#x27; +
+            &#x27;&lt;td&gt;&lt;select style=&quot;width:200px;&quot; name=&quot;judge-leader&quot; class=&quot;judge-leader form-control input-sm&quot;&gt;&lt;option value=&quot;&quot;&gt;-&#x8BF7;&#x9009;&#x62E9;-&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;&#x662F;&lt;/option&gt;&lt;option value=&quot;0&quot;&gt;&#x5426;&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;&#x27; +
+            &#x27;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&#x27;);
+        table.row.add($jRow).draw();
+        COM_TOOLS.select2_init(&#x27;js_role_&#x27; + counter,{/*select2-&#x672C;&#x5730;&#x7F13;&#x5B58;&#x6570;&#x636E;*/
+            ispinyi: true,
+            multiple:true,
+            other:{
+                data:SELECT_DATA_ROLE
+            }
+            
+        });
+        
+        API_drop_jstree_ = COM_TOOLS._view.cus_drop_jstree($jRow.find(&#x27;.js-tree-box&#x27;), $jRow.find(&#x27;.tree-show-hiddenVal&#x27;),{
+            &#x27;hasPinyin&#x27; : true,
+            &#x27;url&#x27; : &#x27;/jstree7/api&#x27;,
+            &#x27;groupName&#x27; : &#x27;js-org-data&#x27;
+        });
+    }
+    //var cur_user_id=; //&#x5F53;&#x524D;&#x7528;&#x6237;id
+    function validateRepeatAndIsNull(tr_) {
+        if(!API_drop_jstree_.jstree_api) {
+            COM_TOOLS.alert(&quot;&#x89D2;&#x8272;&#x540D;&#x79F0;&#x3001;&#x7EC4;&#x7EC7;&#x540D;&#x79F0;&#x3001;&#x662F;&#x5426;&#x4E3B;&#x7BA1;&#x7684;&#x503C;&#x4E0D;&#x80FD;&#x4E3A;&#x7A7A;&quot;);
+            return false;
+        };
+        var $roleName_obj = tr_.find(&quot;.role-name option:selected&quot;), //&#x89D2;&#x8272;
+            roleName_arr = [], //&#x89D2;&#x8272; &#xFF0C;&#x591A;&#x4E2A;
+            org_arr = API_drop_jstree_.jstree_api.get_selected(true),
+            judge_val = $.trim(tr_.find(&quot;.judge-leader&quot;).val()), //&#x662F;&#x5426;&#x4E3B;&#x7BA1;
+            judge_txt = $.trim(tr_.find(&quot;.judge-leader option:selected&quot;).text()), //&#x662F;&#x5426;&#x4E3B;&#x7BA1;-&#x540D;&#x79F0;
+            Repeat_data = [],
+            All_data = [],
+            param_ = {};
+            
+        $roleName_obj.each(function(){
+            roleName_arr.push({
+                id:$(this).attr(&#x27;value&#x27;),
+                text:$(this).text()
+            });
+        });
+        if(roleName_arr.length &amp;&amp; org_arr.length &amp;&amp; judge_val) { //&#x975E;&#x7A7A;
+            var data_ = table.rows(&quot;:not(.js-editor)&quot;).data();
+                
+            $.each(data_, function(i, n) {
+                All_data.push(n[&quot;roleId&quot;] + n[&quot;organizationId&quot;] + &#x27;&#x27;);
+            });
+            if(roleName_arr.length &gt; 1 &amp;&amp; org_arr.length &gt; 1) {
+                COM_TOOLS.alert(&quot;&#x89D2;&#x8272;&#x540D;&#x79F0;&#x4E0E;&#x7EC4;&#x7EC7;&#x540D;&#x79F0;&#x4E0D;&#x80FD;&#x540C;&#x65F6;&#x591A;&#x9009;&quot;);
+                return false;
+            } else {
+                if(org_arr.length &gt; 1) {/*&#x7EC4;&#x7EC7;&#x591A;&#x4E2A;*/
+                    $.each(org_arr,function(i){
+                        if($.inArray(roleName_arr[0].id + org_arr[i].id + &#x27;&#x27;, All_data) == -1) { //&#x5224;&#x65AD;&#x91CD;&#x590D;&#x6570;&#x636E; &#x4E0E; &#x62C6;&#x6761;
+                            ++counter;
+                            table.row.add({
+                                &quot;js_by_id&quot;:counter,
+                                &quot;roleId&quot;: roleName_arr[0].id,
+                                &quot;organizationId&quot;:org_arr[i].id,
+                                &quot;isCharge&quot;: judge_val,
+                                &quot;userName&quot;: &quot;&#x738B;&#x9633;&#x660E;&quot;,
+                                &quot;roleName&quot;: roleName_arr[0].text,
+                                &quot;organizationName&quot;: org_arr[i].text
+                            }).nodes().to$().addClass(&quot;js-add-data&quot;).addClass(&quot;bg-info&quot;);
+                            
+                            table.row(&#x27;.js-editor&#x27;).remove();
+                        } else {
+                            Repeat_data.push(i);
+                        }
+                    })
+                    param_[&quot;all_add_data&quot;]=org_arr.length;/*&#x65B0;&#x589E;&#x6761;&#x6570;*/
+               
+                } else if(roleName_arr.length &gt; 1) {/*&#x89D2;&#x8272;&#x591A;&#x4E2A;*/
+                    
+                    $.each(roleName_arr,function(i){
+                        if($.inArray(roleName_arr[i].id + org_arr[0].id + &#x27;&#x27;, All_data) == -1) { //&#x5224;&#x65AD;&#x91CD;&#x590D;&#x6570;&#x636E; &#x4E0E; &#x62C6;&#x6761;
+                            ++counter;
+                            table.row.add({
+                                &quot;js_by_id&quot;:counter,
+                                &quot;roleId&quot;: roleName_arr[i].id,
+                                &quot;organizationId&quot;:org_arr[0].id,
+                                &quot;isCharge&quot;: judge_val,
+                                &quot;userName&quot;: &quot;&#x738B;&#x9633;&#x660E;&quot;,
+                                &quot;roleName&quot;: roleName_arr[i].text,
+                                &quot;organizationName&quot;: org_arr[0].text
+                            }).nodes().to$().addClass(&quot;js-add-data&quot;).addClass(&quot;bg-info&quot;);
+                            table.row(&#x27;.js-editor&#x27;).remove();
+                        } else {
+                            Repeat_data.push(i);
+                        }
+                    })
+                param_[&quot;all_add_data&quot;]=roleName_arr.length;/*&#x65B0;&#x589E;&#x6761;&#x6570;*/     
+
+                } else {/*&#x89D2;&#x8272;&#x548C;&#x7EC4;&#x7EC7;&#x90FD;&#x4E00;&#x6761;&#x6570;&#x636E;*/
+                    if($.inArray(roleName_arr[0].id + org_arr[0].id + &#x27;&#x27;, All_data) == -1) { //&#x5224;&#x65AD;&#x91CD;&#x590D;&#x6570;&#x636E; &#x4E0E; &#x62C6;&#x6761;
+                            ++counter;
+                            table.row.add({
+                                &quot;js_by_id&quot;:counter,
+                                &quot;roleId&quot;: roleName_arr[0].id,
+                                &quot;organizationId&quot;:org_arr[0].id,
+                                &quot;isCharge&quot;: judge_val,
+                                &quot;userName&quot;: &quot;&#x738B;&#x9633;&#x660E;&quot;,
+                                &quot;roleName&quot;: roleName_arr[0].text,
+                                &quot;organizationName&quot;: org_arr[0].text
+                            }).nodes().to$().addClass(&quot;js-add-data&quot;).addClass(&quot;bg-info&quot;);
+                            table.row(&#x27;.js-editor&#x27;).remove();
+                        } else {
+                            Repeat_data.push(1);
+                        }
+                    
+                    param_[&quot;all_add_data&quot;]=1;
+                }
+                table.draw();
+            }
+        } else {
+            COM_TOOLS.alert(&quot;&#x89D2;&#x8272;&#x540D;&#x79F0;&#x3001;&#x7EC4;&#x7EC7;&#x540D;&#x79F0;&#x3001;&#x662F;&#x5426;&#x4E3B;&#x7BA1;&#x7684;&#x503C;&#x4E0D;&#x80FD;&#x4E3A;&#x7A7A;&quot;);
+            return false;
+        }
+        param_[&quot;repeat_data&quot;] = Repeat_data.length;
+        param_[&quot;add_data&quot;] = param_[&quot;all_add_data&quot;] - Repeat_data.length;
+        return param_;
+
+    }
+    //&#x65B0;&#x589E;&#x6309;&#x94AE;
+    $(&#x27;#add_man&#x27;).click(function() {
+        var tr_ = table.rows(&#x27;.js-editor&#x27;).nodes().to$(); //1.
+        if(tr_.length) {
+            var param_ = validateRepeatAndIsNull(tr_);
+            if(param_) {
+                COM_TOOLS.alert(TEDU_MESSAGE.format(&quot;&#x65B0;&#x589E;{0}&#x6761;&#x6570;&#x636E;,&#x91CD;&#x590D;{1}&#x6761;&#x6570;&#x636E;&quot;, [param_[&quot;add_data&quot;], param_[&quot;repeat_data&quot;]]));
+                table.row(&#x27;.js-editor&#x27;).remove().draw();
+                addRow();
+            }
+        } else {
+            addRow();
+        }
+    });
+
+    //&#x6279;&#x91CF;&#x5220;&#x9664;
+    $(&quot;#all_delete_btn&quot;).click(function(){
+        var that_=$(this);
+        var id_=DT_.getSelectRowsData(&#x27;js_by_id&#x27;);
+        if(id_.length==0){COM_TOOLS.alert(&quot;&#x81F3;&#x5C11;&#x9009;&#x62E9;&#x4E00;&#x6761;&#x6570;&#x636E;&quot;);return false;}
+        COM_TOOLS.confirm(&quot;&#x786E;&#x8BA4;&#x5220;&#x9664;&#x5417;&#xFF1F;&quot;, function(in_) {
+                layer.close(in_);
+                    COM_TOOLS.ajaxFn({
+                        url: &#x27;/datatable/lty&#x27;,
+                        type: &#x27;post&#x27;,
+                        data: id_,
+                        success: function(data) {
+                            table.rows(&quot;.selected&quot;).remove();
+                            table.rows(&quot;.selected&quot;).nodes().to$().remove();
+                            table.draw();
+                            if(data.code == &#x27;1&#x27;) {
+                                COM_TOOLS.alert(&quot;&#x64CD;&#x4F5C;&#x6210;&#x529F;&quot;);
+                            } else {
+                                COM_TOOLS.alert(&quot;&#x64CD;&#x4F5C;&#x5931;&#x8D25;&quot;);
+                            }
+                        },
+                    }, 2, that_);
+            })
+        
+        
+    })
+    //&#x5220;&#x9664;&#x6309;&#x94AE; &#x5220;&#x9664;&#x6570;&#x636E;&#x6210;&#x529F;&#x540E;&#x4E0D;&#x80FD;&#x7ACB;&#x5373;&#x5237;&#x65B0;-
+    table.on(&#x27;click&#x27;, &#x27;tbody .delet_btn&#x27;, function() {
+        var that_ = $(this);
+        var cur_tr = $(this).closest(&#x27;tr&#x27;);
+        if(cur_tr.hasClass(&#x27;js-add-data&#x27;)) {
+            COM_TOOLS.confirm(&quot;&#x786E;&#x8BA4;&#x5220;&#x9664;&#x5417;&#xFF1F;&quot;, function(in_) { //&#x9632;&#x6B62;&#x8BEF;&#x5220;
+                layer.close(in_);
+                table.row(cur_tr).remove(); //&#x4E0D;&#x5EFA;&#x8BAE;&#x7ACB;&#x5373;&#x5237;&#x65B0; &#x53EA;&#x5220;&#x9664;&#x6389;datatable&#x7684;&#x7F13;&#x5B58;&#x6570;&#x636E;
+                cur_tr.remove(); //&#x5C06;demo&#x5220;&#x9664;&#x6389;
+            });
+        } else {
+            //&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x884C;&#x7684;id
+            var id_ = COM_TOOLS.DT_getRowsSourceData(table, cur_tr, &#x27;js_by_id&#x27;);
+            COM_TOOLS.confirm(&quot;&#x786E;&#x8BA4;&#x5220;&#x9664;&#x5417;&#xFF1F;&quot;, function(in_) {
+                layer.close(in_);
+                if(id_) {
+                    COM_TOOLS.ajaxFn({
+                        url: &#x27;/datatable/lty&#x27;,
+                        type: &#x27;post&#x27;,
+                        data: id_,
+                        success: function(data) {
+                            table.row(cur_tr).remove();
+                            cur_tr.remove();
+                            if(data.code == &#x27;1&#x27;) {
+                                COM_TOOLS.alert(&quot;&#x64CD;&#x4F5C;&#x6210;&#x529F;&quot;);
+                            } else {
+                                COM_TOOLS.alert(&quot;&#x64CD;&#x4F5C;&#x5931;&#x8D25;&quot;);
+                            }
+                        },
+                    }, 2, that_);
+                }
+            })
+        }
+    });
+
+    function savaData(btn_) {
+        var data_ = JSON.stringify(COM_TOOLS.DT_getRowsSourceData(table, &#x27;.js-add-data:not(&quot;.js-editor&quot;)&#x27;));
+        console.log(&quot;12345&quot;, data_);
+        COM_TOOLS.ajaxFn({
+            url: &#x27;/datatable/lty&#x27;,
+            type: &#x27;post&#x27;,
+            dataType: &#x27;json&#x27;,
+            data: data_,
+            success: function(data, status) {
+                if(data.code == &#x27;1&#x27;) {
+                    //&#x5E76;&#x53BB;&#x6389;class&quot;add_data&quot;
+                    $(&#x27;.js-add-data:not(&quot;.js-editor&quot;)&#x27;).removeClass(&quot;bg-info&quot;).removeClass(&#x27;js-add-data&#x27;);
+                    parent.COM_TOOLS.alert(&quot;&#x64CD;&#x4F5C;&#x6210;&#x529F;&quot;);
+                } else {
+                    parent.COM_TOOLS.alert(data.msg, {
+                        time: 5000
+                    });
+                }
+            }
+        }, 2, btn_);
+    }
+    //&#x65B0;-&#x4FDD;&#x5B58;&#x6309;&#x94AE; &#x8FDB;&#x884C;&#x975E;&#x7A7A;&#x4E0E;&#x53BB;&#x91CD;&#x9A8C;&#x8BC1;
+    $(&quot;#save_btn&quot;).click(function() {
+        var that_ = $(this),
+            tr_ = table.rows(&#x27;.js-editor&#x27;).nodes().to$(),
+            tr_js_add = table.rows(&quot;.js-add-data:not(.js-editor)&quot;).nodes().to$();
+        if(tr_js_add.length) {
+            savaData(that_);
+            COM_TOOLS.alert(TEDU_MESSAGE.format(&quot;&#x65B0;&#x589E;{0}&#x6761;&#x6570;&#x636E;&quot;, [tr_js_add.length]));
+            return false;
+        }
+        if(tr_.length) {
+            var param_ = validateRepeatAndIsNull(tr_);
+            if(param_) {
+                COM_TOOLS.alert(TEDU_MESSAGE.format(&quot;&#x65B0;&#x589E;{0}&#x6761;&#x6570;&#x636E;,&#x91CD;&#x590D;{1}&#x6761;&#x6570;&#x636E;&quot;, [param_[&quot;add_data&quot;], param_[&quot;repeat_data&quot;]]));
+                table.row(&#x27;.js-editor&#x27;).remove().draw();
+                addRow();
+                if(param_[&quot;add_data&quot;]!==0){savaData(that_);}/*&#x5B58;&#x5728;&#x65B0;&#x589E;&#x6570;&#x636E; &#x5219;&#x4FDD;&#x5B58;&#x6570;&#x636E;*/
+            }
+        } else {
+            addRow();
+            return false;
+        }
+
+    });
+    //&#x5237;&#x65B0;&#x6570;&#x636E; &#x5C06;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x540C;&#x6B65;&#x5230;&#x524D;&#x53F0;
+    $(&#x27;#refresh_btn&#x27;).click(function() {
+        COM_TOOLS.DT_ajaxReload(table);
+    });
+});
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo10-css">
+                            <pre>
+基础
+&lt;link href=&quot;../css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;../font-awesome/css/font-awesome.css&quot; rel=&quot;stylesheet&quot;&gt;
+组件
+&lt;link href=&quot;../css/plugins/dataTables/datatables.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+框架
+&lt;link href=&quot;../css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo10-data">
+                            <pre>
+{
+    "draw": 1, //必要。Datatables(客户端)发送的draw是多少那么服务器就返回多少。 这里注意，作者出于安全的考虑，强烈要求把这个转换为整形，即数字后再返回，而不是纯粹的接受然后返回，这是 为了防止跨站脚本（XSS）攻击。
+    "recordsTotal": 57, //必要。即没有过滤的记录数（数据库里总共记录数）
+    "recordsFiltered": 57, //必要。过滤后的记录数（如果有接收到前台的过滤条件，则返回的是过滤后的记录数）
+    "data": [//必要。
+        {
+            "name":"Angelica",
+            "age":"Ramos",
+            "office":"System Architect",
+            "address":"London",
+            "date":"9th Oct 09",
+            "salary":"$2,875"
+        },
+        {
+            "name":"Ashton",
+            "age":"Cox",
+            "office":"Technical Author",
+            "address":"San Francisco",
+            "date":"12th Jan 09",
+            "salary":"$4,800"
+        },
+        ...
+    ]
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--demo10 结束-->
+            <div class="panel panel-default">
+                <div class="panel-heading">常用配置</div>
+                <div class="panel-body">
+                    <pre class="cpp" id="thedoc">
+&lt;style&gt;
+table .spanwhite-space {
+    display: inline-block;
+    width: 100%;
+    text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+&lt;/style&gt;
+
+var table = $(&#x27;#example1&#x27;).DataTable( {
+    scrollY:        &quot;300px&quot;,//&#x53EF;&#x9009;&#xFF0C;&#x662F;&#x5426;&#x56FA;&#x5B9A;&#x8868;&#x683C;&#x9AD8;&#x5EA6;&#xFF0C;&#x4E0D;&#x5305;&#x62EC;&#x8868;&#x5934;&#xFF1B;
+    scrollX:        true,//&#x53EF;&#x9009;&#x662F;&#x5426;&#x663E;&#x793A;&#x6C34;&#x5E73;&#x6EDA;&#x52A8;&#x6761;&#xFF1B;&#x9ED8;&#x8BA4;false;
+    scrollCollapse: true,//&#x4E0E;scrollY&#x7ED3;&#x5408;&#x4F7F;&#x7528;&#xFF0C;&#x662F;&#x5426;&#x56FA;&#x5B9A;&#x9AD8;&#x5EA6;&#xFF0C;&#x9ED8;&#x8BA4;false;
+    paging:         true,//&#x662F;&#x5426;&#x663E;&#x793A;&#x5206;&#x9875;&#x7EC4;&#x4EF6;
+    pageLength:20,//&#x6BCF;&#x9875;&#x663E;&#x793A;&#x6761;&#x6570;&#xFF1B;paging=false &#x65F6;&#x8BE5;&#x503C;&#x4E3A; -1
+    lengthChange:false, //&#x662F;&#x5426;&#x5141;&#x8BB8;&#x7528;&#x6237;&#x6539;&#x53D8;&#x8868;&#x683C;&#x6BCF;&#x9875;&#x663E;&#x793A;&#x7684;&#x8BB0;&#x5F55;&#x6570;&#xFF0C;&#x663E;&#x793A;&#x6761;&#x6570;&#x7EC4;&#x4EF6;
+    ordering : false,//&#x662F;&#x5426;&#x542F;&#x7528;&#x6392;&#x5E8F;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F18;&#x5148;&#x7EA7;&#x9AD8;&#x4E8E;columns&#x4E2D;&#x7684;&#x6392;&#x5E8F;&#x63A7;&#x5236;&#xFF1B;
+    order: [[ 0, 'asc' ]], //表格在初始化的时候的排序，默认值是 [[0, 'asc']]，提示，如果第一列不参与排序，且不显示排序图标，需要复写该值，例如 "order": []或"order": [[ 1, 'asc' ]]等；
+    searching: false,//&#x662F;&#x5426;&#x542F;&#x7528;&#x81EA;&#x5E26;&#x641C;&#x7D22;&#x7EC4;&#x4EF6;&#xFF1B;
+    info: true, //&#x662F;&#x5426;&#x663E;&#x793A;&#x6570;&#x636E;&#x6761;&#x6570;&#x4FE1;&#x606F;
+    language : {url:&quot;js/plugins/datatables/zh_cn.js&quot;},//&#x81EA;&#x5B9A;&#x4E49;&#x63D0;&#x793A;&#x8BED;&#x8A00;
+    //destroy: true, //&#x9500;&#x6BC1;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;&#x5B58;&#x5728;&#x7684;Datatables&#xFF0C;&#x7136;&#x540E;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;
+    /*
+    分页按钮显示选项
+    numbers 只显示数字
+    simple 只有上一页和下一页两个按钮
+    simple_numbers 上一页和下一页两个按钮，加上页数按钮
+    full 首页，尾页，上一页和下一页四个按钮
+    full_numbers 首页，尾页，上一页和下一页四个按钮,加上数字按钮
+    first_last_numbers 首页，尾页两个按钮,加上数字按钮
+    simple_numbers_no_totalpage 上一页和下一页两个按钮，加上页数按钮(不显示总页数)
+    simple_numbers_input 上一页和下一页两个按钮，加上页数按钮，加跳页按钮(不带总页数：page => go)
+    simple_numbers_inputAndPages 上一页和下一页两个按钮，加上页数按钮，加跳页按钮(带总页数：page/pages => go)
+    simple_inputAndPages 上一页和下一页两个按钮，加跳页按钮(带总页数：page/pages => go)
+     */
+    pagingType: 'simple_numbers',
+    columns: [//&#x53EF;&#x9009;&#xFF0C;&#x5FC5;&#x987B;&#x5B9A;&#x4E49;&#x5168;&#x90E8;&#x5217;&#x5C5E;&#x6027;&#xFF1B;data &#x5BF9;&#x5E94;&#x6570;&#x636E;&#x63A5;&#x53E3;&#x5B57;&#x6BB5;&#x540D;&#x79F0;
+    /* {
+        &quot;data&quot;: null,
+        &quot;className&quot;: &quot;text-center hhhdd&quot;,
+        &quot;width&quot;: &quot;30px&quot;,
+        render: function (data, type, row, meta) {
+            // &#x663E;&#x793A;&#x884C;&#x53F7;&#xFF08;&#x9875;&#x7801;*size+curPageDataindex&#xFF09;
+            // var startIndex = meta.settings._iDisplayStart;
+            // return startIndex + meta.row + 1;
+            return 1+meta.row; //&#x5F53;&#x524D;&#x9875;&#x5E8F;&#x53F7;
+        }
+    }, */
+    //data&#x4E3A;null,&#x4E0D;&#x5BF9;&#x5E94;&#x4EFB;&#x4F55;&#x6570;&#x636E;&#x5B57;&#x6BB5;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;defaultContent&#x81EA;&#x5B9A;&#x4E49;&#x5355;&#x5143;&#x683C;&#x5185;&#x5BB9;&#xFF0C;&#x5E26;&#x6570;&#x636E;&#x7684;&#x81EA;&#x5B9A;&#x4E49;&#x53C2;&#x7167;render
+    //{ &quot;data&quot;: null, &quot;defaultContent&quot;: &#x27;&lt;input type=&quot;checkbox&quot; name=&quot;checkbox1&quot;&gt;&#x27; },
+    //&#x6A21;&#x62DF;checkbox
+    //{ &quot;data&quot;: null, &quot;className&quot;:&#x27;select-checkbox&#x27;, &quot;defaultContent&quot;: &#x27;&#x27;},
+    //&#x5E26;&#x6570;&#x636E;&#x7684;
+    { &quot;data&quot;: &quot;DT_RowId&quot;,
+        &quot;render&quot;: function(data, type, row, meta){ //data:&#x5F53;&#x524D;&#x5B57;&#x6BB5;DT_RowId&#xFF1B;row:&#x5F53;&#x524D;&#x6574;&#x884C;&#x6570;&#x636E;
+            /* &#x5C06;&#x6570;&#x636E;&#x7ED1;&#x5B9A;&#x5728;table&#x5143;&#x7D20;&#x4E0A;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x6B64;&#x65B9;&#x5F0F;&#xFF0C;
+             * &#x5EFA;&#x8BAE;&#x7EDF;&#x4E00;&#x4F7F;&#x7528; tr:dataAPI&#x8FDB;&#x884C;&#x6570;&#x636E;&#x7ED1;&#x5B9A;&#xFF0C;&#x8BE6;&#x89C1;&#x4E0B;&#x65B9; ajax-dataSrc
+             */
+            //return &#x27;&lt;button class=&quot;btn btn-success btn-xs&quot; type=&quot;button&quot; data-itemtext = &quot;&#x27;+row.name1+&#x27;&quot; data-itemid = &quot;&#x27;+data+&#x27;&quot;&gt;&#x9009;&#x62E9;&lt;/button&gt;&#x27;;
+            return &#x27;&lt;button class=&quot;btn btn-success btn-xs&quot; type=&quot;button&quot;&gt;&#x9009;&#x62E9;&lt;/button&gt;&#x27;;
+        }
+    },
+    /* &#x9650;&#x5236;&#x5BBD;&#x5EA6;&#x5E76;&#x6EA2;&#x51FA;&#x3002;&#x3002;&#x3002;&#x5E94;&#x7528;&#x6837;&#x5F0F; .spanwhite-space
+    {&quot;data&quot;: &quot;last_name&quot;,&quot;width&quot;:&quot;30px&quot;, render: function (data, type, row, meta){
+            return &#x27;&#x27;+data+&#x27;&#x27;;
+        }
+    },
+     */
+    { &quot;data&quot;: &quot;first_name&quot;},
+    { &quot;data&quot;: &quot;last_name&quot; },
+    { &quot;data&quot;: &quot;position&quot;,&quot;className&quot;:&quot;text-right&quot; },
+    { &quot;data&quot;: &quot;office&quot;,&quot;className&quot;:&quot;text-center&quot; },
+    { &quot;data&quot;: &quot;start_date&quot; },
+    { &quot;data&quot;: &quot;salary&quot; },
+    { &quot;data&quot;: &quot;node1&quot; },
+    { &quot;data&quot;: &quot;node2&quot; },
+    { &quot;data&quot;: &quot;node3&quot; }
+    ],
+    /*columnDefs: [{//&#x53EF;&#x9009;&#xFF0C;&#x4F7F;&#x7528;&#x89C4;&#x5219;&#x540C;columns&#xFF0C;&#x7528;&#x6765;&#x5355;&#x72EC;&#x5B9A;&#x4E49;&#x67D0;&#x51E0;&#x4E2A;&#x5217;&#x5C5E;&#x6027;
+        orderable: false,//&#x662F;&#x5426;&#x53EF;&#x6392;&#x5E8F;
+        className: &#x27;select-checkbox&#x27;,//&#x663E;&#x793A;&#x6A21;&#x62DF;&#x590D;&#x9009;&#x6846;
+        targets:   0  //&#x5C06;&#x914D;&#x7F6E;&#x5E94;&#x7528;&#x4E8E;&#x67D0;&#x5217;&#xFF0C;&#x4E0B;&#x6807;&#x4ECE;0&#x5F00;&#x59CB;&#xFF1B;
+    }],*/
+    /*fixedColumns:{//&#x53EF;&#x9009;&#xFF0C;&#x9501;&#x5B9A;&#x5DE6;&#x4FA7;&#x3001;&#x53F3;&#x4FA7;&#x5404;&#x4E24;&#x5217;&#xFF0C;&#x9700;&#x5F15;&#x7528;&#x5217;&#x51BB;&#x7ED3;&#x5305;
+        leftColumns: 2,
+        rightColumns: 2
+    },*/
+    //initComplete:function(settings, json ){resizeIframeHeight();},//&#x7EC4;&#x4EF6;&#x53CA;&#x6570;&#x636E;&#x521D;&#x59CB;&#x5316;&#x5B8C;&#x6210; &#xFF08;iframe框架在右侧内容区时需要开启此方法&#xFF09;
+    //drawCallback: function(settings){resizeIframeHeight();},//&#x89C6;&#x56FE;&#x6E32;&#x67D3;&#x5B8C;&#x6210;&#xFF0C;&#x6BCF;&#x6B21;&#x7834;&#x574F;&#x6027;&#x64CD;&#x4F5C;&#x5747;&#x51FA;&#x53D1;&#x8BE5;&#x4E8B;&#x4EF6;&#xFF08;iframe框架在右侧内容区时需要开启此方法&#xFF09;
+    processing: true,//&#x663E;&#x793A;&#x52A0;&#x8F7D;&#x4E2D;&#xFF0C;serverSide=true&#x65F6;&#x751F;&#x6548;
+    serverSide: true,//&#x670D;&#x52A1;&#x5668;&#x6A21;&#x5F0F;&#xFF0C;&#x6392;&#x5E8F;&#x3001;&#x641C;&#x7D22;&#x3001;&#x5206;&#x9875;&#x5747;&#x5728;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x5B9E;&#x73B0;&#xFF0C;&#x9ED8;&#x8BA4;&#x6D4F;&#x89C8;&#x5668;&#x6A21;&#x5F0F;
+    select:{style:&#x27;mutil&#x27;, info: false},//&#x662F;&#x5426;&#x542F;&#x7528;&#x9009;&#x4E2D;&#x72B6;&#x6001;&#xFF0C;&#x9700;&#x5F15;&#x5165;&#x9009;&#x4E2D;&#x7EC4;&#x4EF6;&#x5305;&#xFF0C;style:&#x27;mutil&#x27;&#x4E3A;&#x591A;&#x9009;&#xFF0C;&#x9ED8;&#x8BA4;&#x5355;&#x9009;&#x27;os&#x27;
+    ajax: {
+        &quot;url&quot;: &quot;/dt/api&quot;,//&#x63A5;&#x53E3;&#x5730;&#x5740;
+        &quot;dataSrc&quot;: function (dd) {
+        /* &#x91CD;&#x6784;&#x63A5;&#x53E3;&#x8FD4;&#x56DE;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x5C06;&#x9700;&#x8981;&#x4EA4;&#x4E92;&#x7684;&#x6570;&#x636E;&#xFF08;pkeyid&#xFF09;&#x4EE5;&#x81EA;&#x5B9A;&#x4E49;&#x952E;&#x503C;&#x5BF9;&#x7684;&#x5F62;&#x5F0F;&#x5B58;&#x5230;&lsquo;DT_RowData&rsquo;&#x4E2D;&#xFF0C;
+         * &#x83B7;&#x53D6;&#x6570;&#x636E;&#x65F6;&#x4F7F;&#x7528;$(&#x27;tr&#x27;).data(&#x27;itemid&#x27;)&#x65B9;&#x5F0F;&#xFF1B;
+         */
+            var D_ = dd.data;
+            for ( var i=0, ien=D_.length ; i&lt;ien ; i++ ) {
+                D_[i][&#x27;DT_RowData&#x27;] = {
+                    &#x27;itemid&#x27;:D_[i][&#x27;DT_RowId&#x27;],
+                    &#x27;itemtext&#x27;:D_[i][&#x27;last_name&#x27;]
+                };
+            }
+            return D_;
+        },
+        &quot;data&quot;: function(d){
+        //&#x81EA;&#x5B9A;&#x4E49;&#x65B9;&#x6CD5;&#xFF0C;&#x4EC5;&#x9650;CRM&#x6846;&#x67B6;&#x4E2D;&#x4F7F;&#x7528;&#xFF0C;&#x91CD;&#x6784;&#x53D1;&#x9001;&#x5230;&#x670D;&#x52A1;&#x5668;&#x7AEF;&#x7684;&#x53C2;&#x6570;&#x7ED3;&#x6784;&#xFF1B;searchParemOBj_&#x5BF9;&#x8C61;&#x7C7B;&#x578B;&#xFF0C;&#x4E3A;&#x9644;&#x52A0;&#x8BF7;&#x6C42;&#x53C2;&#x6570;&#xFF0C;&#x4E0D;&#x53EF;&#x4F7F;&#x7528;&#x4FDD;&#x7559;&#x5B57;pageSize&#x3001;start&#x3001;draw;
+            return cus_dt_ajaxdata(d,searchParemOBj_);
+        }
+    }
+});
+</pre>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">常用方法</div>
+                <div class="panel-body">
+                    <pre>
+/* API实例可以通过以下方式创建： */
+$( selector ).DataTable();
+$( selector ).dataTable().api();
+new $.fn.dataTable.Api( selector );
+上面三种方式均可返回一个api实例，注意区别 $( selector ).DataTable() 和 $( selector ).dataTable() 前者直接返回API实例，后者返回的是jQuery实例（如果是这个方式初始化Datatables，那么返回的对象不能使用api方法，不然会报方法未定义）
+可以互转 ，jquery转api：dt.api();api转jquery：dt.to$();
+
+var table = $('#myTable').DataTable();
+OR：
+var table = $('#myTable').dataTable().api();
+OR：
+var table = new $.fn.dataTable.Api( '#myTable' );
+
+/**
+ * @description datatable获取指定行的原始数据（服务器直接返回的数据ajaxJSON，及通过api.data实时设置的数据；非绑定数据）
+ * @param {Object} dt (new datatable)实例对象
+ * @param {String} name 选填，需要获取的字段名称，为空则返回整个data对象（非绑定的数据）；
+ * @param {Boolean}  isall=[false|true] 可选，是否获取所有行的数据（忽略是否选中）；true:全部；false或缺省为 只计算选中行；
+ * @return {Array} 数据数组
+ */
+DT_getSelectRowsSourceData (dt, name, isall);
+/**
+ *
+ * @param {Object} dt (new datatable)实例对象
+ * @param {Object} selector 行选择器，指定需要获取哪些行的数据; 支持jQ-selector、node、索引(row.index)、function ( idx, data, node ) => return true
+ * @param {Object} name 选填，需要获取的字段名称，为空返回整行数据；
+ */
+DT_getRowsSourceData (dt, selector, name);
+
+//var data = table.rows().data()[0];
+
+//销毁实例（当表列配置信息变化时，必须通过API方式，销毁实例、清空节点后再重新初始化新表）
+table.destroy();
+$('#example1 thead, #example1 tbody').html(''); //先销毁实例，再清空节点；如果表头是自己构造的，则重新构造；
+
+/* 获取选中行的数据(多选) */
+//table 为当前页面作用域内初始化后的dt对象实例；selected类必须引入select包
+//数据组成建议使用数据，利用join拼接，避免使用substring
+var ids=[];
+table.rows('.selected').nodes().to$().each(function(){
+ids.push($(this).data('itemid'));
+});
+return ids.join(',');
+
+/* 重新加载数据 */
+table.ajax.reload(); //重新请求当前接口地址
+table.ajax.url( 'newData.json' ).load(); //更改接口地址并请求
+table.page(index).draw(false);  //跳转到第（index+1）页，index从0 开始
+
+/* 应用当前数据重绘表格 */
+table.draw();
+
+/* 多列排序(配置) */
+/*
+第一列按照第一列和第二列排序作为默认排序
+第二列按照第一列来排序作为默认排序
+第三列按照第三，四，五列来排序作为默认排序
+*/
+$('#example').DataTable({
+    "columns": [
+        { "orderData": [ 0, 1 ] },
+        { "orderData": 0, },
+        { "orderData": [ 2, 3, 4 ] },
+        ......
+    ]
+});
+
+/* 多列排序(API) */
+//第二，三列升序排列并且重绘：
+var table = $('#example').DataTable();
+table.order( [[ 1, 'asc' ], [ 2, 'asc' ]] ).draw();
+
+//注意，API方式也会触发 columns.orderData的配置，如重复设置会出现多个，
+//例如table.order( [[ 0, 'asc' ], [ 1, 'desc' ]] ).draw();
+//将得到如下结果，order:[[ 0, 'asc' ], [ 1, 'asc' ], [ 1, 'desc' ]]; 前面两个是由于触发了 "orderData": [ 0, 1 ]
+
+//读取排序信息
+var table = $('#example').DataTable();
+var order = table.order();
+alert( '第 '+order[0][0]+' 列是排序列' )
+
+/* 全选、全不选 */
+table.rows().select();
+table.rows().deselect();
+
+/* 事件监听 */
+// 真实checkbox联动事件，模拟的不需要
+table.on('select', function ( e, dt, type, indexes ){
+    if ( type === 'row' ) {
+        var t_ = table.rows(indexes).nodes().to$(); //获取当前行，并转化为jQuery对象
+        t_.find('input[type="checkbox"]').prop('checked',true);
+    }
+}).on('deselect', function ( e, dt, type, indexes ){
+    if ( type === 'row' ) {
+        var t_ = table.rows(indexes).nodes().to$();
+        t_.find('input[type="checkbox"]').prop('checked',false);
+    }
+});
+
+/* 获取指定列的原始数据项名称 （对应接口数据项） */
+table.column('selector').dataSrc(); ==>'jsondata[name]'
+
+/* table回调函数 */
+createdRow( row, data, dataIndex )
+//tr元素被创建时候的回调函数(当tr元素被创建（所有的td元素已经插入进去），或者给tr绑定事件，该回调函数被执行，允许操作tr元素 )
+//row 已经被创建的tr元素 ;
+//data 包含这行的数据对象 [array || object]
+//dataIndex Datatables内部存储的数据索引
+
+drawCallback(settings )
+//Datatables每次重绘后执行的方法(当每次表格重绘的时候触发一个操作，比如更新数据后或者创建新的元素)
+//settings Datatables的设置对象
+"drawCallback": function( settings ) {
+    var api = this.api();
+    // 输出当前页的数据到浏览器控制台
+    console.log( api.rows( {page:'current'} ).data() );
+}
+
+initComplete(settings, json)
+//当表格完成加载绘制完成后执行此方法。(当每次表格重绘的时候触发一个操作，比如更新数据后或者创建新的元素 )
+//settings datatables的设置对象
+//json 如果使用ajax选项来获取数据，则得到服务器返回的数据，否则是 undefined
+
+
+标签中（非可见）表格的初始化 或 $(window).trigger('resize')
+$('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+    $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+} );
+</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="../js/jquery-2.1.1.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/plugins/layer/layer.js"></script>
+        <script src="../js/plugins/jsTree/jstree.min.js"></script>
+        <script src="../js/pinyin.js"></script>
+        <!-- Custom and plugin javascript -->
+        <script src="../js/plugins/datatables/datatables.min.js"></script>
+        <!--<script src="../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js"></script>
+        <script src="../js/plugins/datatables/Select-1.2.0/js/dataTables.select.js"></script>
+        <script src="../js/plugins/datatables/FixedColumns-3.2.2/js/dataTables.fixedColumns.min.js"></script>
+        <script src="../js/plugins/datatables/RowsGroup/dataTables.rowsGroup.js"></script>-->
+        <script src="../js/plugins/select2/select2.full.min.js"></script>
+
+        <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+
+        <script src="../i18n/zh-CN.js"></script>
+        <script src="../js/subindex.js"></script>
+
+        <!-- 以下js仅用于演示 -->
+        <script src="../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../demo-data.js"></script>
+
+        <script>
+            /*demo1*/
+            $(document).ready(function() {
+                var searchParemOBj_ = { //示例
+                    'asd': 112
+                };
+                var DT_ = COM_TOOLS.DT_init('example1', [{
+                        "data": null,
+                        "title": '序号',
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    }, {
+                        "data": null,
+                        "width": "30px",
+                        "title": '<span class="cus-checkbox-all"></span>',
+                        "className": "select-checkbox",
+                        "defaultContent": ''
+                    }, {
+                        "data": "first_name",
+                        "title": '标题1'
+                    }, {
+                        "data": "last_name",
+                        "title": '标题2'
+                    }, {
+                        "data": "position",
+                        "title": '标题3',
+                        "className": "text-right",
+                        "width": "50px", //文字溢出显示...
+                        "render": function(data, type, row, meta) {
+                            return '<span title="' + data + '" class="spanwhite-space" style="width: 50px;">' + data + '</span>';
+                        }
+                    }, {
+                        "data": "office",
+                        "title": '标题4',
+                        "className": "text-center"
+                    }, {
+                        "data": "start_date",
+                        "className": "js-visible-column",
+                        "title": '标题5'
+                    }, {
+                        "data": "salary",
+                        "className": "js-visible-column",
+                        "title": '标题6',
+                        "render": function(data, type, row, meta) {
+                            return $.number(data, 2); //货币格式 function( number, 小数位数, 小数位标识（.）, 千分位标识（,） )
+                        }
+                    }, {
+                        "data": "node1",
+                        "className": "js-visible-column",
+                        "title": '标题7',
+                        "render": function(data, type, row, meta) {
+                            return '<input type="text" name="name1" class="input-sm no-Sel-obj js-getval" value="' + data + '"/>';
+                        }
+                    }, {
+                        "data": "node2",
+                        "title": '标题8',
+                        "render": function(data, type, row, meta) {
+                            return '<input type="text" name="name2" class="input-sm no-Sel-obj js-getval" value="' + data + '"/>';
+                        }
+                    }, {
+                        "data": "node3",
+                        "title": '标题9',
+                        "render": function(data, type, row, meta) {
+                            return '<input type="text" name="name3" class="input-sm no-Sel-obj js-getval" value="' + data + '"/>';
+                        }
+                    }],
+                    '/dt/api',
+                    'get',
+                    searchParemOBj_, {
+                        jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象，例如：获取行id
+                            alert('当前操作行ID为：' + trdata['first_name']);
+                        },
+                        jsInitComplete: function(settings, json) {
+                            var that_ = this;
+                            var columns_ = [],
+                                str = [];
+                            that_.columns('.js-visible-column').every(function(index) {
+                                str.push('<li><label><input class="js-input" type="checkbox" value="', index, '">&nbsp;',
+                                    $(this.header()).text(), '</label></li>')
+                            });
+                            $('.js-col-selbar').html(str.join('')).on('click', function(e) {
+                                e.stopPropagation();
+                            }).find('.js-input').on('click', function() {
+                                console.log($(this).val())
+                                that_.column($(this).val()).visible(!that_.column($(this).val()).visible());
+                            });
+                        },
+                        other: { //（可选）自定义分页插件，不显示总页数
+                            pagingType: "simple_numbers_no_totalpage"
+                        }
+                    }
+                );
+
+                var table = DT_.table;
+
+                //COM_TOOLS.DT_ajaxReload(DT_.table);
+
+                table.on('page.dt', function() { //分页回调事件
+                    var info = table.page.info();
+                    //searchParemOBj_['aaa']=info.page;
+                    console.log('Showing page: ' + info.page + ' of ' + info.pages);
+                });
+
+                $('#demo1-btn1').click(function() { //COM_TOOLS.DT_getSelectRowsSourceData(table,'first_name') 返回所有选中行的'first_name'数组
+                    alert(DT_.getSelectRowsData('first_name').toString() || '未选中'); //[推荐] 与下面代码效果一致
+                    // alert(COM_TOOLS.DT_getSelectRowsSourceData(table, 'first_name').toString() || '未选中'); //示例
+                });
+                $('#demo1-btn2').click(function() {
+                    alert(JSON.stringify(COM_TOOLS.DT_getSelectRowsInputData(table)));
+                });
+                /*搜索按钮方案*/
+                $('#demo1-btn3').click(function() {
+                    searchParemOBj_['searchNameVal'] = $.trim($('#demo1-input1').val());
+                    searchParemOBj_['searchPhoneVal'] = $.trim($('#demo1-input2').val());
+                    DT_.setAjaxData(searchParemOBj_); //默认修改搜索数据并刷新表格，如果：DT_.setAjaxData(searchParemOBj_, true);则不刷新表格，只修改搜索数据
+                });
+
+                /* 详情窗示例 */
+                COM_TOOLS.infoTipsFn($(COM_TOOLS.DT_getNode(table, 'body')), '.spanwhite-space',
+                    function($obj) {
+                        var rowData = COM_TOOLS.DT_getRowsSourceData(table, $obj.closest('td'))[0];
+                        return rowData.position;
+                    }, {
+                        placement: 'right',
+                        imageZoom: true
+                    }
+                );
+            });
+
+            /*demo2*/
+            $(document).ready(function() {
+                var DT_ = COM_TOOLS.DT_init('example2', [{
+                        "data": null,
+                        "title": '序号',
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    }, {
+                        "data": null,
+                        "width": "30px",
+                        "title": '<span class="cus-checkbox-all"></span>',
+                        "className": "select-checkbox",
+                        "defaultContent": ''
+                    }, {
+                        "data": "first_name",
+                        "title": '标题1'
+                    }, {
+                        "data": "last_name",
+                        "title": '标题2'
+                    }, {
+                        "data": "position",
+                        "title": '标题3',
+                        "className": "text-right",
+                        "width": "50px", //文字溢出显示...
+                        "render": function(data, type, row, meta) {
+                            return '<span title="' + data + '" class="spanwhite-space" style="width: 50px;">' + data + '</span>';
+                        }
+                    }, {
+                        "data": "office",
+                        "title": '标题4',
+                        "className": "text-center"
+                    }, {
+                        "data": "start_date",
+                        "title": '标题5'
+                    }],
+                    demo_dt_data_.data, {
+                        jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象，例如：获取行id
+                            alert('当前操作行ID为：' + trdata['first_name']);
+                        },
+                        other: { //（可选）自定义分页插件
+                            pagingType: "simple"
+                        }
+                    }
+                );
+            });
+
+            /*demo3*/
+            $(document).ready(function() {
+                var table = $('#example3').DataTable({
+                    rowReorder: { //启用拖拽
+                        selector: 'tr'
+                    },
+                    pageLength: 5, //每页显示条数；paging=false 时该值为 -1
+                    lengthChange: true, //是否允许用户改变表格每页显示的记录数，显示条数组件
+                    lengthMenu: [5, 10, 15, 20], //配置可选的每页显示的记录数
+                    ordering: true, //是否启用排序组件，优先级高于columns中的排序控制；
+                    searching: true, //是否启用自带搜索组件；
+                    processing: false, //显示加载中，serverSide=true时生效
+                    serverSide: false //客户端模式
+                });
+                $('#demo3-input1').on('keyup', function() {
+                    table.column(3).search($(this).val()).draw();
+                });
+                //拖拽交互事件
+                table.on('row-reorder', function(e, diff, edit) {
+                    var result = '';
+
+                    for(var i = 0, ien = diff.length; i < ien; i++) {
+                        var rowData = table.row(diff[i].node).data();
+
+                        result += rowData[1] + ' 新位置 ' +
+                            diff[i].newData + ' (旧位置 ' + diff[i].oldData + ')<br>';
+                    }
+
+                    $('#demo3-logbox').html('结果：<br>' + result);
+                });
+            });
+
+            /*demo4*/
+            $(document).ready(function() {
+                var searchParemOBj={};
+                var DT_=COM_TOOLS.DT_init('example4',[ 
+                        {
+                            "data": "DT_RowId",
+                            "render": function(data, type, row, meta) {
+                                return '<button class="btn btn-success btn-xs" type="button">选择</button>';
+                            }
+                        }, {
+                            "data": "name1"
+                        }, {
+                            "data": "name2"
+                        }, {
+                            "data": "name3"
+                        }, {
+                            "data": "name4",
+                            "render": function(data, type, row, meta) {
+                                return '<div class="onoffswitch">' +
+                                    '<input type="checkbox" checked class="onoffswitch-checkbox" id="' + meta['settings']['sTableId'] + '_in_' + meta['row'] + '">' +
+                                    '<label class="onoffswitch-label" for="' + meta['settings']['sTableId'] + '_in_' + meta['row'] + '">' +
+                                    '<span class="onoffswitch-inner"></span><span class="onoffswitch-switch"></span>' +
+                                    '</label></div>';
+                            }
+                        }
+                    ],
+                    '/dt/api2',
+                    'post',
+                    searchParemOBj,
+                    {
+                      other:{
+                            paging: false,
+                            info: false,
+                            destroy: true,
+                            createdRow: function(row, data, dataIndex) {/*指定行添加背景色*/
+                                if(data['name1'].indexOf('顾问') !== -1) {
+                                    $(row).addClass('bg-danger');
+                                }
+                            }
+                        }
+                    }
+                );
+                var table=DT_.table;
+                
+                table.on('click', 'tbody button', function() {
+                    var t_ = $(this).closest('tr');
+                    //setParentObjVal(t_); //仅限框架中使用
+                    alert(COM_TOOLS.DT_getRowsSourceData(table,t_,'name1'));
+                }).on('dblclick', 'tbody button', function() {
+                    return false;
+                }).on('dblclick', 'tbody tr', function() {
+                    var t_ = $(this);
+                    //setParentObjVal(t_); //仅限框架中使用
+                    alert(COM_TOOLS.DT_getRowsSourceData(table,t_,'name1'));
+                });
+
+                //关闭弹窗并设置回显值,只限在CRM iframe窗口页面中应用
+                function setParentObjVal(obj) {
+                    cumParentCallValue(function() {
+                        if(cum_Modalindex_ > 0) {
+                            var b_ = parent.layer.getChildFrame('body', cum_Modalindex_); //获取上一个目标弹窗body对象
+                            if(cum_ModalValobj) {
+                                parent.$('#' + cum_ModalValobj, b_).val(obj.data('itemtext'));
+                                //设置hidden input 的值：
+                                parent.$('#' + cum_ModalValobj + '_hide', b_).val(obj.data('itemid'));
+                                /*
+                                 * 获取上一个目标弹窗的 window对象
+                                 * var p_win = parent.window["layui-layer-iframe"+cum_Modalindex_];
+                                 * 调用目标弹窗中定义的方法：p_win.yourfunction();
+                                 */
+                            }
+                        }
+                    });
+                }
+            });
+
+            /*demo5*/
+            $(document).ready(function() {
+                var searchParemOBj_ = {
+                    'gg': 33
+                };
+                var DT_ = COM_TOOLS.DT_init('example5', [{
+                        "data": null,
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    }, {
+                        "data": null,
+                        "className": "select-checkbox",
+                        "defaultContent": ''
+                    }, {
+                        "data": "first_name"
+                    }, {
+                        "data": "last_name"
+                    }, {
+                        "data": "start_date"
+                    }, {
+                        "data": "salary",
+                        "render": function(data, type, row, meta) {
+                            return $.number(data, 2); //货币格式 function( number, 小数位数, 小数位标识（.）, 千分位标识（,） )
+                        }
+                    }, {
+                        "name": "node1", //此处要与后台字段一致
+                        "data": "node1"
+                    }, {
+                        "name": "node2", //此处要与后台字段一致
+                        "data": "node2"
+                    }, {
+                        "data": "node3"
+                    }],
+                    '/dt/api',
+                    'get',
+                    searchParemOBj_, {
+                        other: {
+                            select: {
+                                selector: 'td:not(td:has(input))' //选择限制规则，不能选中含有input的td
+                            }
+                        }
+                    }
+                )
+
+                $('#demo5-btn1').on('click', function() {
+                    COM_TOOLS.DT_tdToinpEdit(DT_.table, ['node1:name', 'node2:name']);
+                });
+                $('#demo5-btn2').on('click', function() {
+                    var data_ = COM_TOOLS.DT_inpTotdSave(DT_.table, ['node1:name', 'node2:name']);
+                    //TODO
+                    if(data_) {
+                        //在通过AJAX把 data_ 数据发送给后台
+                    }
+                });
+            });
+
+            /*demo6*/
+            $(document).ready(function() {
+                var searchParemOBj_ = {};
+                var DT_=COM_TOOLS.DT_init('example6',[
+                    {
+                        "data": null,
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    }, {
+                        "data": null,
+                        "className": "select-checkbox",
+                        "defaultContent": ''
+                    }, {
+                        "data": "first_name"
+                    }, {
+                        "data": "last_name"
+                    }, {
+                        "data": "start_date"
+                    }, {
+                        "data": "salary",
+                        "className": "text-success no-Sel-obj cus-text-link js-cus-event1",
+                        "render": function(data, type, row, meta) {
+                            return $.number(data, 2); //货币格式 function( number, 小数位数, 小数位标识（.）, 千分位标识（,） )
+                        }
+                    }, {
+                        "name": "node1", //重点：要参与计算的TD
+                        "data": "node1",
+                        "render": function(data, type, row, meta) {
+                            return '<input type="text" name="node1" class="input-sm js-getval" value="' + data + '"/>';
+                        }
+                    }, {
+                        "data": "node2"
+                    }, {
+                        "data": "node3"
+                    }],
+                    '/dt/api',
+                    'get',
+                    searchParemOBj_
+                );
+                var table=DT_.table;
+                
+                $('.inp-radio').on('click', function() {
+                    var val_ = $(this).val();
+                    if(val_ == 1) {
+                        $('#example6').off().on('click', 'tbody tr', function(e) {
+                            if(e.target.nodeName=='INPUT'){
+                                return false;
+                            }
+                            var sum_=$('#sumSel').val();
+                            if($(this).hasClass('selected')){
+                                var new_sum=sum_-table.row($(this)).nodes().to$().find('input[type=text]').val();
+                            }else{
+                                var new_sum=COM_TOOLS.fnFloatSum(sum_, table.row($(this)).nodes().to$().find('input[type=text]').val());
+                            }
+                             $('#sumSel').val(new_sum);
+                             
+                        }).on('change', 'tbody input[type=text]', function(event) {
+                            $('#sumSel').val(COM_TOOLS.DT_getInputSum(table, ['node1:name']));
+                        });
+                        
+                    } else {
+                        $('#example6').off().on('change', 'tbody input[type=text]', function(event) {
+                            $('#sumSel').val(COM_TOOLS.DT_getInputSum(table, ['node1:name'], true));
+                        });
+                    }
+                });
+                $('.inp-radio:eq(0)').trigger('click');
+                $('#demo6-btn1').click(function() {
+                    alert(JSON.stringify(COM_TOOLS.DT_getSelectRowsInputData(table, $('.inp-radio:eq(1)').prop('checked'))));
+                });
+                
+                table.on('click', 'tbody .js-cus-event1', function() {
+                    var t_=$(this).closest('tr');
+                    alert(JSON.stringify(COM_TOOLS.DT_getRowsSourceData(table,t_)));
+                    //TODO
+                })
+            });
+            /*demo7*/
+            $(document).ready(function() {
+                var table = $('#example7').DataTable({
+                    scrollY: "100px", //可选，是否固定表格高度，不包括表头；
+                    scrollCollapse: true, //与scrollY结合使用，是否固定高度，默认false;
+                    scrollX: true,
+                    paging: false,
+                    serverSide: false, //客户端模式
+                    select: {
+                        style: 'mutil',
+                        info: false
+                    }, //是否启用选中状态，需引入选中组件包，style:'mutil'为多选，默认单选'os'
+                    fixedColumns: { //锁定左侧1列
+                        leftColumns: 2,
+                        drawCallback: function() {
+                            COM_TOOLS.DT_getColumnSum($('#example7').DataTable(), [3, 7, 9], true);
+                        }
+                    }
+                });
+                $('#demo7-btn1').click(function() {
+                    alert(JSON.stringify(COM_TOOLS.DT_getColumnSum(table, [7, 9])));
+                });
+            });
+            /*demo09*/
+            $(document).ready(function() {
+                var searchParemOBj_ = { //示例
+                    'asd': 112
+                };
+                var DT_ = COM_TOOLS.DT_init('example9', [{
+                        "data": null,
+                        "title": '序号',
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    }, {
+                        "data": null,
+                        "width": "30px",
+                        "title": "操作",
+                        "className": "details-control no-Sel-obj",
+                        "defaultContent": ''
+                    }, {
+                        "data": "first_name",
+                        "className": "text-center",
+                        "title": '姓名'
+                    }, {
+                        "data": "position",
+                        "className": "text-center",
+                        "title": '地址'
+                    }],
+                    '/dt/api',
+                    'get',
+                    searchParemOBj_, {
+                        jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象，例如：获取行id
+                            alert('当前操作行ID为：' + trdata['first_name']);
+                        },
+                        other: { //（可选）自定义分页插件，不显示总页数
+                            pagingType: "simple_numbers_no_totalpage"
+                        }
+                    }
+                );
+                var table = DT_.table;
+
+                function checkShow(tb, tr, str) {
+                    var r = tb.row(tr);
+                    if(r.child.isShown()) {
+                        tr.removeClass('shown');
+                        r.child.remove();
+                    } else {
+                        tb.rows().every(function() {
+                            this.child.remove();
+                            this.nodes().to$().removeClass('shown');
+                        })
+                        tr.addClass('shown');
+                        r.child(str).show();
+                    }
+                }
+                $('#example9').on('click', 'tbody.first_table td.details-control', function(e) {
+                    e.stopPropagation();
+                    var tr = $(this).closest('tr');
+                    var str = '<table id="table-1" cellpadding="5"  class="table table-striped table-bordered nowrap" cellspacing="0" width="100%" style="border:1px solid #ddd;"><thead></thead><tbody class="second_table"></tbody></table>';
+                    checkShow(table, tr, str);
+                    var DT_1 = COM_TOOLS.DT_init('table-1', [{
+                            "data": null,
+                            "title": '序号',
+                            "className": "text-center",
+                            "width": "30px",
+                            render: function(data, type, row, meta) { /*显示行号*/
+                                return 1 + meta.row;
+                            }
+                        }, {
+                            "data": null,
+                            "width": "30px",
+                            "title": "操作",
+                            "className": "details-control no-Sel-obj",
+                            "defaultContent": ''
+                        }, {
+                            "data": "first_name",
+                            "className": "text-center",
+                            "title": '姓名'
+                        }, {
+                            "data": "position",
+                            "className": "text-center",
+                            "title": '地址'
+                        }],
+                        '/dt/api',
+                        'get',
+                        '', {
+                            other: {
+                                paging: false,
+                                info: false
+                            }
+                        }
+                    );
+                    var table_ = DT_1.table;
+                    table_.on('click', 'tbody.second_table td.details-control', function(e) {
+                        e.stopPropagation();
+                        var tr_ = $(this).closest('tr');
+                        var str_ = '<table id="table-2" cellpadding="5"  class="table table-striped table-bordered nowrap" cellspacing="0" width="100%" style="border:1px solid #ddd;"><thead></thead><tbody class="second_table"></tbody></table>';
+                        checkShow(table_, tr_, str_);
+                        var DT_2 = COM_TOOLS.DT_init('table-2', [{
+                                "data": null,
+                                "title": '序号',
+                                "className": "text-center",
+                                "width": "30px",
+                                render: function(data, type, row, meta) { /*显示行号*/
+                                    return 1 + meta.row;
+                                }
+                            }, {
+                                "data": "last_name",
+                                "title": "姓",
+                                "className": "text-center",
+                            }, {
+                                "data": "first_name",
+                                "className": "text-center",
+                                "title": '名称'
+                            }, {
+                                "data": "position",
+                                "className": "text-center",
+                                "title": '地址'
+                            }],
+                            '/dt/api',
+                            'get',
+                            '', {
+                                other: {
+                                    paging: false,
+                                    info: false
+                                }
+                            }
+                        );
+                        var table_2 = DT_2.table;
+                    })
+                })
+                table.on('page.dt', function() { //分页回调事件
+                    var info = table.page.info();
+                    console.log('Showing page: ' + info.page + ' of ' + info.pages);
+                });
+            });
+            /*demo8*/
+            $(function() {
+                var searchParemOBj_ = {};
+                var DT_=COM_TOOLS.DT_init('example8',[
+                    {
+                        "data": null,
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    }, {
+                        "data": null,
+                        "className": "select-checkbox",
+                        "defaultContent": ''
+                    }, {
+                        "data": "uname"
+                    }, {
+                        "data": "utype",
+                        "name": "utype", //需要人工维护该字段
+                        "className": "text-center"
+                    }, {
+                        "data": "udate",
+                        "className": "text-right"
+                    }, {
+                        "data": "uxname",
+                        "className": "text-center"
+                    }
+                ],
+                 [{
+                        "uname": "王大1",
+                        "utype": "大客户",
+                        "udate": "04-21",
+                        "uxname": "咨询1"
+                    }, {
+                        "uname": "王大2",
+                        "utype": "大客户",
+                        "udate": "04-21",
+                        "uxname": "咨询1"
+                    }, {
+                        "uname": "王大3",
+                        "utype": "大客户",
+                        "udate": "04-21",
+                        "uxname": "咨询2"
+                    }, {
+                        "uname": "王大4",
+                        "utype": "大客户",
+                        "udate": "04-21",
+                        "uxname": "咨询3"
+                    }, {
+                        "uname": "王大5",
+                        "utype": "大客户",
+                        "udate": "04-21",
+                        "uxname": "咨询3"
+                    }, {
+                        "uname": "王大6",
+                        "utype": "大客户",
+                        "udate": "04-21",
+                        "uxname": "咨询2"
+                    }],
+                    {
+                        other:{
+                            rowsGroup: ['utype:name', 5]
+                        }
+                    }
+                );
+            });
+
+            $(function() {
+                $('#demo2-data > pre').text('//示例中 demo_dt_data_.data 的数据结构如下:  \n ' + JSON.stringify(demo_dt_data_.data, null, 4) + ';');
+            });
+            $(function() {
+                /*demo10*/
+                var counter = 0; //计数器为初始化每行的select
+                var DT_ = COM_TOOLS.DT_init('example10', [{
+                        "data": "js_by_id",
+                        "title": 'id',
+                        //"visible": false
+                        "width": 30
+                    },
+                    {
+                        "data": null,
+                        "width": "30px",
+                        "title": '<span class="cus-checkbox-all"></span>',
+                        "className": "select-checkbox",
+                        "defaultContent": ''
+                    },
+                    {
+                        "data": "roleName",
+                        "title": '角色名称',
+                        "name": "roleName"
+                    },
+                    {
+                        "data": "organizationName",
+                        "title": '组织名称',
+                        "name": "organizationName"
+                    },
+                    {
+                        "data": "isCharge",
+                        "title": '是否主管',
+                        "name": "isCharge",
+                        render: function(data) {
+                            return data == 1 ? '<span style="color:green;">是</span>' : data == 0 ? '<span style="color:red;">否</span>' : data;
+                        }
+                    },
+                    {
+                        "data": null,
+                        "title": '操作',
+                        "defaultContent": '<button class="btn btn-danger btn-xs delet_btn no-Sel-obj">删除</button>&nbsp;&nbsp;'
+                    }
+                ], '/dt/role/api', 'get', {}, {
+                    jsInitComplete: function(settings, json) {
+                        counter = this.rows().count(); //这里的this 指向的是datatable实例对象，等同于DT_.table；
+                    },
+                    other: {
+                        paging: false,
+                        pageLength: -1,
+                        processing: false, //显示加载中serverSide=true时生效
+                        serverSide: false, //是否开始服务器模式
+                        select: {
+                            style: 'mutil' 
+                        },
+                        orderFixed: [0, 'desc'],
+                        ordering: true,
+                        columnDefs: [{
+                            "orderable": false,
+                            "targets": "_all"
+                        }],
+                        ajax: {
+                            "dataSrc": function(dd) {
+                                var D_ = dd.data;
+                                for(var i = 0, ien = D_.length; i < ien; i++) {
+                                    D_[i]['js_by_id'] = 1 + i;
+                                }
+                                return D_;
+                            }
+                        }
+                    }
+                });
+                var table = DT_.table;
+                window.yyy = table;
+                
+                var API_drop_jstree_ = null;
+                /*select本地缓存数据*/
+                var SELECT_DATA_ROLE=[{//SELECT_DATA_ROLE
+                    "id": "1",
+                    "text": "角色1"
+                    },
+                    {
+                        "id": "2",
+                        "text": "角色2"
+                    },
+                    {
+                        "id": "3",
+                        "text": "角色3"
+                    }];
+                function addRow() {
+                    API_drop_jstree_ = null;
+                    ++counter;
+                    var $jRow = $('<tr class="js-add-data bg-info js-editor">' +
+                        '<td>' + counter + '</td><td></td>'+
+                        '<td><select style="width:300px;height:30px;" name="role-name" multiple="multiple" class=" role-name form-control input-sm" id="js_role_' + counter + '"></select></td>' +
+                        '<td><input type="text" name="org-name" readonly="readonly" placeholder="请选择" data-jstree="js-tree-box" class="org-name form-control js-tree-box js-input input-sm" /><input type="hidden" name="name5" class="tree-show-hiddenVal js-input"></td>' +
+                        '<td><select style="width:200px;" name="judge-leader" class="judge-leader form-control input-sm"><option value="">-请选择-</option><option value="1">是</option><option value="0">否</option></select></td>' +
+                        '<td></td></tr>');
+                    table.row.add($jRow).draw();
+                    COM_TOOLS.select2_init('js_role_' + counter,{/*select2-本地缓存数据*/
+                        ispinyin: true,
+                        other:{
+                            data:SELECT_DATA_ROLE
+                        }
+                    });
+                    
+                    API_drop_jstree_ = COM_TOOLS._view.cus_drop_jstree($jRow.find('.js-tree-box'), $jRow.find('.tree-show-hiddenVal'),{
+                        'hasPinyin' : true,
+                        'url' : '/jstree7/api',
+                        'groupName' : 'js-org-data'
+                    });
+                }
+                //var cur_user_id=; //当前用户id
+                function validateRepeatAndIsNull(tr_) {
+                    if(!API_drop_jstree_.jstree_api) {
+                        COM_TOOLS.alert("角色名称、组织名称、是否主管的值不能为空");
+                        return false;
+                    };
+                    var $roleName_obj = tr_.find(".role-name option:selected"), //角色
+                        roleName_arr = [], //角色 ，多个
+                        org_arr = API_drop_jstree_.jstree_api.get_selected(true),
+                        judge_val = $.trim(tr_.find(".judge-leader").val()), //是否主管
+                        judge_txt = $.trim(tr_.find(".judge-leader option:selected").text()), //是否主管-名称
+                        Repeat_data = [],
+                        All_data = [],
+                        param_ = {};
+                        
+                    $roleName_obj.each(function(){
+                    	roleName_arr.push({
+                    		id:$(this).attr('value'),
+                    		text:$(this).text()
+                    	});
+                    });
+                    if(roleName_arr.length && org_arr.length && judge_val) { //非空
+                        var data_ = table.rows(":not(.js-editor)").data();
+                            
+                        $.each(data_, function(i, n) {
+                            All_data.push(n["roleId"] + n["organizationId"] + '');
+                        });
+                        if(roleName_arr.length > 1 && org_arr.length > 1) {
+                            COM_TOOLS.alert("角色名称与组织名称不能同时多选");
+                            return false;
+                        } else {
+                            if(org_arr.length > 1) {/*组织多个*/
+                                $.each(org_arr,function(i){
+                                    if($.inArray(roleName_arr[0].id + org_arr[i].id + '', All_data) == -1) { //判断重复数据 与 拆条
+                                        ++counter;
+                                        table.row.add({
+                                            "js_by_id":counter,
+                                            "roleId": roleName_arr[0].id,
+                                            "organizationId":org_arr[i].id,
+                                            "isCharge": judge_val,
+                                            "userName": "王阳明",
+                                            "roleName": roleName_arr[0].text,
+                                            "organizationName": org_arr[i].text
+                                        }).nodes().to$().addClass("js-add-data").addClass("bg-info");
+                                        
+                                    } else {
+                                        Repeat_data.push(i);
+                                    }
+                                })
+                                 table.row('.js-editor').remove();
+                                param_["all_add_data"]=org_arr.length;/*新增条数*/
+                           
+                            } else if(roleName_arr.length > 1) {/*角色多个*/
+                                
+                                $.each(roleName_arr,function(i){
+                                    if($.inArray(roleName_arr[i].id + org_arr[0].id + '', All_data) == -1) { //判断重复数据 与 拆条
+                                        ++counter;
+                                        table.row.add({
+                                            "js_by_id":counter,
+                                            "roleId": roleName_arr[i].id,
+                                            "organizationId":org_arr[0].id,
+                                            "isCharge": judge_val,
+                                            "userName": "王阳明",
+                                            "roleName": roleName_arr[i].text,
+                                            "organizationName": org_arr[0].text
+                                        }).nodes().to$().addClass("js-add-data").addClass("bg-info");
+                                    } else {
+                                        Repeat_data.push(i);
+                                    }
+                                })
+                                 table.row('.js-editor').remove();
+                                param_["all_add_data"]=roleName_arr.length;/*新增条数*/     
+
+                            } else {/*角色和组织都一条数据*/
+                                if($.inArray(roleName_arr[0].id + org_arr[0].id + '', All_data) == -1) { //判断重复数据 与 拆条
+                                        ++counter;
+                                        table.row.add({
+                                            "js_by_id":counter,
+                                            "roleId": roleName_arr[0].id,
+                                            "organizationId":org_arr[0].id,
+                                            "isCharge": judge_val,
+                                            "userName": "王阳明",
+                                            "roleName": roleName_arr[0].text,
+                                            "organizationName": org_arr[0].text
+                                        }).nodes().to$().addClass("js-add-data").addClass("bg-info");
+                                    } else {
+                                        Repeat_data.push(1);
+                                    }
+                                table.row('.js-editor').remove();
+                                param_["all_add_data"]=1;
+                            }
+                            table.draw();
+                        }
+                    } else {
+                        COM_TOOLS.alert("角色名称、组织名称、是否主管的值不能为空");
+                        return false;
+                    }
+                    param_["repeat_data"] = Repeat_data.length;
+                    param_["add_data"] = param_["all_add_data"] - Repeat_data.length;
+                    return param_;
+
+                }
+                //新增按钮
+                $('#add_man').click(function() {
+                    var tr_ = table.rows('.js-editor').nodes().to$(); //1.
+                    if(tr_.length) {
+                        var param_ = validateRepeatAndIsNull(tr_);
+                        if(param_) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.format("新增{0}条数据,重复{1}条数据", [param_["add_data"], param_["repeat_data"]]));
+                            table.row('.js-editor').remove().draw();
+                            addRow();
+                        }
+                    } else {
+                        addRow();
+                    }
+                });
+
+                //批量删除
+                $("#all_delete_btn").click(function(){
+                    var that_=$(this);
+                    if(table.rows(".selected").nodes().to$().length==0){COM_TOOLS.alert("至少选择一条数据");return false;}
+                    COM_TOOLS.confirm("确认删除吗？", function(in_) {
+                            layer.close(in_);
+                            var id_=COM_TOOLS.DT_getRowsSourceData(table,":not(.js-add-data).selected",'js_by_id');
+                            /*判断存在无id数据*/
+                            if(table.rows(".selected.js-add-data").nodes().to$().length!=0){
+                                table.rows(".selected.js-add-data").remove();
+                                table.rows(".selected.js-add-data").nodes().to$().remove();
+                                if(id_.length==0){
+                                    table.draw();
+                                    return false;
+                                }
+                            }
+                                COM_TOOLS.ajaxFn({
+                                    url: '/datatable/lty',
+                                    type: 'post',
+                                    data: id_,
+                                    success: function(data) {
+                                        table.rows(".selected").remove();
+                                        table.rows(".selected").nodes().to$().remove();
+                                        table.draw();
+                                        if(data.code == '1') {
+                                            COM_TOOLS.alert("操作成功");
+                                        } else {
+                                            COM_TOOLS.alert("操作失败");
+                                        }
+                                    },
+                                }, 2, that_);
+                        })
+                    
+                    
+                })
+                //删除按钮 删除数据成功后不能立即刷新-
+                table.on('click', 'tbody .delet_btn', function() {
+                    var that_ = $(this);
+                    var cur_tr = $(this).closest('tr');
+                    if(cur_tr.hasClass('js-add-data')) {
+                        COM_TOOLS.confirm("确认删除吗？", function(in_) { //防止误删
+                            layer.close(in_);
+                            table.row(cur_tr).remove(); //不建议立即刷新 只删除掉datatable的缓存数据
+                            cur_tr.remove(); //将demo删除掉
+                        });
+                    } else {
+                        //获取当前行的id
+                        var id_ = COM_TOOLS.DT_getRowsSourceData(table, cur_tr, 'js_by_id');
+                        COM_TOOLS.confirm("确认删除吗？", function(in_) {
+                            layer.close(in_);
+                            if(id_) {
+                                COM_TOOLS.ajaxFn({
+                                    url: '/datatable/lty',
+                                    type: 'post',
+                                    data: id_,
+                                    success: function(data) {
+                                        table.row(cur_tr).remove();
+                                        cur_tr.remove();
+                                        if(data.code == '1') {
+                                            COM_TOOLS.alert("操作成功");
+                                        } else {
+                                            COM_TOOLS.alert("操作失败");
+                                        }
+                                    },
+                                }, 2, that_);
+                            }
+                        })
+                    }
+                });
+
+                function savaData(btn_) {
+                    var data_ = JSON.stringify(COM_TOOLS.DT_getRowsSourceData(table, '.js-add-data:not(".js-editor")'));
+                    console.log("12345", data_);
+                    COM_TOOLS.ajaxFn({
+                        url: '/datatable/lty',
+                        type: 'post',
+                        dataType: 'json',
+                        data: data_,
+                        success: function(data, status) {
+                            if(data.code == '1') {
+                                //并去掉class"add_data"
+                                $('.js-add-data:not(".js-editor")').removeClass("bg-info").removeClass('js-add-data');
+                                parent.COM_TOOLS.alert("操作成功");
+                            } else {
+                                parent.COM_TOOLS.alert(data.msg, {
+                                    time: 5000
+                                });
+                            }
+                        }
+                    }, 2, btn_);
+                }
+                //新-保存按钮 进行非空与去重验证
+                $("#save_btn").click(function() {
+                    var that_ = $(this),
+                        tr_ = table.rows('.js-editor').nodes().to$(),
+                        tr_js_add = table.rows(".js-add-data:not(.js-editor)").nodes().to$();
+                    if(tr_js_add.length) {
+                        savaData(that_);
+                        COM_TOOLS.alert(TEDU_MESSAGE.format("新增{0}条数据", [tr_js_add.length]));
+                        return false;
+                    }
+                    if(tr_.length) {
+                        var param_ = validateRepeatAndIsNull(tr_);
+                        if(param_) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.format("新增{0}条数据,重复{1}条数据", [param_["add_data"], param_["repeat_data"]]));
+                            table.row('.js-editor').remove().draw();
+                            addRow();
+                            if(param_["add_data"]!==0){savaData(that_);}/*存在新增数据 则保存数据*/
+                        }
+                    } else {
+                        addRow();
+                        return false;
+                    }
+
+                });
+                //刷新数据 将数据库中的数据同步到前台
+                $('#refresh_btn').click(function() {
+                    COM_TOOLS.DT_ajaxReload(table);
+                });
+            });
+            $(function() {
+                TEXT_get_jsDoc('DT_init', function(n) {
+                    $('#thedoc').prepend(n + '\r\n\r\n');
+                });
+            });
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+        <script>
+            $(function() {
+                $('pre').each(function(i, n) {
+                    hljs.highlightBlock(n);
+                });
+            });
+        </script>
+    </body>
+
+</html>

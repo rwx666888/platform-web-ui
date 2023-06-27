@@ -1,0 +1,573 @@
+<!--  -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>出纳核对结果页</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .cus-table .col-sm-6{
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .cus-table .panel-body{
+            position: relative;
+            padding: 6px;
+            overflow-x: auto;
+            min-height: 300px;
+        }
+        .cus-table .table .w60{
+            min-width: 60px;
+        }
+        .cus-table .table .w70{
+            min-width: 70px;
+        }
+        .cus-table .table .tips1{
+            background-color: #f2dede;
+            color: #ed5565;
+        }
+        .cus-table .table .tips2{
+            background-color: #fcf8e3;
+            color: #f8ac59;
+        }
+        .cus-table .table .font12{
+            font-size: 12px;
+            font-weight: 400;
+        }
+        .cus-table .table{
+            margin-bottom: 0;
+            text-align: center;
+        }
+        
+        .cus-table .table > tbody > tr > td{
+            /* padding: 6px 3px; */
+        }
+        .cus-table .loading{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 20;
+            transform: translate3d(-50%,-50%,0);
+            display: inline-block;
+            padding: 10px 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 0 0 5px #eee;
+        }
+        .cus-table .loading.err{
+            border-color: #f9d0d0;
+            box-shadow: 0 0 5px #f9d0d0;
+        }
+        .cus-form {
+            padding-top: 0;
+        }
+        .cus-form .inp-ts{
+            display: inline-block;
+            width: 100px;
+            background-color: #fcf8e3;
+        }
+        .cus-form .inp-ts[disabled]{
+            background-color: #eee;
+        }
+        .cus-form .txt-ts{
+            margin-top: 8px;
+            resize: none;
+        }
+        .cus-form .checkbox-inline{
+            user-select: none;
+        }
+        .cus-form .checkbox-inline>span{
+            margin-left: -4px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 按钮 -->
+    <div class="container-fluid">
+        <div class="row" style="min-height: 50px;">
+            <div class="p-xs col-xs-12 text-center affix" id="demoaffix1" data-spy="affix" data-offset-top="50">
+                <button class="btn btn-primary btn-sm" type="button" id="btn_yes">一致无差额</button>
+                <button class="btn btn-success btn-sm" type="button" id="btn_no">存在差异</button>
+            </div>
+        </div>
+    </div>
+    <!-- 内容 -->
+    <div class="container-fluid">
+        <!-- table -->
+        <div class="row cus-table">
+            <div class="col-sm-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">资金日盘点</div>
+                    <div class="panel-body">
+                        <table id="table_l" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="w60">日记账<br>分类</th>
+                                    <th>账户</th>
+                                    <th>余额</th>
+                                    <th>收入<br>总金额<br><span class="font12">(除手续费)</span></th>
+                                    <th>支出<br>总金额<br><span class="font12">(除手续费)</span></th>
+                                    <th>手续费</th>
+                                    <th class="w70">当日<br>变动金额</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>银行</td>
+                                    <td>-</td>
+                                    <td class="tips">1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td class="tips">2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td>2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td class="tips">2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>现金</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>微信</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>40</td>
+                                </tr>
+                                <tr>
+                                    <td>支付宝</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>30</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <!-- loading -->
+                        <div class="loading">加载中</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">资金日记账明细</div>
+                    <div class="panel-body">
+                        <table id="table_r" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="w60">类别</th>
+                                    <th>账户</th>
+                                    <th>余额</th>
+                                    <th>收入<br>总金额<br><span class="font12">(含手续费)</span></th>
+                                    <th>支出<br>总金额<br><span class="font12">(含手续费)</span></th>
+                                    <th>手续费</th>
+                                    <th class="w70">当日<br>变动金额</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>银行</td>
+                                    <td>-</td>
+                                    <td class="tips">1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td class="tips">2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td>2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td class="tips">2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>现金</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>微信</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>40</td>
+                                </tr>
+                                <tr>
+                                    <td>支付宝</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>30</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <!-- loading -->
+                        <div class="loading">加载中</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- choice -->
+        <div class="row cus-form">
+            <form id="jsForm" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">差异分类：</label>
+                    <div class="col-sm-4 js-inp-group">
+                        <label class="checkbox-inline">
+                            <input class="js-checkbox" type="checkbox" value="" name="">
+                            <span>业务未录入crm</span>
+                        </label>
+                        <input class="form-control input-sm pull-right inp-ts js-item" disabled type="text" placeholder="金额"
+                            name="a1_inp">
+                        <textarea placeholder="请录入差异描述" class="form-control input-sm txt-ts js-item" disabled name="a1_txt"></textarea>
+                    </div>
+                    <label class="col-sm-1 control-label"></label>
+                    <div class="col-sm-4 js-inp-group">
+                        <label class="checkbox-inline">
+                            <input class="js-checkbox" type="checkbox" value="" name="">
+                            <span>账务错入日记账</span>
+                        </label>
+                        <input class="form-control input-sm pull-right inp-ts js-item" disabled type="text" placeholder="金额"
+                            name="a2_inp">
+                        <textarea placeholder="请录入差异描述" class="form-control input-sm txt-ts js-item" disabled name="a2_txt"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-4 js-inp-group">
+                        <label class="checkbox-inline">
+                            <input class="js-checkbox" type="checkbox" value="" name="">
+                            <span>银行未到账</span>
+                        </label>
+                        <input class="form-control input-sm pull-right inp-ts js-item" disabled type="text" placeholder="金额"
+                            name="a3_inp">
+                        <textarea placeholder="请录入差异描述" class="form-control input-sm txt-ts js-item" disabled name="a3_txt"></textarea>
+                    </div>
+                    <label class="col-sm-1 control-label"></label>
+                    <div class="col-sm-4 js-inp-group">
+                        <label class="checkbox-inline">
+                            <input class="js-checkbox" type="checkbox" value="" name="">
+                            <span>录入错误当日未审批完成</span>
+                        </label>
+                        <input class="form-control input-sm pull-right inp-ts js-item" disabled type="text" placeholder="金额"
+                            name="a4_inp">
+                        <textarea placeholder="请录入差异描述" class="form-control input-sm txt-ts js-item" disabled name="a4_txt"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-4 js-inp-group">
+                        <label class="checkbox-inline">
+                            <input class="js-checkbox" type="checkbox" value="" name="">
+                            <span>财务漏入日记账</span>
+                        </label>
+                        <input class="form-control input-sm pull-right inp-ts js-item" disabled type="text" placeholder="金额"
+                            name="a5_inp">
+                        <textarea placeholder="请录入差异描述" class="form-control input-sm txt-ts js-item" disabled name="a5_txt"></textarea>
+                    </div>
+                    <label class="col-sm-1 control-label"></label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../i18n/zh-CN.js"></script>
+
+    <script src="../../js/plugins/validate/jquery.validate.custom.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript" src="../../js/subindex.js"></script>
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script src="./data.mc.js"></script>
+    <script>
+        // getTableData('/api/t1', {a:'a1'}), getTableData('/api/t2', {b:'b1'})
+        $(function () {
+            // handle data
+            function handleData(data, type) {
+                var remainSum=0,
+                    incomeSum = 0,
+                    paySum = 0,
+                    costSum = 0,
+                    changeSum = 0;
+
+                if ($.type(data) == 'array') {
+                    for (var i = 0; i < data.length; i++) {
+                        var e = data[i];
+                        if (e.dailyBookType == type) {
+                            if (e.detailList.length) {
+                                for (var i2 = 0; i2 < e.detailList.length; i2++) {
+                                    var e2 = e.detailList[i2];
+                                    remainSum += Number(e2.balance);
+                                    incomeSum += Number(e2.incomeChangeMoney);
+                                    paySum += Number(e2.expendChangeMoney);
+                                    costSum += Number(e2.serviceMoney);
+                                    changeSum += Number(e2.changeMoney);
+                                }
+                                // reset data
+                                e.balance =remainSum;
+                                e.incomeChangeMoney = incomeSum;
+                                e.expendChangeMoney = paySum;
+                                e.serviceMoney = costSum;
+                                e.changeMoney = changeSum;
+                            }
+                            break;
+                        }
+                    }
+                }
+                return data;
+            }
+            // judge data
+            function judgeData(obj1, obj2){
+                var res = [],
+                    b_ = obj1,
+                    s_ = obj2;
+                // 判断大小
+                if(!(b_.size > s_.size)){
+                    b_ = obj2;
+                    s_ = obj1;
+                }
+                for (var key in b_) {
+                    if (b_.hasOwnProperty(key)) {
+                        var v_ = b_[key];
+                        if( v_ != s_[key] && key != 'size'){
+                            res.push(key);
+                        }
+                    }
+                }
+                    // console.log(b_, s_);
+                /* if(arr1.length != arr2.length){
+                    // COM_TOOLS.alert('两表数据不一致');
+                    return [];
+                }
+                for(var i=0;i<arr1.length;i++){
+                    if(arr1[i] != arr2[i]){
+                        res.push(i);
+                    }
+                } */
+                return res;
+            }
+            // rendar table
+            function renderTable(data) {
+                var html = [],
+                    rArr = [],
+                    rObj = {};
+                var size_ = 0;
+                var dataFormat = function (data) {
+                    return (data || '');
+                }
+                if ($.type(data) == 'array') {
+                    size_ = data.length;
+                    for (var i = 0; i < data.length; i++) {
+                        var e = data[i];
+                        // 余额
+                        if(e.dailyBookType){
+                            rObj[e.dailyBookType] = e.balance;
+                        }else{
+                            rObj['b_' + e.bankNo] = e.balance;
+                        }
+                        // rArr.push(e.balance);
+
+                        html.push('<tr>');
+                        html.push('<td>' + dataFormat(e.dailyBookTypeStr) + '</td>');
+                        html.push('<td>' + dataFormat(e.bankNo) +  dataFormat(e.currencyStr) + '</td>');
+                        html.push('<td class="js-remain" data-item="'+ (e.dailyBookType ? e.dailyBookType : 'b_' + e.bankNo ) +'">' + dataFormat(e.balance) + '</td>');
+                        html.push('<td>' + dataFormat(e.incomeChangeMoney) + '</td>');
+                        html.push('<td>' + dataFormat(e.expendChangeMoney) + '</td>');
+                        html.push('<td>' + dataFormat(e.serviceMoney) + '</td>');
+                        html.push('<td>' + dataFormat(e.changeMoney) + '</td>');
+                        html.push('</tr>');
+                        if (e.detailList && e.detailList.length) {
+                            var tmp = renderTable(e.detailList);
+                            html.push(tmp.html);
+                            // console.log(tmp);
+                            // rArr = rArr.concat(tmp.arr);
+                            size_ += tmp.obj.size;
+                            rObj = $.extend(true, rObj, tmp.obj);
+                            // rObj.size = size_;
+                            // console.log(size_, rObj);
+                        }
+                    }
+                    rObj.size = size_;
+                }
+                // return {html: html.join(''), arr: rArr};
+                // console.log('t-', rObj);
+                return {html: html.join(''), obj: rObj};
+            }
+            // ajax
+            function getTableData(url, data) {
+                return $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: url,
+                    data: data,
+                    cache: false
+                })
+            }
+            // deferreds all
+            /* var tableDataL = JSON.parse('${realMoneyCheckList}');
+            var tableDataR = JSON.parse('${dailyBookCheckList}'); */
+            // console.log(tableDataL)
+            $.when(getTableData('/api/t1', {a:'a1'}), getTableData('/api/t2', {b:'b1'})).done(function (res_l, res_r) {
+                var res_l = handleData(res_l[0], 'b');
+                var res_r = handleData(res_r[0], 'b');
+            	// console.log(res_l, res_r);
+                var handle_l = renderTable(res_l);
+                var handle_r = renderTable(res_r);
+                // console.log('handle-', handle_l.obj, handle_r.obj);
+                $('#table_l tbody').html(handle_l.html);
+                $('#table_r tbody').html(handle_r.html);
+                var conflict = judgeData(handle_l.obj, handle_r.obj);
+                console.log(conflict);
+                // conflict
+                $.each(conflict, function(i, n){
+                    // console.log(i, n);
+                    if(!$('#btn_yes').attr('disabled')){
+                        $('#btn_yes').attr('disabled', true);
+                    }
+                    // console.log($('#table_r .js-remain').filter('[data-item='+ n +']'));
+                    $('#table_l .js-remain').filter('[data-item='+ n +']').addClass('tips1');
+                    $('#table_r .js-remain').filter('[data-item='+ n +']').addClass('tips1');
+                });
+                // none
+                $('#table_l .js-remain').filter(':not(.tips1)').addClass('tips2');
+                $('#table_r .js-remain').filter(':not(.tips1)').addClass('tips2');
+                // hide loading
+                $('.cus-table .loading').hide();
+            }).fail(function (err) {
+                $('.cus-table .loading').addClass('err').text('数据错误，请重试。');
+            })
+            // submit
+            $('#jsForm').validate({
+                submitHandler: function (form) {
+                    var s_data = COM_TOOLS.serializeObject(form);
+                    var r_data = $.param(s_data);
+                    if(subType == 1){
+                    	if(r_data.length > 0){
+                    		COM_TOOLS.alert('当前页面存在差异');
+                    		return;
+                    	}
+                    	r_data = 'flag=1';
+                    }else if(subType == 0){
+                    	if(r_data.length == 0){
+                    		COM_TOOLS.alert('请补全差异信息');
+                    		return;
+                    	}
+                    	r_data = r_data+'&flag=0';
+                    }
+                    $.ajax({
+						type : 'POST',
+						url : '${contextPath}/${action}', //上传路径
+						data : r_data,
+						success : function(d) {
+							if (d.code == 1) {
+								 COM_TOOLS.loadingShade.close();
+		                         parent.COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.success'));
+		                         cumParentCallValue();
+							} else {
+								COM_TOOLS.alert(d.msg,{time : 5000});
+							}
+						},
+						error : function() {
+							COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.exception'));
+						}
+					});
+                }
+            })
+            // evnetbind
+            var subType = 0;
+            $('body').on('click.checkbox', '.js-checkbox', function () {
+                var t_ = $(this);
+                var item_ = t_.closest('.js-inp-group').find('.js-item')
+                if (!t_.prop('checked')) { // 禁止
+                    item_.attr('disabled', true)
+                    item_.removeAttr('required')
+                    item_.tooltip('destroy');
+                } else { // 启用
+                    item_.removeAttr('disabled')
+                    item_.attr('required', true)
+                }
+            }).on('click.yes', '#btn_yes', function () {
+                // 一致
+                subType = 1;
+                $('#jsForm').submit()
+            }).on('click.yes', '#btn_no', function () {
+                // 不一致
+                subType = 0;
+                $('#jsForm').submit()
+            })
+        })
+    </script>
+</body>
+
+</html>

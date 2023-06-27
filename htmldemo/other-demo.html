@@ -1,0 +1,609 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>其它组件范例</title>
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../css/plugins/webui-popover/jquery.webui-popover.min.css" />
+        <link href="../css/plugins/bootstrapTour/bootstrap-tour.min.css" rel="stylesheet" />
+        <link href="../css/plugins/jsTree/style.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/style.css" />
+
+        <!-- 以下JS因演示demo需要，所以在head中引入 -->
+        <script src="../js/jquery-2.1.1.js"></script>
+
+        <!-- 以下js仅用于演示 -->
+        <script src="../js/plugins/beautifier/beautifier.min.js"></script>
+        <script src="../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../demo-data.js"></script>
+        <style type="text/css">
+            pre {
+                white-space: pre-wrap;
+                white-space: -moz-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                word-wrap: break-word;
+            }
+            .demo-box {
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                position: relative;
+                border-radius: 5px;
+            }
+            .tab-content {
+                overflow-y: auto;
+                max-height: 400px;
+            }
+            .navbar {
+                border-radius: 4px;
+            }
+            .navbar-default {
+                background-color: #f8f8f8;
+                border: 1px solid #e7e7e7;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h3>其它组件范例</h3>
+
+            </div>
+            <!-- 实例1 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">详情信息窗</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <button class="btn btn-info" id="demo1-btn1">鼠标悬浮打开（带图片缩放）</button>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-js">
+                            <pre>
+图片缩放依赖：（开启图片缩放后，自动加载）
+&lt;script src=&quot;../js/plugins/jquery-zoom/jquery.zoom.min.js&quot;&gt;&lt;/script&gt;
+默认配置：（详见手册）
+var _defaults={
+	hideTime_:300, //隐藏的延时时间 毫秒
+	showTime_:400, //显示的延时时间 毫秒
+	html:true,
+	imageZoom:false,
+	placement:'left', //显示位置 top | bottom | left | right | auto
+	trigger:'manual',
+	container:'body',
+	maxHeight:'',
+	maxWidth:'276px',
+	title:'',
+	content:function(){
+		return callback ? callback($(this)) : '';
+	}
+};
+范例：
+COM_TOOLS.infoTipsFn(&#x27;.demo-box&#x27;,&#x27;#demo1-btn1&#x27;,
+	function(){
+		return &#x27;&lt;img src=&quot;../images/login_page_bg.png&quot;/&gt;&#x27;+
+		&#x27;&lt;p&gt;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&lt;/p&gt;&#x27;+
+		&#x27;&lt;p&gt;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&lt;/p&gt;&#x27;+
+		&#x27;&lt;p&gt;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&lt;/p&gt;&#x27;+
+		&#x27;&lt;p&gt;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&lt;/p&gt;&#x27;+
+		&#x27;&lt;p&gt;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&#x6587;&#x5B57;&#x5185;&#x5BB9;&lt;/p&gt;&#x27;;
+	},
+	{
+		placement:&#x27;right&#x27;,
+		maxHeight:&#x27;300px&#x27;,
+		imageZoom:true
+	}
+);
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-css">
+                            <pre>
+//无
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例1 结束 -->
+
+            <!-- 实例2 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">数字显示插件（小数位、千分位、进位-四舍五入）（实时录入格式化、显示格式化）</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <pre>
+//需引入jquery.number.min.js
+//基本数字格式：
+$.number( 5020.2364, [小数位数,默认(0),] [小数分隔符,默认(.),] [千分位分隔符,默认(,)]);
+$.number(5020.2364,2) //输出 5,020.24
+
+//初始化回显或实时输入
+$('.selector').number( true, 2 );
+
+//将数字写入元素的文本值中（非input,只对text()生效）
+$('.selector').number( 1234, 2 );
+</pre>
+                        <p>原创组件（效果有点lower，凑合用吧），借鉴于：
+                            <a href="https://github.com/customd/jquery-number" target="_blank">https://github.com/customd/jquery-number</a>（对中文输入法支持不好）</p>
+                        <p class="text-danger">PS:请使用英文输入法输入，否则无法有效识别小数点, 火狐、IE可给input添加 样式 ime-mode-disabled，阻止中文输入</p>
+                        <div class="form-inline">
+                            <label>实时输入格式化（火狐下不可切换输入法）: </label><input class="form-control input-sm ime-mode-disabled" id="demo2-element1" />
+                            <label>文本框初始化值格式化: </label><input class="form-control input-sm" id="demo2-element2" value="-1234567.8" />
+                            <label>其它标签初始化值格式化: </label><label id="demo2-element3" class="text-danger">-512345678.9</label>
+                            <button class="btn btn-info" id="demo2-element4">点击输出$.number(5020.2364,2)</button>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo2-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo2-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo2-html">
+                            <pre>
+
+&lt;label&gt;&#x5B9E;&#x65F6;&#x8F93;&#x5165;&#x683C;&#x5F0F;&#x5316;&#xFF08;&#x706B;&#x72D0;&#x4E0B;&#x4E0D;&#x53EF;&#x5207;&#x6362;&#x8F93;&#x5165;&#x6CD5;&#xFF09;: &lt;/label&gt;&lt;input class=&quot;form-control input-sm ime-mode-disabled&quot; id=&quot;demo2-element1&quot;/&gt; 
+&lt;label&gt;&#x6587;&#x672C;&#x6846;&#x521D;&#x59CB;&#x5316;&#x503C;&#x683C;&#x5F0F;&#x5316;: &lt;/label&gt;&lt;input class=&quot;form-control input-sm&quot; id=&quot;demo2-element2&quot; value=&quot;12345678&quot;/&gt; 
+&lt;label&gt;&#x5176;&#x5B83;&#x6807;&#x7B7E;&#x521D;&#x59CB;&#x5316;&#x503C;&#x683C;&#x5F0F;&#x5316;: &lt;/label&gt;&lt;label id=&quot;demo2-element3&quot; class=&quot;text-danger&quot;&gt;12345678&lt;/label&gt;
+&lt;button class=&quot;btn btn-info&quot; id=&quot;demo2-element4&quot;&gt;&#x70B9;&#x51FB;&#x8F93;&#x51FA;$.number(5020.2364,2)&lt;/button&gt;
+
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo2-js">
+                            <pre>
+$('#demo2-element1').number(true,2);
+$('#demo2-element2').number(true,2);
+$('#demo2-element3').number(true,2);
+$('#demo2-element4').click(function(){
+	alert($.number(5020.2364,2));
+});
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例2 结束 -->
+
+            <!-- 实例4 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">多种菜单效果演示</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <!--<div >
+		  	<button type="button" data-toggle="dropdown" aria-expanded="false">
+		    	开始菜单<span class="caret"></span>
+		  	</button>
+		    <ul class="dropdown-menu">
+			    <li><a href="javascript:void(0)">1</a></li>
+			    <li><a href="javascript:void(0)">2</a></li>
+			    <li><a href="javascript:void(0)">3</a></li>
+			</ul>
+		</div>-->
+                        <div class="navbar navbar-default">
+                            <div class="navbar-collapse">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">BS默认情况</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0)">内容1</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">内容2</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">内容3</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" data-hover="dropdown">hover组件情况</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0)">内容1</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">内容2</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">内容3</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" data-submenu>多级菜单情况</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0)">内容1</a>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="javascript:void(0)">内容2</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0)">内容21</a>
+                                                    </li>
+                                                    <li class="dropdown-submenu">
+                                                        <a href="javascript:void(0)">内容22</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a href="javascript:void(0)">内容221</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="javascript:void(0)">内容222</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0)">内容22</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">内容3</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" data-hover="dropdown" data-submenu>hover组件及多级菜单情况</a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0)">内容1</a>
+                                            </li>
+                                            <li class="dropdown-submenu">
+                                                <a href="javascript:void(0)">内容2</a>
+                                                <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0)">内容21</a>
+                                                    </li>
+                                                    <li class="dropdown-submenu">
+                                                        <a href="javascript:void(0)">内容22</a>
+                                                        <ul class="dropdown-menu">
+                                                            <li>
+                                                                <a href="javascript:void(0)">内容221</a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="javascript:void(0)">内容222</a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0)">内容22</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)">内容3</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo4-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo4-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo4-html">
+                            <pre>
+1.bootstrap&#x9ED8;&#x8BA4;&#x83DC;&#x5355;
+&#x9700;&#x8981;&#x5728;&#x76EE;&#x6807;&#x4E0A;&#x6DFB;&#x52A0; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;
+&lt;a href=&quot;javascript:void(0)&quot; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;BS&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&lt;/a&gt;
+&lt;ul class=&quot;dropdown-menu&quot;&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;1&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;2&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+2.&#x4F7F;&#x7528;dropdownHover&#x7EC4;&#x4EF6;&#xFF08;&#x4EE5;hover&#x6548;&#x679C;&#x89E6;&#x53D1;&#xFF09;
+&#x9700;&#x8981;&#x5728;&#x76EE;&#x6807;&#x4E0A;&#x6DFB;&#x52A0; data-hover=&quot;dropdown&quot;
+&lt;a href=&quot;javascript:void(0)&quot; data-hover=&quot;dropdown&quot;&gt;hover&#x7EC4;&#x4EF6;&#x60C5;&#x51B5;&lt;/a&gt;
+&lt;ul class=&quot;dropdown-menu&quot;&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;1&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;2&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+3.&#x4F7F;&#x7528;submenupicker&#x7EC4;&#x4EF6;&#xFF08;&#x591A;&#x7EA7;&#x83DC;&#x5355;&#xFF09;
+&#x9700;&#x8981;&#x5728;&#x76EE;&#x6807;&#x4E0A;&#x6DFB;&#x52A0; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; data-submenu
+&lt;a href=&quot;javascript:void(0)&quot; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; data-submenu&gt;&#x591A;&#x7EA7;&#x83DC;&#x5355;&#x60C5;&#x51B5;&lt;/a&gt;
+&lt;ul class=&quot;dropdown-menu&quot;&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;1&lt;/a&gt;&lt;/li&gt;
+	&lt;li class=&quot;dropdown-submenu&quot;&gt;
+		&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;2&lt;/a&gt;
+		&lt;ul class=&quot;dropdown-menu&quot;&gt;
+			&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;21&lt;/a&gt;&lt;/li&gt;
+			&lt;li class=&quot;dropdown-submenu&quot;&gt;
+				&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;22&lt;/a&gt;
+				&lt;ul class=&quot;dropdown-menu&quot;&gt;
+					&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;221&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;222&lt;/a&gt;&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/li&gt;
+			&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;22&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+4.&#x4F7F;&#x7528;dropdownHover&#x7EC4;&#x4EF6; &#x53CA; submenupicker&#x7EC4;&#x4EF6;&#xFF08;hover&#x591A;&#x7EA7;&#x83DC;&#x5355;&#xFF09;
+&lt;a href=&quot;javascript:void(0)&quot; data-hover=&quot;dropdown&quot; data-submenu&gt;hover&#x7EC4;&#x4EF6;&#x53CA;&#x591A;&#x7EA7;&#x83DC;&#x5355;&#x60C5;&#x51B5;&lt;/a&gt;
+&lt;ul class=&quot;dropdown-menu&quot;&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;1&lt;/a&gt;&lt;/li&gt;
+	&lt;li class=&quot;dropdown-submenu&quot;&gt;
+		&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;2&lt;/a&gt;
+		&lt;ul class=&quot;dropdown-menu&quot;&gt;
+			&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;21&lt;/a&gt;&lt;/li&gt;
+			&lt;li class=&quot;dropdown-submenu&quot;&gt;
+				&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;22&lt;/a&gt;
+				&lt;ul class=&quot;dropdown-menu&quot;&gt;
+					&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;221&lt;/a&gt;&lt;/li&gt;
+					&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;222&lt;/a&gt;&lt;/li&gt;
+				&lt;/ul&gt;
+			&lt;/li&gt;
+			&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;22&lt;/a&gt;&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;&#x5185;&#x5BB9;3&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo4-js">
+                            <pre>
+1.bootstrap&#x9ED8;&#x8BA4;&#x4E0D;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#x4EFB;&#x4F55;js&#x4EE3;&#x7801;
+2.&#x4F7F;&#x7528;dropdownHover&#x7EC4;&#x4EF6;&#x4EE5;hover&#x65B9;&#x5F0F;&#x662F;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#xFF1A;$(&#x27;[data-hover=&quot;dropdown&quot;]&#x27;).dropdownHover();
+3.&#x4F7F;&#x7528;submenupicker&#x7EC4;&#x4EF6;&#xFF0C;&#x652F;&#x6301;&#x591A;&#x7EA7;&#x83DC;&#x5355;&#x65F6;&#x9700;&#x8981;&#x6DFB;&#x52A0;&#xFF1A;$(&#x27;[data-submenu]&#x27;).submenupicker();
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例4 结束 -->
+
+            <!-- 实例5 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">带树形组件的下拉菜单</div>
+                <div class="panel-body">
+                    <div class="demo-box">
+                        <div class="" style="width: 350px;">
+                            <input type="text" style="width: 100%;" id="id_demo5" class="js-dy-creation form-control">
+                            <input type="hidden" value="a1_1" id="id_demo5_val">
+                        </div>
+
+                        <button type="button" class="btn btn-default" data-toggle="cus_dropdown">
+          Popover on 顶部
+        </button>
+
+                        <button type="button" class="btn btn-default" id="ffff">
+          Popover on 顶部
+        </button>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo5-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo5-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo5-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo5-html" style="height: 500px;">
+                            <pre>
+//TODO
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo5-js">
+                            <pre>
+//TODO
+</pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo5-css">
+                            <pre>
+//TODO
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例5 结束 -->
+
+            <!-- 实例6 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">服务器ajax分页</div>
+                <div class="panel-body">
+                    <div class="demo-box js-auto-init-demobox">
+                        <div class="p-sm bg-warning">只有部门: <span id="demo6-btn-1" class="text-success">编辑</span></div>
+                        <div style="margin: 15px 0; border: 1px solid #DDDDDD; padding: 10px 0 0 10px;">
+                            <textarea id="demo6-btn-1_hidden" class="" autocomplete="off">
+                [{
+                    "code": "code_0_1_2_1_2",
+                    "type": "0"
+                },
+                {
+                    "code": "code_0_1_1",
+                    "type": "0"
+                }]
+            </textarea>
+                        </div>
+
+                        <div class="p-sm bg-warning">部门和人员: <span id="demo6-btn-2" class="text-success">编辑</span></div>
+                        <div style="margin: 15px 0; border: 1px solid #DDDDDD; padding: 10px 0 0 10px;">
+                            <textarea id="demo6-btn-2_hidden" class="" autocomplete="off">
+                [{
+                    "code": "code_0_1_2_1_2",
+                    "type": "0"
+                },
+                {
+                    "code": "code_0_1_1",
+                    "type": "0"
+                }]
+            </textarea>
+                        </div>
+
+                        <div class="p-sm bg-warning">部门和人员（但只能选人）,带回调函数示例: <span id="demo6-btn-3" class="text-success">编辑</span></div>
+                        <div style="margin: 15px 0; border: 1px solid #DDDDDD; padding: 10px 0 0 10px;">
+                            <textarea id="demo6-btn-3_hidden" class="" autocomplete="off">
+                [{
+                    "code": "code_0_1_2_1_2",
+                    "type": "0"
+                },
+                {
+                    "code": "code_0_1_1",
+                    "type": "0"
+                },
+                {
+                    "code": "code_0_1_2",
+                    "type": "1"
+                },
+                {
+                    "code": "code_0_2_2_1_2",
+                    "type": "1"
+                }]
+            </textarea>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo6-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo6-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo6-css" role="tab" data-toggle="tab">css</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo6-html">
+                            <pre class="js-auto-init-htmlcode"><!-- 启用“js-auto-init”后此处不需要编写代码；否则填写转义后的HTML代码 --></pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo6-js">
+                            <script class="js-auto-init-jscode">
+                                //type: 1, 1（默认）：组织与人员；2：组织；
+                                //only_sel_people: false, 是否只可选择人员;仅"type==1"时有效;
+                                $(function () {
+                                    COM_TOOLS._model.orgModel('demo6-btn-1', 'demo6-btn-1_hidden', {
+                                        max_num: 8,
+                                        type: 2
+                                    });
+                                    COM_TOOLS._model.orgModel('demo6-btn-2', 'demo6-btn-2_hidden', {
+                                        max_num: 8
+                                    });
+                                    COM_TOOLS._model.orgModel('demo6-btn-3', 'demo6-btn-3_hidden', {
+                                        max_num: 5,
+                                        only_sel_people: true,
+                                        cb: function (list) { //确认按钮回调，返回所有选择的数据，不包括扩展属性
+                                            COM_TOOLS.alert2('你选择的数据是：<br/>' + JSON.stringify(list));
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo6-css">
+                            <pre><!-- 此处编写转义后的用于初始化demo的 CSS代码(如果需要) --></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例6 结束 -->
+
+            <script src="../js/bootstrap.js"></script>
+            <!-- Custom and plugin javascript -->
+            <script src="../js/plugins/layer/layer.js"></script>
+
+            <script src="../js/plugins/bootstrapTour/bootstrap-tour.min.js"></script>
+            <script src="../js/plugins/jquery-number/jquery.number.js"></script>
+            <script src="../js/plugins/moment/moment.min.js"></script>
+            <script src="../js/bootstrap-plugins-custom.js"></script>
+            <script src="../js/plugins/jsTree/jstree.min.js"></script>
+
+            <script src="../i18n/zh-CN.js"></script>
+            <script src="../js/subindex.js"></script>
+
+            <script type="text/javascript">
+                $(function () {
+                    COM_TOOLS.infoTipsFn('.demo-box', '#demo1-btn1',
+                        function () {
+                            return '<img src="../images/login_page_bg.png"/>' +
+                                '<p>文字内容文字内容文字内容文字内容</p>' +
+                                '<p>文字内容文字内容文字内容文字内容</p>' +
+                                '<p>文字内容文字内容文字内容文字内容</p>' +
+                                '<p>文字内容文字内容文字内容文字内容</p>' +
+                                '<p>文字内容文字内容文字内容文字内容</p>';
+                        }, {
+                            placement: 'right',
+                            maxHeight: '300px',
+                            imageZoom: true
+                        }
+                    );
+                });
+
+                $(function () {
+                    $('#demo2-element1').number(true, 2);
+                    $('#demo2-element2').number(true, 2);
+                    $('#demo2-element3').number(true, 2);
+                    $('#demo2-element4').click(function () {
+                        alert($.number(5020.2364, 2));
+                    });
+                });
+
+                $(function () {
+                    $('[data-submenu]').submenupicker();
+                    /*$('[data-hover="dropdown"]').dropdownHover();*/
+                });
+
+                $(function () { //带树形结构的 下拉菜单
+                    window.yyyy = COM_TOOLS._view.cus_drop_jstree('id_demo5', 'id_demo5_val', {
+                        url: '/jstree7/api',
+                        groupName: 'aasa',
+                        jstree: {
+                            plugins: ['search']
+                        }
+                    });
+                });
+
+                $(function () {
+                    var uu = COM_TOOLS._view.cus_dropdown($('[data-toggle="cus_dropdown"]'), {
+                        content: 'sadasdasd'
+                    });
+                    console.log(uu.autoDestroy)
+                });
+            </script>
+
+            <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+            <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+            <script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+
+            <script>
+                $(function () {
+                    $('pre').each(function (i, n) {
+                        hljs.highlightBlock(n);
+                    });
+                });
+            </script>
+    </body>
+
+</html>

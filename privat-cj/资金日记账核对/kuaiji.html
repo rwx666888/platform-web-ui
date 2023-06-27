@@ -1,0 +1,604 @@
+<!--  -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>会计核对结果页</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .cus-table .col-sm-6{
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .cus-table .panel-body{
+            position: relative;
+            padding: 6px;
+            overflow-x: auto;
+            min-height: 300px;
+        }
+        .cus-table .table .w60{
+            min-width: 60px;
+        }
+        .cus-table .table .w70{
+            min-width: 70px;
+        }
+        .cus-table .table .tips{
+            background-color: #f2dede;
+            color: #ed5565;
+        }
+        .cus-table .table .font12{
+            font-size: 12px;
+            font-weight: 400;
+        }
+        .cus-table .table{
+            margin-bottom: 0;
+            text-align: center;
+        }
+        
+        .cus-table .table > tbody > tr > td{
+            /* padding: 6px 3px; */
+        }
+        .cus-table .loading{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 20;
+            transform: translate3d(-50%,-50%,0);
+            display: inline-block;
+            padding: 10px 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 0 0 5px #eee;
+        }
+        .cus-table .loading.err{
+            border-color: #f9d0d0;
+            box-shadow: 0 0 5px #f9d0d0;
+        }
+        .cus-form {
+            padding-top: 0;
+        }
+        .cus-form .inp-ts{
+            display: inline-block;
+            width: 100px;
+            background-color: #fcf8e3;
+        }
+        .cus-form .inp-ts[disabled]{
+            background-color: #eee;
+        }
+        .cus-form .txt-ts{
+            margin-top: 8px;
+            resize: none;
+        }
+        .cus-form .checkbox-inline{
+            user-select: none;
+            padding: 0;
+        }
+        .cus-form .checkbox-inline>span{
+            margin-left: -4px;
+        }
+        .cus-form .js-inp-group{
+            /* display: none; */
+        }
+        .div-ts{
+            padding: 10px;
+            border: 2px solid #ffdead;
+            border-radius: 5px;
+            background: #fbfbfb;
+        }
+        .div-ts .p-ts .sp2{
+            display: block;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 按钮 -->
+    <div class="container-fluid">
+        <div class="row" style="min-height: 50px;">
+            <div class="p-xs col-xs-12 text-center affix" id="demoaffix1" data-spy="affix" data-offset-top="50">
+                <button class="btn btn-primary btn-sm" type="button" id="btn_yes">一致无差额</button>
+                <button class="btn btn-success btn-sm" type="button" id="btn_no" disabled>存在差异</button>
+            </div>
+        </div>
+    </div>
+    <!-- 内容 -->
+    <div class="container-fluid">
+        <!-- table -->
+        <div class="row cus-table">
+            <div class="col-sm-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">资金日盘点</div>
+                    <div class="panel-body">
+                        <table id="table_l" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="w60">日记账<br>分类</th>
+                                    <th>账户</th>
+                                    <th>余额</th>
+                                    <th>收入<br>总金额<br><span class="font12">(除手续费)</span></th>
+                                    <th>支出<br>总金额<br><span class="font12">(除手续费)</span></th>
+                                    <th>手续费</th>
+                                    <th class="w70">当日<br>变动金额</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>银行</td>
+                                    <td>-</td>
+                                    <td class="tips">1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td class="tips">2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td>2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td class="tips">2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>现金</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>微信</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>40</td>
+                                </tr>
+                                <tr>
+                                    <td>支付宝</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>30</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <!-- loading -->
+                        <div class="loading">加载中</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">资金日记账明细</div>
+                    <div class="panel-body">
+                        <table id="table_r" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th class="w60">类别</th>
+                                    <th>账户</th>
+                                    <th>余额</th>
+                                    <th>收入<br>总金额<br><span class="font12">(含手续费)</span></th>
+                                    <th>支出<br>总金额<br><span class="font12">(含手续费)</span></th>
+                                    <th>手续费</th>
+                                    <th class="w70">当日<br>变动金额</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>银行</td>
+                                    <td>-</td>
+                                    <td class="tips">1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                    <td>1000000</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td class="tips">2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td>2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>-</td>
+                                    <td>6228480380975721818(￥)</td>
+                                    <td class="tips">2</td>
+                                    <td>0</td>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>现金</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>微信</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>40</td>
+                                </tr>
+                                <tr>
+                                    <td>支付宝</td>
+                                    <td>(￥)</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>30</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <!-- loading -->
+                        <div class="loading">加载中</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <!-- choice -->
+        <div class="row cus-form">
+            <form id="jsForm" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <div class="div-ts">
+                            <p>初核人：王二狗 <span class="pull-right">初核日期：2018-09-10</span></p>
+                            <p>初核差异分类：业务未录入crm <span class="pull-right">金额：100元</span></p>
+                            <p class="p-ts"><span class="pull-left">描述：</span><span class="sp2">xxx中心xxx咨询xxx学生xxx费用未及时录入</span></p>
+                        </div>
+                    </div>
+                    <label class="col-sm-2 control-label">差异分类：</label>
+                    <!-- item 1 -->
+                    <div class="col-sm-4 js-inp-group">
+                        <input class="js-inp-hidden" type="hidden" name="id" value="0"/>
+                        <label class="checkbox-inline">
+                            <select class="form-control input-sm js-select" name="difference">
+                                <option value="">-请选择-</option>
+                                <option value="1">业务未录入crm</option>
+                                <option value="2">账务错入日记账</option>
+                                <option value="3">银行未到账</option>
+                                <option value="4">录入错误当日未审批完成</option>
+                                <option value="5">财务漏入日记账</option>
+                                <option value="-1">一直无异议</option>
+                            </select>
+                        </label>
+                        <input class="form-control input-sm pull-right inp-ts js-item js-money" disabled type="text" placeholder="金额"
+                            name="money">
+                        <textarea placeholder="请录入差异描述" class="form-control input-sm txt-ts js-item js-remark" disabled name="remark"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <div class="div-ts">
+                            <p>初核人：王二狗 <span class="pull-right">初核日期：2018-09-10</span></p>
+                            <p>初核差异分类：业务未录入crm <span class="pull-right">金额：100元</span></p>
+                            <p class="p-ts"><span class="pull-left">描述：</span><span class="sp2">xxx中心xxx咨询xxx学生xxx费用未及时录入</span></p>
+                        </div>
+                    </div>
+                    <label class="col-sm-2 control-label">差异分类：</label>
+                    <!-- item 1 -->
+                    <div class="col-sm-4 js-inp-group">
+                        <input class="js-inp-hidden" type="hidden" name="id" value="1"/>
+                        <label class="checkbox-inline">
+                            <select class="form-control input-sm js-select" name="difference">
+                                <option value="">-请选择-</option>
+                                <option value="1">业务未录入crm</option>
+                                <option value="2">账务错入日记账</option>
+                                <option value="3">银行未到账</option>
+                                <option value="4">录入错误当日未审批完成</option>
+                                <option value="5">财务漏入日记账</option>
+                                <option value="-1">一直无异议</option>
+                            </select>
+                        </label>
+                        <input class="form-control input-sm pull-right inp-ts js-item js-money" disabled type="text" placeholder="金额"
+                            name="money">
+                        <textarea placeholder="请录入差异描述" class="form-control input-sm txt-ts js-item js-remark" disabled name="remark"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-5">
+                        <div class="div-ts">
+                            <p>初核人：王二狗 <span class="pull-right">初核日期：2018-09-10</span></p>
+                            <p>初核差异分类：业务未录入crm <span class="pull-right">金额：100元</span></p>
+                            <p class="p-ts"><span class="pull-left">描述：</span><span class="sp2">xxx中心xxx咨询xxx学生xxx费用未及时录入</span></p>
+                        </div>
+                    </div>
+                    <label class="col-sm-2 control-label">差异分类：</label>
+                    <!-- item 1 -->
+                    <div class="col-sm-4 js-inp-group">
+                        <input class="js-inp-hidden" type="hidden" name="id" value="2"/>
+                        <label class="checkbox-inline">
+                            <select class="form-control input-sm js-select" name="difference">
+                                <option value="">-请选择-</option>
+                                <option value="1">业务未录入crm</option>
+                                <option value="2">账务错入日记账</option>
+                                <option value="3">银行未到账</option>
+                                <option value="4">录入错误当日未审批完成</option>
+                                <option value="5">财务漏入日记账</option>
+                                <option value="-1">一直无异议</option>
+                            </select>
+                        </label>
+                        <input class="form-control input-sm pull-right inp-ts js-item js-money" disabled type="text" placeholder="金额"
+                            name="money">
+                        <textarea placeholder="请录入差异描述" class="form-control input-sm txt-ts js-item js-remark" disabled name="remark"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../i18n/zh-CN.js"></script>
+
+    <script src="../../js/plugins/validate/jquery.validate.custom.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript" src="../../js/subindex.js"></script>
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script src="./data.mc.js"></script>
+    <script>
+        $(function () {
+            // handle data
+            function handleData(data, type) {
+                var remainSum = 0,
+                    incomeSum = 0,
+                    paySum = 0,
+                    costSum = 0,
+                    changeSum = 0;
+
+                if ($.type(data) == 'array') {
+                    for (var i = 0; i < data.length; i++) {
+                        var e = data[i];
+                        if (e.type == type) {
+                            if (e.list.length) {
+                                for (var i2 = 0; i2 < e.list.length; i2++) {
+                                    var e2 = e.list[i2];
+                                    remainSum += Number(e2.remain);
+                                    incomeSum += Number(e2.incomeSum);
+                                    paySum += Number(e2.paySum);
+                                    costSum += Number(e2.cost);
+                                    changeSum += Number(e2.change);
+                                }
+                                // reset data
+                                e.remain = remainSum;
+                                e.incomeSum = incomeSum;
+                                e.paySum = paySum;
+                                e.cost = costSum;
+                                e.change = changeSum;
+                            }
+                            break;
+                        }
+                    }
+                }
+                return data;
+            }
+            // judge data
+            function judgeData(arr1, arr2) {
+                if (arr1.length != arr2.length) {
+                    COM_TOOLS.alert('两表数据不一致');
+                    return;
+                }
+                var res = [];
+                for (var i = 0; i < arr1.length; i++) {
+                    if (arr1[i] != arr2[i]) {
+                        res.push(i);
+                    }
+                }
+                return res;
+            }
+            // rendar table
+            function renderTable(data) {
+                var html = [],
+                    rArr = [];
+                var dataFormat = function (data) {
+                    return (data || '');
+                }
+                if ($.type(data) == 'array') {
+                    for (var i = 0; i < data.length; i++) {
+                        var e = data[i];
+                        // 余额
+                        rArr.push(e.remain);
+                        html.push('<tr>');
+                        html.push('<td>' + dataFormat(e.classic) + '</td>');
+                        html.push('<td>' + dataFormat(e.account) + '（' + dataFormat(e.moneyType) + '）' +
+                            '</td>');
+                        html.push('<td class="js-remain">' + dataFormat(e.remain) + '</td>');
+                        html.push('<td>' + dataFormat(e.incomeSum) + '</td>');
+                        html.push('<td>' + dataFormat(e.paySum) + '</td>');
+                        html.push('<td>' + dataFormat(e.cost) + '</td>');
+                        html.push('<td>' + dataFormat(e.change) + '</td>');
+                        html.push('</tr>');
+                        if (e.list && e.list.length) {
+                            var tmp = renderTable(e.list);
+                            html.push(tmp.html);
+                            rArr = rArr.concat(tmp.arr);
+                        }
+                    }
+                }
+                return {
+                    html: html.join(''),
+                    arr: rArr
+                };
+            }
+            // ajax
+            function getTableData(url, data) {
+                return $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: url,
+                    data: data,
+                    cache: false
+                })
+            }
+            // show item
+            // $('.js-inp-group').eq(2).show();
+            // deferreds all
+            $.when(getTableData('/api/t1', {
+                a: 'a1'
+            }), getTableData('/api/t2', {
+                b: 'b1'
+            })).done(function (res_l, res_r) {
+                var res_l = handleData(res_l[0], 1);
+                var res_r = handleData(res_r[0], 1);
+                var handle_l = renderTable(res_l);
+                var handle_r = renderTable(res_r);
+                $('#table_l tbody').html(handle_l.html);
+                $('#table_r tbody').html(handle_r.html);
+                var conflict = judgeData(handle_l.arr, handle_r.arr);
+                // conflict
+                $.each(conflict, function (i, n) {
+                    if (!$('#btn_yes').attr('disabled')) {
+                        $('#btn_yes').attr('disabled', true);
+                    }
+                    $('#table_l .js-remain').eq(n).addClass('tips');
+                    $('#table_r .js-remain').eq(n).addClass('tips');
+                })
+                // hide loading
+                $('.cus-table .loading').hide();
+            }).fail(function (err) {
+                $('.cus-table .loading').addClass('err').text('数据错误，请重试。');
+            })
+            // subData
+            function createSubData(){
+                var arr = [];
+                $('.js-inp-group').each(function(i, n){
+                    var t_ = $(this);
+                    var s_ = t_.find('.js-select').val();
+                    var m_ = t_.find('.js-money').val();
+                    var r_ = t_.find('.js-remark').val();
+                    var i_ = t_.find('.js-inp-hidden').val();
+
+                    arr.push({
+                        id: i_,
+                        select: s_,
+                        money: m_,
+                        remark: r_,
+                    });
+                })
+                return arr;
+            }
+            // 按钮状态判断
+            function checkBtnStatus(){
+                var diff = true;
+                var noDiff = true;
+                var sLen = $('.js-select').length;
+                var eList = $('.js-select').filter(function(){
+                    var v_ = $(this).val();
+                    return v_ === '';
+                })
+                var fList = $('.js-select').filter(function(){
+                    var v_ = $(this).val();
+                    return v_ === '-1';
+                })
+                // console.log(eList.length);
+                if(eList.length == sLen || fList.length == sLen){
+                    return {noDiff: false, diff: true};
+                }
+                else if(eList.length > 0 && eList.length < sLen){
+                    return {noDiff: true, diff: true};
+                }
+                else if(eList.length === 0){
+                    return {noDiff: true, diff: false};
+                }
+            }
+            // submit
+            $('#jsForm').validate({
+                submitHandler: function (form) {
+                    // var s_data = COM_TOOLS.serializeObject(form);
+                    // var r_data = $.param(s_data);
+                    var s_data = createSubData();
+
+                    console.log(s_data);
+                }
+            })
+            var noDiffBtn = $('#btn_yes');
+            var diffBtn = $('#btn_no');
+            // evnetbind
+            $('body').on('change.select', '.js-select', function () {
+                var t_ = $(this);
+                // console.log(t_);
+                var item_ = t_.closest('.js-inp-group').find('.js-item')
+                if (t_.val() === '') { // 禁止
+                    item_.attr('disabled', true)
+                    item_.removeAttr('required')
+                    item_.tooltip('destroy');
+                } else { // 启用
+                    item_.removeAttr('disabled')
+                    item_.attr('required', true)
+                }
+
+                var statusBtn = checkBtnStatus();
+                // console.log(statusBtn);
+                noDiffBtn.attr('disabled', statusBtn.noDiff);
+                diffBtn.attr('disabled', statusBtn.diff);
+            }).on('click.yes', '#btn_yes', function () {
+                // 一致
+                $('#jsForm').submit()
+            }).on('click.yes', '#btn_no', function () {
+                // 不一致
+            })
+        })
+        /* var a={
+            flag: 1,
+            list: [{
+
+            }]
+        } */
+    </script>
+</body>
+
+</html>

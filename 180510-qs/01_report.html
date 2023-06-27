@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <title>排名-集团销售利润</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .row {
+            margin: 0 -10px
+        }
+
+        .col-sm-4,
+        .col-sm-6,
+        .col-sm-12 {
+            padding: 0 10px;
+        }
+
+        .tab-content {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .tab-content .panel {
+            margin-bottom: 0;
+        }
+
+        .table {
+            font-size: 12px;
+        }
+
+        .dataTables_wrapper {
+            padding-bottom: 0;
+        }
+
+        .panel-heading,
+        .panel-body {
+            padding: 10px;
+        }
+
+        .cus-group-area {
+            margin-top: 20px;
+        }
+
+        .cus-echarts {
+            width: 100%;
+            height: 350px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #337ab7;
+            padding-bottom: 10px;
+        }
+
+        .cus-echarts:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        /* xxw */
+        .dataTables_wrapper {
+            padding-bottom: 0;
+        }
+        .table.dataTable {
+            margin-top:0 !important;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid m-t-md">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-success">
+                <div class="panel-body clearfix">
+                    <div class="table-left-xxw pull-left" style="width: 59%;border-right: 2px solid;">
+                        <table id="dt_report_01" class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                            <thead>
+                            <tr class="hidden">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th class="text-center" colspan="2">业务类型</th>
+                                <th class="text-center" colspan="5">成人合并</th>
+                            </tr>
+                            <tr>
+                                <!--<th width="60" class="text-right" style="border-right: none;" colspan="">指</th>-->
+                                <th colspan="2" class="text-center">指标</th>
+                                <th>实际</th>
+                                <th>预算</th>
+                                <th>完成率</th>
+                                <th>同期</th>
+                                <th>增长率</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-left-xxw pull-left" style="width: 40%;">
+                        <table id="dt_report_02" class="table table-striped table-bordered nowrap pull-left" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th class="text-center" colspan="5">社招业务-老中心</th>
+                            </tr>
+                            <tr>
+                                <th>实际</th>
+                                <th>预算</th>
+                                <th>完成率</th>
+                                <th>同期</th>
+                                <th>增长率</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../js/plugins/datatables/datatables.min.js"></script>
+<script src="../js/plugins/datatables/RowsGroup/dataTables.rowsGroup.js"></script>
+<script src="../i18n/zh-CN.js" type="text/javascript"></script>
+<script src="../js/subindex.js" type="text/javascript"></script>
+<script src="../js/jquery.mockjax.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var s_data = {
+        "draw": 1,
+        "recordsTotal": 15,
+        "recordsFiltered": 15,
+        "data": [
+            {
+                "id": "0",
+                'culm': '收入',
+                "type": "1",
+                "reality": "545",
+                "budget": "13",
+                "completerate": "144",
+                "otherdate": "1344",
+                "increaserate": "221"
+            },
+            {
+                "id": "0",
+                'culm': '收入',
+                "type": "1",
+                "reality": "545",
+                "budget": "13",
+                "completerate": "144",
+                "otherdate": "1344",
+                "increaserate": "221"
+            },
+            {
+                "id": "0",
+                'culm': '成本',
+                "type": "1",
+                "reality": "545",
+                "budget": "13",
+                "completerate": "144",
+                "otherdate": "1344",
+                "increaserate": "221"
+            },
+            {
+                "id": "0",
+                'culm': '成本',
+                "type": "1",
+                "reality": "545",
+                "budget": "13",
+                "completerate": "144",
+                "otherdate": "1344",
+                "increaserate": "221"
+            },
+            {
+                "id": "0",
+                'culm': '利润',
+                "type": "1",
+                "reality": "545",
+                "budget": "13",
+                "completerate": "144",
+                "otherdate": "1344",
+                "increaserate": "221"
+            },
+            {
+                "id": "0",
+                'culm': '利润',
+                "type": "1",
+                "reality": "545",
+                "budget": "13",
+                "completerate": "144",
+                "otherdate": "1344",
+                "increaserate": "221"
+            },
+            {
+                "id": "0",
+                'culm': '利润',
+                "type": "1",
+                "reality": "545",
+                "budget": "13",
+                "completerate": "144",
+                "otherdate": "1344",
+                "increaserate": "221"
+            }
+        ]
+    };
+
+    $.mockjax({
+        url: "/dt/api",
+        dataType: "json",
+        response: function (settings) {
+            s_data['draw'] = settings.data['draw'];
+            this.responseText = s_data;
+        }
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        var searchParemOBj_ = {};
+
+        COM_TOOLS.DT_init('dt_report_01', [{
+            "data": "culm",
+            "name": "culm",
+            "className": "center-xxw1 text-center"
+        }, {
+            "data": "type"
+        }, {
+            "data": "reality"
+        }, {
+            "data": "budget"
+        }, {
+            "data": "completerate"
+        }, {
+            "data": "otherdate"
+        }, {
+            "data": "increaserate"
+        }], '/dt/api', 'get', searchParemOBj_, {
+            other: {
+                paging: false,
+                info: false,
+                rowsGroup: ['culm:name']
+                /*scrollY: "100px",//可选，是否固定表格高度，不包括表头；
+                scrollCollapse: true,//与scrollY结合使用，是否固定高度，默认false;
+                scrollX: true*/
+            }
+        });
+
+        COM_TOOLS.DT_init('dt_report_02', [  {
+            "data": "reality"
+        }, {
+            "data": "budget"
+        }, {
+            "data": "completerate"
+        }, {
+            "data": "otherdate"
+        }, {
+            "data": "increaserate"
+        }], '/dt/api', 'get', searchParemOBj_, {
+            other: {
+                paging: false,
+                info: false,
+                /*scrollY: "100px",//可选，是否固定表格高度，不包括表头；
+                scrollCollapse: true,//与scrollY结合使用，是否固定高度，默认false;
+                scrollX: true*/
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

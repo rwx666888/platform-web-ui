@@ -1,0 +1,99 @@
+<!-- 组件库 js start -->
+<script type="text/template" id="plugincode_js_select2">
+  COM_TOOLS.select2_init('{{id}}', '{{ajaxurl}}', '{{ajaxtype}}', {{@datafn || "''"}}, {{@opt || "''"}});
+</script>
+<script type="text/template" id="plugincode_js_datatimepicker">
+  $("#{{id}}_wrap").datetimepicker({{@optjson||''}});
+</script>
+<script type="text/template" id="plugincode_js_daterangepicker">
+  $("#{{id}}_wrap").cusdaterangepicker({{@optjson||''}});
+</script>
+<script type="text/template" id="plugincode_js_platform-dict">
+  {{if dict_plugtype == 'select'}}
+    var sel_{{id}}_1 = COM_TOOLS.select2_init('{{id}}', '{{dict_source}}');
+  {{else if dict_plugtype == 'select_level2'}}
+    var sel_{{id}}_1 = COM_TOOLS.select2_init('{{id}}', '{{dict_source}}', 'get', '', {
+      ispinyin: true,
+      initValue: false, //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+      drawCallBack: function () {
+        window.setTimeout(function () {
+          if (sel_{{id}}_1.select2.attr('selectedvalue')) {
+            sel_{{id}}_1.setVal(sel_{{id}}_1.select2.attr('selectedvalue'));
+            if (sel_{{id}}_2.select2.attr('selectedvalue')) {
+              window.setTimeout(function () {
+                sel_{{id}}_2.setVal(sel_{{id}}_2.select2.attr('selectedvalue'));
+              }, 50);
+            }
+          }
+        }, 50);
+      }
+    });
+    var sel_{{id}}_2 = COM_TOOLS.select2_init('{{id}}_2', {
+      ispinyin: true,
+      initValue: false //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+    });
+
+    sel_{{id}}_1.changeCallback(function () {
+      var val_1 = sel_{{id}}_1.getSelectedData() || [];
+      sel_{{id}}_2.updateOption(COM_TOOLS.sel_make_optionFn(val_1[0] ? (val_1[0]._children_ || []) : []));
+    });
+  {{else if dict_plugtype == 'select_level3'}}
+    var sel_{{id}}_1 = COM_TOOLS.select2_init('{{id}}', '{{dict_source}}', 'get', '', {
+      ispinyin: true,
+      initValue: false, //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+      drawCallBack: function () {
+        window.setTimeout(function () {
+          if (sel_{{id}}_1.select2.attr('selectedvalue')) {
+            sel_{{id}}_1.setVal(sel_{{id}}_1.select2.attr('selectedvalue'));
+            if (sel_{{id}}_2.select2.attr('selectedvalue')) {
+              window.setTimeout(function () {
+                sel_{{id}}_2.setVal(sel_{{id}}_2.select2.attr('selectedvalue'));
+              }, 50);
+              if (sel_{{id}}_3.select2.attr('selectedvalue')) {
+                window.setTimeout(function () {
+                  sel_{{id}}_3.setVal(sel_{{id}}_3.select2.attr('selectedvalue'));
+                }, 50);
+              }
+            }
+          }
+        }, 50);
+      }
+    });
+    var sel_{{id}}_2 = COM_TOOLS.select2_init('{{id}}_2', {
+      ispinyin: true,
+      initValue: false //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+    });
+    var sel_{{id}}_3 = COM_TOOLS.select2_init('{{id}}_3', {
+      ispinyin: true,
+      initValue: false //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+    });
+    
+    sel_{{id}}_1.changeCallback(function () {
+      var val_1 = sel_{{id}}_1.getSelectedData() || [];
+      sel_{{id}}_2.updateOption(COM_TOOLS.sel_make_optionFn(val_1[0] ? (val_1[0]._children_ || []) : []));
+      sel_{{id}}_3.updateOption(COM_TOOLS.sel_make_optionFn([]));
+    });
+    sel_{{id}}_2.changeCallback(function () {
+      var val_2 = sel_{{id}}_2.getSelectedData() || [];
+      sel_{{id}}_3.updateOption(COM_TOOLS.sel_make_optionFn(val_2[0] ? (val_2[0]._children_ || []) : []));
+    });
+  {{/if}}
+</script>
+
+<script type="text/template" id="plugincode_js_win-modal">
+  $('#{{id}}_btn').click(function () {
+    cumParentWinModal('{{name}}', '{{url||"https://lianglei.name"}}', $.extend(true, {
+      callback: {
+        _resetFn: function (d) { //清空，方法名称不匹配的，自行修改
+          $('#{{id}}_text').val('').trigger('focusout.validate');
+          $('#{{id}}').val('');
+        },
+        _submitFn: function (d) { //回显值，方法名称不匹配的，自行修改
+          $('#{{id}}_text').val(d.{{column_name}}_text).trigger('focusout.validate');
+          $('#{{id}}').val(d.{{column_name}});
+        }
+      }
+    }, {{@opt || '{}'}} ));
+  });
+</script>
+<!-- 组件库 js end -->

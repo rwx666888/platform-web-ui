@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>连报优惠</title>
+  <link rel="stylesheet" href="../css/animate.min.css">
+  <link rel="stylesheet" href="../css/iconfont.css">
+  <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+  <div id="eventMain" class="container-fluid">
+    <div class="row p-sm">
+      <div class="col-sm-12">
+        <table class="table table-striped table-bordered nowrap js-table-discount" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th>操作</th>
+              <th>优惠名称</th>
+              <th>优惠方式</th>
+              <th>折扣</th>
+              <th>金额</th>
+              <th>优惠课时</th>
+              <th>优惠课次</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyWrp">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/jquery-2.1.1.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../i18n/zh-CN.js"></script>
+
+  <script src="../js/plugins/layer/layer.js"></script>
+
+  <script src="../js/subindex.js"></script>
+
+  <script src="../js/jquery.mockjax.min.js"></script>
+  <script>
+    $.mockjax({
+      url: '/discountClassify/listClassifyAndDiscount',
+      responseText: [{
+        typeCode: 'YBYH1',
+        typeName: '一般优惠',
+        discount: [{
+          code: '11',
+          name: '测试1',
+          discount: '0.9',
+          money: '200',
+          classHour: '30',
+          classCount: '10',
+          preferentialWay: '123',
+          preferentialWayName: '直减',
+        }, {
+          code: '12',
+          name: '测试2',
+          discount: '0.9',
+          money: '200',
+          classHour: '30',
+          classCount: '10',
+          preferentialWay: '123',
+          preferentialWayName: '直减',
+        }]
+      }]
+    })
+
+    $.mockjax({
+      url: '/newsignup/mulDiscount',
+      responseText: [{
+        courseStageCode: '111',
+        totalAmount: '',
+        discountAmount: '1500',
+        actualTotalAmount: '',
+        classHour: '',
+        classHourPrice: '',
+        dismoney: '500',
+      }, {
+        courseStageCode: '112',
+        totalAmount: '',
+        discountAmount: '1600',
+        actualTotalAmount: '',
+        classHour: '',
+        classHourPrice: '',
+        dismoney: '600',
+      }]
+    })
+  </script>
+  <script>
+    var orgCoreCode = COM_TOOLS.requestParam('orgCoreCode');
+    var classHourRatio = COM_TOOLS.requestParam('classHourRatio');
+    var studentCode = COM_TOOLS.requestParam('studentCode');
+    var informationSource = COM_TOOLS.requestParam('informationSource');
+    var informationChannel = COM_TOOLS.requestParam('informationChannel');
+    // 获取 连报优惠 table
+    $.get('/discountClassify/listClassifyAndDiscount', {
+      isDisabled: 0,
+      mulIndex: false,
+      orgCoreCode: orgCoreCode,
+      classHourRatio: classHourRatio,
+      studentCode: studentCode,
+      informationSource: studentCode,
+      informationChannel: studentCode,
+    }).then(function (res) {
+      var item = res[0];
+      var list = item.discount;
+      var html = [];
+
+      for (var i = 0; i < list.length; i++) {
+        var item_i = list[i];
+        // 数据处理
+        item_i.typeCode = item.typeCode;
+        item_i.typeName = item.typeName;
+
+        html.push($('<tr class="js-tr-item">' +
+          '<td><button type="button" class="btn btn-xs btn-success js-btn-choice">选择</button></td>' +
+          '<td>' + item_i.name + '</td>' +
+          '<td>' + item_i.preferentialWayName + '</td>' +
+          '<td>' + item_i.discount + '</td>' +
+          '<td>' + item_i.money + '</td>' +
+          '<td>' + item_i.classHour + '</td>' +
+          '<td>' + item_i.classCount + '</td>' +
+          '</tr>').data('sdata', item_i));
+      }
+
+      $('#tbodyWrp').html(html);
+    });
+    // bind event
+    $('#eventMain').on('click', '.js-btn-choice', function () {
+      var t_ = $(this);
+      var s_data = t_.closest('.js-tr-item').data('sdata');
+      var arr = cum_ModalValobj ? cum_ModalValobj.courseList : [];
+
+      var idx = COM_TOOLS.alert('优惠计算中，请勿关闭弹窗', {
+        time: 0
+      });
+
+      $.post('/newsignup/mulDiscount', {
+        disCountCode: s_data.code,
+        courseArray: arr
+      }).then(function (res) {
+        if (res.length) {
+          // 数据处理
+          for (var i = 0; i < res.length; i++) {
+            res[i].typeCode = s_data.typeCode
+            res[i].typeName = s_data.typeName
+            res[i].code = s_data.code
+            res[i].name = s_data.name
+          }
+
+          var params = {
+            item: s_data,
+            list: res
+          }
+          // console.log(params)
+          COM_TOOLS.callParentWinCacheFn('fn1', params);
+        }
+
+        cumParentCallValue();
+      }).fail(function () {
+        layer.close(idx);
+      });
+    })
+  </script>
+</body>
+
+</html>

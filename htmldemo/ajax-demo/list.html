@@ -1,0 +1,279 @@
+<div class="container-fluid this-event-page ">
+    <div class="row">
+        <div class="col-sm-12 m-b-sm m-t-sm clearfix">
+            <div class="pull-left">
+                <div class="form-inline">
+                    <!-- 高级搜索 开始 -->
+                    <div id="cus_highsearch_box" class="btn-group">
+                        <button type="button" class="btn btn-warning btn-sm dropdown-toggle js-highsearch-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-itemurl="openwin-moreselect-3.html" data-itemfn='fn1'>高级搜索</button>
+                        <div class="dropdown-menu p-sm js-moreSearchBox"></div>
+                    </div>
+                    <!-- 高级搜索 结束 -->
+                    <div class="form-group form-group-sm">
+                        <select class="form-control input-sm">
+                            <option value="1">本季度信息量查询</option>
+                            <option value="2">本月信息量查询</option>
+                            <option value="3">本日信息量查询</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="formdemo1">姓名:</label>
+                        <input type="text" class="form-control js-helpmsg" data-helpmsg="error" id="formdemo1">
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="formdemo2">手机号：</label>
+                        <input type="email" class="form-control" id="formdemo2">
+                    </div>
+                    <button type="button" class="btn btn-success btn-sm" id="demoSearchBtn">搜索</button>
+                    <!-- pop按钮 -->
+                    <button type="button" class="btn btn-warning btn-sm" id="cus_pop"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                    <button type="button" class="btn btn-warning btn-sm" id="cus_pop2"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                </div>
+            </div>
+            <!--<div class="clearfix visible-sm-block visible-xs-block"></div>-->
+            <div class="pull-right">
+                <button class="btn btn-primary btn-sm" type="button" id="cumBtn_add"><i class="glyphicon glyphicon-plus"></i> 新建</button>
+                <button class="btn btn-success btn-sm" type="button" id="cumBtn_edit"><i class="glyphicon glyphicon-pencil"></i> 修改</button>
+                <button class="btn btn-danger btn-sm" type="button" id="cumBtn_ceping"><i class="glyphicon glyphicon-trash"></i> 测评</button>
+                <div id="drop-gengduo" class="dropdown" style="position: relative;display: inline-block;">
+                    <button class="btn btn-warning btn-sm" type="button" data-hover="dropdown" id="cumBtn_gengduo"><i class="glyphicon glyphicon-th-list"></i> 更多
+                </button>
+                    <div class="dropdown-menu p-sm dropdown-menu-right " role="menu">
+                        <button class="btn btn-primary btn-sm btn-block" type="button"><i class="glyphicon glyphicon-plus"></i> 新建</button>
+                        <button class="btn btn-success btn-sm btn-block" type="button"><i class="glyphicon glyphicon-pencil"></i> 修改</button>
+                        <button class="btn btn-info btn-sm btn-block" type="button"><i class="tedufont tedu-icon72"></i> 批量操作</button>
+                        <button class="btn btn-danger btn-sm btn-block" type="button" id="cumBtn_paike"><i class="glyphicon glyphicon-trash"></i> 排课</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="example1" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- 多行单列DEMO -->
+<div id="pop_html2" style="display: none;">
+    <form class="form-horizontal container-fluid">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">我也不知道</label>
+                <div class="col-sm-8">
+                    <select class="form-control input-sm" name="name11" id="name11">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>    
+            <div class="form-group">
+                <label class="col-sm-4 control-label">nam12</label>
+                <div class="col-sm-8"><input class="form-control input-sm" type="text" name="name12" id="name12"/></div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- 多行两列DEMO -->
+<div id="pop_html" style="display: none;">
+    <form class="form-horizontal container-fluid">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">nam1</label>
+                <div class="col-sm-4">
+                    <select class="form-control input-sm" name="name1" id="name1">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">nam2</label>
+                <div class="col-sm-4">
+                    <select class="form-control input-sm" name="name2" id="name2">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">nam3</label>
+                <div class="col-sm-4"><input class="form-control input-sm" type="text" name="name3" id="name3"/></div>
+                <label class="col-sm-2 control-label">nam4</label>
+                <div class="col-sm-4"><input class="form-control input-sm" type="text" name="name4" id="name4"/></div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    $(document).ready(function() {
+        $('[data-hover="dropdown"]').dropdownHover();
+
+        
+        
+        var searchParemOBj_ = {};
+
+        var DT_ = COM_TOOLS.DT_init('example1', [{ // 显示行号
+                "data": null,
+                "className": "text-center",
+                "width": "30px",
+                "title": '序号',
+                render: function(data, type, row, meta) {
+                    return 1 + meta.row;
+                }
+            },
+            {
+                "data": null,
+                "title": '<span class="cus-checkbox-all"></span>',
+                "width": "30px",
+                "className": "select-checkbox",
+                "defaultContent": ''
+            },
+            {
+                "data": "first_name",
+                "title": '标题1'
+            },
+            {
+                "data": "last_name",
+                "title": '标题2'
+            },
+            {
+                "data": "position",
+                "title": '标题3',
+                "className": "text-right"
+            },
+            {
+                "data": "office",
+                "title": '标题4',
+                "className": "text-center"
+            },
+            {
+                "data": "start_date",
+                "title": '标题5'
+            },
+            {
+                "data": "salary",
+                "title": '标题6'
+            },
+            {
+                "data": "node1",
+                "title": '标题7'
+            },
+            {
+                "data": "node2",
+                "title": '标题8'
+            },
+            {
+                "data": "node3",
+                "title": '标题9'
+            }
+        ],
+        '/dt/api',
+        'get',
+        searchParemOBj_, {
+            jsTrDblclick: function(trdata, jqdom) { //双击行回调函数，返回当前行所有数据及当前行的jqueryNode对象，例如：获取行id
+                var id_ = trdata['first_name'];
+                if(id_) {
+                    cumParentWinModal('详情', 'info.html?id=' + id_, {
+                        "scrollbar": true, 'area': ['70%', '70%']});
+                }
+            },
+            other: {
+                pagingType: "simple_numbers_no_totalpage"
+            }
+        });
+        $('#cumBtn_add').click(function() {
+            cumParentWinModal('新建', 'add.html', {
+                "scrollbar": true,
+                end: function() {
+                    COM_TOOLS.alert('关闭了,例如可执行刷新方法 COM_TOOLS.DT_ajaxReload(table);');
+                },
+                other: {
+                    "noTriEnd": true
+                }, //关键必须参数
+                helpBtn: '#dom2' //帮助页锚点
+            }); //在父窗口中打开弹窗并显示最大化按钮
+        });
+        $('#cumBtn_edit').click(function() {
+            cumParentWinModal('修改', 'edit.html', {
+                "scrollbar": true
+            }); //在父窗口中打开弹窗并显示最大化按钮
+        });
+        $('#cumBtn_editall').click(function() {
+            cumParentWinModal('批量修改', 'edit_all.html', {
+                "scrollbar": true,
+                "area": ["800px", "460px"]
+            }); //在父窗口中打开弹窗并显示最大化按钮
+        });
+        $('#cumBtn_ceping').click(function() {
+            cumParentWinModal('测评', 'ceping.html', {
+                "scrollbar": true,
+                "area": ["800px", "360px"]
+            }); //在父窗口中打开弹窗并显示最大化按钮
+        });
+        
+        //TODO 需要整理合并这个高级搜索的方法
+        COM_TOOLS._view.cusHighSearch('cus_highsearch_box');
+        
+        $('#demoSearchBtn').click(function() { //搜索按钮方案
+            searchParemOBj_['searchNameVal'] = $.trim($('#formdemo1').val());
+            searchParemOBj_['searchPhoneVal'] = $.trim($('#formdemo2').val());
+            DT_.setAjaxData(searchParemOBj_); //默认修改搜索数据并刷新表格，如果：DT_.setAjaxData(searchParemOBj_, true);则不刷新表格，只修改搜索数据
+        });
+
+        /* 排课演示demo start */
+        $('#cumBtn_paike').click(function() {
+            var ids_ = DT_.getSelectRowsData('first_name');
+            if(ids_.length == 0) {
+                COM_TOOLS.alert('请选择一条数据！');
+                return false;
+            } else if(ids_.length > 1) {
+                COM_TOOLS.alert('只能选择一条数据！');
+                return false;
+            }
+            cumParentWinModal('排课', 'k12-paike-demo.html?ccid=' + ids_.join(''), {
+                "scrollbar": true,
+                "area": ["100%", "100%"],
+                cancel: function(in_) {
+                    COM_TOOLS.confirm('请确认当前排课数据是否已保存？', {
+                        btn: ['关闭', '关闭并保存', '取消'],
+                        btn1: function(index) {
+                            layer.close(index);
+                            layer.close(in_);
+                        },
+                        btn2: function(index) {
+                            //TODO 调用保存方法
+                            layer.close(in_);
+                        }
+                    });
+                    return false;
+                }
+            });
+        });
+        /* 排课演示demo end */
+        //demo 测试
+        COM_TOOLS.private_obj_.fn1 = function(p_) {
+            console.log(p_);
+        }
+        
+        COM_TOOLS._view.cusPopover('cus_pop', {
+            container: '.this-event-page',
+            content: '#pop_html'
+        }, function(id){
+            console.log(id);
+        }, function(id){
+            console.log(id);
+        });
+        
+        COM_TOOLS._view.cusPopover('cus_pop2', {
+            container: '.this-event-page',
+            content: '#pop_html2'
+        });
+    });
+</script>

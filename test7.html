@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+      .dd{
+        padding: 0 20px;
+      }
+      .hhh{
+        padding-left: 90%;
+        animation: ani1 16s linear 0s infinite;
+        /* -webkit-animation: ani1 4s linear 0s infinite; */
+      }
+      .hhh:hover{
+        animation-play-state:paused;
+      }
+      @keyframes ani1 {
+        0% {
+          transform: translateX(0);
+           /* -webkit-transform: translateY(0); */
+        }
+      
+        /* 50% {
+          transform: translateX(-100%);
+        } */
+      
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div style="width: 800px; margin: 0 auto; border: 1px solid #DD7B3B;" class="layout-flex">
+      <div class="dd">#11111111111111111#</div>
+      <div class="" style="width: 0; flex: auto;">
+        <div class="" style="overflow: hidden; border: 1px solid #00aa00;">
+          <div class="" style="white-space: nowrap;">
+
+            <p class="" style="display: inline-block;">22222222222sasdasdasdadasdasasd2222 # 2222222asdasda22222222
+              asdsadasdasdasdasdadasdasda</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="dd">#222222222222222#</div>
+      <div class="dd">#3333333333333333#</div>
+    </div>
+
+    <script>
+      var d = new Date('2020-05-06 10:00:00');
+      var mmonth = (d.getMonth() + 1) < 10 ? "0" + (d.getMonth() + 1) : (d.getMonth() + 1);
+      var mdate = d.getDate() < 10 ? "0" + d.getDate() : d.getDate();
+      var mhour = d.getHours() < 10 ? "0" + d.getHours() : d.getHours();
+      var mminutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+      //alert(mmonth+'-'+mdate+ ' '+mhour+':'+mminutes);
+    </script>
+    <script type="text/javascript">
+      /**
+       * 时间字符串转Cron表达式
+       * @param {Object} str 时间字符串 格式 yyyy-mm-dd hh:MM 或 hh:MM
+       */
+      function dateStr_TO_Cron(str) {
+        var cronStr = '';
+        var arr_ = [];
+        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(str)) { //yyyy-mm-dd hh:MM
+          arr_ = str.split(/[:| |-]/g); //转为数组
+        } else if (/^\d{2}:\d{2}$/.test(str)) {
+          arr_ = ['', '*', '*'].concat(str.split(":"));
+        }
+        var _check_fn = function(index) {
+          return arr_[index] ? arr_[index].replace(/^0/g, "") : arr_[index];
+        }
+        if (arr_.length) {
+          //cron : 秒 分钟 小时 日 月 星期 年(可选)
+          var r_ = ['0'];
+          r_.push(_check_fn(4)); //分钟
+          r_.push(_check_fn(3)); //小时
+          r_.push(_check_fn(2)); //日
+          r_.push(_check_fn(1)); //月
+          r_.push('?'); //星期
+          _check_fn(0) && r_.push(_check_fn(0)); //年(可选)
+          cronStr = r_.join(' ');
+        }
+        return cronStr;
+      }
+    </script>
+  </body>
+</html>

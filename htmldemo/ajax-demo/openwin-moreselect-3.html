@@ -1,0 +1,314 @@
+<div id="selectArea" class="container-fluid form-inline p-sm cus-high-search-model">
+	<div class="row js-hascheck">
+	    <div class="col-sm-12 p-lable1">
+	    	<div class="cus-tj-after-area">
+			<label class="m-lable1">条件1：</label>
+			<div class="form-group">
+				<select class="form-control input-sm cus-js-select" name="name1_1">
+					<!--<option value="">-请选择-</option>
+					<option value="param1@TEXT">text</option>
+					<option value="param2@INT">num</option>
+					<option value="param3@DATE">time</option>
+					<option value="param4@SELECT">select</option>-->
+				</select>
+			</div>
+			<div class="form-group">
+				<select class="form-control input-sm cus-js-select2" name="name1_2">
+					<option value="">-请选择-</option>
+				</select>
+			</div>
+			</div>
+			<div class="display-inline">
+				<div class="form-group">
+					<div class="input-group date cus-js-input-box hidden">
+						<input type="text" class="form-control input-sm cus-js-input cus-get-val" value="" name="name1_3">
+						<span class="input-group-addon hidden"><i class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+					<label class="cus-js-inlabel hidden"></label>
+					<div class="cus-js-select-box hidden">
+						<select class="form-control input-sm cus-get-val" name="name1_4" multiple="multiple"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="cus-js-msg"></label>
+				</div>
+			</div>
+	    </div>
+	</div>
+	<div class="row js-hascheck">
+	    <div class="col-sm-12 p-lable1">
+	    	<div class="cus-tj-after-area">
+			<label class="m-lable1">条件2：</label>
+			<div class="form-group">
+				<select class="form-control input-sm cus-js-select" name="name2_1"></select>
+			</div>
+			<div class="form-group">
+				<select class="form-control input-sm cus-js-select2" name="name12_2">
+					<option value="">-请选择-</option>
+				</select>
+			</div>
+			</div>
+			<div class="display-inline">
+				<div class="form-group">
+					<div class="input-group date cus-js-input-box hidden">
+						<input type="text" class="form-control input-sm cus-js-input cus-get-val" value="" name="name2_3">
+						<span class="input-group-addon hidden"><i class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+					<label class="cus-js-inlabel hidden"></label>
+					<div class="cus-js-select-box hidden">
+						<select class="form-control input-sm cus-get-val" name="name2_4" multiple="multiple"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="cus-js-msg"></label>
+				</div>
+			</div>
+	    </div>
+	</div>
+	<div class="row js-hascheck">
+	    <div class="col-sm-12 p-lable1">
+	    	<div class="cus-tj-after-area">
+			<label class="m-lable1">条件3：</label>
+			<div class="form-group">
+				<select class="form-control input-sm cus-js-select" name="name3_1"></select>
+			</div>
+			<div class="form-group">
+				<select class="form-control input-sm cus-js-select2" name="name3_2">
+					<option value="">-请选择-</option>
+				</select>
+			</div>
+			</div>
+			<div class="display-inline">
+				<div class="form-group">
+					<div class="input-group date cus-js-input-box hidden">
+						<input type="text" class="form-control input-sm cus-js-input cus-get-val" value="" name="name3_3">
+						<span class="input-group-addon hidden"><i class="glyphicon glyphicon-calendar"></i></span>
+					</div>
+					<label class="cus-js-inlabel hidden"></label>
+					<div class="cus-js-select-box hidden">
+						<select class="form-control input-sm cus-get-val" name="name3_4" multiple="multiple"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="cus-js-msg"></label>
+				</div>
+			</div>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 text-right">
+			<div class="hr-line-dashed" style="margin: 8px 0;"></div>
+			<button id="sel-butSearch" type="button" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i> 搜索</button>
+			<button id="sel-butRest" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-repeat"></i> 重置</button>
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	COM_TOOLS.requireJsFn(['select2'],[],function(){
+	createSelop();
+	
+	/* 清除旧的事件绑定 */
+	$('#selectArea').off('.selObj1 .selObj2','**');
+	$('#sel-butSearch').on('click',function(){
+		var param_=get_search_param();
+		console.log(param_);
+		if(param_.length==2){
+			alert('请先选着');
+			return false;
+		}
+		var btnObj_=$(this).closest('.cus-gj-searchebox').find('.js-gjss-btn');
+		if(btnObj_.length>0 && btnObj_.data('itemfn')){
+			COM_TOOLS.private_obj_[btnObj_.data('itemfn')](1);
+		}
+		//console.log(get_search_param());
+	});
+	$('#sel-butRest').on('click',function(){
+		$('.cus-js-select').val('').trigger('change');
+	})
+	
+	function check_item(){//循环检验，前两项同时选中才检验第三项
+		$('.form-inline .row.js-hascheck').each(function(i,n){
+			var t_ = $(n),
+			item1 = t_.find('.cus-js-select'),
+			item2 = t_.find('.cus-js-select2'),
+			item3 = t_.find('.cus-get-val:visible'),
+			msg = t_.find('.cus-js-msg');
+			if(item1.val()!='' && item2.val()!='' && item3.is(':visible') && $.trim(item3.val())==''){
+				msg.text('必填！');
+				t_.addClass('cus-js-error').removeClass('cus-state-success');
+			}else if(item1.val()!='' && item2.val()!='' && 
+				((item3.is(':visible') && $.trim(item3.val())!='')||item3.is(':hidden'))){
+				msg.text('');
+				t_.removeClass('cus-js-error').addClass('cus-state-success');
+			}else{
+				msg.text('');
+				t_.removeClass('cus-js-error cus-state-success');
+			}
+		});
+	}
+	function check_state(){ //有错误信息返回 false
+		check_item();
+		var l_ = $('.form-inline .row.js-hascheck.cus-js-error');
+		return l_.length>0 ? false : true;
+	}
+	
+	function get_search_param(){ //获取用户选择的格式化数据
+		var d = [];
+		if(check_state()){//校验		
+			$('.form-inline .row.js-hascheck.cus-state-success').each(function(i,n){
+				var t_ = $(this),
+				sel1 = t_.find('.cus-js-select').val(),
+				sel2 = t_.find('.cus-js-select2').val(),
+				inp = t_.find('.cus-get-val:visible').val();
+				d.push('{"sel1":"'+sel1+'","sel2":"'+sel2+'","inp":"'+inp+'"}');
+			});
+		}
+		return '['+(d.join(','))+']';
+	}
+	
+	/* 创建首列option */
+	function createSelop(){
+		$.getJSON('openwin-test.json',function(d){
+			if(d['result']==1){
+				//var str_=[];
+				var tarH_=$('.cus-js-select');
+				tarH_.append('<option value="">- 请选择 -</option>');
+				for(var i=0 ,len=d['list'].length; i<len ;i++){
+					var node_ = d['list'][i];
+					if(node_['type'].split('@')[1]=='SELECT' || node_['type'].split('@')[1]=='QUERY'){
+						tarH_.append($('<option value="'+node_['type']+'">'+node_['name']+'</option>').data('isselect',node_['redistlist']));
+					}else{
+						tarH_.append('<option value="'+node_['type']+'">'+node_['name']+'</option>');
+					}
+					//str_.push('<option value="',node_['type'],'">',node_['name'],'</option>');
+				}
+				//$('.cus-js-select').html(str_.join(''));
+			}
+		});
+	}
+	/* 创建后列option */
+	function createSel2op(source){
+		var data_=source.find('.cus-js-select').children(':selected').data('isselect');
+		var dom_=[];
+		//dom_.push('<option value="">-请选择-</option>');
+		for(var i=0,len=data_.length; i<len; i++){
+			dom_.push('<option value="',data_[i]['id'],'">',data_[i]['name'],'</option>');
+		}
+		source.find('.cus-js-select-box select').html(dom_.join('')).select2({
+			//multiple:true,
+			placeholder:'选择一个或多个',
+			maximumSelectionLength:6
+		});
+	}
+	/* 模拟数据  */
+	var option_item={
+		'TEXT':[
+			{'name':'等于','colCode':'等于'},
+			{'name':'不等于','colCode':'不等于'},
+			{'name':'为空','colCode':'NULL'},
+			{'name':'不为空','colCode':'N_NULL'},
+			{'name':'包含','colCode':'包含'},
+			{'name':'不包含','colCode':'不包含'},
+			{'name':'以..开头','colCode':'以..开头'},
+			{'name':'以..结尾','colCode':'以..结尾'}
+		],
+		'NUM':[
+			{'name':'等于','colCode':'等于'},
+			{'name':'不等于','colCode':'不等于'},
+			{'name':'为空','colCode':'NULL'},
+			{'name':'不为空','colCode':'N_NULL'},
+			{'name':'小于','colCode':'小于'},
+			{'name':'小于等于','colCode':'小于等于'},
+			{'name':'大于','colCode':'大于'},
+			{'name':'大于等于','colCode':'大于等于'}
+		],
+		'DATE':[
+			{'name':'等于','colCode':'等于'},
+			{'name':'不等于','colCode':'不等于'},
+			{'name':'为空','colCode':'NULL'},
+			{'name':'不为空','colCode':'N_NULL'},
+			{'name':'小于','colCode':'小于'},
+			{'name':'小于等于','colCode':'小于等于'},
+			{'name':'大于','colCode':'大于'},
+			{'name':'大于等于','colCode':'大于等于'}
+		],
+		'SELECT':[
+			{'name':'包含','colCode':'包含'},
+			{'name':'不包含','colCode':'不包含'},
+			{'name':'为空','colCode':'NULL'},
+			{'name':'不为空','colCode':'N_NULL'}
+		],
+		'QUERY':[
+			{'name':'等于','colCode':'EQ'},
+		]
+		
+	};
+
+	$('#selectArea').on('change.selObj1','.cus-js-select',function(){		
+		var t_ = $(this),
+		row_ = t_.closest('.col-sm-12');
+		var type = (t_.val().split('@')[1])||'';
+		var select2 = row_.find('.cus-js-select2');
+		var str = [];
+		str.push('<option value="">- 请选择 -</option>');
+		if(type){
+			var op = option_item[type];
+			for(var i=0 ,len=op.length; i<len ;i++){
+				var node_ = op[i];
+				str.push('<option data-optype="',type,'" value="',node_['colCode'],'">',node_['name'],'</option>');
+			}
+		}		
+		select2.html(str.join(''));
+		row_.find('.cus-js-inlabel').addClass('hidden').text('')
+			.end().find('.cus-js-input-box').datetimepicker("remove").addClass('hidden')
+			.children('.cus-js-input').val('')
+			.end().children('.input-group-addon').addClass('hidden')
+			.end().siblings('.cus-js-select-box').addClass('hidden');
+		check_item();
+	});
+	
+	$('#selectArea').on('change.selObj2','.cus-js-select2',function(){
+		var t_ = $(this),
+		row_ = t_.closest('.col-sm-12'),
+		option_ = t_.find('option:selected'),
+		type = option_.data('optype'),
+		textnode = ['NULL','N_NULL']; //特殊文本格式，以label显示
+		console.log(row_);
+		row_.parent().removeClass('cus-js-error');
+		if($.inArray(t_.val(),textnode)!=-1){//特殊文本
+			row_.find('.cus-js-inlabel').removeClass('hidden').text(option_.text())
+			.end().find('.cus-js-input-box').datetimepicker("remove").addClass('hidden')
+			.children('.cus-js-input').on('blur.cus',function(){check_item();}).val('')
+			.end().children('.input-group-addon').addClass('hidden')
+			.end().siblings('.cus-js-select-box').addClass('hidden');
+		}else if(type=='DATE'){//时间
+			row_.find('.cus-js-inlabel').addClass('hidden').text('')
+			.end().find('.cus-js-input-box').removeClass('hidden').datetimepicker({
+				minView:2,
+				format:'yyyy-mm-dd'
+			}).on('changeDate', function(ev){
+			    check_item();
+			}).children('.cus-js-input').off('blur.cus').val('')
+			.end().children('.input-group-addon').removeClass('hidden');
+		}else if(type=='SELECT'){//选择框
+			createSel2op(row_);
+			row_.find('.cus-js-inlabel').addClass('hidden').text('')
+			.end().find('.cus-js-select-box').removeClass('hidden');
+		}else if(type=='QUERY'){//选择框
+			createSel2op(row_);
+			row_.find('.cus-js-inlabel').addClass('hidden').text('')
+			.end().find('.cus-js-select-box').removeClass('hidden');
+		}else{//普通文本框input
+			row_.find('.cus-js-inlabel').addClass('hidden').text('')
+			.end().find('.cus-js-input-box').removeClass('hidden')
+			.children('.cus-js-input').on('blur.cus',function(){check_item();}).val('');
+		}
+		if(t_.val()==''){
+			row_.find('.cus-js-input-box,.cus-js-select-box').addClass('hidden');
+		};
+	});
+	});
+});
+</script>
+

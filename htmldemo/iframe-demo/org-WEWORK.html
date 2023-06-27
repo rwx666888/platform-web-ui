@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>组织权限</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+        <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+        <link href="../../css/iconfont.css" rel="stylesheet">
+        <link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+        <link href="../../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+        <link href="../../css/animate.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
+        <style type="text/css">
+            html,
+            body {
+                height: 100%;
+            }
+            #js_tree_cj {
+                padding-bottom: 10px;
+            }
+            .flex-box-ltr-2col .flex-box-left {
+                width: 340px;
+            }
+            .flex-box-ltr-2col .flex-box-content {
+                margin-left: 340px;
+            }
+            .search-1227-x {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 999;
+                padding-right: 30px;
+                padding-bottom: 86px;
+                display: none;
+            }
+            .mcus-bar1127 {
+                width: 100%;
+                height: 100%;
+            }
+            .search-1227cont-x {
+                width: 100%;
+                height: 100%;
+                background: #fbfbfb;
+            }
+            .clear-btn-1227 {
+                cursor: pointer;
+                font-size: 22px !important;
+            }
+            .clear-btn-1227:active {
+                color: #000;
+            }
+            .search-1227-x .search-list-box .iconx {
+                margin-right: 10px;
+                vertical-align: middle;
+                color: #3aa9d4;
+            }
+            .search-1227-x .search-list-box .tit {
+                padding: 10px 0;
+            }
+            .search-1227-x .search-item {
+                margin: 0;
+                padding: 5px;
+            }
+            .search-1227-x .search-item:hover {
+                cursor: pointer;
+                background: #fff;
+            }
+            .search-1227-x .mCSB_scrollTools.mCSB_scrollTools_vertical {
+                width: 10px;
+                right: -17px;
+            }
+            .search-1227-x .mCSB_scrollTools.mCSB_scrollTools_horizontal {
+                height: 10px;
+                bottom: 5px !important;
+            }
+            .flex-box-ltr-2col .flex-box-left {
+                background-color: #fbfbfb;
+            }
+            .jstree-default .jstree-anchor.jstree-disabled {
+                color: #999;
+            }
+            .jstree-default .jstree-anchor .jstree-icon {
+                color: #3aa9d4;
+            }
+        </style>
+    </head>
+
+    <body class="flex-box-ltr-2col flex-has-leftbar">
+        <div class="flex-box-left ">
+            <div id="jstree_overlaybox" style="height: 100%;width: 100%; padding:55px 15px 20px; position: relative; margin: 0;">
+                <div style="position: absolute; left: 0; top: 0;width: 100%; padding: 10px 15px 0;">
+                    <div class="input-group input-group-sm">
+                        <div class="cus-input-inside-icon">
+                            <input id="search_ipt" type="text" class="form-control input-sm">
+                            <span class="c-icon-bar clear-btn-1227" style="cursor: pointer;" id="clear_search_btn">×</span>
+                        </div>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-warning btn-sm" id="sear_btn">搜索</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="search-1227-x">
+                    <div class="mcus-bar1127">
+                        <div class="search-1227cont-x" id="search_cont"></div>
+                    </div>
+                </div>
+                <div class="jstree-box-cont" id="js_tree_overflowbox" style="height: 100%;">
+                    <div id="js_tree_cj"></div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-box-content">
+            <div class="flex-box-leftbar">
+                <div class="cbar-box">
+                    <i class="glyphicon glyphicon-triangle-left"></i>
+                    <i class="glyphicon glyphicon-triangle-right"></i>
+                </div>
+            </div>
+            <div class="container-fluid flex-box-overflow">
+                <div class="cus-page-form clearfix" style="padding: 3px 0 0;">
+                    <div class="pull-right">
+                        <div class="row" style="padding: 3px 0;">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary btn-sm cus-btn-width" type="button" id="cumBtn_add"><i class="glyphicon glyphicon-plus"></i> 新建</button>
+                                <button class="btn btn-success btn-sm cus-btn-width" type="button" id="cumBtn_edit"><i class="glyphicon glyphicon-pencil"></i> 修改</button>
+                                <button class="btn btn-danger btn-sm cus-btn-width" type="button" id="cumBtn_delete"><i class="glyphicon glyphicon-trash"></i> 删除</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table id="js_dt_cj" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="../../js/jquery-2.1.1.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+
+        <script src="../../js/plugins/layer/layer.js"></script>
+        <script src="../../js/plugins/jsTree/jstree.js"></script>
+        <script src="../../js/plugins/datatables/datatables.min.js"></script>
+        <script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+        <script src="../../i18n/zh-CN.js"></script>
+        <script src="../../js/subindex.js"></script>
+
+        <!-- 以下js仅用于演示 -->
+        <script src="../../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../../demo-data.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                var overlayboxid_ = 'jstree_overlaybox';
+                /* 布局左侧伸缩条 */
+                $('.flex-box-leftbar .cbar-box').click(function () {
+                    var _w = $('.flex-box-ltr-2col');
+                    if (_w.hasClass('flex-box-w-min')) {
+                        _w.removeClass('flex-box-w-min');
+                    } else {
+                        _w.addClass('flex-box-w-min');
+                    }
+                    DT_.table && DT_.table.columns.adjust(); //重新计算表格宽度
+                });
+                /* 滚动条 */
+                $("#js_tree_overflowbox,.mcus-bar1127").mCustomScrollbar({
+                    //setWidth: '270',
+                    //setHeight: bodyH_ - 50,
+                    axis: 'yx',
+                    scrollbarPosition: 'outside',
+                    theme: "dark-3"
+                });
+                var deptArr = {},
+                    old_id;
+                var treeObjList = {
+                    editFunc: function (tit, url_, node_, ref) { //重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+                        cumParentWinModal(tit, url_, {
+                            'area': ['380px', '240px'],
+                            'callid': {
+                                'node': node_,
+                                'ref': ref
+                            },
+                            'callback': {
+                                fn2: 'fn1'
+                            }
+                        });
+                        COM_TOOLS.setCacheFnForChildWin({
+                            fn1: saveFun
+                        });
+                    },
+                    create: function (node_, ref) {
+                        if (!node_.id.length) {
+                            COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]); //请选择节点
+                            return false;
+                        }
+                        treeObjList.editFunc(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTmo_tit"], ['add-jstree.html?edit=0'], node_, ref);
+                    },
+                    rename: function (node_, ref) {
+                        if (!node_.id.length) {
+                            COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]); //请选择节点
+                            return false;
+                        }
+                        treeObjList.editFunc(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_tit"], ['add-jstree.html?edit=1&nodeName=' + node_.text], node_, ref);
+                    },
+                    del: function (node_, ref) {
+                        if (!node_.id.length) {
+                            COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]);
+                            return false;
+                        }
+                        /*'delConfirm':确认删除吗?*/
+                        COM_TOOLS.confirm("确认删除吗？", function (index) {
+                            cumCloseWin(index);
+                            //$.post('',{},function(d){
+                            ref.delete_node(node_.id); //需在回调成功后才执行
+                            //},'json');
+                        });
+                    },
+                    moveNode: function (node_, type) {
+                        var ref = $('#js_tree_cj').jstree(true);
+                        var newPar_node = ref.get_node(node_.parent); //目标父节点
+                        if (!newPar_node.id) {
+                            return false;
+                        }
+                        var pos_ = ''; //目标节点下的位置
+                        console.log('#1111-node_', node_, '%1111%', !!ref.get_next_dom(node_, true), '%newPar_%', newPar_node)
+                        switch (type) {
+                            case 'up':
+                                pos_ = $.inArray(node_.id, newPar_node.children) - 1;
+                                break;
+                            case 'down':
+                                pos_ = $.inArray(node_.id, newPar_node.children) + 2;
+                                break;
+                            case 'left':
+                                pos_ = 'after';
+                                break;
+                            case 'right':
+                                pos_ = 'last';
+                                newPar_node = ref.get_prev_dom(node_, true);
+                                break;
+                        }
+                        if (pos_ !== '') {
+                            /*接口成功后，再修改节点
+                            COM_TOOLS.ajaxFn({
+                                url: '',
+                                data: {},
+                                success: function (d_) {
+
+                                }
+                            }, 3, overlayboxid_);*/
+                            ref.move_node(node_, newPar_node, pos_);
+                            console.log('#1111-pos_', pos_);
+                        }
+                        //ref.move_node(node_);
+                    },
+                    checkUp: function (node_) {
+                        var ref = $('#js_tree_cj').jstree(true);
+                        return !!ref.get_prev_dom(node_, true);
+                    },
+                    checkDown: function (node_) {
+                        var ref = $('#js_tree_cj').jstree(true);
+                        return !!ref.get_next_dom(node_, true);
+                    },
+                    checkLeft: function (node_) {
+                        var ref = $('#js_tree_cj').jstree(true);
+                        return node_.parent != '0';
+                    },
+                    checkRight: function (node_) {
+                        var ref = $('#js_tree_cj').jstree(true);
+                        return !!ref.get_prev_dom(node_, true);
+                    }
+                };
+
+                function saveFun(obj) {
+                    console.log(obj);
+                    if (obj.editNum == 0) {
+                        obj['ref'].create_node(obj['node'].id, {
+                            "text": obj['text']
+                        });
+                        obj['ref'].open_node(obj['node'].id);
+                    } else if (obj.editNum == 1) {
+                        obj['ref'].set_text(obj['node'], obj['text']); //更改节点内容
+                    }
+                };
+
+                var jstree_ = $('#js_tree_cj').jstree({
+                        'core': {
+                            "check_callback": true,
+                            'data': {
+                                // 'url': '/jstree6/api',
+                                'url': COM_DEFAULT._orgTreeOpt.treeUrl,
+                                'data': function (node) {
+                                    return {
+                                        'parentId': node.id,
+                                        'type': 1
+                                    };
+                                },
+                                'dataFilter': function (d) { //TODO 待补充数据边界
+                                    var d_arr = $.parseJSON(d);
+                                    $.each(d_arr, function (i, n) {
+                                        var o = {};
+
+                                        n.type = String(n.type);
+                                        n.type = n.hasauth == 0 ? '2' : n.type;
+                                        o.disabled = n.type == '2' ? true : false;
+                                        n.li_attr = {
+                                            code: n.code,
+                                            path: n.path
+                                        };
+                                        n.state = o;
+                                    });
+
+                                    console.log('123', d_arr)
+                                    return JSON.stringify(d_arr);
+                                }/*,
+                                'beforeSend': function (XHR) {
+                                    COM_TOOLS.loadingOverlay.open(overlayboxid_);
+                                },
+                                'complete': function (XHR, textStatus) {
+                                    COM_TOOLS.loadingOverlay.close(overlayboxid_);
+                                }*/
+                            }
+                        },
+                        'contextmenu': {
+                            show_at_node: false,
+                            items: function (node) {
+                                console.log('=========', node)
+                                if (node.original.hasauth == '0') {
+                                    return false;
+                                }
+                                return {
+                                    "add_c": { //添加下级节点
+                                        "icon": 'glyphicon glyphicon-plus',
+                                        "label": '添加外部组织',
+                                        "separator_after": true, //表示在此项之后是否应该有分隔符
+                                        "action": function (data) {
+                                            treeObjList.create(node, $('#js_tree_cj').jstree(true));
+                                        }
+                                    },
+                                    /*"add_b": { //添加同级节点
+                                        "icon": 'glyphicon glyphicon-asterisk',
+                                        "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTaddb_node"],
+                                        "separator_after": true,
+                                        "action": function (data) {
+                                            treeObjList.create(node, $('#js_tree_cj').jstree(true));
+                                        },
+                                        "_disabled": function () { //菜单禁止操作
+                                            return node.parent == 0;
+                                        }
+                                    },*/
+                                    "rename": {
+                                        "icon": 'glyphicon glyphicon-pencil',
+                                        "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTrename_node"],
+                                        "separator_after": true,
+                                        "action": function (data) {
+                                            treeObjList.rename(node, $('#js_tree_cj').jstree(true));
+                                        },
+                                        "_disabled": function () { //菜单禁止操作
+                                            return node.original.isExternal == 1;
+                                        }
+                                    },
+                                    "del": {
+                                        "icon": 'glyphicon glyphicon-remove',
+                                        "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTdel_node"],
+                                        "separator_after": true,
+                                        "action": function (data) {
+                                            console.log(node);
+                                            var childL_ = node.children.length;
+                                            if (childL_ > 0) {
+                                                COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_notdel"]);
+                                                return false;
+                                            }
+                                            treeObjList.del(node, $('#js_tree_cj').jstree(true));
+                                        },
+                                        "_disabled": function () { //菜单禁止操作
+                                            return node.original.isExternal == 1;
+                                        }
+                                    },
+                                    /* "move_up": {
+                                         "icon": 'glyphicon glyphicon-arrow-up',
+                                         "label": '上移',
+                                         "separator_after": true,
+                                         "action": function (data) {
+                                             treeObjList.moveNode(node, 'up');
+                                         },
+                                         "_disabled": function () { //菜单禁止操作
+                                             return !treeObjList.checkUp(node);
+                                         }
+                                     },
+                                     "move_down": {
+                                         "icon": 'glyphicon glyphicon-arrow-down',
+                                         "label": '下移',
+                                         "separator_after": true,
+                                         "action": function (data) {
+                                             console.log('@222222', data, '--#--', node)
+                                             treeObjList.moveNode(node, 'down');
+                                         },
+                                         "_disabled": function () { //菜单禁止操作
+                                             return !treeObjList.checkDown(node);
+                                         }
+                                     },
+                                     "move_left": {
+                                         "icon": 'glyphicon glyphicon-indent-right',
+                                         "label": '提升',
+                                         "separator_after": true,
+                                         "action": function (data) {
+                                             console.log('@222222', data, '--#--', node)
+                                             treeObjList.moveNode(node, 'left');
+                                         },
+                                         "_disabled": function () { //菜单禁止操作
+                                             return !treeObjList.checkLeft(node);
+                                         }
+                                     },
+                                     "move_right": {
+                                         "icon": 'glyphicon glyphicon-indent-left',
+                                         "label": '下降',
+                                         "separator_after": true,
+                                         "action": function (data) {
+                                             console.log('@222222', data, '--#--', node)
+                                             treeObjList.moveNode(node, 'right');
+                                         },
+                                         "_disabled": function () { //菜单禁止操作
+                                             return !treeObjList.checkRight(node);
+                                         }
+                                     },*/
+
+                                };
+                            }
+                        },
+                        'types': { //可自定义树的图标
+                            '1': { //人员
+                                icon: 'glyphicon glyphicon-user'
+                            },
+                            '0': { //部门
+                                icon: 'glyphicon glyphicon-folder-close'
+                            },
+                            '2': { //部门无权限
+                                icon: 'glyphicon glyphicon-folder-close'
+                            }
+                        },
+                        dnd: {
+                            inside_pos: 'last',
+                            is_draggable: function (n, e) {
+                                console.log('####-2', n, '--', e)
+                                return true;
+                            }
+                        },
+                        'plugins': ['types', 'contextmenu', 'dnd', 'wholerow'] //dnd开启拖拽功能
+                    })
+                    .on('ready.jstree', function (e, n) { /* jstree-绑定 */
+                        var str_id = 11;
+                        jstree_.jstree(true).select_node([str_id], true, false); //tree加载完之后让a1,b2 节点选中
+                        old_id = str_id;
+                        refreshDT({
+                            'id': str_id
+                        }); //第一次时需要启用
+                    })
+                    .on('activate_node.jstree', function (e, data) { //用 select_node.jstree 时,通过 select_node() 方法调用时会报错 data.event 未定义
+                        //判断左右击
+                        // if (data.event.which == 1) {
+                        var id_ = data.node.id;
+                        if (old_id != id_) {
+                            old_id = id_;
+                            searchParemOBj_ = {
+                                'id': id_
+                            };
+                            DT_.setAjaxData(searchParemOBj_);
+                        }
+                        // }
+                    })
+                    .on('move_node.jstree', function (e, data) {
+                        console.log('$$$$$', data)
+                        var id_ = data.node.id;
+                        deptArr['cj_' + id_] = {
+                            'tar_id': id_,
+                            'parent': data['parent'],
+                            'old_parent': data['old_parent']
+                        };
+                    });
+
+                $(document).on('dnd_move.vakata', function (a, b, c, d) {
+                    //console.log('a-',a,'b-',b,'c-',c,'d-',d)
+                });
+
+                /*datatable*/
+                var DT_ = {},
+                    searchParemOBj_ = {};
+
+                function refreshDT(obj) {
+                    DT_ = COM_TOOLS.DT_init('js_dt_cj', [{
+                        "data": null,
+                        "title": "序号",
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function (data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    }, {
+                        "data": null,
+                        "title": "选项",
+                        "className": "select-checkbox",
+                        "defaultContent": ''
+                    }, {
+                        "data": "first_name",
+                        "title": "标题1"
+                    }, {
+                        "data": "last_name",
+                        "title": "标题2"
+                    }, {
+                        "data": "position",
+                        "title": "标题3",
+                        "className": "text-right"
+                    }, {
+                        "data": null,
+                        "title": "标题4",
+                        render: function (data, type, row, meta) { /*显示行号*/
+                            return '<button type="button" class="js-check-btn no-Sel-obj btn btn-success btn-xs">查看权限</button> <button type="button" class="js-px-btn no-Sel-obj btn btn-success btn-xs">排序</button>';
+                        }
+                    }], '/dt/api', 'get', obj, {
+                        other: {
+                            destroy: true
+                        },
+                        selectStyle: 'os',
+                        jsInitComplete: function (settings) {
+                            console.log(settings);
+                            $(settings.nTBody).on('click', '.js-check-btn', function () {
+                                COM_TOOLS.alert("暂未开放");
+                            });
+                        }
+                    });
+                };
+                $('#sear_btn').click(function (e) {
+                    console.log('gggggg', $.trim($('#search_ipt').val()))
+                    $.get('/jstree6/searchapi1127', {
+                        keyword: $.trim($('#search_ipt').val())
+                    }, function (res) {
+                        if (res) {
+
+                            var str = '';
+                            if (res.person.length > 0) {
+                                str += '<div class="search-list-box">' +
+                                    '<div class="tit">人员</div>' +
+                                    '<div class="cont js-person">';
+                                $.each(res.person, function (i, n) {
+                                    str += '<p class="search-item clearfix js-search-item" data-text="' + n.text + '" data-id="' + n.id + '">' +
+                                        '<span>' + n.text + '</span>' +
+                                        '<span class="pull-right">' + n.department + '</span>' +
+                                        '</p>'
+                                });
+                                str += '</div></div>'
+                            }
+                            if (res.department.length > 0) {
+                                str += '<div class="search-list-box">' +
+                                    '<div class="tit">部门</div>' +
+                                    '<div class="cont">';
+                                $.each(res.person, function (i, n) {
+                                    str += '<p class="search-item clearfix js-search-item" data-text="' + n.text + '" data-id="' + n.id + '">' +
+                                        '<i class="iconx  glyphicon glyphicon-folder-close"></i><span>' + n.text + '</span>' +
+                                        '</p>'
+                                });
+                                str += '</div></div>'
+                            }
+                            console.log('----------', str)
+                            if (str) {
+                                $('#search_cont').html(str);
+                            } else {
+                                $('#search_cont').html('<div class="tit">无结果</div>');
+                            }
+                            $('.search-1227-x').show();
+                        }
+                    })
+                });
+
+                /*左侧搜索列表选中后刷新表格*/
+                $('#search_cont').on('click', '.js-search-item', function () {
+                    var $t = $(this),
+                        id_ = $t.data('id');
+                    searchParemOBj_ = {
+                        'id': id_
+                    };
+                    DT_.setAjaxData(searchParemOBj_);
+                    $('.search-1227-x').hide();
+                    $('#search_ipt').val('');
+                });
+
+                /* $('.search-1227-x').mCustomScrollbar({
+                     theme: "dark-3",
+                     axis: 'yx',
+                     scrollbarPosition: 'outside'
+                 });*/
+                /*搜索清空按钮*/
+                $('#clear_search_btn').click(function () {
+                    $('.search-1227-x').hide();
+                    $('#search_ipt').val('');
+                });
+                /* $('#cumBtn_search').click(function () {
+                     var txt_ = $.trim($('#search_inp').val());
+                     if (txt_.length <= 0) {
+                         COM_TOOLS.alert("请输入内容");
+                         return false;
+                     }
+                     searchParemOBj_ = {
+                         'xx': txt_
+                     };
+                     DT_.setAjaxData(searchParemOBj_);
+                 });*/
+                $('#cumBtn_add').click(function () { //添加
+                    cumParentWinModal('新建', 'add_form_tree.html', {
+                        "scrollbar": true,
+                        'area': ['70%', '80%'],
+                        "end": function () {}
+                    }); //在父窗口中打开弹窗并显示最大化按钮
+                });
+                $('#cumBtn_edit').click(function () { //修改
+                    if (!DT_.getSelectRowsData('DT_RowId').length) {
+                        COM_TOOLS.alert("请选择要修改的数据");
+                        return false;
+                    }
+                    cumParentWinModal('修改', 'xxx', {
+                        "scrollbar": true,
+                        'area': ['400px', '400px'],
+                        "callid": DT_.getSelectRowsData('DT_RowId')[0],
+                        "end": function () {}
+                    }); //在父窗口中打开弹窗并显示最大化按钮
+                });
+                $('#cumBtn_delete').click(function () { //删除
+                    if (!DT_.getSelectRowsData('DT_RowId').length) {
+                        COM_TOOLS.alert("请选择要删除的数据");
+                        return false;
+                    };
+                    COM_TOOLS.confirm('确认删除', function () {
+                        $.ajax({
+                            type: "post",
+                            url: "URL", //接口地址
+                            data: {
+                                'id': $.trim(DT_.getSelectRowsData('DT_RowId')[0])
+                            },
+                            success: function (d) {
+                                if (d.result == 1) {
+                                    COM_TOOLS.alert("操作成功");
+                                    //加载列表
+                                    COM_TOOLS.DT_setCurPageIndex(DT_.table);
+                                } else {
+                                    COM_TOOLS.alert("操作失败", {
+                                        time: 5000
+                                    });
+                                }
+                            },
+                            error: function () {
+                                COM_TOOLS.alert("系统异常");
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+    </body>
+
+</html>

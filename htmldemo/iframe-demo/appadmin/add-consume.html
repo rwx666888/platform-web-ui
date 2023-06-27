@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>新增消费接口</title>
+
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="../../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+        <link href="../../../css/iconfont.css" rel="stylesheet">
+
+        <link href="../../../css/plugins/iCheck/custom.css" rel="stylesheet">
+        <link href="../../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+        <link href="../../../css/plugins/select2/select2.min.css" rel="stylesheet">
+
+        <link href="../../../css/animate.css" rel="stylesheet">
+        <link href="../../../css/style.css" rel="stylesheet">
+        <style>
+            .add-consume .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .add-consume .form-horizontal .radio-inline {
+                border: 1px solid #ddd;
+                padding: 5px 6px 5px;
+                margin: 0 15px 15px 0;
+                border-radius: 3px;
+            }
+            
+            .add-consume .control-label {
+                color: #999;
+                font-weight: normal;
+            }
+            
+            .add-consume .consume-name {
+                color: #acafb4;
+            }
+            
+            .add-consume .consume-val {
+                line-height: 30px;
+                font-size: 14px;
+                word-wrap: break-word;
+                color: #acafb4;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="add-consume">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12" style="padding-top: 15px;">
+                        <form class="form-horizontal" id="consumerForm" autocomplete="off">
+                            <div class="form-group" style="padding-top: 20px;">
+                                <label class="col-sm-3 control-label"><span class="text-danger">*</span>被授权应用：</label>
+                                <div class="col-sm-8">
+                                    <select id="sel_menu3" class="form-control input-sm" name="consumerAppId" style="width: 260px;">
+                                        <option value="">选择应用</option>
+
+                                        <option value="1">123:TMP</option>
+
+                                        <option value="2">222:邮箱平台</option>
+
+                                        <option value="3">333:绩效系统-TPM</option>
+
+                                        <option value="4">333:CRM</option>
+
+                                        <option value="5">211:达内项目管理系统</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span class="text-danger">*</span>消费接口：</label>
+                                <div class="col-sm-8">
+                                    <select id="sel_menu4" required class="form-control input-sm" name="serviceId" style="width: 260px;">
+                                        <option value="">选择接口</option>
+
+                                        <option value="/rest-api/findAllOrgs">获取组织/findAllOrgs</option>
+
+                                        <option value="/rest-api/findAllPositions">获取岗位/findAllPositions</option>
+
+                                        <option value="/rest-api/findAllUsers">人员/tmp/user/findAllUsers</option>
+
+                                        <option value="/rest-api/auth">权限/auth</option>
+
+                                    </select>
+                                    <input type="hidden" name="service_url" id="service_url" />
+                                    <div class="consume-val" id="consume_val"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">消费状态：</label>
+                                <div class="col-sm-8">
+                                    <div class="switch-on-off pull-left switch-tigger-name">
+                                        <input type="checkbox" id="switch-checkbox" name="status" checked value="1">
+                                        <label class="switch-box" for="switch-checkbox">
+                                        <div class="track">
+                                            <div class="knob"></div>
+                                        </div>
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span class="text-danger">*</span>接口调用频次：</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control input-sm pull-left" type="text" name="freq" style="width:100px;" placeholder="大于0的数字，-1不限制">
+                                    <span class="pull-left" style="padding:0 5px;line-height: 30px;">/</span>
+                                    <select name="freqUnit" class="input-sm pull-left form-control" id="js_init_select2" style="width:100px;">
+                                        <option value="0">次/每天</option>
+                                        <option value="1">次/每小时</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">接口返回字段</label>
+                                <div class="col-sm-8 js-checks" id="param_list">
+                                    <label class="radio-inline i-checks"><input type="checkbox" checked value="option1" name="islocal">字段1</label>
+                                    <label class="radio-inline i-checks"><input type="checkbox" checked disabled  value="option2" name="islocal"> 字段2 </label>
+                                    <label class="radio-inline i-checks"><input type="checkbox" value="option3" name="islocal">字段3</label>
+                                    <label class="radio-inline i-checks"><input type="checkbox" value="option4" name="islocal"> 字段4 </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 text-center" style="padding-top: 20px;">
+
+                                    <button class="btn btn-sm btn-success" type="button" onclick="saveConsumer()">保存</button>
+
+                                </div>
+                            </div>
+                            <!-- 服务方应用 -->
+                            <input type="hidden" name="appId" value="A1106037913185366016" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mainly scripts -->
+        <script src="../../../js/jquery-2.1.1.js"></script>
+        <script src="../../../js/bootstrap.min.js"></script>
+        <script src="../../../js/plugins/layer/layer.js"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="../../../js/plugins/pace/pace.min.js"></script>
+        <script src="../../../i18n/zh-CN.js" type="text/javascript"></script>
+        <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+        <script src="../../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="../../../js/plugins/jquery-number/jquery.number.min.js"></script>
+        <script src="../../../js/plugins/select2/select2.full.min.js"></script>
+
+        <script src="../../../js/subindex.js"></script>
+        <script src="../../../js/plugins/iCheck/icheck.min.js"></script>
+        <script src="../../../js/jquery.mockjax.min.js"></script>
+        <script src="../../../js/plugins/jquery-zoom/jquery.zoom.min.js"></script>
+
+        <script>
+            $(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                }).on('ifChanged', function () {
+                    $(this).closest('form').validate().element(this);
+                });
+                // 初始化授权应用下拉选
+                COM_TOOLS.select2_init('sel_menu3', {
+                    other: {
+                        tags: true, //是否允许手动输入（自定义）数据项
+                    }
+                });
+                // 初始化消费接口下拉选
+                COM_TOOLS.select2_init('sel_menu4', {
+                    other: {
+                        tags: true, //是否允许手动输入（自定义）数据项
+                    }
+                });
+
+                function getConsumeData(val_) {
+                    $.ajax({
+                        url: '',
+                        data: val_,
+                        success: function (res) {
+                            if (res.code === '1') {
+                                var html_ = '';
+                                for (var i = 0; i < res.data; i++) {
+                                    html_ += '<label class="radio-inline i-checks"><input type="checkbox" ' + data[i].readonly ? 'disabled' : '' + ' value="' + data[i].name + '" name="' + data[i].tag + '">' + data[i].name + '</label>';
+                                }
+                                $('#param_list').html(html_);
+                                $('.i-checks').iCheck({
+                                    checkboxClass: 'icheckbox_square-green',
+                                    radioClass: 'iradio_square-green',
+                                }).on('ifChanged', function () {
+                                    $(this).closest('form').validate().element(this);
+                                });
+                            }
+                        }
+                    });
+                }
+                // 页面初始化加载默认选中数据
+                var $sel_option = $('#sel_menu4 option:selected');
+                if ($sel_option.length !== 0 && $sel_option.val() !== '-1') {
+                    $('#consume_val').html($sel_option.val());
+                    getConsumeData($sel_option.val());
+                }
+                //下拉选动态构造数据
+                $('#sel_menu4').on('change.select2', function () {
+                    var val_ = $.trim($(this).val());
+                    if (val_ !== '-1') {
+                        $('#consume_val').html(val_);
+                        getConsumeData(val_);
+                    } else {
+                        $('#consume_val').html('');
+                    }
+                });
+                //控制应用状态
+                $('.switch-on-off').click(function () {
+                    var $checkbox = $('#switch-checkbox');
+                    if ($checkbox.is(':checked')) {
+                        $checkbox.prop('disabled', true);
+                        COM_TOOLS.confirm('确认关闭消费接口吗？', {
+                            title: '提示'
+                        }, function () {
+                            COM_TOOLS.confirm('真的确定关闭吗？', {
+                                title: '提示'
+                            }, function (index) {
+                                layer.close(index);
+                                $checkbox.prop({
+                                    'disabled': false,
+                                    'checked': false
+                                });
+                            });
+                        });
+                    } else {
+                        $checkbox.prop('checked', true);
+                    }
+                });
+            });
+        </script>
+    </body>
+
+</html>

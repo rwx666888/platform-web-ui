@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>页面构造器</title>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../../css/plugins/toastr/toastr.min.css">
+
+    <script type="text/javascript" src="../../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+
+    <script src="../../i18n/zh-CN.js"></script>
+    <script src="../../js/subindex.js"></script>
+    <script src="../../js/plugins/art-template/template-web.js"></script>
+    <script src="../../js/plugins/beautifier/beautifier.min.js"></script>
+    <script src="../../js/plugins/toastr/toastr.min.js"></script>
+    <script src="../../js/jquery-ui.1.12.1.sort.custom.min.js"></script>
+    <script src="../../js/plugins/clipboard/clipboard.min.js"></script>
+    <script>
+      LOCAL_MESSAGE_DATA['cus.btn.onlycopy_local'] = '复制生成好的JSP页面代码，直接粘贴到对应页面的&lt;body&gt;&lt;/body&gt;中即可,不包含shiro标记';
+      LOCAL_MESSAGE_DATA['cus.btn.sendtoserver'] =
+        '需服务器端支持！<br/>建议本地服务中使用,可直接将生成好的JSP页面及JAVA类生成在项目目录下！<br/>如在平台生成，则下载生成好的压缩包，自行复制到项目中！';
+      LOCAL_MESSAGE_DATA['cus.com.dbname'] = '数据库名称，全小写字母；';
+      LOCAL_MESSAGE_DATA['cus.com.classname'] = 'java类型名称，小驼峰(字母+数字)，第一个字母必须是小写字母';
+      LOCAL_MESSAGE_DATA['cus.db.colname'] = '数据库列名必须全小写，可用下划线"_"分割，例如：user_name; 否则在转换为小驼峰命名时，会导致不一致！';
+    </script>
+
+    <!-- 演示代码 -->
+    
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="../../demo-data.js"></script>
+    <style>
+      .table.table-ver-middle>thead>tr>th,
+      .table.table-ver-middle>tbody>tr>th,
+      .table.table-ver-middle>tfoot>tr>th,
+      .table.table-ver-middle>thead>tr>td,
+      .table.table-ver-middle>tbody>tr>td,
+      .table.table-ver-middle>tfoot>tr>td {
+        vertical-align: middle;
+      }
+
+      .plugopt-btn-disabled {
+        cursor: not-allowed !important;
+        color: inherit;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--
+        作者：605910231@qq.com
+        时间：2019
+        描述：页面构造器
+        备注 “<template>” 标签中，不能在dom元素属性中 使用占位符(<option {{if true}} selected {{/if}}></option>)；需要使用“<script>”
+    -->
+    <div class="container-fluid p-md">
+      <form id="db_com_form" autocomplete="off">
+        <table class="table table-condensed table-bordered table-ver-middle">
+          <tr>
+            <td class="active">
+              <label class="pull-right">
+                <span class="text-danger">*</span>数据库表名
+                <a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="cus.com.dbname"></a>
+              </label>
+            </td>
+            <td><input class="form-control input-sm" required="required" name="tabName"></td>
+            <td class="active"><label class="pull-right"><span class="text-danger">*</span>说明</label></td>
+            <td><input class="form-control input-sm" required="required" name="tabDesc"></td>
+          </tr>
+          <tr>
+            <td class="active"><label class="pull-right"><span class="text-danger">*</span>表类型</label></td>
+            <td>
+              <select name="tabType" class="form-control input-sm">
+                <option value="0" selected="selected">单表</option>
+                <option value="1">主表</option>
+                <option value="2">附表</option>
+                <option value="3">树结构表</option>
+              </select>
+            </td>
+            <td class="active">
+              <label class="pull-right">
+                <span class="text-danger">*</span>类名
+                <a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="cus.com.classname"></a>
+              </label>
+            </td>
+            <td><input class="form-control input-sm" required="required" name="className"></td>
+          </tr>
+          <tr>
+            <td class="active"><label class="pull-right">主表表名</label></td>
+            <td>
+              <select name="tabMainType" class="form-control input-sm">
+                <option value="0" selected="selected">name|描述1</option>
+                <option value="1">name|描述2</option>
+              </select>
+            </td>
+            <td class="active"><label class="pull-right">当前表外键</label></td>
+            <td><input class="form-control input-sm" required="required" name="tabpkey"></td>
+          </tr>
+          <tr>
+            <td class="active"><label class="pull-right">core本地项目名</label></td>
+            <td><input class="form-control input-sm" required="required" name="coreName"></td>
+            <td class="active"><label class="pull-right">controller本地项目名</label></td>
+            <td><input class="form-control input-sm" required="required" name="consoleName"></td>
+          </tr>
+          <tr>
+            <td class="active"><label class="pull-right">web本地项目名</label></td>
+            <td><input class="form-control input-sm" required="required" name="webName"></td>
+            <td class="active"><label class="pull-right">功能所在包名</label></td>
+            <td><input class="form-control input-sm" required="required" name="packageName"></td>
+          </tr>
+        </table>
+      </form>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#db_option" data-toggle="tab">数据库属性</a>
+        </li>
+        <li role="presentation">
+          <a href="#page_option" data-toggle="tab">页面属性</a>
+        </li>
+      </ul>
+      <!-- Tab panes -->
+      <div class="tab-content p-sm" style="border: 1px solid #ddd; border-top: none;">
+        <div class="tab-pane active" id="db_option">
+          <form autocomplete="off">
+            <table class="table table-condensed table-striped table-bordered table-ver-middle">
+              <thead>
+                <tr>
+                  <th width="40px">序号</th>
+                  <th width="30px">操作</th>
+                  <th title="数据库字段名">列名<a class="tedufont tedu-icon133 cushelpbtn js-helpmsg"
+                      data-helpmsg="cus.db.colname"></a></th>
+                  <th title="默认读取数据库字段备注">说明</th>
+                  <th title="数据库中设置的字段类型及长度">物理类型</th>
+                  <th width="80px" title="">字段长度</th>
+                  <th width="30px" title="是否是数据库主键">主键</th>
+                  <th width="30px" title="字段是否可为空值，不可为空字段自动进行空值验证">可空</th>
+                  <th width="50px" class="text-center" title="update是是否禁止修改">禁止修改</th>
+                  <th width="130px" title="字段默认值，例如系统时间">默认值</th>
+                  <th width="50px" title="" class="text-center">排序</th>
+                </tr>
+              </thead>
+              <tbody id="db_configbox"></tbody>
+            </table>
+          </form>
+          <div class="m-b-sm">
+            <button class="btn btn-info btn-sm" id="js-btn-additem"><i class="glyphicon glyphicon-plus"></i>
+              添加一行</button>
+            <button class="btn btn-sm btn-danger" id="js-btn-delitem"><i class="glyphicon glyphicon-trash"></i>
+              删除</button>
+          </div>
+        </div>
+        <div class="tab-pane" id="page_option">
+          <form autocomplete="off">
+            <table class="table table-condensed table-striped table-bordered table-ver-middle">
+              <thead>
+                <tr>
+                  <th title="数据库字段名">列名</th>
+                  <th title="">label名称</th>
+                  <th title="根据数据模型自动匹配，可调整">java类型</th>
+                  <th width="30" title="显示在表单中">表单</th>
+                  <th width="30" title="显示在列表中">列表</th>
+                  <th width="30" title="作为查询条件">查询</th>
+                  <th title="">查询匹配方式</th>
+                  <th title="">表单元素类型</th>
+                  <th width="50" title="" class="text-center">配置</th>
+                </tr>
+              </thead>
+              <tbody id="page_configbox"></tbody>
+            </table>
+          </form>
+          <div style="margin-bottom: 15px;">
+            <label class="radio-inline">
+              <input type="radio" name="page_columns" value="2" checked="checked" autocomplete="off"> 2列视图
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="page_columns" value="3" autocomplete="off"> 3列视图
+            </label>
+          </div>
+          <div class="m-b-sm">
+            <button class="pull-right btn btn-primary btn-sm js-helpmsg" id="sendtomakebtn"
+              data-helpmsg="cus.btn.sendtoserver">提交到服务端生成代码</button>
+            <button class="pull-right btn btn-warning btn-sm js-helpmsg" id="sendtomakebtn_local"
+              style="margin-right: 15px;" data-helpmsg="cus.btn.onlycopy_local">仅复制生成的JSP页面代码</button>
+            <button class="btn btn-info btn-sm" id="js-btn-sfpage-form"><span class="glyphicon glyphicon-random"></span>
+              预览表单页</button>
+            <button class="btn btn-danger btn-sm" id="js-btn-sfpage-list"><span
+                class="glyphicon glyphicon-random"></span> 预览列表页</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数据库表构建模板 start -->
+    <script type="text/template" id="db_codebox">
+      {{each $data}}
+      <tr>
+        <td>{{$index+1}}</td>
+        <td><input type="checkbox" class="js-item-checkedbox" value="" /></td>
+        <td><input type="text" class="form-control input-sm js-item-ele" name="column_name"
+            value="{{$value.column_name}}" {{if $value.column_readonly=="true"}} readonly="readonly" {{/if}}></td>
+        <td><input type="text" class="form-control input-sm js-item-ele" name="column_desc"
+            value="{{$value.column_desc}}"></td>
+        <td>
+          <select class="form-control input-sm js-item-ele" name="column_type">
+            <option value="varchar" {{if $value.column_type=='varchar' }} selected="selected" {{/if}}>mysql_varchar
+            </option>
+            <option value="int" {{if $value.column_type=='int' }} selected="selected" {{/if}}>mysql_int</option>
+            <option value="datetime" {{if $value.column_type=='datetime' }} selected="selected" {{/if}}>mysql_datetime
+            </option>
+            <option value="NUMBER" {{if $value.column_type=='NUMBER' }} selected="selected" {{/if}}>oracle_NUMBER
+            </option>
+            <option value="VARCHAR2" {{if $value.column_type=='VARCHAR2' }} selected="selected" {{/if}}>oracle_VARCHAR2
+            </option>
+            <option value="DATE" {{if $value.column_type=='DATE' }} selected="selected" {{/if}}>oracle_DATE</option>
+          </select>
+        </td>
+        <td><input type="text" class="form-control input-sm js-item-ele" maxlength="6" name="column_length"
+            value="{{$value.column_length || 32}}"></td>
+        <td class="text-center"><input type="checkbox" class="js-item-ele" name="column_iskey" value="true"
+            {{if $value.column_iskey=='true' }} checked="checked" {{/if}} /></td>
+        <td class="text-center"><input type="checkbox" class="js-item-ele" name="column_isnull" value="true"
+            {{if $value.column_isnull=='true' }} checked="checked" {{/if}} /></td>
+        <td class="text-center"><input type="checkbox" class="js-item-ele" name="column_notupdate" value="true"
+            {{if $value.column_notupdate=='true'}} checked="checked" {{/if}} /></td>
+        <td><input type="text" class="form-control input-sm js-item-ele" name="column_defaultvalue"
+            value="{{$value.column_defaultvalue}}" /></td>
+        <td class="text-center" style="cursor: pointer;"><i class="glyphicon glyphicon-sort js-sort-btn"></i></td>
+        <input type="hidden" class="js-item-ele" name="column_readonly" value="{{$value.column_readonly}}" />
+      </tr>
+      {{/each}}
+    </script>
+    <!-- 数据库表构建模板 end -->
+
+    <!-- 页面展示构建模板 start -->
+    <script type="text/template" id="page_codebox">
+      {{each $data}}
+      <tr data-column_name="{{$value.column_name}}"
+        data-validopt='{{!$value.column_isnull ? '{"required":"required"}' : '{}'}}'>
+        <td><input type="text" class="form-control input-sm js-item-ele" value="{{$value.column_name}}"
+            readonly="readonly" name="column_name"></td>
+        <td><input type="text" class="form-control input-sm js-item-ele" value="{{$value.column_desc}}"
+            name="label_name"></td>
+        <td>
+          <select class="form-control input-sm js-item-ele" name="java_datatype">
+            <option value="String" {{if $value.column_type=='varchar' || $value.column_type=='VARCHAR2'}}
+              selected="selected" {{/if}}>String</option>
+            <option value="Date" {{if $value.column_type=='DATE' || $value.column_type=='datetime'}} selected="selected"
+              {{/if}}>Date</option>
+            <option value="Integer" {{if $value.column_type=='date' }} selected="selected" {{/if}}>Integer</option>
+            <option value="Long">Long</option>
+            <option value="boolean">boolean</option>
+            <option value="BigDecimal">BigDecimal</option>
+          </select>
+        </td>
+        <td><input type="checkbox" value="true" class="js-item-ele" {{if $value.column_iskey !='true' }}
+            checked="checked" {{/if}} name="inform" /></td>
+        <td><input type="checkbox" value="true" class="js-item-ele" {{if $value.column_iskey !='true' }}
+            checked="checked" {{/if}} name="iflist" /></td>
+        <td><input type="checkbox" value="true" class="js-item-ele js-item-serbtn" name="insearch" /></td>
+        <td>
+          <select class="form-control input-sm js-item-ele js-item-sertype" name="search_type" disabled="disabled">
+            <option value="1">完全匹配</option>
+            <option value="2">右模糊</option>
+            <option value="2">左模糊</option>
+            <option value="2">左右模糊</option>
+          </select>
+        </td>
+        <td>
+          <select class="form-control input-sm js-item-ele js-item-plubtn" name="plugin_type">
+            <option value="input-text" data-used_opt="false">单行文本</option>
+            <option value="select">select</option>
+            <option value="select2" data-used_opt="true">select2</option>
+            <option value="textarea">多行文本</option>
+            <option value="datatimepicker" data-used_opt="true">日历</option>
+            <option value="daterangepicker" data-used_opt="true">日历（支持双日历）</option>
+            <option value="timepicker">时间</option>
+            <option value="input-radio" data-used_opt="true">单选框（原生）</option>
+            <option value="input-checkbox" data-used_opt="true">复选框（原生）</option>
+            <option value="input-radio-i" data-used_opt="true">单选框（ickeck）</option>
+            <option value="input-checkbox-i" data-used_opt="true">复选框（ickeck）</option>
+            <option value="win-modal" data-used_opt="true">弹窗</option>
+            <option value="platform-dict" data-used_opt="true">数据字典</option>
+          </select>
+        </td>
+        <td class="text-center js-plugopt-btn text-success" style="font-size: 20px; cursor: pointer;"><i
+            class="glyphicon glyphicon-cog"></i></td>
+        <input class="js-item-ele" type="hidden" name="column_isnull" value="{{$value.column_isnull}}" />
+        <input class="js-item-ele" type="hidden" name="column_notupdate" value="{{$value.column_notupdate}}" />
+      </tr>
+      {{/each}}
+    </script>
+    <!-- 页面展示构建模板 end -->
+    
+
+    <div class="modal fade" tabindex="-1" id="modal_plugin_opt" data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!--<div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">模块配置信息</h4>
+          </div>-->
+          <div class="modal-body" id="modal_plugin_tabs" style="padding:15px;">
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#tt_valodate" aria-controls="home" role="tab"
+                  data-toggle="tab">表单验证</a></li>
+              <li role="presentation" style="display: none;"><a href="#tt_pluopt" aria-controls="profile" role="tab"
+                  data-toggle="tab">组件配置</a></li>
+            </ul>
+
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="tt_valodate" style="padding: 10px 10px;">
+                <form autocomplete="off" id="modal_plugin_valid_cont"></form>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="tt_pluopt" style="padding: 15px 10px;">
+                <form autocomplete="off" id="modal_plugin_opt_cont"></form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-sm" id="modal_plugin_opt_resetbtn"
+              data-dismiss="modal">重置并关闭</button>
+            <button type="button" class="btn btn-warning btn-sm" data-dismiss="modal">取消并关闭</button>
+            <button type="button" class="btn btn-primary btn-sm" id="modal_plugin_opt_savebtn">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    
+
+    <script src="main.js" type="text/javascript"></script>
+    <script>
+      // 加载模板
+      $.get('template/form_element.template',function(s){
+        $('body').append(s);
+      },'text');
+      $.get('template/plugins_jscode.template',function(s){
+        $('body').append(s);
+      },'text');
+      $.get('template/plugins_opt.template',function(s){
+        $('body').append(s);
+      },'text');
+      $.get('template/page_form.template',function(s){
+        $('body').append(s);
+      },'text');
+      $.get('template/page_list.template',function(s){
+        $('body').append(s);
+      },'text');
+      $.get('template/page_info.template',function(s){
+        $('body').append(s);
+      },'text');
+      $(function(){
+        //获取字典表数据
+        $.get('/datadict/api/getsource', function(d){
+          if(d){
+            _DIST_SOURCE_ = d;
+          }
+        });
+        
+      });
+    </script>
+
+  </body>
+
+</html>

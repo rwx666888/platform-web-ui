@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>数据字典-组件</title>
+        <link href="../../../css/animate.css" rel="stylesheet">
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/iconfont.css" rel="stylesheet">
+        <link href="../../../font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="../../../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+        <link href="../../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+        <link href="../../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+        <link href="../../../css/plugins/select2/select2.min.css" rel="stylesheet">
+        <link href="../../../css/style.css" rel="stylesheet">
+        
+        <link href="../../../css/plugins/highlight/monokai-sublime.min.css" rel="stylesheet"/>
+        <style type="text/css">
+            .demo-box{
+                border: 1px solid #DDDDDD;
+                border-radius: 5px;
+                padding: 15px;
+                margin-bottom: 15px;
+                position: relative;
+            }
+            .demo-box .js-copy-btn{
+                position: absolute;
+                right: 0;
+                top: 0;
+                background: #dfdfdf;
+                border: 1px solid #DDDDDD;
+                border-top-width: 0;
+                border-right-width: 0;
+                padding: 5px 10px;
+                cursor: pointer;
+                border-radius: 0 0 0 5px;
+            }
+            pre{
+                white-space: pre-wrap;       
+                white-space: -moz-pre-wrap;  
+                white-space: -pre-wrap;      
+                white-space: -o-pre-wrap;    
+                word-wrap: break-word;       
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container" style="padding-top: 15px; padding-bottom: 15px;">
+            <p class="bg-success" style="padding: 10px;">临时性过渡方案，选择数据源及控件类型后，右侧可查看实时效果，可直接复制生成的相关代码（仅在平台框架下可用）；注意此demo页只设置了两个数据源；</p>
+            <div class="row">
+                <div class="col-md-5">
+                    <form autocomplete="off">
+                        <div class="form-group form-group-sm">
+                            <label class="">控件名称：</label>
+                            <input class="form-control" type="text" value="" placeholder="" id="name_box" />
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="">数据源：</label>
+                            <select class="form-control" id="sel_databox">
+                                <option value="">请选择</option>
+                                <option value="data001" data-data='{"apiurl":"/datadict/api/address","ajaxtype":"get","datafn":"","opt":""}'>国家行政区域</option>
+                                <option value="data002" data-data='{"apiurl":"/demo/sex/api","ajaxtype":"get","datafn":"","opt":""}'>性别</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="">控件类型：</label>
+                            <select class="form-control" id="sel_pluginbox" disabled="disabled">
+                                <option value="">请选择</option>
+                                <option value="template_select">下拉选择框</option>
+                                <option value="template_select_level2">下拉选择框（2级联动）</option>
+                                <option value="template_select_level3">下拉选择框（3级联动）</option>
+                                <option value="template_tree" disabled="disabled">树形组件</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="">功能配置：</label>
+                            <textarea class="form-control" rows="7" id="opt_box"></textarea>
+                        </div>
+                        <div class="form-group form-group-sm">
+                            <label class="">描述：</label>
+                            <textarea class="form-control" rows="5" id="desc_box"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-7">
+                    <div class="demo-box">
+                        <h3>效果:</h3>
+                        <div id="demo_example"></div>
+                    </div>
+                    <div class="demo-box">
+                        <h3>HTML:</h3>
+                        <span id="demo_html_btn" class="js-copy-btn">copy</span>
+                        <pre class="xml" id="demo_html"></pre>
+                    </div>
+                    <div class="demo-box">
+                        <h3>JS:</h3>
+                        <span id="demo_js_btn" class="js-copy-btn">copy</span>
+                        <pre class="javascript" id="demo_js"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../../js/jquery-2.1.1.js"></script>
+        <script src="../../../js/bootstrap.min.js"></script>
+
+        <script src="../../../js/plugins/layer/layer.js"></script>
+        <script src="../../../js/plugins/jsTree/jstree.min.js"></script>
+        <script src="../../../js/plugins/datatables/datatables.min.js"></script>
+        <script src="../../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="../../../js/plugins/select2/select2.full.min.js"></script>
+
+        <script src="../../../i18n/zh-CN.js"></script>
+        <script src="../../../js/subindex.js"></script>
+        <script src="../../../js/plugins/art-template/template-web.js"></script>
+        <script src="../../../js/plugins/beautifier/beautifier.min.js"></script>
+        <script src="../../../js/plugins/highlight/highlight.pack.js"></script>
+        <script src="../../../js/plugins/clipboard/clipboard.min.js"></script>
+
+        <!-- 以下js仅用于演示 -->
+        <script src="../../../demo-city-data.js"></script>
+        <script src="../../../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../../../demo-data.js"></script>
+        
+        
+        <!-- 模板开始 -->
+        <script type="text/template" id="template_select_js">
+            $(function () {
+                var sel_level_1 = COM_TOOLS.select2_init('{{domid}}', '{{apiurl}}', '{{ajaxtype}}', '{{datafn}}', '{{opt}}');
+            });
+        </script>
+        <script type="text/template" id="template_select_html">
+            <select class="form-control" id="{{domid}}" selectedvalue="">
+                <option value="">请选择</option>
+            </select>
+        </script>
+        <script type="text/template" id="template_select_level3_js">
+            $(function () {
+                var sel_level_1 = COM_TOOLS.select2_init('{{domid}}', '{{apiurl}}', '{{ajaxtype}}', '', {
+                    ispinyin: true,
+                    initValue: false, //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+                    drawCallBack: function () {
+                        window.setTimeout(function () {
+                            set_init_selected();
+                        }, 50);
+                    }
+                });
+                var sel_level_2 = COM_TOOLS.select2_init('{{domid}}_2', {
+                    ispinyin: true,
+                    initValue: false //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+                });
+                var sel_level_3 = COM_TOOLS.select2_init('{{domid}}_3', {
+                    ispinyin: true,
+                    initValue: false //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+                });
+                function set_init_selected() {
+                    if (sel_level_1.select2.attr('selectedvalue')) {
+                        sel_level_1.setVal(sel_level_1.select2.attr('selectedvalue'));
+                        if (sel_level_2.select2.attr('selectedvalue')) {
+                            window.setTimeout(function () {
+                                sel_level_2.setVal(sel_level_2.select2.attr('selectedvalue'));
+                            }, 50);
+                            if (sel_level_3.select2.attr('selectedvalue')) {
+                                window.setTimeout(function () {
+                                    sel_level_3.setVal(sel_level_3.select2.attr('selectedvalue'));
+                                }, 50);
+                            }
+                        }
+                    }
+                }
+
+                sel_level_1.changeCallback(function () {
+                    var val_1 = sel_level_1.getSelectedData() || [];
+                    sel_level_2.updateOption(COM_TOOLS.sel_make_optionFn(val_1[0] ? (val_1[0]._children_ || []) : []));
+                    sel_level_3.updateOption(COM_TOOLS.sel_make_optionFn([]));
+                });
+                sel_level_2.changeCallback(function () {
+                    var val_2 = sel_level_2.getSelectedData() || [];
+                    sel_level_3.updateOption(COM_TOOLS.sel_make_optionFn(val_2[0] ? (val_2[0]._children_ || []) : []));
+                });
+            });
+        </script>
+        <script type="text/template" id="template_select_level3_html">
+            <select class="form-control" id="{{domid}}" selectedvalue="130000">
+                <option value="">请选择</option>
+            </select>
+            <select class="form-control" id="{{domid}}_2" selectedvalue="131000">
+                <option value="">请选择</option>
+            </select>
+            <select class="form-control" id="{{domid}}_3" selectedvalue="131024">
+                <option value="">请选择</option>
+            </select>
+        </script>
+        <!-- select-lever2 模板 start -->
+        <script type="text/template" id="template_select_level2_js">
+            $(function () {
+                var sel_level_1 = COM_TOOLS.select2_init('{{domid}}', COM_DEFAULT._contextPath + '{{apiurl}}', '{{ajaxtype}}', '', {
+                    ispinyin: true,
+                    initValue: false, //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+                    drawCallBack: function () {
+                        window.setTimeout(function () {
+                            set_init_selected();
+                        }, 50);
+                    }
+                });
+                var sel_level_2 = COM_TOOLS.select2_init('{{domid}}_2', {
+                    ispinyin: true,
+                    initValue: false //注意这里要关闭组件自身的初始化默认值的能力，否则因动态加载组件（拼音组件）及初始化赋值选中同时使用的原因，changeCallback会被执行两次
+                });
+                function set_init_selected() {
+                    if (sel_level_1.select2.attr('selectedvalue')) {
+                        sel_level_1.setVal(sel_level_1.select2.attr('selectedvalue'));
+                        if (sel_level_2.select2.attr('selectedvalue')) {
+                            window.setTimeout(function () {
+                                sel_level_2.setVal(sel_level_2.select2.attr('selectedvalue'));
+                            }, 50);
+                        }
+                    }
+                }
+
+                sel_level_1.changeCallback(function () {
+                    var val_1 = sel_level_1.getSelectedData() || [];
+                    sel_level_2.updateOption(COM_TOOLS.sel_make_optionFn(val_1[0] ? (val_1[0]._children_ || []) : []));
+                });
+            });
+        </script>
+        <script type="text/template" id="template_select_level2_html">
+            <select class="form-control" id="{{domid}}" selectedvalue="130000">
+                <option value="">请选择</option>
+            </select>
+            <select class="form-control" id="{{domid}}_2" selectedvalue="131000">
+                <option value="">请选择</option>
+            </select>
+        </script>
+        <!-- select-lever2 模板 end -->
+        <!-- 模板结束 -->
+        
+        <script type="text/javascript">
+            
+            $(function () {
+                var _tempdata = {};
+                var htmlcode_ = '';
+                var jscode_ = '';
+                $('#sel_databox').change(function(){
+                    var data_ = $(this).find('option:selected').data('data');
+                    if(data_){
+                        _tempdata = data_;
+                    }else{
+                        _tempdata = {};
+                    }
+                    $('#sel_pluginbox').val('').prop('disabled', !$.trim($(this).val())).trigger('change');
+                });
+                $('#sel_pluginbox').change(function(){
+                    var val_ = $.trim($(this).val());
+                    if(val_ && !$.isEmptyObject(_tempdata)){
+                        _tempdata.domid = 'md' + COM_TOOLS.get_random_fun(8);
+                        make_code(val_);
+                    }else{ //重置
+                        htmlcode_ = '';
+                        jscode_ = '';
+                        $('#demo_example').html(htmlcode_);
+                        $('#demo_js').text(jscode_);
+                        $('#demo_html').text(htmlcode_);
+                    }
+                });
+                
+                function make_code(tempid){
+                    htmlcode_ = beautifier.html(template(tempid + '_html',_tempdata));
+                    $('#demo_example').html(htmlcode_);
+                    jscode_ = beautifier.js(template(tempid + '_js', _tempdata));
+                    (new Function(jscode_))();
+                    $('#demo_js').text(jscode_);
+                    $('#demo_html').text(htmlcode_);
+                    $('pre').each(function(i,n){
+                        hljs.highlightBlock(n);
+                    });
+                }
+                new ClipboardJS('#demo_html_btn', {
+                    text: function(trigger) {
+                        return htmlcode_ || 'no-data';
+                    }
+                });
+                new ClipboardJS('#demo_js_btn', {
+                    text: function(trigger) {
+                        return jscode_ || 'no-data';
+                    }
+                });
+            });
+            
+        </script>
+    </body>
+
+</html>

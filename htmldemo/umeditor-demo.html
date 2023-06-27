@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta charset="UTF-8">
+		<title>UMEDITOR</title>
+		<link href="../css/bootstrap.min.css" rel="stylesheet">
+    	<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/plugins/umeditor/themes/default/css/umeditor.css" />
+		<style type="text/css">
+			.demo-box{ margin-bottom: 10px; border: 1px solid #ddd; padding: 10px; position: relative; border-radius: 5px;}
+			.jumbotron p{font-size: 14px !important;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="jumbotron">
+				<h3>富文本编辑器umeditor</h3>
+				<p>简称UM,是为满足广大门户网站对于简单发帖框，或者回复框需求所定制的在线富文本编辑器。 UM的主要特点就是容量和加载速度上的改变，主文件的代码量为139k，而且放弃了使用传统的iframe模式，采用了div的加载方式， 以达到更快的加载速度和零加载失败率。现在UM的第一个使用者是百度贴吧，贴吧每天几亿的pv是对UM各种指标的最好测试平台。 当然随着代码的减少，UM的功能对于UE来说还是有所减少，但我们经过调研和大家对于UM提出的各种意见，提供了现在UM的功能版本， 虽然有删减，但也有增加，比如拖拽图片上传，chrome的图片拖动改变大小等。让UM能在功能和体积上达到一个平衡。UM还会提供 CDN方式，减少大家部署的成本。我们的目标不仅是要提高在线编辑的编辑体验，也希望能改变前端技术中关于富文本技术的门槛，让大家不再觉得这块是个大坑。</p>
+				<p>官网地址：<a href="https://ueditor.baidu.com/website/umeditor.html" target="_blank">http://ueditor.baidu.com/website/umeditor.html</a></p>
+				<p>JSP 使用说明：<a href="https://fex.baidu.com/ueditor/#server-jsp" target="_blank">http://fex.baidu.com/ueditor/#server-jsp</a></p>
+				<p class="text-info">组件包</p>
+				<p>template.min.js</p>
+				<p>umeditor.config.js</p>
+				<p>umeditor.min.js</p>
+				<p>zh-cn.js</p>
+			</div>
+			<h3>实例演示</h3>
+			<!--DEMO 1-->
+			<div class="panel panel-default">
+				<div class="panel-heading">基本功能</div>
+				<div class="panel-body">
+					<div class="demo-box">
+						<p>请输入内容:</p>
+						<!--style给定宽度可以影响编辑器的最终宽度-->
+						<form>
+							<script type="text/plain" id="myEditor" style="width: 100%;height: 300px;">
+								<p>回显数据建议直接写在便签内，不建议使用API</p>
+							</script>
+						</form>
+						<div class="row m-t-md">
+							<div class="col-sm-12">
+								<button id="get_cont" type="button" class="btn btn-sm btn-info">获取内容(带html)</button>
+							</div>		
+						</div>
+					</div>
+					<ul class="nav nav-tabs" role="tablist">
+					  <li role="presentation" class="active"><a href="#demo1-html" role="tab" data-toggle="tab" aria-expanded="true">html</a></li>
+					  <li role="presentation" class=""><a href="#demo1-js" role="tab" data-toggle="tab" aria-expanded="false">js</a></li>
+					  <li role="presentation" class=""><a href="#demo1-css" role="tab" data-toggle="tab" aria-expanded="false">css</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="demo1-html">
+<pre>
+<!--style给定宽度可以影响编辑器的最终宽度-->
+&lt;form&gt;
+	&lt;script type=&quot;text/plain&quot; id=&quot;myEditor&quot; style=&quot;width: 100%;height: 300px;&quot;&gt;
+		&lt;p&gt;&#x56DE;&#x663E;&#x6570;&#x636E;&#x5EFA;&#x8BAE;&#x76F4;&#x63A5;&#x5199;&#x5728;&#x4FBF;&#x7B7E;&#x5185;&#xFF0C;&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;API&lt;/p&gt;
+	&lt;/script&gt;
+&lt;/form&gt;
+&lt;div class=&quot;row m-t-md&quot;&gt;
+	&lt;div class=&quot;col-sm-12&quot;&gt;
+		&lt;button id=&quot;get_cont&quot; type=&quot;button&quot; class=&quot;btn btn-sm btn-info&quot;&gt;&#x83B7;&#x53D6;&#x5185;&#x5BB9;(&#x5E26;html)&lt;/button&gt;
+	&lt;/div&gt;		
+&lt;/div&gt;
+</pre>
+						</div>
+						<div class="tab-pane" id="demo1-js">
+<pre>
+&#x7EC4;&#x4EF6;&#xFF1A;
+&lt;script src=&quot;../js/plugins/umeditor/third-party/template.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/umeditor/umeditor.config.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/umeditor/umeditor.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../js/plugins/umeditor/lang/zh-cn/zh-cn.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+/*zdy-&#x9996;&#x884C;&#x7F29;&#x8FDB;*/
+UM.registerUI(&#x27;indent&#x27;,function(name) {
+	var _this=this;
+    var $btn = $.eduibutton({
+        icon : name,
+        title: &#x27;&#x9996;&#x884C;&#x7F29;&#x8FDB;&#x27;,
+        click : function(){
+        	var reg_=/^&lt;img/,
+        	len_=_this.selection.getStartElementPath().length,
+            t_=$(_this.selection.getStartElementPath()[len_-2]);
+            
+            t_.hasClass(&#x27;js-indent&#x27;)?t_.removeClass(&#x27;js-indent&#x27;).css(&#x27;text-indent&#x27;,&#x27;0em&#x27;):
+            reg_.test(t_.html())?&#x27;&#x27;:t_.addClass(&#x27;js-indent&#x27;).css(&#x27;text-indent&#x27;,&#x27;2em&#x27;);
+        }
+    });
+
+    this.addListener(&#x27;selectionchange&#x27;,function(){
+        //&#x5207;&#x6362;&#x4E3A;&#x4E0D;&#x53EF;&#x7F16;&#x8F91;&#x65F6;&#xFF0C;&#x628A;&#x81EA;&#x5DF1;&#x53D8;&#x7070;
+        var state = this.queryCommandState(name);
+        $btn.edui().disabled(state == -1).active(state == 1);
+    });
+    return $btn;
+});
+var ums = UM.getEditor(&#x27;myEditor&#x27;,{
+	toolbar:[
+        &#x27;source | undo redo | bold italic underline strikethrough | forecolor backcolor | indent image horizontal removeformat &#x27;,
+        &#x27;| justifyleft justifycenter justifyright |&#x27;,
+        &#x27;insertorderedlist insertunorderedlist | paragraph | fontfamily fontsize&#x27; ,
+    ],
+    autoHeightEnabled:false,
+    textarea:'xxx',
+    autoFloatEnabled:false
+});
+//&#x83B7;&#x53D6;&#x5185;&#x5BB9;&#x5E26;&#x683C;&#x5F0F;&#x7684;
+$(&#x27;#get_cont&#x27;).click(function(){
+	var arr = [];
+    arr.push(UM.getEditor(&#x27;myEditor&#x27;).getContent());
+    alert(arr.join(&quot;\n&quot;));
+});
+</pre>
+						</div>
+						<div class="tab-pane" id="demo1-css">
+<pre>
+&#x7EC4;&#x4EF6;:
+&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/plugins/umeditor/themes/default/css/umeditor.css&quot; /&gt;
+</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--DEMO end-->
+<!--基础方法-->
+<h4>基础方法</h4>
+<pre>
+创建编辑器：UM.getEditor('ID')
+摧毁：destroy()
+获取内容（带标签）：getContent()
+获取内容（纯文本）：getContentTxt()
+获取内容（纯文本,带格式）：
+getPlainTxt()
+是否有内容：hasContents()
+是否有焦点：isFocus()
+写入内容：setContent('string', boolean)	//为true时是追加内容
+插入HTML内容：execCommand('insertHtml', 'string')
+禁用/启用编辑：setDisabled('fullscreen')/setEnabled()
+</pre>
+<!--基础方法-->
+<h4>配置项</h4>
+<pre>
+对月配置项的修改视情况而定：
+1.在实例化编辑器时传入对应参数；
+2.也可在 umeditor.config.js 中配置；
+
+//图片上传配置区
+,imageUrl:URL+"jsp/imageUp.jsp"             //图片上传提交地址
+,imagePath:URL + "jsp/"                     //图片修正地址，引用了fixedImagePath,如有特殊需求，可自行配置
+,imageFieldName:"upfile"                   //图片数据的key,若此处修改，需要在后台对应文件修改对应参数
+
+,textarea:'editorValue' // 提交表单时，服务器获取编辑器提交内容的所用的参数
+,toolbar:[]		//工具栏
+,initialContent:'欢迎使用UMEDITOR!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+,focus:false //初始化时，是否让编辑器获得焦点true或false
+,readonly : false //编辑器初始化结束后,编辑区域是否是只读的，默认是false
+,autoFloatEnabled:true 	//是否保持toolbar的位置不动,默认true
+</pre>
+		</div>
+	
+	<script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
+	
+	<script src="../js/plugins/umeditor/third-party/template.min.js" type="text/javascript"></script>
+	<script src="../js/plugins/umeditor/umeditor.config.js" type="text/javascript"></script>
+	<script src="../js/plugins/umeditor/umeditor.min.js" type="text/javascript"></script>
+	<script src="../js/plugins/umeditor/lang/zh-cn/zh-cn.js" type="text/javascript"></script>
+	
+	<script src="../i18n/zh-CN.js"></script>
+	<script src="../js/subindex.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	//$(function(){
+		/*zdy-首行缩进*/
+		UM.registerUI('indent',function(name) {
+	    	var _this=this;
+	        var $btn = $.eduibutton({
+	            icon : name,
+	            title: '首行缩进',
+	            click : function(){
+	            	var reg_=/^<img/,
+	            	len_=_this.selection.getStartElementPath().length,
+	                t_=$(_this.selection.getStartElementPath()[len_-2]);
+	                
+	                t_.hasClass('js-indent')?t_.removeClass('js-indent').css('text-indent','0em'):reg_.test(t_.html())?'':t_.addClass('js-indent').css('text-indent','2em');
+	            }
+	        });
+	
+	        this.addListener('selectionchange',function(){
+	            //切换为不可编辑时，把自己变灰
+	            var state = this.queryCommandState(name);
+	            $btn.edui().disabled(state == -1).active(state == 1);
+	        });
+	        return $btn;
+	    });
+		var ums = UM.getEditor('myEditor',{
+	    	toolbar:[
+	            'source | undo redo | bold italic underline strikethrough | forecolor backcolor | indent image horizontal removeformat ',
+	            '| justifyleft justifycenter justifyright |',
+	            'insertorderedlist insertunorderedlist | paragraph | fontfamily fontsize' ,
+	        ],
+	        autoHeightEnabled:false,
+	        textarea:'xxx',
+	        autoFloatEnabled:false
+	    });
+	    //获取内容带格式的
+	    $('#get_cont').click(function(){
+	    	var arr = [];
+	        arr.push(UM.getEditor('myEditor').getContent());
+	        alert(arr.join("\n"));
+	    });
+	//});
+	</script>
+	</body>
+</html>

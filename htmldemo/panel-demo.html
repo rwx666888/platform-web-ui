@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>【组件】自定义面板</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/plugins/select2/select2.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+
+        <!-- 以下JS因演示demo需要，所以在head中引入 -->
+        <script src="../js/jquery-2.1.1.js"></script>
+
+        <!-- 以下js仅用于演示 -->
+        <script src="../js/plugins/beautifier/beautifier.min.js"></script>
+        <script src="../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../demo-data.js"></script>
+        <style>
+            pre {
+                white-space: pre-wrap;
+                white-space: -moz-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                word-wrap: break-word;
+            }
+            .cus-demo-code-ol {
+                background: #F2F2F2;
+                padding: 0;
+                margin: 0;
+            }
+            .cus-demo-code-ol li {
+                margin-left: 45px;
+                line-height: 20px;
+                padding: 0 5px;
+                border-left: 1px solid #e2e2e2;
+                list-style-type: decimal-leading-zero;
+                background-color: #fff;
+            }
+            .demo-box {
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                position: relative;
+                border-radius: 5px;
+            }
+            .tab-content {
+                overflow-y: auto;
+                max-height: 400px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h2>自定义面板组件</h2>
+            </div>
+
+            <!-- 实例1 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">自定义面板示例</div>
+                <div class="panel-body">
+                    <div class="demo-box js-auto-init-demobox">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!--自定义面板（自适应高度）-->
+                                <div class="cus-panel cus-panel-default">
+                                    <div class="cus-panel-heading">
+                                        <span class="cus-panel-title">自定义面板（自适应高度）</span>
+                                        <div class="cus-panel-btn-box"></div>
+                                    </div>
+                                    <div class="cus-panel-body">自适应高度</div>
+                                </div>
+                                
+                                <!-- 自定义面板（固定高度） -->
+                                <!-- 通过属性data-height 为panel-body 设置高度；非整个panel的高度 -->
+                                <div class="cus-panel cus-panel-success" data-height="100">
+                                    <div class="cus-panel-heading">
+                                        <span class="cus-panel-title">自定义面板</span>
+                                        <div class="cus-panel-btn-box"></div>
+                                    </div>
+                                    <div class="cus-panel-body">固定高度</div>
+                                </div>
+                                
+                                
+                                <!-- 自定义面板（iframe） -->
+                                <!-- 设置属性 data-iframesrc 后将自动转化为iframe模式，并自动添加刷新功能 -->
+                                <div class="cus-panel cus-panel-danger" data-iframesrc="https://lianglei.net.cn/demo-ui/platform-help/htmldemo/">
+                                    <div class="cus-panel-heading">
+                                        <span class="cus-panel-title">自定义面板（iframe）</span>
+                                        <div class="cus-panel-btn-box"></div>
+                                    </div>
+                                    <div class="cus-panel-body"></div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <!--自定义面板（无操作按钮） -->
+                                <!-- data-btn="false" 不显示功能按钮 -->
+                                <div class="cus-panel cus-panel-info" data-btn="false">
+                                    <div class="cus-panel-heading">
+                                        <span class="cus-panel-title">自定义面板</span>
+                                        <div class="cus-panel-btn-box"></div>
+                                    </div>
+                                    <div class="cus-panel-body">无操作按钮
+                                        <p class="text-warning">（注意：无操作按钮的静态面板建议直接使用panel组件）</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- 自定义面板（自定义操作按钮） -->
+                                <!-- 默认集成的事件\按钮分别为 fullscreen|reload|collapse|close -->
+                                <!-- data-btn 参数格式 {'事件\按钮名称':{iconClass:'按钮的字库样式'}} -->
+                                <!-- 
+            #示例:新增自定义按钮 (事件\按钮名称 为“cusbtn”)
+            data-btn="{cusbtn:{iconClass:'glyphicon glyphicon-pencil'}}"
+            #监听自定义按钮点击事件 
+            $('selector').cuspanel().on('cusbtn.com.cuspanel', function (e) {
+                console.log('所操作的panel对象', this, '所点击的按钮对象：', e.relatedTarget);
+            });
+        -->
+                                <!-- 
+            #示例：修改全屏按钮样式
+            data-btn="{'fullscreen':{'iconClass': ['glyphicon glyphicon-font','glyphicon glyphicon-bold']}}"
+        -->
+                                <!--
+            #示例：隐藏关闭按钮(对于默认集成的按钮，只是隐藏按钮，不影响对应API的功能)
+            data-btn="{close:false}"
+        -->
+                                <div class="cus-panel cus-panel-warning" data-btn="{cusbtn:{iconClass:'glyphicon glyphicon-pencil'},'fullscreen':{'iconClass': ['glyphicon glyphicon-font','glyphicon glyphicon-bold']},close:false}">
+                                    <div class="cus-panel-heading">
+                                        <span class="cus-panel-title">自定义面板（自定义操作按钮）</span>
+                                        <div class="cus-panel-btn-box"></div>
+                                    </div>
+                                    <div class="cus-panel-body">自定义操作按钮</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-html" role="tab" data-toggle="tab">html</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-js" role="tab" data-toggle="tab">js</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" style="max-height: none;">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-html">
+                            <pre class="js-auto-init-htmlcode"><!-- 启用“js-auto-init”后此处不需要编写代码；否则填写转义后的HTML代码 --></pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-js">
+                            <script class="js-auto-init-jscode">
+                                $(function () {
+                                    /* 初始化自定义面板 */
+            $('.cus-panel').cuspanel().on('fullscreen.com.cuspanel cusbtn.com.cuspanel', function (e) {
+                console.log('所操作的panel对象', this, '所点击的按钮对象：', e.relatedTarget);
+            });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例1 结束 -->
+
+        </div>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+        <script src="../js/pinyin.js"></script>
+        <script src="../i18n/zh-CN.js"></script>
+        <script src="../js/subindex.js"></script>
+
+        <script>
+            
+        </script>
+
+        <link rel="stylesheet" type="text/css" href="../css/plugins/highlight/xcode.min.css" />
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+        <script>
+            $(function () {
+                $('pre').each(function (i, n) {
+                    //$(n).html(_demo_htmlencode_fn($(n).html()));
+                    hljs.highlightBlock(n);
+                });
+            });
+        </script>
+    </body>
+
+</html>

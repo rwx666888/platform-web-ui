@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/animate.min.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link
+      href="../css/plugins/dataTables/datatables.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>其他缴费</title>
+  </head>
+  <body>
+    <!-- handle btn -->
+    <div class="col-xs-12 p-sm text-right">
+      <button id="js_confirmBtn" class="btn btn-primary btn-sm" type="button">
+        选择
+      </button>
+    </div>
+    <!-- table -->
+    <div class="p-sm">
+      <table
+        id="js_rechargeCardTable"
+        class="table table-striped table-bordered nowrap"
+        cellspacing="0"
+        width="100%"
+      >
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../js/plugins/validate/jquery.validate.custom.min.js"></script>
+    <script src="../js/plugins/layer/layer.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+    <script src="../js/plugins/datatables/datatables.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+    <!-- mock data -->
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/inforStoredCard/cardListBySignup',
+        responseText: {
+          draw: 1,
+          recordsTotal: 3,
+          recordsFiltered: 3,
+          data: [
+            {
+              id: 1,
+              cardName: '充值卡1',
+              cardAmount: 1000,
+              avaliableAmount: 900,
+              payAmount: 900,
+              avaliablePayAmount: 810,
+              createDateStr: '2020-03-24'
+            },
+            {
+              id: 2,
+              cardName: '充值卡2',
+              cardAmount: 1000,
+              avaliableAmount: 500,
+              payAmount: 800,
+              avaliablePayAmount: 400,
+              createDateStr: '2020-03-24'
+            },
+            {
+              id: 3,
+              cardName: '充值卡3',
+              cardAmount: 1000,
+              avaliableAmount: 500,
+              payAmount: 500,
+              avaliablePayAmount: 250,
+              createDateStr: '2020-03-24'
+            }
+          ]
+        }
+      })
+    </script>
+    <!-- mock data end -->
+    <script>
+      $(function() {
+        // table config
+        var searchParemOBj_ = {
+          orgCoreCode: COM_TOOLS.requestParam('orgCoreCode'),
+          informationCode: COM_TOOLS.requestParam('informationCode')
+        }
+        var DT_ = COM_TOOLS.DT_init(
+          'js_rechargeCardTable',
+          [
+            {
+              data: null,
+              title: '序号',
+              className: 'text-center',
+              width: '30px',
+              render: function(data, type, row, meta) {
+                return 1 + meta.row
+              }
+            },
+            {
+              data: null,
+              width: '30px',
+              title: '选项',
+              className: 'select-checkbox',
+              defaultContent: ''
+            },
+            {
+              data: 'cardName',
+              title: '充值卡名称'
+            },
+            {
+              data: 'cardAmount',
+              title: '充值卡面值'
+            },
+            {
+              data: 'avaliableAmount',
+              title: '剩余面值'
+            },
+            {
+              data: 'payAmount',
+              title: '实付金额'
+            },
+            {
+              data: 'avaliablePayAmount',
+              title: '剩余实付金额'
+            },
+            {
+              data: 'createDateStr',
+              title: '申请日期'
+            }
+          ],
+          '/inforStoredCard/cardListBySignup',
+          'get',
+          searchParemOBj_,
+          {
+            selectStyle: 'single'
+          }
+        )
+        // 按返回的 classificationCode 提示对应不可用的课程
+        function byCodeClassTips(list, classList) {
+          function filterClass(code) {
+            for (var i = 0; i < classList.length; i++) {
+              var item = classList[i]
+              if (item.courseClassifyCode == code) {
+                return item
+              }
+            }
+          }
+          var txt = ''
+          $.each(list, function(key, item) {
+            txt += filterClass(item).courseName + '，'
+          })
+          return txt
+        }
+
+        // event
+        $('#js_confirmBtn').click(function() {
+          var rowId = DT_.getSelectRowsData('id')
+
+          $post('/inforStoredCard/checkCanUse', {
+            cardId: rowId,
+            list: cum_ModalValobj || []
+          }).then(function(res) {
+            if (res.succ) {
+              COM_TOOLS.callParentWinCacheFn('getData', row)
+              cumParentCallValue()
+            } else {
+              COM_TOOLS.alert(byCodeClassTips(res, data) + '不可使用充值卡')
+            }
+          })
+        })
+      })
+    </script>
+  </body>
+</html>

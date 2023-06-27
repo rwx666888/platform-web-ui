@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <link rel="stylesheet" href="../../../css/animate.min.css" />
+    <link rel="stylesheet" href="../../../css/iconfont.css" />
+    <link rel="stylesheet" href="../../../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
+    <link href="../../../css/plugins/jsTree/style.min.css" rel="stylesheet" />
+    <link
+      href="../../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../css/plugins/treegrid/jquery.treegrid.css" />
+    <link rel="stylesheet" href="../../../css/style.css" />
+    <title>分类权限配置</title>
+    <style>
+      .table .btn {
+        padding: 3px 5px;
+      }
+      .table .js-ul-wrp {
+        padding: 2px 4px;
+      }
+      .orgtree-selectedlist-box .orgtree-item {
+        margin: 3px;
+        padding: 0 5px;
+        font-size: 12px;
+        line-height: 26px;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="js_mainEvent" class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 m-b-sm m-t-sm clearfix">
+          <div class="form-inline">
+            <div class="form-group form-group-sm">
+              <label>切换业务线</label>
+              <select id="busType" class="form-control input-sm" style="min-width: 100px;">
+                <option value="1">成人</option>
+                <option value="2">少儿</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- table -->
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="js_classifyTable" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th class="text-center" style="width: 300px;">分类树</th>
+                <th class="text-center">已授权范围(部门/人)</th>
+                <th class="text-center" style="width: 100px;">操作</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../../js/jquery-2.1.1.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../i18n/zh-CN.js"></script>
+
+    <script src="../../../js/plugins/jsTree/jstree.min.js"></script>
+    <script src="../../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../../../js/plugins/layer/layer.js"></script>
+
+    <script src="../../../js/plugins/treegrid/jquery.treegrid.min.js"></script>
+    <script src="../../../js/plugins/treegrid/jquery.treegrid.bootstrap3.js"></script>
+
+    <script src="../../../js/subindex.js"></script>
+
+    <!--jquery.mockjax.min.js仅限于demo演示模拟数据使用-->
+    <script src="../../../js/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="../../../demo-data.js"></script>
+    <script>
+      $.mockjax({
+        url: '/classify',
+        dataType: 'json',
+        responseText: {
+          succ: true,
+          data: [
+            {
+              id: '1',
+              pId: '0',
+              name: '分类1',
+              data: [
+                {
+                  code: 'code_0_1_2_1_2',
+                  type: '0'
+                },
+                {
+                  code: 'code_0_1_1',
+                  type: '0'
+                },
+                {
+                  code: 'code_0_1_2',
+                  type: '1'
+                }
+              ],
+              child: [
+                {
+                  id: '11',
+                  pId: '1',
+                  name: '分类11',
+                  data: [
+                    {
+                      code: 'code_0_1_1',
+                      type: '0'
+                    }
+                  ],
+                  child: [
+                    {
+                      id: '111',
+                      pId: '11',
+                      name: '分类111',
+                      data: [
+                        {
+                          code: 'code_0_1_2',
+                          type: '1'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              id: '2',
+              pId: '0',
+              name: '分类2',
+              data: []
+            }
+          ]
+        }
+      })
+    </script>
+    <!-- mock end -->
+    <script>
+      $(function () {
+        // cus fn
+        function createTr(data, pId) {
+          var tmp = []
+
+          for (var i = 0; i < data.length; i++) {
+            var item = data[i]
+            var pClass = pId ? ' treegrid-parent-' + pId : ''
+
+            var $tr = $(
+              '<tr class="tr-item treegrid-' +
+                item.id +
+                pClass +
+                '"> \
+                <td>' +
+                item.name +
+                '</td> \
+                <td class="text-center js-ul-wrp"></td> \
+                <td class="text-center"><button class="btn btn-sm btn-success js-modify">修改</button>&nbsp;<button class="btn btn-sm btn-danger js-delete">删除</button></td> \
+              </tr>'
+            )
+            $tr.data('id', item.id)
+            $tr.data('pid', item.pId)
+            $tr.data('sdata', item.data)
+            tmp.push($tr)
+
+            if (item.child && item.child.length) {
+              tmp = tmp.concat(createTr(item.child, item.id))
+            }
+          }
+          return tmp
+        }
+        // 回显授权节点
+        function cbNode() {
+          var tmp = []
+          var tmpObj = {}
+          // 获取请求的数据
+          $('.tr-item').each(function () {
+            var $t = $(this)
+            var sData = $t.data('sdata')
+
+            var $ul = insModel._makeSelWrap()
+            $t.find('.js-ul-wrp').html($ul)
+
+            tmp = tmp.concat(sData)
+          })
+          // 请求完整的数据
+          insModel._getFormatData(tmp, function (data) {
+            // arr -> obj
+            for (var i = 0; i < data.length; i++) {
+              var item = data[i]
+              tmpObj[item.code] = item
+            }
+            // 获取对应 tr 下完整数据
+            $('.tr-item').each(function () {
+              var $t = $(this)
+              var sData = $t.data('sdata')
+              var cmpArr = []
+
+              for (var i = 0; i < sData.length; i++) {
+                var item = sData[i]
+                if (tmpObj[item.code]) {
+                  cmpArr.push(tmpObj[item.code])
+                }
+              }
+
+              // 构造 dom
+              var $ul = $t.find('.orgtree-selectedlist-box')
+              insModel._updateSelItem(cmpArr, $ul)
+            })
+          })
+        }
+        // 分类信息
+        function getClassifyInfo() {
+          $.post('/classify', {}).then(function (res) {
+            if (res.succ) {
+              $('#js_classifyTable').find('tbody').html(createTr(res.data))
+              // init treegrid
+              $('#js_classifyTable').treegrid()
+              // 回显节点
+              cbNode()
+            }
+          })
+        }
+        // init
+        var insModel = COM_TOOLS._model._orgModel_()
+        getClassifyInfo()
+        // event bind
+        $('#js_mainEvent')
+          .on('change', '#busType', function () {
+            // 切换 业务线
+            var $t = $(this)
+            var val = $t.val()
+            console.log('type-', val)
+            getClassifyInfo()
+          })
+          .on('click', '.js-modify', function () {
+            // 按钮 修改
+            var $t = $(this)
+            var $tr = $t.closest('.tr-item')
+            var $warp = $tr.find('.js-ul-wrp')
+            var sData = $tr.data('sdata')
+            // console.log($t.selector, $txt)
+            insModel._openModel(sData, function (arr, sArr) {
+              insModel._updateSelItem(sArr, $warp)
+              $tr.data('sdata', arr)
+              // ajax
+            })
+          })
+          .on('click', '.js-delete', function () {
+            // 按钮 删除
+            var $t = $(this)
+            var $tr = $t.closest('.tr-item')
+            var $warp = $tr.find('.js-ul-wrp')
+            var sData = $tr.data('sdata')
+            // ajax
+            $warp.find('.orgtree-item-list').html('')
+            $tr.data('sdata', '')
+          })
+      })
+    </script>
+  </body>
+</html>

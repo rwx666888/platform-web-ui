@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>平台前端框架使用手册</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link href="css/iconfont.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body>
+
+    <script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/plugins/layer/layer3.1.1.js"></script>
+
+    <script src="i18n/zh-CN.js"></script>
+    <script src="js/subindex.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script> -->
+    <script>
+      $(function() {
+        var arr = [];
+        $.ajax({
+          type: "get",
+          url: "js/subindex.js",
+          async: false,
+          dataType: 'text',
+          success: function(d) {
+            var t = d.match(/(?<=[\n\r])(function\s+([^\(]+)|var [\w-]+\=?)/gi);
+            $.each(t, function(i, n) {
+              console.log(i, n);
+              if (n) {
+                arr.push(n.replace(/^var|function/i, '').replace(/\s/g, ''));
+              }
+            });
+            console.log(arr);
+          }
+        });
+      });
+
+
+      /* $('pre').each(function(i, n) {
+        hljs.highlightBlock(n);
+      }); */
+    </script>
+  </body>
+</html>

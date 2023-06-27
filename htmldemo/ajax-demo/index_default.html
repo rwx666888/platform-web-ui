@@ -1,0 +1,101 @@
+<style>
+	.index-default #demoaffix1.affix{ background-color: rgba(0,0,0,0.4); z-index: 9999; }
+	.index-default ul{ list-style: none;}
+	.index-default .panel{ min-height: 160px;}
+</style>
+<div class="container-fluid p-md index-default gray-bg">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			    <div class="col-xs-6">
+			    	<ul>
+			    		<li><a href="#">我的信息量</a></li>
+			    		<li><a href="#">今日我的分配信息量</a></li>
+			    		<li><a href="#">今日预计上门</a></li>
+			    		<li><a href="#">我的信息量</a></li>
+			    		<li><a href="#">今日预计上门</a></li>
+			    		<li><a href="#">我的信息量</a></li>
+			    	</ul>
+			    </div>
+			    <div class="col-xs-6">
+			    	<ul>
+			    		<li><a href="#">我的信息量</a></li>
+			    		<li><a href="#">今日我的分配信息量</a></li>
+			    		<li><a href="#">今日预计上门</a></li>
+			    		<li><a href="#">我的信息量</a></li>
+			    		<li><a href="#">今日预计上门</a></li>
+			    		<li><a href="#">我的信息量</a></li>
+			    	</ul>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			    <h4>通知</h4>
+			    <p style="text-indent: 2em;">各位同事大家好各位同事大家好各位同事大家好各位同事大家好各位同事大家好各位同事大家好各位同事大家好</p>
+			    <p style="text-indent: 2em;">各位同事大家好各位同事大家好</p>
+			    <p class="text-success text-right">更多>></p>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			  		<h4>监控数据</h4>
+			    	<div class="text-center m">
+                        <span id="sparkline8"></span>
+                    </div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			    <ul class="stat-list">
+                <li>
+                    <h2 class="no-margins">2,346</h2>
+                    <small>Total orders in period</small>
+                    <div class="stat-percent">48% <i class="glyphicon glyphicon-arrow-up text-navy"></i></div>
+                    <div class="progress progress-mini">
+                        <div class="progress-bar" style="width: 48%;"></div>
+                    </div>
+                </li>
+                <li>
+                    <h2 class="no-margins ">4,422</h2>
+                    <small>Orders in last month</small>
+                    <div class="stat-percent">60% <i class="glyphicon glyphicon-arrow-down text-navy"></i></div>
+                    <div class="progress progress-mini">
+                        <div class="progress-bar" style="width: 60%;"></div>
+                    </div>
+                </li>
+                <li>
+                    <h2 class="no-margins ">9,180</h2>
+                    <small>Monthly income from orders</small>
+                    <div class="stat-percent">22% <i class="glyphicon glyphicon-flash text-navy"></i></div>
+                    <div class="progress progress-mini">
+                        <div class="progress-bar" style="width: 22%;"></div>
+                    </div>
+                </li>
+                </ul>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>    
+<script src="../../js/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script>
+$(function(){
+$("#sparkline8").sparkline([5, 6, 7, 2, 0, 4, 2, 4, 5, 7, 2, 4, 12, 14, 4, 2, 14, 12, 7], {
+        type: 'bar',
+        barWidth: 8,
+        height: '140px',
+        barColor: '#1ab394',
+        negBarColor: '#c6c6c6'});
+});
+</script>
+

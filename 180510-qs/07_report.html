@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>费用分析-排名情况</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/plugins/dataTables/datatables.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+    .row {
+        margin: 0 -10px
+    }
+
+    .col-sm-4,
+    .col-sm-6,
+    .col-sm-12 {
+        padding: 0 10px;
+    }
+
+    .tab-content {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .tab-content .panel {
+        margin-bottom: 0;
+    }
+
+    .table {
+        font-size: 12px;
+    }
+
+    .dataTables_wrapper {
+        padding-bottom: 0;
+    }
+
+    .panel-heading,
+    .panel-body {
+        padding: 10px;
+    }
+
+    .cus-group-area {
+        margin-top: 20px;
+    }
+
+    .cus-echarts {
+        width: 100%;
+        height: 350px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #337ab7;
+        padding-bottom: 10px;
+    }
+
+    .cus-echarts:last-child {
+        margin-bottom: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .cus-w-scroll {
+        overflow-y: auto;
+    }
+
+    .font-zh {
+        word-wrap: break-word;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- 分组一 -->
+        <div class="cus-group-area">
+            <div class="cus-group-dt-ec">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a href="#show_dt_11" data-type="1" data-toggle="tab">表格</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#show_ec_11" data-type="2" data-group="1" data-toggle="tab">图表</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- 表格 -->
+                    <div class="tab-pane active" id="show_dt_11">
+                        <!-- 一行三个 带滚动 -->
+                        <div id="js_scroll_tar" class="cus-w-scroll">
+                            <div id="js_scroll_area" class="cus-w-cont">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <p class="text-success">1.费用占比</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="text-info">2.生均费用</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p>3.费用占比</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="panel panel-success cus-cont">
+                                            <div class="panel-heading">工资+奖金：全年累计</div>
+                                            <div class="panel-body">
+                                                <table id="dt_report_111" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                                    <thead></thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 cus-sm-p">
+                                        <div class="panel panel-info cus-cont">
+                                            <div class="panel-heading">工资+奖金：全年累计</div>
+                                            <div class="panel-body">
+                                                <table id="dt_report_112" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                                    <thead></thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 cus-sm-p">
+                                        <div class="panel panel-default cus-cont">
+                                            <div class="panel-heading">工资+奖金：全年累计</div>
+                                            <div class="panel-body">
+                                                <table id="dt_report_113" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                                    <thead></thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 一行三个 end -->
+                    </div>
+                    <!-- 图表 -->
+                    <div class="tab-pane" id="show_ec_11">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">工资+奖金——三年趋势分析</div>
+                            <div class="panel-body js-cus-group">
+                                <!-- 切换 -->
+                                <div>
+                                    <label> 请选择区域：</label>
+                                    <select class="js-select-area">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                    <span class="pull-right">单位：万元</span>
+                                </div>
+                                <!-- 数据图 -->
+                                <div id="d_eacharts_111" class="cus-echarts"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 分组一 -->
+        <div class="cus-group-area">
+            <div class="cus-group-dt-ec">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a href="#show_dt_12" data-type="1" data-toggle="tab">表格</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#show_ec_12" data-type="2" data-group="2" data-toggle="tab">图表</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- 表格 -->
+                    <div class="tab-pane active" id="show_dt_12">
+                        <!-- 一行两个 -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="panel panel-success cus-cont">
+                                    <div class="panel-heading">管理成本（不含人工）-全年累计</div>
+                                    <div class="panel-body">
+                                        <table id="dt_report_121" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                            <thead></thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 cus-sm-p">
+                                <div class="panel panel-info cus-cont">
+                                    <div class="panel-heading">管理成本（不含人工）-全年累计</div>
+                                    <div class="panel-body">
+                                        <table id="dt_report_122" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+                                            <thead></thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 一行两个 end -->
+                    </div>
+                    <!-- 图表 -->
+                    <div class="tab-pane" id="show_ec_12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">工资+奖金——三年趋势分析</div>
+                            <div class="panel-body js-cus-group">
+                                <!-- 切换 -->
+                                <div>
+                                    <label> 请选择区域：</label>
+                                    <select class="js-select-area">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                    <span class="pull-right">单位：万元</span>
+                                </div>
+                                <!-- 数据图 -->
+                                <div id="d_eacharts_121" class="cus-echarts"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../js/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js" type="text/javascript"></script>
+    <script src="../js/plugins/echarts/echarts.js"></script>
+    <script src="../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../js/subindex.js" type="text/javascript"></script>
+    <script src="../js/jquery.mockjax.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var s_data_dt = {
+        "draw": 1,
+        "recordsTotal": 15,
+        "recordsFiltered": 15,
+        "data": [{
+            "id": "0",
+            "areayname": "直辖",
+            "subareayname": "",
+            "cityname": "青岛",
+            "centername": "第一浴场中心",
+            "old_order": "1",
+            "new_order": "3",
+            "number": 11026,
+            "numberrate": 0.16,
+            "t_number": 9525,
+            "t_rate": 0.15,
+            "n_increaserate": 0.16,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.001,
+            "type": "1"
+        }, {
+            "id": "0",
+            "areayname": "直辖",
+            "subareayname": "",
+            "cityname": "北京",
+            "centername": "中关村中心",
+            "old_order": "1",
+            "new_order": "3",
+            "number": 11026,
+            "numberrate": 0.16,
+            "t_number": 9525,
+            "t_rate": 0.15,
+            "n_increaserate": 0.16,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.001,
+            "type": "1"
+        }, {
+            "id": "0",
+            "areayname": "",
+            "subareayname": "闽浙赣区域",
+            "cityname": "杭州",
+            "centername": "五岭广场中心",
+            "old_order": "2",
+            "new_order": "2",
+            "number": 10495,
+            "numberrate": 0.16,
+            "t_number": 90525,
+            "t_rate": 0.17,
+            "n_increaserate": -0.16,
+            "new_totulerate": 0.345,
+            "old_totulerate": 0.387,
+            "change": -0.10,
+            "type": "2"
+        }, {
+            "id": "0",
+            "areayname": "区域合并",
+            "subareayname": "",
+            "cityname": "广州",
+            "centername": "天河中心",
+            "old_order": "1",
+            "new_order": "2",
+            "number": 7384,
+            "numberrate": 0.16,
+            "t_number": 6525,
+            "t_rate": 0.10,
+            "n_increaserate": 0.06,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.01,
+            "type": 3
+        }, {
+            "id": "0",
+            "areayname": "",
+            "subareayname": "达内集团总部",
+            "cityname": "南京",
+            "centername": "夫子庙中心",
+            "old_order": "3",
+            "new_order": "2",
+            "number": 4432,
+            "numberrate": 0.16,
+            "t_number": 3372,
+            "t_rate": 0.05,
+            "n_increaserate": 0.50,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.01,
+            "type": "2"
+        }, {
+            "id": "0",
+            "areayname": "1",
+            "subareayname": "",
+            "cityname": "长沙",
+            "centername": "臭豆腐中心",
+            "old_order": "3",
+            "new_order": "1",
+            "number": 3427,
+            "numberrate": 0.16,
+            "t_number": 1565,
+            "t_rate": 0.05,
+            "n_increaserate": -0.06,
+            "new_totulerate": 0.234,
+            "old_totulerate": 0.123,
+            "change": -0.01,
+            "type": "1"
+        }]
+    };
+
+    $.mockjax({
+        url: "/dt/api",
+        dataType: "json",
+        response: function(settings) {
+            s_data_dt['draw'] = settings.data['draw'];
+            this.responseText = s_data_dt;
+        }
+    });
+
+    var s_data_ec = [{
+            cname: "p1",
+            data: [
+                { name: "name1", value: 769 },
+                { name: "name2", value: 225 },
+                { name: "name3", value: 2011 },
+                { name: "name4", value: 900 },
+                { name: "name5", value: 750 },
+                { name: "name6", value: 759 },
+                { name: "name7", value: 919 },
+                { name: "name8", value: null }, // 注意这里的，不能少
+                { name: "name9", value: null },
+                { name: "name10", value: null },
+                { name: "name11", value: null },
+                { name: "name12", value: null }
+            ]
+        },
+        {
+            cname: "p2",
+            data: [
+                { name: "name1", value: 944 },
+                { name: "name2", value: 211 },
+                { name: "name3", value: 374 },
+                { name: "name4", value: 519 },
+                { name: "name5", value: 487 },
+                { name: "name6", value: 455 },
+                { name: "name7", value: 643 },
+                { name: "name8", value: 652 },
+                { name: "name9", value: 532 },
+                { name: "name10", value: 587 },
+                { name: "name11", value: 675 },
+                { name: "name12", value: 612 }
+            ]
+        }, {
+            cname: "p3",
+            data: [
+                { name: "name1", value: 611 },
+                { name: "name2", value: 91 },
+                { name: "name3", value: -81 },
+                { name: "name4", value: 480 },
+                { name: "name5", value: 439 },
+                { name: "name6", value: 347 },
+                { name: "name7", value: 499 },
+                { name: "name8", value: 411 },
+                { name: "name9", value: 465 },
+                { name: "name10", value: 337 },
+                { name: "name11", value: 355 },
+                { name: "name12", value: 375 }
+            ]
+        }
+    ];
+    $.mockjax({
+        url: "/ec/api",
+        dataType: "json",
+        response: function(settings) {
+            this.responseText = s_data_ec;
+        }
+    });
+    </script>
+    <script type="text/javascript">
+    $(function() {
+        var PRO_TOOLS = {
+            //减    
+            floatSub: function(arg1, arg2) {
+                var r1, r2, m, n;
+                try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+                try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
+                m = Math.pow(10, Math.max(r1, r2));
+                //动态控制精度长度    
+                n = (r1 >= r2) ? r1 : r2;
+                return ((arg1 * m - arg2 * m) / m).toFixed(n);
+            },
+            // 除法
+            floatDiv: function(arg1, arg2) {
+                var t1 = 0,
+                    t2 = 0,
+                    r1, r2;
+                try { t1 = arg1.toString().split(".")[1].length; } catch (e) {}
+                try { t2 = arg2.toString().split(".")[1].length; } catch (e) {}
+                r1 = Number(arg1.toString().replace(".", ""));
+                r2 = Number(arg2.toString().replace(".", ""));
+                return (r1 / r2) * Math.pow(10, t2 - t1);
+            },
+            // 乘    
+            floatMul: function(arg1, arg2) {
+                var m = 0,
+                    s1 = arg1.toString(),
+                    s2 = arg2.toString();
+                try { m += s1.split(".")[1].length; } catch (e) {}
+                try { m += s2.split(".")[1].length; } catch (e) {}
+                return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+            },
+            // type 显示类型 0-默认，整数， 1-百分比
+            changeNum: function(row, name1, name2, type) {
+                var res_ = '';
+                if (row.type != 2) {
+                    res_ = this.floatSub(row[name1], row[name2]);
+                    if (res_ > 0) {
+                        res_ = (type ? '<span class="text-info">+' + (this.floatMul(res_, 100) + '%') + '</span>' : '<span class="text-info">+' + res_ + '</span>');
+                    } else if (res_ < 0) {
+                        res_ = (type ? '<span class="text-danger">-' + (this.floatMul(Math.abs(res_), 100) + '%') + '</span>' : '<span class="text-danger">-' + Math.abs(res_) + '</span>');
+                    } else {
+                        res_ = '';
+                    }
+                }
+                return res_;
+            },
+            dataFilter: function(data, row) {
+                var res_ = data;
+                if (row.type == 2) {
+                    res_ = '';
+                }
+                return res_;
+            },
+            sp_dataShow: function(ele, s_arr) {
+                var $ele = $('#' + ele).closest('.js-data-show');
+                var t_data = $.grep(s_arr, function(n, i) {
+                    return n.type == 3;
+                })[0];
+                console.log(t_data);
+                if (!$.isEmptyObject(t_data)) {
+                    $ele.find('.js-money').text($.number(t_data.number));
+                    $ele.find('.js-complete-rate').text(PRO_TOOLS.floatMul(t_data.t_rate, 100) + '%');
+                    $ele.find('.js-increase-rate').text(PRO_TOOLS.floatMul(t_data.n_increaserate, 100) + '%');
+                }
+            }
+        };
+
+        /**
+         * [cusDTinit description]
+         * @param  {[type]} ele    [表格对象]
+         * @param  {[type]} cols   [表格列对象]
+         * @param  {[type]} a_url  [接口]
+         * @param  {[type]} a_data [请求参数]
+         * @param  {[type]} opt    [表格配置项]
+         */
+        function cusDTinit(ele, cols, a_url, a_data, opt) {
+            var searchParemOBj_ = (a_data || {}),
+                baseOpt = $.extend(true, {
+                    account_type: 1,
+                    other: {
+                        select: false,
+                        paging: false,
+                        info: false
+                    }
+                }, (opt || {}));
+
+            var base_cols = [{
+                "title": "2017<br>排名",
+                "className": "text-center",
+                "data": "new_order"
+            }, {
+                "title": "2016<br>排名",
+                "className": "text-center",
+                "data": "old_order"
+            }, {
+                "title": "变化",
+                "className": "text-center",
+                "data": null,
+                "render": function(data, type, row, meta) {
+                    return PRO_TOOLS.changeNum(row, 'old_order', 'new_order');
+                }
+            }, {
+                "title": "2017<br>累计占比",
+                "className": "text-right",
+                "data": "new_totulerate",
+                "render": function(data, type, row, meta) {
+                    return (PRO_TOOLS.floatMul(data, 100) + '%');
+                }
+            }, {
+                "title": "2016<br>累计占比",
+                "className": "text-right",
+                "data": "old_totulerate",
+                "render": function(data) {
+                    return (PRO_TOOLS.floatMul(data, 100) + '%');
+                }
+            }, {
+                "title": "变化",
+                "className": "text-right",
+                "data": "change",
+                "render": function(data, type, row) {
+                    return PRO_TOOLS.changeNum(row, 'new_totulerate', 'old_totulerate', 1);
+                }
+            }];
+            // 权限处理
+            //var account_type = 1;
+            if (baseOpt.account_type == 1) {
+                base_cols.unshift({
+                    "title": "社招+渠道",
+                    "data": "areayname",
+                    "render": function(data, type, row, meta) {
+                        return PRO_TOOLS.dataFilter(data, row);
+                    }
+                }, {
+                    "title": "分区",
+                    "data": "subareayname"
+                });
+            } else if (baseOpt.account_type == 2) {
+                base_cols.unshift({
+                    "title": "城市",
+                    "data": "cityname"
+                });
+            } else if (baseOpt.account_type == 3) {
+                base_cols.unshift({
+                    "title": "中心",
+                    "data": "centername"
+                });
+            }
+            // 用户配置的cols
+            var dy_cols = $.extend(true, base_cols, cols);
+
+            return COM_TOOLS.DT_init(ele, dy_cols, a_url, 'get', searchParemOBj_, baseOpt);
+        }
+
+        /**
+         * 自定义图标初始化
+         * @param  {[string]} ele    [jq对象]
+         * @param  {[strgin]} a_url  [接口地址]
+         * @param  {[object]} a_data [接口参数]
+         * @param  {[type]} fopt   [图表 数据组配置]
+         * @param  {[type]} dopt   [数据项配置]
+         * @param  {[type]} opt    [图表 配置]
+         */
+        function cusIniteCharts(ele, a_url, a_data, fopt, dopt, opt) {
+            var s_data, etype, efopt, edopt, ebaeOpt;
+
+            //数据组配置
+            efopt = $.extend(true, {
+                "p1": {
+                    name: '2017',
+                    type: 'line',
+                    itemStyle: { normal: { label: { show: true } } } //默认显示数据数值
+                },
+                "p2": {
+                    name: '2016',
+                    type: 'line',
+                    itemStyle: { normal: { label: { show: true } } } //默认显示数据数值
+                },
+                "p3": {
+                    name: '2015',
+                    type: 'line',
+                    itemStyle: { normal: { label: { show: true } } } //默认显示数据数值
+                }
+            }, (fopt || {}));
+            //数据项配置
+            edopt = $.extend(true, {
+                name1: '1月',
+                name2: '2月',
+                name3: '3月',
+                name4: '4月',
+                name5: '5月',
+                name6: '6月',
+                name7: '7月',
+                name8: '8月',
+                name9: '9月',
+                name10: '10月',
+                name11: '11月',
+                name12: '12月'
+            }, (dopt || {}));
+            // echarts 配置
+            ebaeOpt = $.extend(true, {
+                title: {
+                    text: ''
+                },
+                grid: {
+                    //top: '5%',
+                    bottom: '5%',
+                    left: '5%',
+                    right: '5%',
+                    containLabel: true, // 防止标签溢出
+                    //x: 10, //x/y/x2/y2 分别控制图标距离父元素边缘距离
+                    //y: 30
+                },
+                xAxis: {
+                    axisLabel: {
+                        formatter: function(val) { //纵向显示x轴文字
+                            //return val.split("").join("\n");
+                            return val;
+                        }
+                    }
+                }
+            }, (opt || {}));
+
+            var c_echarts = COM_TOOLS.eChartsTools.initOpt(ele, 'line', [], efopt, edopt, ebaeOpt);
+
+            // 发生请求
+            c_echarts.showLoading();
+            $.ajax({
+                    url: a_url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: a_data,
+                })
+                .done(function(res) {
+                    //s_data = res;
+                    COM_TOOLS.eChartsTools.updateData(ele, res);
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    c_echarts.hideLoading();
+                });
+            return c_echarts;
+        }
+
+        // 自动计算宽度
+        (function() {
+            var t_w = $(window).width() - 20;
+            $('#js_scroll_area').width(t_w / 2 * 3);
+        })();
+
+        // 表格初始化
+        cusDTinit('dt_report_111', [], '/dt/api', { id: 11 }, {
+            other: {
+                createdRow: function(row, data, dataIndex) {
+                    if (data.type == 3) {
+                        $(row).addClass('bg-danger');
+                    }
+                }
+            }
+        });
+        cusDTinit('dt_report_112', [{}, {}, {}, {}, {}, {
+            "title": "2017<br>累计费用",
+            "data": "number",
+            "render": function(data, type, row) {
+                return $.number(data);
+            }
+        }, {
+            "title": "2016<br>累计费用",
+            "data": "t_number",
+            "render": function(data, type, row) {
+                return $.number(data);
+            }
+        }, {
+            "title": "变化",
+            "data": null,
+            "render": function(data, type, row) {
+                return PRO_TOOLS.changeNum(row, 'number', 't_number');
+            }
+        }], '/dt/api', { id: 11 }, {
+            other: {
+                createdRow: function(row, data, dataIndex) {
+                    if (data.type == 3) {
+                        $(row).addClass('bg-danger');
+                    }
+                }
+            }
+        });
+        cusDTinit('dt_report_113', [], '/dt/api', { id: 11 }, {
+            other: {
+                createdRow: function(row, data, dataIndex) {
+                    if (data.type == 3) {
+                        $(row).addClass('bg-danger');
+                    }
+                }
+            }
+        });
+
+        cusDTinit('dt_report_121', [{}, {}, {}, {}, {}, {
+            "title": "2017<br>累计费用",
+            "data": "number",
+            "render": function(data, type, row) {
+                return $.number(data);
+            }
+        }, {
+            "title": "2016<br>累计费用",
+            "data": "t_number",
+            "render": function(data, type, row) {
+                return $.number(data);
+            }
+        }, {
+            "title": "变化",
+            "data": null,
+            "render": function(data, type, row) {
+                return PRO_TOOLS.changeNum(row, 'number', 't_number');
+            }
+        }], '/dt/api', { id: 11 }, {
+            other: {
+                createdRow: function(row, data, dataIndex) {
+                    if (data.type == 3) {
+                        $(row).addClass('bg-danger');
+                    }
+                }
+            }
+        });
+        cusDTinit('dt_report_122', [{}, {}, {}, {}, {}, {
+            "title": "2017<br>累计费用",
+            "data": "number",
+            "render": function(data, type, row) {
+                return $.number(data);
+            }
+        }, {
+            "title": "2016<br>累计费用",
+            "data": "t_number",
+            "render": function(data, type, row) {
+                return $.number(data);
+            }
+        }, {
+            "title": "变化",
+            "data": null,
+            "render": function(data, type, row) {
+                return PRO_TOOLS.changeNum(row, 'number', 't_number');
+            }
+        }], '/dt/api', { id: 11 }, {
+            other: {
+                createdRow: function(row, data, dataIndex) {
+                    if (data.type == 3) {
+                        $(row).addClass('bg-danger');
+                    }
+                }
+            }
+        });
+
+        // 初始化图表 变量名 要与 id 同名
+        var d_eacharts_111,
+            d_eacharts_121;
+
+        // 切换标签页 1-表格 2-图表
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            //e.target // newly activated tab
+            //e.relatedTarget // previous active tab
+            var c_ = $(e.target);
+            if (c_.data('type') == 2) {
+                if (!c_.data('isinit')) {
+                    if (c_.data('group') == 1) {
+                        d_eacharts_111 = cusIniteCharts('#d_eacharts_111', '/ec/api', { id: 1 });
+
+                    } else if (c_.data('group') == 2) {
+                        d_eacharts_121 = cusIniteCharts('#d_eacharts_121', '/ec/api', { id: 1 });
+
+                    } else if (c_.data('group') == 3) {
+
+                    }
+                    c_.data('isinit', true);
+                }
+            }
+        });
+
+        // 区域选择
+        $('.js-select-area').change(function(evt) {
+            var v_ = $(this).val();
+            var id_ = $(this).closest('.js-cus-group').find('.cus-echarts').attr('id');
+            eval(id_).showLoading(); // 注意 eval
+            $.ajax({
+                    url: '/ec/api',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { id: v_ },
+                })
+                .done(function(res) {
+                    COM_TOOLS.eChartsTools.updateData('#' + id_, res);
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                    eval(id_).hideLoading();
+                });
+        });
+
+
+    });
+    </script>
+</body>
+
+</html>

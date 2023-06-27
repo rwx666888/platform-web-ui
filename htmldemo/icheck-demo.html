@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+        <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+
+        <link href="../css/animate.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
+        <style>
+        pre {
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .demo-box {
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            position: relative;
+            border-radius: 5px;
+        }
+        
+        .tab-content {
+            /*overflow-y: auto;
+            max-height: 400px;*/
+        }
+        
+        .selected input {
+            color: #000;
+        }
+    </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="jumbotron">
+                <h2>icheck(自定义单、复选框)</h2>
+                <p style="font-size: 14px;">参考网址：<a href="https://www.bootcss.com/p/icheck/" target="_blank">http://www.bootcss.com/p/icheck/</a></p>
+                <p style="font-size: 14px;">PS: 结合bootstrap使用，需留意input:margin-left: -20px;的影响， 可对input.radio 反向应用 parent.ele.checkbox[checked-inline]</p>
+            </div>
+            <!-- 实例1 开始 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">示例</div>
+                <div class="panel-body">
+                    <div class="demo-box form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">复选框</label>
+                            <div class="col-sm-3">
+                                <label class="radio-inline i-checks"> <input type="checkbox" checked value="option1" name="islocal"> demo1 </label>
+                                <label class="radio-inline i-checks"> <input type="checkbox" value="option2" name="islocal"> demo2 </label>
+                            </div>
+                            <label class="col-sm-2 control-label">单选框</label>
+                            <div class="col-sm-3">
+                                <label class="checkbox-inline i-checks"> <input type="radio" checked value="option1" name="islocal1"> 是 </label>
+                                <label class="checkbox-inline i-checks"> <input type="radio" value="option2" name="islocal1"> 否 </label>
+                            </div>
+                        </div>
+                                    </div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active">
+                            <a href="#demo1-html" role="tab" data-toggle="tab">使用</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-js" role="tab" data-toggle="tab">方法</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-css" role="tab" data-toggle="tab">回调事件</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#demo1-demo" role="tab" data-toggle="tab">高级使用范例</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="demo1-html">
+                            <pre>
+&lt;script src=&quot;../js/plugins/iCheck/icheck.min.js&quot;&gt;&lt;/script&gt;
+&lt;link href=&quot;../css/plugins/iCheck/custom.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x590D;&#x9009;&#x6846;&lt;/label&gt;
+&lt;div class=&quot;col-sm-3&quot;&gt;
+    &lt;label class=&quot;radio-inline i-checks&quot;&gt; &lt;input type=&quot;checkbox&quot; checked value=&quot;option1&quot; name=&quot;islocal&quot;&gt; demo1 &lt;/label&gt;
+    &lt;label class=&quot;radio-inline i-checks&quot;&gt; &lt;input type=&quot;checkbox&quot; value=&quot;option2&quot; name=&quot;islocal&quot;&gt; demo2 &lt;/label&gt;
+&lt;/div&gt;
+&lt;label class=&quot;col-sm-2 control-label&quot;&gt;&#x5355;&#x9009;&#x6846;&lt;/label&gt;
+&lt;div class=&quot;col-sm-3&quot;&gt;
+    &lt;label class=&quot;checkbox-inline i-checks&quot;&gt; &lt;input type=&quot;radio&quot; checked value=&quot;option1&quot; name=&quot;islocal1&quot;&gt; &#x662F; &lt;/label&gt;
+    &lt;label class=&quot;checkbox-inline i-checks&quot;&gt; &lt;input type=&quot;radio&quot; value=&quot;option2&quot; name=&quot;islocal1&quot;&gt; &#x5426; &lt;/label&gt;
+&lt;/div&gt;
+
+
+// 应用于所有input (只应用于 checkboxes and radio buttons)
+$('input').iCheck();
+
+// 应用于 class=block 内部的所有 checkboxes and radio 
+$('.block input').iCheck();
+
+// 应用于 class=vote 内部的所有 checkboxes and radio 
+$('.vote').iCheck();
+                            </pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-js">
+                            <pre>
+$('input').iCheck('check'); // 将输入框的状态设置为checked
+
+$('input').iCheck('uncheck'); // 移除 checked 状态
+
+$('input').iCheck('toggle'); // toggle checked state
+
+$('input').iCheck('disable'); // 将输入框的状态设置为 disabled
+
+$('input').iCheck('enable'); // 移除 disabled 状态
+
+$('input').iCheck('update'); // apply input changes, which were done outside the plugin
+
+$('input').iCheck('destroy'); // 移除iCheck样式
+                            </pre>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-css">
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>事件名称</th>
+      <td>使用时机</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ifClicked</th>
+      <td>用户点击了自定义的输入框或与其相关联的label</td>
+    </tr>
+    <tr>
+      <th>ifChanged</th>
+      <td>输入框的 <span class="mark">checked</span> 或 <span class="mark">disabled</span> 状态改变了</td>
+    </tr>
+    <tr>
+      <th>ifChecked</th>
+      <td>输入框的状态变为 <span class="mark">checked</span></td>
+    </tr>
+    <tr>
+      <th>ifUnchecked</th>
+      <td><span class="mark">checked</span> 状态被移除</td>
+    </tr>
+    <tr>
+      <th>ifDisabled</th>
+      <td>输入框状态变为 <span class="mark">disabled</span></td>
+    </tr>
+    <tr>
+      <th>ifEnabled</th>
+      <td><span class="mark">disabled</span> 状态被移除</td>
+    </tr>
+    <tr>
+      <th>ifCreated</th>
+      <td>输入框被应用了iCheck样式</td>
+    </tr>
+    <tr>
+      <th>ifDestroyed</th>
+      <td>iCheck样式被移除</td>
+    </tr>
+  </tbody>
+</table>        
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="demo1-demo">
+<pre>
+/* 全选  演示地址： http://www.cctvplus.com/news/latest.shtml */
+
+$('#Locations_data_box input[type="checkbox"]').on('ifChecked ifUnchecked',function(e_){
+    var inp_data_all_ = $('#Locations_data_box input[type="checkbox"][class="data_all"]');
+    var inp_data_items_ = $('#Locations_data_box input[type="checkbox"][class="data_item"]');   
+    if($(this).hasClass('data_all')){//点击全选                 
+        if(e_.type == 'ifChecked'){
+            inp_data_items_.prop('checked','checked');
+        }else{
+            inp_data_items_.removeProp('checked');
+        }
+        inp_data_items_.iCheck('update').iCheck('enable');
+    }
+    var che_1=[];
+    $('#Locations_data_box input[type="checkbox"][class="data_item"]:checked').each(function(){
+        che_1.push($(this).val());                                                             
+    });
+    if(che_1.length>0){
+        seach_check_LL['LOCATIONS_'] = che_1.join(',');
+        search_fun_LL(1);
+        if(che_1.length == inp_data_items_.length){
+            inp_data_all_.prop('checked','checked').iCheck('update').iCheck('enable'); //注意顺序
+        }else{
+            inp_data_all_.removeProp('checked').iCheck('update').iCheck('enable');
+        }
+    }else{
+        seach_check_LL['LOCATIONS_'] ='';
+        //inp_data_all_.removeProp('checked').iCheck('update');
+        //cusmot_alert_fun('Please select at least one Locations');
+    }
+});
+
+
+/* 自定义数据状态修改、初始化  演示地址： http://www.cctvplus.com/news/latest.shtml */
+if(seach_check_LL['LOCATIONS_']){
+    var g_3 = seach_check_LL['LOCATIONS_'].split(',');
+    $('#Locations_data_box input[type="checkbox"][class="data_item"]').each(function(){
+        if(jQuery.inArray($(this).val(), g_3)!==-1){
+            $(this).prop('checked','checked');
+        }else{
+            $(this).removeProp('checked');
+        }
+        $(this).iCheck('update');
+    });
+    if($('#Locations_data_box input[type="checkbox"][class="data_item"]').not(':checked').length==0){
+        $('#Locations_data_box input[type="checkbox"][class="data_all"]').prop('checked','checked').iCheck('update');
+    }
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 实例1 结束 -->
+    <!-- Mainly scripts -->
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/layer/layer.js"></script>
+    
+    <!-- Custom and plugin javascript -->
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    
+    <script src="../i18n/zh-CN.js"></script>
+    <script src="../js/subindex.js"></script>
+    
+    <script>
+        $(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+        <script>
+            $('pre').each(function(i, n) {
+                hljs.highlightBlock(n);
+            });
+        </script>
+    </body>
+
+</html>

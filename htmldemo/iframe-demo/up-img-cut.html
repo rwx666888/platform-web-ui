@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="pragma" content="no-cache">
+        <title>index</title>
+
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <!-- 自定义菜单 -->
+
+        <link href="../../css/iconfont.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
+        <style>
+            .img-upload-box {
+                position: relative;
+                padding: 20px;
+                width: 460px;
+                margin: 0 auto;
+            }
+            
+            .img-upload-box .img-div {
+                float: left;
+                background-color: #eee;
+                padding: 10px;
+                width: 260px;
+                height: 260px;
+            }
+            
+            .img-upload-box .img-div>img {
+                vertical-align: middle;
+                width: 100%;
+            }
+            
+            .img-upload-box .img-preview {
+                background-color: #eee;
+                width: 100px;
+                height: 100px;
+                overflow: hidden;
+                border-radius: 50%;
+            }
+            
+            .img-upload-box .zcgs {
+                color: #676a6c;
+                font-size: 14px;
+                font-weight: bold;
+                padding-top: 20px;
+            }
+            
+            .img-upload-box .selec-but {
+                position: absolute;
+                z-index: 10;
+                top: 0px;
+                left: 0;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                right: 0;
+                bottom: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="img-are" class="img-upload-box">
+            <div class="clearfix">
+                <div id="img-div" class="img-div"><img></div>
+                <div class="pull-left" style="margin-left: 20px; width: 120px;">
+                    <div class="img-preview"></div>
+                    <p class="zcgs">支持：<br/>*.jpg<br/>*.png<br/>格式的图片</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #299be4; padding:10px 0; text-align: center; margin-top: 20px;">
+                <form autocomplete="off">
+                    <div style="display: inline-block; position: relative;">
+                        <button type="button" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-plus"></i> 选择图片</button>
+                        <input class="selec-but" id="selectImg" type="file" name="myFile" accept="image/jpeg,image/png">
+                    </div>
+                    <button type="button" id="resetImg" class="btn btn-danger btn-sm" disabled="disabled">
+                        <i class="glyphicon glyphicon-refresh"></i> 重置图片
+                    </button>
+                    <button type="button" id="upImg" class="btn btn-success btn-sm" disabled="disabled">
+                        <i class="glyphicon glyphicon-ok"></i> 剪裁上传
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+
+        <!-- Mainly scripts -->
+        <script src="../../js/jquery-2.1.1.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/plugins/layer/layer.js"></script>
+
+        <!-- Custom and plugin javascript -->
+        <!-- 自定义菜单 -->
+
+        <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+        <script src="../../js/subindex.js"></script>
+        <script>
+            $(function() {
+                COM_TOOLS.requireJsFn(['cropper'], [], function() {
+                    var cp_opt = {
+                            aspectRatio:1/1,
+                            preview: '.img-preview',
+                            //background:false,
+                            guides: false,
+                            autoCropArea: 0.6,
+                            touchDragZoom: false
+                        },
+                        _imgType = 'images/jpeg',
+                        _imgTypeReg = /(image\/jpeg)|(image\/png)/;
+                    var cutUpImg = {
+                        changeImg: function(evt) {
+                            var file_ = this.files[0],
+                                URL_ = window.URL || window.webkitURL,
+                                _blobURL,
+                                objURL_;
+
+                            if(file_) {
+                                console.log(123123)
+                                $('#resetImg,#upImg').removeAttr('disabled');
+                                _imgType = file_.type;
+                                if(_imgTypeReg.test(file_.type)) {
+                                    if(URL_) { //兼容ie10
+                                        if(objURL_) {
+                                            URL_.revokeObjectURL(objURL_);
+                                        }
+                                        objURL_ = URL_.createObjectURL(file_);
+                                    } else {
+                                        alert('不支持URL!');
+                                        return false;
+                                    }
+                                    _imgObj.cropper('destroy').attr('src', objURL_).cropper(cp_opt);
+                                } else {
+                                    alert('请选择jpg/png格式图片!');
+                                }
+                            }
+                        },
+                        resetImg: function(evt) {
+                            _imgObj.cropper('destroy').attr('src', '');
+                            $(this).attr({
+                                'disabled': 'disabled'
+                            });
+                            $('#upImg').attr({
+                                'disabled': 'disabled'
+                            });
+                        },
+                        upImg: function(evt) {
+                            $(this).attr({
+                                'disabled': 'disabled'
+                            });
+                            var cvsData = _imgObj.cropper('getCroppedCanvas');
+                            var newbase64 = cvsData.toDataURL(_imgType, 1).split(',')[1];
+                            $.ajax({
+                                type: 'POST',
+                                url: 'https://lianglei.net.cn/demo-ui/platform-help/htmldemo/php-api/upfile-base64.php',
+                                data: {
+                                    'file': newbase64
+                                },
+                                success: function(data) {
+                                    $(this).removeAttr('disabled');
+                                     cumCurWinModal('预览','<p>上传成功：</p><img src="//lianglei.net.cn/demo-ui/platform-help/htmldemo/php-api/test.jpg" width="90%"/>',self,{type:1,"area": ['200px', '220px']})
+                                }
+                            });
+                        }
+                    };
+
+                    var _imgObj = $('#img-div>img');
+                    $('#selectImg').on('change', cutUpImg.changeImg);
+                    $('#resetImg').on('click', cutUpImg.resetImg);
+                    $('#upImg').on('click', cutUpImg.upImg);
+                });
+            });
+        </script>
+    </body>
+</html>

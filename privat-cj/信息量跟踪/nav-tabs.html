@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>tabs</title>
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/plugins/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+  </head>
+  <body>
+    <!-- nav tabs -->
+    <div class="cus-tabmodel-box cus-tabmodel-default">
+      <div id="tab_list_box" class="tab-list-box">
+        <button class="roll-nav roll-left tab-roll-btn tab-left-btn btn-default">
+          <i class="glyphicon glyphicon-backward"></i>
+        </button>
+        <div class="tab-list-overflow">
+          <div class="tab-list-bar">
+            <ul class="nav nav-tabs tab-list-ul pull-left" role="tablist" isiframe id="info_tab">
+              <li role="presentation" class="active">
+                <a
+                  href="#tab1"
+                  aria-controls="tab1"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="./base-information.html"
+                  data-isreload=""
+                  >基本信息</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  href="#tab2"
+                  aria-controls="tab2"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="add.html"
+                  data-isreload=""
+                  >沟通记录</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  id="js_user_dynamic"
+                  href="#tab3"
+                  aria-controls="tab3"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="./user-dynamic.html"
+                  data-isreload=""
+                  >用户动态</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  href="#tab4"
+                  aria-controls="tab4"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="list.html"
+                  data-isreload=""
+                  >联系人</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  href="#tab5"
+                  aria-controls="tab5"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="list.html"
+                  data-isreload=""
+                  >订单记录</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  href="#tab6"
+                  aria-controls="tab6"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="list.html"
+                  data-isreload=""
+                  >缴费记录</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  href="#tab7"
+                  aria-controls="tab7"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="list.html"
+                  data-isreload=""
+                  >个人记录</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  href="#tab8"
+                  aria-controls="tab8"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="list.html"
+                  data-isreload=""
+                  >通话记录</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  href="#tab9"
+                  aria-controls="tab9"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="list.html"
+                  data-isreload=""
+                  >京东卡记录</a
+                >
+              </li>
+              <li role="presentation">
+                <a
+                  href="#tab10"
+                  aria-controls="tab10"
+                  role="tab"
+                  data-toggle="tab"
+                  data-itemurl="list.html"
+                  data-isreload=""
+                  >咨询变更</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button class="roll-nav roll-right tab-roll-btn tab-right-btn btn-default">
+          <i class="glyphicon glyphicon-forward"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="tab1"></div>
+      <div role="tabpanel" class="tab-pane" id="tab2"></div>
+      <div role="tabpanel" class="tab-pane" id="tab3"></div>
+      <div role="tabpanel" class="tab-pane" id="tab4"></div>
+      <div role="tabpanel" class="tab-pane" id="tab5"></div>
+      <div role="tabpanel" class="tab-pane" id="tab6"></div>
+      <div role="tabpanel" class="tab-pane" id="tab7"></div>
+      <div role="tabpanel" class="tab-pane" id="tab8"></div>
+      <div role="tabpanel" class="tab-pane" id="tab9"></div>
+      <div role="tabpanel" class="tab-pane" id="tab10"></div>
+    </div>
+
+    <!-- script -->
+    <script src="../../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../../js/subindex.js" type="text/javascript"></script>
+
+    <script>
+      COM_TOOLS.fnTabPage('info_tab');
+      COM_TOOLS._view.tabScrollFn.init('#tab_list_box');
+
+      $('#info_tab').on('show.bs.tab', function (ev) {
+        var currentTab = $(ev.target).attr('aria-controls');
+        var isShow = currentTab === 'tab1' ? 'show' : 'hide';
+
+        $('#js_time_line', window.parent.document)[isShow]();
+      });
+
+      function triggerTab() {
+        $('#js_user_dynamic').trigger('click');
+      }
+    </script>
+  </body>
+</html>

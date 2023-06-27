@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学员答疑</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../../css/plugins/select2/select2.min.css">
+    <style>
+        *{box-sizing: border-box}
+        h1,h2,h3,h4,h5,h6,p,body{margin:0;padding:0;}
+        ul,li{margin:0;padding:0;list-style:none;}
+        .panel-title{font-weight:bold;}
+        .panel-body{font-size:16px;}
+         .stu-info{font-size:14px;margin-right:20px;}
+        .ans-list{margin-bottom:20px;}
+        .ans-list .ans-cont{padding:10px 5px;}
+        .ans-list .ans-footer{font-size:14px;margin-right:20px;}
+        #tousu{width:100px;}
+        .textarea-box{width:100%;min-height:100px;max-height:1000px;border:1px solid #ddd;padding:5px;}
+        /*.well{background-color:#d9edf7 !important;color:#31708f}*/
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">问题详细</h3>
+            </div>
+            <div class="panel-body">
+                视频能不能中午的时候就把上午的视频发了?
+            </div>
+            <div class="panel-footer clearfix" style="background-color:#337ab7 !important;color:#fff">
+                <p class="pull-right stu-info">发布时间：2017-09-13 15:56:34</p>
+                <p class="pull-right stu-info" >学员邮箱：1767083017@qq.com</p>
+                <p class="pull-right stu-info">123456789</p>
+                <p class="pull-right stu-info">SD1707(脱产)_N_1</p>
+                <p class="pull-right stu-info">郭鑫</p>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">回复列表</h3>
+            </div>
+            <div class="panel-body">
+                <div class="ans-list clearfix well">
+                    <p class="ans-cont">视频是当前录制的，为避免白天上传....视频是当前录制的，为避免白天上传....</p>
+                    <p class="pull-right ans-footer">发布时间：2017-09-13 15:56:34</p>
+                    <p class="pull-right ans-footer">回复人：张老师</p>
+                </div>
+                <div class="ans-list clearfix well">
+                    <p class="ans-cont">视频是当前录制的，为避免白天上传....</p>
+                    <p class="pull-right ans-footer">发布时间：2017-09-13 15:56:34</p>
+                    <p class="pull-right ans-footer">回复人：张老师</p>
+                </div>
+                <div class="ans-list clearfix well">
+                    <p class="ans-cont">视频是当前录制的，为避免白天上传....</p>
+                    <p class="pull-right ans-footer">发布时间：2017-09-13 15:56:34</p>
+                    <p class="pull-right ans-footer">回复人：张老师</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left" style="line-height:28px;">投诉类型：</h3>
+                <select id="tousu" style="width:100px;">
+                    <option value="1">类型1</option>
+                    <option value="2">类型2</option>
+                    <option value="3">类型3</option>
+                </select>
+            </div>
+            <div class="panel-body">
+               <div class="textarea-box" contenteditable="true"></div>
+            </div>
+            <div class="panel-footer clearfix" style="text-align:center">
+                <button class="btn btn-success">回复</button>
+                <button class="btn btn-warning">重置</button>
+                <button class="btn btn-danger pull-right">关闭</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <script src="../../../js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../js/plugins/select2/select2.full.min.js"></script>
+    <script src="../../../i18n/zh-CN.js"  type="text/javascript"></script>
+    <script src="../../../js/subindex.js"></script>
+    <script>
+        $(function () {
+            COM_TOOLS.select2_init('tousu',{other:{ minimumResultsForSearch: Infinity}});   /*如果URL是对象类型 则将URL=>opt*/
+
+        })
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>配置管理</title>
+        <link href="../../css/animate.css" rel="stylesheet">
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/iconfont.css" rel="stylesheet">
+        <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+        <link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
+        <style>
+            .tree-box-1 {
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+            .jstree-default .jstree-themeicon-custom.cus-prevate-node{
+                width: auto;
+                padding: 0 5px;
+            }
+            .jstree-default .jstree-themeicon-custom.cus-prevate-node::after{
+                content: "\e006";
+                margin-left: 3px;
+                color: #ffb300;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container-fluid" style="padding-top: 15px; padding-bottom: 15px;">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="tree-box-1 p-sm">
+                        <div class="control-box form-inline">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" id="tree_search_val" placeholder="名称" autocomplete="off">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="tree_search_btn">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="t-jstree-box" id="tree-box">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5" style="position: fixed; right: 2px; top: 15px;">
+                    <div id="form" class="tree-box-1 p-sm">
+                        <div class="clearfix" style="border-bottom: 1px solid #ddd; padding-bottom: 12px; margin-bottom: 15px;">
+                            <span class="text-muted pull-left">配置项</span>
+                            <button type="button" class="pull-right btn btn-primary btn-xs js-hide-xxw">保存</button>
+                        </div>
+                        <p id="name" class="text-warning">配置项配置项(key)</p>
+                        <p id="config_info" class="text-muted">/路径/路径</p>
+                        <div class="" style="padding-top: 10px;">
+                            <div class="form-group js-hide-xxw">
+                                <label>修改值</label>
+                                <input id="ipt1" type="text" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group js-hide-xxw">
+                                <label>默认值</label>
+                                <input id="ipt2" type="text" class="form-control" placeholder="Email" readonly="readonly">
+                            </div>
+                            <div class="form-group js-hide-xxw">
+                                <label>描述</label>
+                                <textarea id="ipt3" class="form-control" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 弹窗start  -->
+
+        <div class="modal fade" id="add_column_win" tabindex="-1" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">新建渠道</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">渠道:</label>
+                                <select type="text" class="form-control">
+                                    <option value="0">请选择</option>
+                                    <option value="1">111</option>
+                                    <option value="1">111</option>
+                                </select>
+                            </div>
+                            <input class="js-hidden-data" type="hidden" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary js-modal-savebtn">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="add_modal_win" tabindex="-1" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">新建模块</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">名称:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">模块编码（小写字母）:</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                            <input class="js-hidden-data" type="hidden" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary js-modal-savebtn">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="add_class_win" tabindex="-1" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">新建分类</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">分类名称:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <input class="js-hidden-data" type="hidden" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary js-modal-savebtn">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="add_mark_win" tabindex="-1" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">新建配置项</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">名称:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">key（小写字母、数字、英文点号）:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <input class="js-hidden-data" type="hidden" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary js-modal-savebtn">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="rename_win" tabindex="-1" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">重命名</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">名称:</label>
+                                <input type="text" class="form-control js-t-name">
+                            </div>
+                            <input class="js-hidden-data" type="hidden" />
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary js-modal-savebtn">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 弹窗end  -->
+
+        <script src="../../js/jquery-2.1.1.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+
+        <script src="../../js/plugins/layer/layer.js"></script>
+        <script src="../../js/plugins/jsTree/jstree.min.js"></script>
+
+        <script src="../../i18n/zh-CN.js"></script>
+        <script src="../../js/subindex.js"></script>
+
+        <!-- 以下js仅用于演示 -->
+        <script src="../../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../../demo-data.js"></script>
+
+        <script>
+            $.mockjax({
+                url: "/test/api",
+                dataType: "json",
+                responseTime: 500,
+                response: function (settings) {
+                    this.responseText = [{
+                            "id": "B0000000000000000001",
+                            "parent": COM_DEFAULT._jsTreeOpt.root,
+                            "text": "t_a0",
+                            type: '0',
+                            code: 'c_a0',
+                            li_attr: {}
+                        }, {
+                            "id": "a1",
+                            "parent": "B0000000000000000001",
+                            "text": "t_a1",
+                            type: '1',
+                            code: 'c_a1',
+                            li_attr: {},
+                            channel: '渠道id'
+                        },
+                        {
+                            "id": "a2",
+                            "parent": "B0000000000000000001",
+                            "text": "t_a2",
+                            type: '1',
+                            code: 'c_a2',
+                            li_attr: {}
+                        },
+                        {
+                            "id": "a1_1",
+                            "parent": "a1",
+                            "text": "t_a1_1",
+                            type: '2',
+                            code: 'c_a1_1',
+                            li_attr: {}
+                        },
+                        {
+                            "id": "a1_2",
+                            "parent": "a1",
+                            "text": "t_a1_2",
+                            type: '2',
+                            code: 'c_a1_2',
+                            li_attr: {}
+                        },
+                        {
+                            "id": "a2_1",
+                            "parent": "a2",
+                            "text": "t_a2_1",
+                            type: '2',
+                            code: 'c_a2_1',
+                            li_attr: {}
+                        },
+                        {
+                            "id": "a2_1_1",
+                            "parent": "a2_1",
+                            "text": "t_a2_1_1",
+                            type: '3',
+                            code: 'c_a2_1_1',
+                            li_attr: {}
+                        },
+                        {
+                            "id": "a2_1_1_1",
+                            "parent": "a2_1_1",
+                            "text": "t_a2_1_1_1",
+                            type: '4',
+                            code: 'c_a2_1_1_1',
+                            li_attr: {}
+                        }
+                    ];
+                }
+            });
+
+            $(function () {
+                var treeObjList = {
+                    create: function (node_, curtype) {
+                        if (!node_.id.length) {
+                            COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]); //请选择节点
+                            return false;
+                        }
+                        var wins = {
+                            '_0': '#add_column_win',
+                            '_1': '#add_modal_win',
+                            '_2': '#add_class_win',
+                            '_3': '#add_mark_win'
+                        };
+                        $(wins['_' + curtype]).modal('show').find('.js-hidden-data').data(node_).data({
+                            'curtype': curtype
+                        });
+                    },
+                    rename: function (node_) {
+                        if (!node_.id.length) {
+                            COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]); //请选择节点
+                            return false;
+                        }
+                        $('#rename_win').modal('show').find('.js-hidden-data').data(node_).end().find('.js-t-name').val(node_.text);
+                    }
+                };
+                var _OPT = {
+                    'url': '/test/api',
+                    'ajaxData': false,
+                    'other': {
+                        'contextmenu': {
+                            show_at_node: false,
+                            items: function (node) {
+                                console.log('=========', node)
+                                if (node.type == '0') {
+                                    return {
+                                        "add_c": {
+                                            "icon": 'glyphicon glyphicon-plus',
+                                            "label": '新建渠道',
+                                            "action": function (data) {
+                                                treeObjList.create(node, '0');
+                                            }
+                                        },
+                                    };
+                                } else if (node.type == '1') {
+                                    return {
+                                        "add_c": {
+                                            "icon": 'glyphicon glyphicon-plus',
+                                            "label": '新建模块',
+                                            "separator_after": true, //表示在此项之后是否应该有分隔符
+                                            "action": function (data) {
+                                                treeObjList.create(node, '1');
+                                            }
+                                        },
+                                        "rename": {
+                                            "icon": 'glyphicon glyphicon-pencil text-danger',
+                                            "label": '重命名',
+                                            "action": function (data) {
+                                                treeObjList.rename(node);
+                                            }
+                                        },
+                                    }
+
+                                } else if (node.type == '2') {
+                                    return {
+                                        "add_c": {
+                                            "icon": 'glyphicon glyphicon-plus',
+                                            "label": '新建分类',
+                                            "action": function (data) {
+                                                treeObjList.create(node, '2');
+                                            }
+                                        },
+                                        "add_b": {
+                                            "icon": 'glyphicon glyphicon-plus',
+                                            "label": '新建配置项',
+                                            "separator_after": true, //表示在此项之后是否应该有分隔符
+                                            "action": function (data) {
+                                                treeObjList.create(node, '3');
+                                            }
+                                        },
+                                        "rename": {
+                                            "icon": 'glyphicon glyphicon-pencil text-danger',
+                                            "label": '重命名',
+                                            "_disabled": true,
+                                            "title":'公共节点禁止重命名',
+                                            "action": function (data) {
+                                                treeObjList.rename(node);
+                                            }
+                                        },
+                                    }
+
+                                } else if (node.type == '3') {
+                                    return {
+                                        "add_c": {
+                                            "icon": 'glyphicon glyphicon-plus',
+                                            "label": '新建配置项',
+                                            "separator_after": true, //表示在此项之后是否应该有分隔符
+                                            "action": function (data) {
+                                                treeObjList.create(node, '3');
+                                            }
+                                        },
+                                        "rename": {
+                                            "icon": 'glyphicon glyphicon-pencil text-danger',
+                                            "label": '重命名',
+                                            "action": function (data) {
+                                                treeObjList.rename(node);
+                                            }
+                                        },
+                                    }
+                                } else if (node.type == '4') {
+                                    return {
+                                        "rename": {
+                                            "icon": 'glyphicon glyphicon-pencil text-danger',
+                                            "label": '重命名',
+                                            "action": function (data) {
+                                                treeObjList.rename(node);
+                                            }
+                                        },
+                                    }
+                                }
+                            },
+                        },
+                        'types': { //可自定义树的图标
+                            '0': { //配置项列表
+                                icon: 'glyphicon glyphicon-cog'
+                            },
+                            '1': { //渠道
+                                icon: 'tedufont tedu-icon37'
+                            },
+                            '2': { //模块
+                                icon: 'glyphicon glyphicon-th text-success'
+                            },
+                            '3': { //分类
+                                icon: 'glyphicon glyphicon-book text-info'
+                            },
+                            '4': { //配置项
+                                icon: 'glyphicon glyphicon-bookmark text-danger'
+                            }
+                        },
+                        'plugins': ['types', 'contextmenu', 'search'],
+                        'dataFilter': function (data, type) {
+                            COM_TOOLS._ajax_jumpToLogin(data);
+                            return data; //勿删
+                        },
+                        'core': {
+                            'check_callback': function (operation, node, node_parent, node_position, more) {
+                                return (operation === 'rename_node' || operation === 'create_node') ? true : false;
+                            }
+                        }
+                    },
+                    initCallback: function () {
+                        _API.open_node('#B0000000000000000001');
+                        var t_node_ = $('#B0000000000000000001').children('.jstree-children').children('li').eq(0);
+                        if (t_node_) {
+                            _API.open_node(t_node_);
+                            _API.select_node(t_node_, true, true);
+                        }
+                    }
+                };
+                var _JSTREE = COM_TOOLS.jstree_init('tree-box', _OPT);
+                var _API = _JSTREE.jstree; //API实例；
+
+                window._API = _API;
+
+                function create_node(node_data, $modal) {
+                    /*COM_TOOLS.ajaxFn({
+                        url: '',
+                        type: 'get',
+                        success: function (d) {
+                            _API.create_node(node_data.id, { //新节点数据
+                                "id": d.id
+                            });
+                            $modal.modal('hide'); //关闭弹窗
+                        }
+                    }, 1);*/
+                }
+
+                function rename_node(node_data, newtext, $modal) {
+                    /*COM_TOOLS.ajaxFn({
+                        url: '',
+                        type: 'get',
+                        success: function (d) {
+                            _API.rename_node(node_data.id, newtext);
+                            $modal.modal('hide'); //关闭弹窗
+                        }
+                    }, 1);*/
+                }
+
+                $('#tree-box').on('select_node.jstree', function (e, data) {
+                    console.log(111, data.node)
+                    //点击节点
+                    var n = data.node;
+                    var type_ = n.type;
+                    var other_code = n.original.channel || n.original.module || n.original.configKey || '';
+                    var name_ = n.text + (other_code ? '(' + other_code + ')' : '');
+                    $('#name').text(name_);
+                    $('#config_info').text(function () {
+                        var _t = _API.get_path(n);
+                        _t.shift();
+                        return '/' + _t.join('/');
+                    });
+                    if (type_ == 4) {
+
+                        /*COM_TOOLS.ajaxFn({
+                            url: '',
+                            type: 'get',
+                            success: function (d) {
+                                $modal.modal('hide'); //关闭弹窗
+                            }
+                        }, 1);*/
+
+                        $('#ipt1').val(n.text);
+                        $('#ipt2').val(n.text);
+                        $('#ipt3').val(n.text);
+                        $('.js-hide-xxw').show();
+                    } else {
+                        $('#ipt1').val('');
+                        $('#ipt2').val('');
+                        $('#ipt3').val('');
+                        $('.js-hide-xxw').hide();
+                    }
+                });
+
+                $('#add_column_win, #add_modal_win, #add_class_win, #add_mark_win').find('.js-modal-savebtn').click(function () { //点击配置项保存按钮
+                    var $modal = $(this).closest('.modal');
+                    var data_ = $modal.find('.js-hidden-data').data();
+                    create_node(data_, $modal);
+                });
+
+                $('#rename_win .js-modal-savebtn').click(function () { //重命名
+                    var $modal = $(this).closest('.modal');
+                    var data_ = $modal.find('.js-hidden-data').data();
+                    rename_node(data_, $modal);
+                });
+                $('#add_column_win, #add_modal_win, #add_class_win, #add_mark_win, #rename_win').on('hidden.bs.modal', function (e) { //弹窗关闭后重置；
+                    var $this = $(this);
+                    var $form = $this.find('form');
+                    if($form.data('validator')){
+                        $form.data('validator').resetForm();
+                        $form.find('.form-control').tooltip('destroy');
+                    }
+                    $form.get(0).reset();
+                    $this.find('.js-hidden-data').removeData();
+                });
+                $('#tree_search_btn').click(function(){
+                    var val_ = $.trim($('#tree_search_val').val());
+                    if(val_ !== ''){
+                        _API.search(val_, true);
+                    }
+                });
+                $('#tree_search_val').on('keypress', function(){
+                    $('#tree_search_btn').trigger('click');
+                });
+            });
+        </script>
+    </body>
+
+</html>

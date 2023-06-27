@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>排课查询</title>
+
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/core/main.min.css" />
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/timeline/main.min.css" />
+    <link rel="stylesheet" href="./js/plugins/fullcalender v4/resource/timeline/main.min.css" />
+
+    <link rel="stylesheet" href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css">
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <style></style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row p-sm">
+        <ul class="nav nav-tabs" role="tablist" id="info_tab">
+          <li role="presentation" class="active">
+            <a href="#tab1" aria-controls="tab1" role="tab" data-itemurl="./class_sc.html" data-toggle="tab"
+              >中心课表</a
+            >
+          </li>
+          <li role="presentation">
+            <a href="#tab2" aria-controls="tab2" role="tab" data-itemurl="./class_sc.html" data-toggle="tab"
+              >教室课表</a
+            >
+          </li>
+          <li role="presentation">
+            <a href="#tab3" aria-controls="tab3" role="tab" data-itemurl="./teacher_sc.html" data-toggle="tab"
+              >讲师课表</a
+            >
+          </li>
+        </ul>
+        <div id="tab_cont" class="tab-content">
+          <div id="tab1" class="tab-pane active" role="tabpanel"></div>
+          <div id="tab2" class="tab-pane" role="tabpanel"></div>
+          <div id="tab3" class="tab-pane" role="tabpanel"></div>
+        </div>
+      </div>
+    </div>
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <script src="../../js/plugins/moment/moment.min.js"></script>
+    <!-- <script src="../../js/plugins/daterangepicker/daterangepicker.min.js"></script> -->
+    <script src="../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+
+    <script src="./js/plugins/fullcalender v4/core/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/locales/zh-cn.js"></script>
+    <script src="./js/plugins/fullcalender v4/interaction/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/daygrid/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/timegrid/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/timeline/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/resource/common/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/resource/daygrid/main.min.js"></script>
+    <script src="./js/plugins/fullcalender v4/resource/timeline/main.min.js"></script>
+
+    <script src="../../i18n/zh-CN.js"></script>
+    <script src="../../js/subindex.js"></script>
+
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/api/courseTimeTable/getClassRoomListForTag2',
+        dataType: 'json',
+        response: function(setting) {
+          this.responseText = [
+            {
+              classRoomId: '1', // ID
+              classRoomName: '教室 1' // title
+            },
+            {
+              classRoomId: '2', // ID
+              classRoomName: '教室 2' // title
+            },
+            {
+              classRoomId: '3', // ID
+              classRoomName: '教室 3' // title
+            },
+            {
+              classRoomId: '4', // ID
+              classRoomName: '教室 4' // title
+            }
+          ]
+        }
+      })
+
+      // BJLX001 体验 BJLX002 正课
+      $.mockjax({
+        url: '/api/courseTimeTable/getArrangeListForTag2',
+        dataType: 'json',
+        response: function(setting) {
+          this.responseText = [
+            {
+              classRoomId: '1', // resourceId
+              classDateStr: '2019-04-15', // start
+              courseName: '(正)Scratch课程啊沙发上多福阿斯顿发送到', // title
+              classStyle: 'BJLX002',
+              className:'教室-1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            },{
+              classRoomId: '1', // resourceId
+              classDateStr: '2019-04-21', // start
+              courseName: '(正)Scratch课程啊沙发上多福阿斯顿发送到', // title
+              classStyle: 'BJLX001',
+              className:'教室 1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            },
+            {
+              classRoomId: '2', // resourceId
+              classDateStr: '2019-04-16',
+              courseName: '(正)Scratch课程', // title
+              classStyle: 'BJLX001',
+              className:'教室 1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            },
+            {
+              classRoomId: '3', // resourceId
+              classDateStr: '2019-04-17',
+              courseName: '(正)Scratch课程', // title
+              classStyle: 'BJLX002',
+              className:'教室 1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            },
+            {
+              classRoomId: '4', // resourceId
+              classDateStr: '2019-04-18',
+              courseName: '(正)Scratch课程', // title
+              classStyle: 'BJLX003',
+              className:'教室 1',
+              timeBegin: '13:00',
+              timeEnd: '14:30',
+              lecturer: '王老师',
+              headmaster: '王血管',
+              courseNum: 10,
+              actualNumber: 12,
+              orgCore: '达内郑州童程童美东风南路中心'
+            }
+          ]
+        }
+      })
+    </script>
+    <script>
+      $(function() {
+        COM_TOOLS.fnTabPage('info_tab')
+      })
+    </script>
+  </body>
+</html>

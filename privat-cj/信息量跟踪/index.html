@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>信息量跟踪</title>
+    <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/plugins/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../../css/iconfont.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <style>
+      /* global */
+      .bg-gary-g {
+        background-color: #f3f3f3;
+      }
+      .md20210118_cj {
+        min-height: 100vh;
+        overflow: auto;
+      }
+      .md20210118_cj.d-flex {
+        display: flex;
+        flex-direction: column;
+      }
+      /* global end */
+
+      /* flow-state */
+      .md20210118_cj .card-wrp {
+        margin: 10px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+        background-color: #fff;
+      }
+      .md20210118_cj .card-wrp.p0 {
+        padding: 0;
+      }
+      .md20210118_cj .flow-state-bar {
+        margin-bottom: 0;
+      }
+      .md20210118_cj .flow-state-bar > hr {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+      .md20210118_cj .flow-state-bar .base-information .inline {
+        margin-right: 20px;
+        font-size: 15px;
+      }
+      .md20210118_cj .flow-state-bar .base-information .inline .ts-span {
+        display: inline-block;
+        vertical-align: top;
+      }
+      .md20210118_cj .flow-state-bar .flow-state {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .md20210118_cj .flow-state-bar .flow-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        width: 20%;
+        min-width: 100px;
+        /* max-width: 200px; */
+      }
+      .md20210118_cj .flow-state-bar .flow-item.l-line::before,
+      .md20210118_cj .flow-state-bar .flow-item.r-line::after {
+        content: ' ';
+        position: absolute;
+        top: 37%;
+        width: 32%;
+        border-top: 2px solid #ccc;
+      }
+      .md20210118_cj .flow-state-bar .flow-item.l-line::before {
+        left: 0;
+      }
+      .md20210118_cj .flow-state-bar .flow-item.r-line::after {
+        right: 0;
+      }
+      .md20210118_cj .flow-state-bar .flow-item .flow-pie {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        width: 50px;
+        height: 50px;
+        border: 3px solid #ccc;
+        border-radius: 50%;
+        color: #ccc;
+        overflow: hidden;
+        font-weight: bold;
+      }
+
+      .md20210118_cj .flow-state.pie-0 .flow-item:nth-child(1) .flow-pie {
+        border-color: #23c6c8;
+        color: #607d8b;
+      }
+      .md20210118_cj .flow-state.pie-20 .flow-item:nth-child(2) .flow-pie {
+        border-color: #23c6c8;
+        color: #607d8b;
+        background: linear-gradient(-45deg, white 50%, transparent 50%),
+          linear-gradient(90deg, white 50%, #23c6c8 50%);
+      }
+      .md20210118_cj .flow-state.pie-60 .flow-item:nth-child(3) .flow-pie {
+        border-color: #23c6c8;
+        color: #607d8b;
+        background: linear-gradient(145deg, transparent 50%, #23c6c8 50%),
+          linear-gradient(90deg, transparent 50%, #23c6c8 50%);
+      }
+      .md20210118_cj .flow-state.pie-80 .flow-item:nth-child(4) .flow-pie {
+        border-color: #23c6c8;
+        color: #607d8b;
+        background: linear-gradient(235deg, transparent 50%, #23c6c8 50%),
+          linear-gradient(90deg, transparent 50%, #23c6c8 50%);
+      }
+      .md20210118_cj .flow-state.pie-100 .flow-item:nth-child(5) .flow-pie {
+        border-color: #23c6c8;
+        color: #607d8b;
+        background: #23c6c8;
+      }
+
+      /* flow-state end */
+
+      .md20210118_cj .content-wrp {
+        flex-grow: 1;
+        display: flex;
+      }
+
+      /* left-tabs */
+      .md20210118_cj .left-tabs {
+        position: relative;
+        flex-grow: 1;
+        min-width: 400px;
+        overflow: hidden;
+      }
+      .md20210118_cj .left-tabs .cus-tabmodel-box {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        overflow: hidden;
+      }
+      /* left-tabs end */
+
+      .md20210118_cj .right-time-line {
+        margin-right: 0;
+        width: 40%;
+        max-width: 400px;
+        min-width: 200px;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body class="bg-gary-g">
+    <!-- main -->
+    <div class="md20210118_cj d-flex">
+      <!-- user flow state bar -->
+      <div class="flow-state-bar card-wrp">
+        <div class="base-title">
+          <div class="btn-wrp pull-right">
+            <button class="btn btn-sm btn-primary">
+              <i class="glyphicon glyphicon-plus"></i>新建回访
+            </button>
+          </div>
+          <h3 id="js_user_info">
+            姓名：张三 <span class="label label-default js-label"></span>
+            <span class="label label-info js-information-status"></span>
+          </h3>
+        </div>
+        <div class="base-information">
+          <div id="js_user_info_createDate" class="inline">
+            <strong>创建时间:</strong><span>--</span>
+          </div>
+          <div id="js_user_info_timeRemain" class="inline">
+            <strong>剩余释放时间:</strong><span>--</span>
+          </div>
+          <div id="js_user_info_code" class="inline"><strong>ID:</strong><span>--</span></div>
+          <div id="js_user_info_phone" class="inline">
+            <strong>手机号:</strong><span class="ts-span">--</span>
+          </div>
+          <div id="js_user_info_newPhone" class="inline">
+            <strong>最新手机号:</strong><span>--</span>
+          </div>
+          <div id="js_user_info_sex" class="inline"><strong>性别:</strong><span>--</span></div>
+          <div id="js_user_info_age" class="inline"><strong>年龄:</strong><span>--</span></div>
+        </div>
+        <!-- flow -->
+        <div id="js_flow_status" class="flow-state hidden">
+          <div class="flow-item r-line">
+            <div class="flow-pie"><span>已分配</span></div>
+            <span id="js_user_info_distributeDate"></span>
+          </div>
+          <div class="flow-item l-line r-line">
+            <div class="flow-pie"><span>20%</span></div>
+            <span>已回访</span>
+          </div>
+          <div class="flow-item l-line r-line">
+            <div class="flow-pie"><span>60%</span></div>
+            <span>已预约</span>
+          </div>
+          <div class="flow-item l-line r-line">
+            <div class="flow-pie"><span>80%</span></div>
+            <span>已试听</span>
+          </div>
+          <div class="flow-item l-line">
+            <div class="flow-pie"><span>100%</span></div>
+            <span>已报名</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- content -->
+      <div class="content-wrp">
+        <!-- left time line -->
+        <!-- <div id="js_time_line" class="right-time-line card-wrp">
+          <iframe
+            name="iframe_right"
+            width="100%"
+            height="100%"
+            frameborder="0"
+            src="./user-dynamic.html?sidebar=1"
+          ></iframe>
+        </div> -->
+
+        <!-- right tabs -->
+        <div class="left-tabs card-wrp p0">
+          <iframe
+            name="iframe_left"
+            width="100%"
+            height="100%"
+            src="./nav-tabs.html"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- script -->
+    <script src="../../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../../js/plugins/layer/layer3.1.1.js"></script>
+    <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../../js/subindex.js" type="text/javascript"></script>
+
+    <!-- mock 测试用数据 可删除 -->
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/market/trackProgress',
+        responseText: {
+          code: 1,
+          data: {
+            label: '标签123',
+            informationStatusName: '待会房',
+            informationCode: '234234523452345',
+            studentSex: 1,
+            studentAge: 10,
+            telphoneAuth: '18500000001',
+            newTelPhoneAuth: '18500000002',
+            createDateStr: '2020-10-10 12:12:12',
+            timeRemain: '2020-10-10 12:12:12/2020-10-10 12:12:12',
+            trackStatus: 'GZZT04',
+            distributeDate: '2020-10-10 12:12:12'
+          }
+        }
+      });
+    </script>
+    <!-- mock end -->
+
+    <script>
+      // external func
+      function getTargetWindow(frameNmae) {
+        return window.frames[frameNmae].window;
+      }
+      function timeLineToggle(type) {
+        $('#js_time_line')[type]();
+      }
+
+      // init data
+      initUserInformation();
+
+      // 获取头部用户基本信息
+      function initUserInformation() {
+        $.getJSON('/market/trackProgress', {}).then(function (res) {
+          if (res.code == 1) {
+            console.log(res.data);
+
+            $('#js_user_info').find('.js-label').text(res.data.label);
+            $('#js_user_info').find('.js-information-status').text(res.data.informationStatusName);
+            // 基本信息
+            $('#js_user_info_code').find('span').text(res.data.informationCode);
+            $('#js_user_info_sex')
+              .find('span')
+              .text(res.data.studentSex == 1 ? '男' : '女');
+            $('#js_user_info_age').find('span').text(res.data.studentAge);
+            // $('#js_user_info_phone').find('span').text(res.data.telphoneAuth);
+            var _phoneHtml =
+              res.data.telphoneAuth +
+              '<a class="icon tedufont tedu-icon129 js-show-cmp-phone" data-phone="13789000922" data-type="telphone" data-type2="marketDetail"></a><div><a href="#" title="TQ外呼" onclick="tq_telphone(this)"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span></a> <a href="#" title="TQ外呼" onclick="tq_telphone(this)"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span></a> <a href="#" title="TQ外呼" onclick="tq_telphone(this)"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span></a></div>';
+            $('#js_user_info_phone').find('span').html(_phoneHtml);
+            $('#js_user_info_newPhone')
+              .find('span')
+              .text(res.data.newTelPhoneAuth || '-');
+            $('#js_user_info_createDate').find('span').text(res.data.createDateStr);
+            $('#js_user_info_timeRemain').find('span').text(res.data.timeRemain);
+            // 当前状态 pie
+            $('#js_flow_status').addClass(processClass(res.data.trackStatus));
+            // 分配时间
+            $('#js_user_info_distributeDate').text(res.data.distributeDate || '-');
+          }
+        });
+
+        // 按编码展示 pie 图
+        function processClass(status) {
+          var classList = '';
+          switch (status) {
+            case 'GZZT01':
+              classList = 'pie-0';
+              break;
+            case 'GZZT02':
+              classList = 'pie-0 pie-20';
+              break;
+            case 'GZZT03':
+              classList = 'pie-0 pie-20 pie-60';
+              break;
+            case 'GZZT04':
+              classList = 'pie-0 pie-20 pie-60 pie-80';
+              break;
+            case 'GZZT05':
+              classList = 'pie-0 pie-20 pie-60 pie-80 pie-100';
+              break;
+          }
+          return classList;
+        }
+      }
+    </script>
+  </body>
+</html>

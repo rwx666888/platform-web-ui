@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组织权限</title>
+		<link href="../../css/bootstrap.min.css" rel="stylesheet">
+		<!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+		<link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+		<link href="../../css/iconfont.css" rel="stylesheet">
+		<link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+		<link href="../../js/plugins/datatables/DataTables-1.10.12/css/dataTables.bootstrap.css" rel="stylesheet">
+		<link href="../../js/plugins/datatables/FixedColumns-3.2.2/css/fixedColumns.bootstrap.min.css" rel="stylesheet">
+		<link href="../../js/plugins/datatables/Select-1.2.0/css/select.bootstrap.min.css" rel="stylesheet">
+		<link href="../../js/plugins/datatables/RowReorder-1.1.2/css/rowReorder.bootstrap.min.css" rel="stylesheet">
+		<link href="../../css/animate.css" rel="stylesheet">
+		<link href="../../css/style.css" rel="stylesheet">
+		<style type="text/css">
+			.btn-box{line-height: 45px;}
+			.jstree-box{float: left; width: 300px; min-height: 100%; background-color: #efefef;}
+			#js_tree_cj{padding-bottom: 10px;}
+			.jstree-title{line-height: 45px; font-size: 20px;}
+			.dt-box{float: left; margin: 0 15px; width: calc(100% - 330px); width: -webkit-calc(100% - 330px); width: -moz-calc(100% - 330px);}
+			.cj-ts-inp{margin-left: 50px;}
+			.cj-ts-inp>label{vertical-align: middle; margin-left: 4px; cursor: pointer;}
+			
+			.mCSB_container_wrapper{margin-right: 16px; margin-bottom: 16px;}
+			.mCSB_container_wrapper>.mCSB_container{padding-right: 16px; padding-bottom: 16px;}
+			.mCSB_outside+.mCSB_scrollTools{right: -16px;}
+			.mCustomScrollBox+.mCSB_scrollTools+.mCSB_scrollTools.mCSB_scrollTools_horizontal{bottom: -10px;}
+		</style>
+	</head>
+	<body>
+		<div class="jstree-box container-fluid">
+			<div class="clearfix">
+				<p class="pull-left jstree-title">集团组织</p>
+				<div class="btn-box pull-right">
+		    		<button class="btn btn-primary btn-sm" type="button" id="cumBtn_refresh">刷新</button>
+			        <button class="btn btn-success btn-sm" type="button" id="cumBtn_save">保存</button>
+		    	</div>			
+			</div>
+			<div class="jstree-box-cont"><div id="js_tree_cj"></div></div>
+		</div>
+		<div class="dt-box">
+			<div class="row">
+				<div class="col-sm-12 m-b-sm m-t-sm clearfix">
+					<div class="pull-left">
+						<div class="form-inline">
+							<div class="form-group form-group-sm">
+							    <label for="formdemo1">姓名:</label>
+							    <input id="search_inp" type="text" class="form-control input-sm">
+						    </div>
+						    <button type="button" class="btn btn-success btn-sm" id="cumBtn_search"><i class="glyphicon glyphicon-search"></i></button>
+							<div class="form-group form-group-sm cj-ts-inp">
+						    	<input type="checkbox" id="includsub"><label for="includsub"> 包含子部门</label>
+							</div>
+						</div>
+					</div>
+					<div class="pull-right">
+			    		<button class="btn btn-primary btn-sm" type="button" id="cumBtn_add"><i class="glyphicon glyphicon-plus"></i> 新建</button>
+				        <button class="btn btn-success btn-sm" type="button" id="cumBtn_edit"><i class="glyphicon glyphicon-pencil"></i> 修改</button>
+				        <button class="btn btn-danger btn-sm" type="button" id="cumBtn_delete"><i class="glyphicon glyphicon-trash"></i> 删除</button>
+			    	</div>
+				</div>
+			</div>
+			<table id="js_dt_cj" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+				<thead></thead>
+				<tbody></tbody>
+			</table>
+		</div>
+		
+		<script src="../../js/jquery-2.1.1.js"></script>
+		<script src="../../js/bootstrap.min.js"></script>
+		
+		<script src="../../js/plugins/layer/layer.js"></script>
+		<script src="../../js/plugins/jsTree/jstree.min.js"></script>
+		<script src="../../js/plugins/datatables/DataTables-1.10.12/js/jquery.dataTables.min.js"></script>
+		<script src="../../js/plugins/datatables/DataTables-1.10.12/js/dataTables.bootstrap.min.js"></script>
+		<script src="../../js/plugins/datatables/Select-1.2.0/js/dataTables.select.min.js"></script>
+		<!--表格拖拽-->
+		<!--<script src="../../js/plugins/datatables/RowReorder-1.1.2/js/dataTables.rowReorder.min.js"></script>-->
+		<script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+		
+		<script src="../../i18n/zh-CN.js"  type="text/javascript"></script>
+		<script src="../../js/tedu-languge.js"></script>
+		<script src="../../js/subindex.js"></script>
+		
+		<!-- 以下js仅用于演示 -->
+        <script src="../../js/jquery.mockjax.min.js"></script>
+        <script type="text/javascript" src="../../demo-data.js" ></script>
+		<script type="text/javascript">
+		$(function () {
+			/* 滚动条 */
+	       	var bodyH_=$('body').height();
+	        $(".jstree-box-cont").mCustomScrollbar({setWidth:'270',setHeight:bodyH_-65,axis:'yx',scrollbarPosition:'outside',theme:"dark-3"});
+	        var deptArr={}, old_id;
+	        var treeObjList = {
+	            editFunc: function (tit, url_, node_, ref) {//重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+	                cumParentWinModal(tit, url_, {
+	                    'area': ['380px', '240px'],
+	                    'callid':{'node':node_,'ref':ref},
+	                    'callback':{fn2:'fn1'}
+	                })
+	                COM_TOOLS.setCacheFnForChildWin({fn1:saveFun});
+	            },
+	            create: function (node_,ref) {
+	                if (!node_.id.length) {
+	                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]);//请选择节点
+	                    return false;
+	                }
+	                treeObjList.editFunc(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTmo_tit"], ['add-jstree.html?edit=0'],node_,ref);
+	            },
+	            rename: function (node_,ref) {
+	                if (!node_.id.length) {
+	                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]);//请选择节点
+	                    return false;
+	                }
+	                treeObjList.editFunc(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_tit"], ['add-jstree.html?edit=1&nodeName=' + node_.text],node_,ref);
+	            },
+	            del: function (node_,ref) {
+	                if (!node_.id.length) {
+	                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]);
+	                    return false;
+	                }
+	                /*'delConfirm':确认删除吗?*/
+	                COM_TOOLS.confirm("确认删除吗？", function (index) {
+	                    cumCloseWin(index);
+	                    //$.post('',{},function(d){
+	                    	ref.delete_node(node_.id);	//需在回调成功后才执行
+	                    //},'json');
+	                });
+	            }
+	        };
+	        function saveFun(obj) {
+	        	console.log(obj);
+	            if (obj.editNum == 0) {
+	            	obj['ref'].create_node(obj['node'].id, {"text": obj['text']});
+	            	obj['ref'].open_node(obj['node'].id);
+	            } else if (obj.editNum == 1) {
+	                obj['ref'].set_text(obj['node'], obj['text']);//更改节点内容
+	            }
+	        };
+	        
+	        var jstree_=$('#js_tree_cj').jstree({
+	            'core': {
+	                "check_callback": true,
+	                'data': [//静态数据,如果数据有中 parent 字段所对应的 id 不存在会报错
+								{"id":11,"parent":0,"text":"集团1"},
+								{"id":21,"parent":11,"text":"部门1"},
+								{"id":22,"parent":11,"text":"部门2"},
+							 	{"id":13,"parent":0,"text":"集团 2"},
+							  	{"id":31,"parent":13,"text":"部门1"},
+								{"id":32,"parent":13,"text":"部门2"}
+							]
+	                /*{
+	                    'url': function (node) {
+	                        return node.id === '0'?'demo-tree-data-root.json':'demo-tree-data-child.json';
+	                    },
+	                    'data': function (node) {	//发送的data
+	                        return {'id': node.id};
+	                    },
+	                    'success':function(d){
+	                    	if(str_id==""){	//获取首个节点
+	                			str_id = d[0]['id'];
+	                	   	}
+	                    	//可做处理
+	                    	return d;
+	                    }
+	                }*/
+	            }, 'contextmenu': {
+	                show_at_node: false,
+	                items: function (node) {
+	                    var temp = {
+	                        "add_c": {
+	                            "icon": 'glyphicon glyphicon-asterisk',
+	                            "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTaddn_node"],
+	                            "separator_after": true,//表示在此项之后是否应该有分隔符
+	                            "action": function (data) {
+	                                treeObjList.create(node,$('#js_tree_cj').jstree(true));
+	                            }
+	                        },
+	                        "add_b": {
+	                            "icon": 'glyphicon glyphicon-asterisk',
+	                            "label":LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTaddn_node"],
+	                            "separator_after": true,
+	                            "action": function (data) {
+	                                treeObjList.create(node,$('#js_tree_cj').jstree(true));
+	                            },
+	                            "_disabled":function(){	//菜单禁止操作
+	                            	return node.parent==0;
+	                            }
+	                        },
+	                        "rename": {
+	                            "icon": 'glyphicon glyphicon-pencil',
+	                            "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTrename_node"],
+	                            "separator_after": true,
+	                            "action": function (data) {
+	                                treeObjList.rename(node,$('#js_tree_cj').jstree(true));
+	                            }
+	                        },
+	                        "del": {
+	                            "icon": 'glyphicon glyphicon-remove',
+	                            "label":LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTdel_node"],
+	                            "separator_after": true,
+	                            "action": function (data) {
+	                                console.log(node);
+	                                var childL_=node.children.length;
+	                                if (childL_>0) {
+	                                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_notdel"]);
+	                                    return false;
+	                                }
+	                                treeObjList.del(node,$('#js_tree_cj').jstree(true));
+	                            }
+	                        }
+	                    }
+	                    return temp;
+	                }
+	            },
+	            'types':{	//可自定义树的图标
+	            	'default': {
+                    	'icon': 'text-info tedufont tedu-icon43'
+                	},
+                	'root': {
+                    	'icon': 'text-danger tedufont tedu-icon6'
+                	}
+            	},
+	            'plugins': ['types','contextmenu','dnd']	//dnd开启拖拽功能
+	        })
+	        .on('ready.jstree',function(e,n){	 /* jstree-绑定 */
+	        	var str_id = 11;
+            	jstree_.jstree(true).select_node([str_id],true,false);//tree加载完之后让a1,b2 节点选中
+            	old_id = str_id;
+            	refreshDT({'id':str_id});	//第一次时需要启用
+	        })
+	        .on('activate_node.jstree',function(e,data){	//用 select_node.jstree 时,通过 select_node() 方法调用时会报错 data.event 未定义
+	        	//判断左右击
+	        	if(data.event.which==1){
+		        	var id_=data.node.id;
+		        	if(old_id!=id_){
+		        		old_id=id_;
+		        		searchParemOBj_ = {'id': id_};
+		        		DT_.setAjaxData(searchParemOBj_);
+		        	}
+	        	}
+	      	})
+	        .on('move_node.jstree',function(e,data){
+	        	var id_=data.node.id;
+	        	deptArr['cj_'+id_]={'tar_id':id_,'parent':data['parent'],'old_parent':data['old_parent']};
+	        });
+	        
+			$('#cumBtn_refresh').click(function(){
+				//如果是对树节点的添加/修改/删除等操作禁止用刷新方法
+				jstree_.jstree(true).refresh_node();
+			});
+			$('#cumBtn_save').click(function(){
+				if($.isEmptyObject(deptArr)){
+					return false;
+				}
+				COM_TOOLS.alert('确认修改节点',{
+					time: 0, //6s后自动关闭   ;默认关闭时间，毫秒数； 0：不自动关闭（慎用）
+					btn: ['确认', '取消'],
+					btn1:function(index){
+						console.log(deptArr);
+						deptArr={};
+					},
+					btn2:function(index){
+					 	layer.close(index);
+					},
+					shade:0.3 //背景蒙版,透明度
+				});
+			});
+			
+			/*datatable*/
+			var DT_ = {}, searchParemOBj_ = {};
+			function refreshDT(obj){
+    			DT_ = COM_TOOLS.DT_init('js_dt_cj', [
+    			    {
+                        "data": null,
+                        "title": "序号",
+                        "className": "text-center",
+                        "width": "30px",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return 1 + meta.row;
+                        }
+                    },{
+                        "data": null,
+                        "title": "选项",
+                        "className":"select-checkbox",
+                        "defaultContent": ''
+                    },{
+                        "data": "first_name",
+                        "title": "标题1"
+                    }, {
+                        "data": "last_name",
+                        "title": "标题2"
+                    }, {
+                        "data": "position",
+                        "title": "标题3",
+                        "className": "text-right"
+                    }, {
+                        "data": null,
+                        "title": "标题4",
+                        render: function(data, type, row, meta) { /*显示行号*/
+                            return '<button type="button" class="js-check-btn no-Sel-obj btn btn-success btn-xs">查看权限</button> <button type="button" class="js-px-btn no-Sel-obj btn btn-success btn-xs">排序</button>';
+                        }
+                    }], '/dt/api', 'get', obj, {other: {destroy: true}, selectStyle: 'os', jsInitComplete: function(settings){
+                        console.log(settings);
+                        $(settings.nTBody).on('click','.js-check-btn',function(){
+                            COM_TOOLS.alert("暂未开放");
+                        })/*.on('row-reorder',function ( e, diff, edit ){   //拖拽事件
+                            var result={};
+                            for ( var i=0, ien=diff.length ; i<ien ; i++ ) {
+                                var rowData = table_.row( diff[i].node ).data();
+                                result['cj_'+rowData['DT_RowId']]={'tar_id':rowData['DT_RowId'],'position':diff[i].newData,'old_position':diff[i].oldData};
+                            }
+                            console.log(result);
+                            if($.isEmptyObject(result)){
+                                return false;
+                            }
+                        })*/;
+                    }});
+            };        
+			
+			$('#includsub').click(function(){
+				if($(this).prop('checked')){
+					searchParemOBj_ = {'xxx': 'xxx'};
+					DT_.setAjaxData(searchParemOBj_);
+				}else{
+					searchParemOBj_ = {'id': old_id};
+					DT_.setAjaxData(searchParemOBj_);
+				}
+			});
+			$('#cumBtn_search').click(function(){
+				var txt_=$.trim($('#search_inp').val());
+				if(txt_.length <= 0){
+					COM_TOOLS.alert("请输入内容");
+					return false;
+				}
+				searchParemOBj_ = {'xx': txt_};
+				DT_.setAjaxData(searchParemOBj_);
+			});
+			$('#cumBtn_add').click(function(){	//添加
+				cumParentWinModal('新建','add_form_tree.html',{"scrollbar":true,'area':['70%','80%'],"end":function(){
+				}}); //在父窗口中打开弹窗并显示最大化按钮
+			});
+			$('#cumBtn_edit').click(function(){	//修改
+				if(!DT_.getSelectRowsData('DT_RowId').length){
+					COM_TOOLS.alert("请选择要修改的数据");
+					return false;
+				};
+				cumParentWinModal('修改','xxx',{"scrollbar":true,'area':['400px','400px'],"callid": DT_.getSelectRowsData('DT_RowId')[0],"end":function(){
+				}}); //在父窗口中打开弹窗并显示最大化按钮
+			});
+			$('#cumBtn_delete').click(function(){	//删除
+				if(!DT_.getSelectRowsData('DT_RowId').length){
+					COM_TOOLS.alert("请选择要删除的数据");
+					return false;
+				};
+				COM_TOOLS.confirm('确认删除',function(){
+					$.ajax({
+				      	type: "post",
+				      	url: "URL",	//接口地址
+				      	data: {
+				      		'id' : $.trim(DT_.getSelectRowsData('DT_RowId')[0])
+				      	},
+				      	success: function (d) {
+					      	if (d.result == 1) {
+					      		COM_TOOLS.alert("操作成功");
+					      		//加载列表
+					      		COM_TOOLS.DT_setCurPageIndex(DT_.table);
+					        }else{
+					        	COM_TOOLS.alert("操作失败", {time: 5000});
+					        }
+				      	},
+				     	error: function () {
+				      		COM_TOOLS.alert("系统异常");
+				      	}
+				  	});
+				});
+			});
+	    });
+		</script>
+	</body>
+</html>

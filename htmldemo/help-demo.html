@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	    <title>帮助手册</title>
+	
+	    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+	    <link href="../css/animate.min.css" rel="stylesheet">
+	    <link rel="stylesheet" href="../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" />
+		<style>
+			body {position: relative;}
+			pre{
+				white-space: pre-wrap;       
+				white-space: -moz-pre-wrap;  
+				white-space: -pre-wrap;      
+				white-space: -o-pre-wrap;    
+				word-wrap: break-word;       
+			}
+			#navbar-example{top: 20px; bottom: 30px; padding-bottom: 30px;}
+			#navbar-example .js-to-top{position: absolute; bottom: 0; left: 0;}
+			#navbar-example > .overflow-box{ height: 100%;}
+			#navbar-example a{ color: #262626; padding: 3px 8px;}
+			#navbar-example a:hover{ background: none; border-left: 1px solid #337AB7; padding-left: 7px;}
+			#navbar-example li.active > a{ color: #337ab7; border-left: 3px solid #337AB7; padding-left: 5px;}
+			h2, h3{ margin-top: 30px; padding: 10px;}
+			h2{ background-color: #dff0d8;}
+			#navbar-example .nav > li > ul{ display: none;}
+			#navbar-example .nav > li.active > ul{ display: block;}
+			.example7-1{animation:wave 1s infinite;}
+			@keyframes wave{ 
+			    0%{
+			        -webkit-transform:scale(0.5);
+			        transform:scale(0.5);
+			        opacity:0;
+			        filter:alpha(opacity=0)\9;
+			    }
+			    50%{
+			        opacity:1;
+			        filter:alpha(opacity=100)\9;
+			    }
+			    100%{
+			        -webkit-transform:scale(1);
+			        transform:scale(1);
+			        opacity:0;
+			    }
+			}
+			@keyframes twinkle{ 
+			    from{
+			        opacity:0.5;
+			    }
+			    20%{
+			        opacity:0;
+			    }
+			    40%{
+			        opacity:0.8;
+			    }
+			    80%{
+			        opacity:0;
+			    }
+			    100%{
+			        opacity:1;
+			    }
+			}	
+			.example7-2{width:200px;height:200px;background:#2b2b2b;position:relative;}
+			.example7-2 img,.img2,.img3{position:absolute;top:36px;left:85px;animation:twinkle 1.2s infinite;}
+			.example7-2 .img2{position:absolute;top:65px;left:35px;animation-delay:.8s;}
+			.example7-2 .img3{position:absolute;top:80px;left:94px;animation-delay:1.4s;}
+		</style>
+	</head>
+	<body data-spy="scroll" data-target="#navbar-example">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12" style="padding: 20px;">
+					<h2 class="alert-info" style="padding: 20px; margin: 0;">常见问题及解决方案</h2>
+				</div>
+				<div class="col-sm-9">
+						<h2 class="bg-success" id="dom1">常用jQuery对象方法</h2>
+						<p>PS: 仅限原生HTML-input元素，组件请使用对应API</p>
+<h3 id="dom1_1">单选按钮组</h3>
+<pre>
+&lt;input type=&quot;radio&quot; name=&quot;testradio&quot; value=&quot;&quot; /&gt;
+
+$('input[name="testradio"]:checked').val();
+//选中:
+$('input[name="testradio"]').eq(0).prop('checked',true); //根据下标
+$('input[name="testradio"][value="111"]').prop('checked',true); //根据value值
+</pre>
+
+<h3 id="dom1_2">复选按钮组</h3>
+<pre>
+&lt;input type=&quot;checkbox&quot; name=&quot;testcheckbox&quot; value=&quot;&quot; /&gt;
+
+var ids_ =[];
+$('input[name="testcheckbox"]:checked').each(function(){
+	var t_= $(this);
+	ids_.push(t_.val());
+});
+return ids_.join(','); //用，号分割；
+//选中:
+$('input[name="testcheckbox"]').eq(0).prop('checked',true); //根据下标
+$('input[name="testcheckbox"][value="111"]').prop('checked',true); //根据value值
+</pre>
+
+<h3 id="dom1_3">下拉列表</h3>
+<pre>
+&lt;select id=&quot;testSelect&quot;&gt;&lt;option value=&quot;&quot;&gt;text&lt;/option&gt;&lt;/select&gt;
+
+$('#testSelect').val(); //获取当前选中项的value
+$("#testSelect").find("option:selected").text(); // 获取当前选中项的text
+
+$(".selector1").change(function(){ //select的级联
+     // 先清空第二个
+      $(".selector2").empty();
+     // 实际的应用中，这里的option一般都是用循环生成多个了
+      var option = $("&lt;option&gt;").val(1).text("pxx");
+      $(".selector2").append(option);
+});
+//选中:
+$('#testSelect').val('111'); //设置value为111的项选中
+//多选框赋值：
+$("#testSelect").val(["111","222"]);//设置value为111和222的项选中
+</pre>
+<h3 id="dom1_4">获取表单内容（用于表单提交）</h3>
+<p>PS:序列化表单内容，用于 Ajax 请求。</p>
+<pre>
+&lt;form&gt;
+  &lt;select name=&quot;single&quot;&gt;
+    &lt;option&gt;Single&lt;/option&gt;
+    &lt;option&gt;Single2&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;select name=&quot;multiple&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;option selected=&quot;selected&quot;&gt;Multiple&lt;/option&gt;
+    &lt;option&gt;Multiple2&lt;/option&gt;
+    &lt;option selected=&quot;selected&quot;&gt;Multiple3&lt;/option&gt;
+  &lt;/select&gt;&lt;br/&gt;
+  &lt;input type=&quot;checkbox&quot; name=&quot;check&quot; value=&quot;check1&quot;/&gt; check1
+  &lt;input type=&quot;checkbox&quot; name=&quot;check&quot; value=&quot;check2&quot; checked=&quot;checked&quot;/&gt; check2
+  &lt;input type=&quot;checkbox&quot; name=&quot;check&quot; value=&quot;check3&quot; checked=&quot;checked&quot;/&gt; check3
+  &lt;input type=&quot;radio&quot; name=&quot;radio&quot; value=&quot;radio1&quot; checked=&quot;checked&quot;/&gt; radio1
+  &lt;input type=&quot;radio&quot; name=&quot;radio&quot; value=&quot;radio2&quot;/&gt; radio2
+&lt;/form&gt;
+
+1、平台 form序列化方法：（推荐，对象）
+COM_TOOLS.serializeObject(form);
+ //输出： 
+{single: &quot;Single&quot;, multiple: &quot;Multiple,Multiple3&quot;, check: &quot;check2,check3&quot;, radio: &quot;radio1&quot;}
+
+2、jQuery form序列化方法（url参数字符串）
+ $(&quot;form&quot;).serialize();  
+ //输出： single=Single&multiple=Multiple&multiple=Multiple3&check=check2&check=check3&radio=radio1
+
+3、jQuery form序列化方法（数组对象）
+ $(&quot;form&quot;).serializeArray(); 
+ //&#x8F93;&#x51FA;&#xFF1A;
+[ 
+  {name: &#x27;firstname&#x27;, value: &#x27;Hello&#x27;}, 
+  {name: &#x27;lastname&#x27;, value: &#x27;World&#x27;},
+  {name: &#x27;alias&#x27;}, // &#x503C;&#x4E3A;&#x7A7A;
+  {name: &#x27;multiple&#x27;,value: &#x27;Multiple&#x27;},//&#x591A;&#x9009;&#x6846;
+  {name: &#x27;multiple&#x27;,value: &#x27;Multiple3&#x27;},
+  {name: &#x27;check&#x27;,value: &#x27;check2&#x27;},//&#x590D;&#x9009;&#x6846;
+  {name: &#x27;check&#x27;,value: &#x27;check3&#x27;}
+]
+
+</pre>
+						<h3 id="dom1_5">iframe操作</h3>
+<pre>
+获取子页面的window对象
+    $('#frameid')[0].contentWindow;
+    Window.frames[iframeName];
+    Window.iframeName
+获取子页面的DOM
+    $(window.frames["iframeName"].document).find('#id')
+    $('#iframeId').contents().find('#id');
+子操作父类
+    parent.$('#id').val();
+    $('#id', parent.document).val();
+</pre>						
+						<h2 id="dom2">常用JS方法的封装</h2>
+						<h3 id="dom2_1">获取地址栏的参数值</h3>
+<pre>
+function Request_param(strName){
+    var strHref = location.search ;
+    var intPos = strHref.indexOf(&#x27;?&#x27;);
+    if(intPos ===-1){return &#x27;&#x27;;}
+    var strRight = strHref.substr(intPos + 1);
+    var arrTmp = strRight.split(&#x27;&amp;&#x27;);
+    for(var i = 0; i &lt; arrTmp.length; i ++ ){
+        var arrTemp = arrTmp[i].split(&#x27;=&#x27;);
+        if(arrTemp[0].toUpperCase() == strName.toUpperCase()){ 
+            if(i===arrTmp.length-1){
+                var sIndex = arrTemp[1].indexOf(&#x27;#&#x27;);
+                if(sIndex!==-1){arrTemp[1] = arrTemp[1].substring(0,sIndex);}
+                }
+            return arrTemp[1];
+        }
+    }
+    return &#x27;&#x27;;
+}
+</pre>						
+						<h3 id="dom2_2">判断对象是否含有某个成员</h3>
+						<p></p>
+<pre>
+1.使用in关键字
+function Fn(){
+    this.name='jim'
+};
+Fn.prototype.age='20';
+var fn=new Fn();
+'name' in fn;   //-->true 判断自有属性
+'age' in fn;   //-->true  判断继承属性
+'home' in fn;  //-->false
+	
+2.使用对象的hasOwnProperty()方法	注：IE 5.5+、FireFox、Chrome、Safari、Opera等主流浏览器均支持该函数。
+function Fn(){
+    this.name='jim'
+};
+Fn.prototype.age='20';
+var fn=new Fn();
+fn.hasOwnProperty('name');   //-->true 判断自有属性
+fn.hasOwnProperty('age');   //-->false  不能判断继承属性
+fn.hasOwnProperty('home');  //-->false
+
+区别：
+in可以获取object的所有属性,包括自定义属性以及原型链属性。
+hasOwnProperty()只能获取自定义属性，无法获取原型链属性。
+</pre>						
+						<h3 id="dom2_3">页面底端事件</h3>
+						<p>ps：滚动条滑动底部延迟加载</p>
+<pre>
+(function(){//&#x533F;&#x540D;&#x51FD;&#x6570;&#x81EA;&#x8C03; &#x907F;&#x514D;&#x5168;&#x5C40;&#x6C61;&#x67D3;
+    var timer,xhr;
+    $(window).scroll(function(){
+        if(timer){
+            clearTimeout(timer);
+        }
+        timer=setTimeout(function(){
+            if($(window).scrollTop()&gt;=$(document).height()-$(window).height()){
+                if(xhr!=null){xhr.abort();}/*XMLHttpRequest&#x5BF9;&#x8C61;&#x7684;abort()&#x7EC8;&#x6B62;&#x672A;&#x5B8C;&#x6210;&#x7684;&#x8BF7;&#x6C42;*/
+                xhr=$.ajax({
+                    url:&quot;test.txt&quot;,
+                    success:function(data){
+                        $(&quot;body&quot;).append(&quot;&lt;h3&gt;&quot;+data+&quot;&lt;/h3&gt;&quot;)
+                    }
+                })
+            }
+        },100)
+    })
+})();
+</pre>	
+						<h3 id="dom2_4">CreateObjectUrl实现图片上传预览</h3>
+<pre>
+/**
+ * @param {Object} &lt;input type=&quot;file&quot;&gt; fileList对象 ; 例如：this.files[0] 
+ */
+function getObjectURL(file) {
+    var url = null;
+    if(window.createObjectURL != undefined) { // basic
+        url = window.createObjectURL(file);
+    } else if(window.URL != undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+    } else if(window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+}
+</pre>		
+						<h3 id="dom2_5">js控制元素进入全屏和取消全屏</h3>
+<pre>
+注：行内元素与块元素都可实现全屏效果
+/**
+ * 进入全屏
+ * @param {String} element dom元素
+ */
+function enterfullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    }
+    else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();//FireFox
+    }
+    else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen();//Chrome&#x7B49;
+    }
+    else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();//IE11
+    }
+}
+/**
+ * 退出全屏
+ */
+function exitfullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    }
+    else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    }
+    else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+    }
+    else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+</pre>
+						<h2 id="dom3">常见form表单问题</h2>
+						<h3 id="dom3_1">form表单的target标签配合iframe实现不跳转刷新</h3>
+						<p>PS:target的作用是让form提交后在什么窗口下打开，使用iframe 但是将iframe设为看不见的，最终form表单会被提交到目标iframe中 ，但iframe被我们设置成看不见的，这样form提交时就刷新不跳转。</p>
+<pre>
+&lt;form class=&quot;form-horizontal&quot; method=&quot;post&quot; target=&quot;posthere&quot; action=&quot;user-login&quot; onsubmit=&quot;return checkRegForm()&quot;&gt;&lt;/form&gt;
+&lt;iframe  name=&quot;posthere&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+
+注意：
+1、form的target的属性值必须与目标iframe的name属性值相同；
+2、需接收处理action返回结果时，必须满足基于iframe同源策略限制；另外js回调函数处理返回数据；例如：
+Action：返回
+&lt;script type=&quot;text/javascript&quot;&gt;
+    parent.yourFun(XXX);
+&lt;/script&gt;
+&#x5F53;&#x524D;&#x9875;&#x9762;&#x4E2D;&#x5B9A;&#x4E49;&#x8BE5;&#x56DE;&#x8C03;&#x51FD;&#x6570;&#xFF1A;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    function yourFun(XXX){
+    //TODO
+    }
+&lt;/script&gt;
+接口数据提交建议使用ajax，跨域-get请求使用jsonp，跨域-POST请求使用iframe同源策略或CORS（需浏览器及服务端支持）
+</pre>	
+						<h3 id="dom3_2">Js方式（间接）打开新窗口时会发生拦截</h3>
+<pre>
+注：由于浏览器安全限制，一般情况下直接在js中打开（非用户直接触发）弹窗（window.open 或 form target=_blank）会被拦截;
+PS: 
+1、非用户直接触发的行为包括：ajax（异步）中的$("form").submit(); 或 window.open 行为；
+2、用户直接触发的行为：
+$("button").click(function(){ 
+    //$("form").submit(); 
+    //window.open
+});
+
+解决方案：
+1、改为用户直接触发的方式；
+2、form ,是否可去掉target=_blank属性；
+3、window.open,在点击后先打开空白页，之后再修改地址
+&lt;button onclick=&quot;test()&quot;&gt;&#x70B9;&#x51FB;&lt;/button&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+function test(){
+    var frame=window.open("about:blank","_blank");
+    $.get("/",function(){
+        frame.location="https://www.baidu.com";
+    });
+}
+&lt;/script&gt;
+</pre>	
+						<h3 id="dom3_3">input回车提交表单问题</h3>
+<pre>
+&#x95EE;&#x9898;&#x8BF4;&#x660E;&#xFF1A;
+    1)&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5355;&#x4E2A;&#x8F93;&#x5165;&#x6846;&#xFF0C;&#x65E0;&#x8BBA;&#x6309;&#x94AE;&#x7684;type=&quot;submit&quot;&#x8FD8;&#x662F;type=&quot;button&quot;&#x7C7B;&#x578B;&#xFF0C;&#x56DE;&#x8F66;&#x5373;&#x63D0;&#x4EA4;&#x3002;
+    2)&#x5F53;type=&quot;submit&quot;&#x65F6;&#xFF0C;&#x65E0;&#x8BBA;&#x6709;&#x51E0;&#x4E2A;type=&quot;text&quot;&#x8F93;&#x5165;&#x6846;&#xFF0C;&#x56DE;&#x8F66;&#x5747;&#x8868;&#x793A;&#x63D0;&#x4EA4;&#x3002;&#xFF08;&lt;button&gt;&#x6309;&#x94AE;&#x9ED8;&#x8BA4;&#x7684;type&#x4E3A;submit&#xFF0C;IE&#x4E0B;&#x9ED8;&#x8BA4;&#x4E3A;type=button&#xFF0C;&#x706B;&#x72D0;&#x3001;Chrome&#x9ED8;&#x8BA4;&#x4E3A;type=submit&#xFF09;
+    3)Type=&ldquo;image&rdquo;&#x7684;input &#xFF0C;&#x6548;&#x679C;&#x4E5F;&#x662F;&#x7B49;&#x540C;&#x4E8E;type=&ldquo;submit&rdquo;
+    4)&#x5F53;type=&quot;button&quot;&#x65F6;&#xFF0C;&#x4E14;&#x5B58;&#x5728;&#x591A;&#x4E2A;&#x8F93;&#x5165;&#x6846;&#xFF0C;&#x56DE;&#x8F66;&#x4E0D;&#x63D0;&#x4EA4;&#x3002;
+&#x89E3;&#x51B3;&#x65B9;&#x6848;&#xFF1A;
+    1)&#x89E3;&#x51B3;&#x5355;&#x4E2A;&#x8F93;&#x5165;&#x6846;&#x7684;&#x56DE;&#x8F66;&#x5373;&#x63D0;&#x4EA4;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x9690;&#x85CF;&#x7684;input=&quot;text&quot; display=&#x27;none&#x27;; &#x7136;&#x540E;type&#x7C7B;&#x578B;&#x4E3A;button&#x3002;
+    2)&#x5728;form&#x8868;&#x5355;&#x6216;input&#x4E2D;&#x52A0;&#x5165;&#xFF1A;onkeydown=&quot;if(event.keyCode==13){return false;}&quot;
+</pre>
+						<h2 id="dom4">Web性能优化</h2>
+						<h3 id="dom4_1">尽量减少HTTP请求</h3>
+						<p>ps:通过减少页面中的元素可以减少 HTTP请求的次数,这是提高网页速度的关键步骤。</p>
+<pre>
+1.&#x5408;&#x5E76;&#x6587;&#x4EF6;&#x662F;&#x901A;&#x8FC7;&#x628A;&#x6240;&#x6709;&#x7684;&#x811A;&#x672C;&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x6765;&#x51CF;&#x5C11; HTTP&#x8BF7;&#x6C42;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5982;&#x53EF;&#x4EE5;&#x7B80;&#x5355;&#x5730;&#x628A;&#x6240;&#x6709;&#x7684; CSS&#x6587;&#x4EF6;&#x90FD;&#x653E;&#x5165;&#x4E00;&#x4E2A;&#x6837;&#x5F0F;&#x8868;&#x4E2D;;
+2.CSS Sprites&#x662F;&#x51CF;&#x5C11;&#x56FE;&#x50CF;&#x8BF7;&#x6C42;&#x7684;&#x6709;&#x6548;&#x65B9;&#x6CD5;&#x3002;&#x628A;&#x6240;&#x6709;&#x7684;&#x80CC;&#x666F;&#x56FE;&#x50CF;&#x90FD;&#x653E;&#x5230;&#x4E00;&#x4E2A;&#x56FE;&#x7247;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x901A;&#x8FC7; CSS&#x7684; background-image&#x548C; background-position&#x5C5E;&#x6027;&#x6765;&#x663E;&#x793A;&#x56FE;&#x7247;&#x7684;&#x4E0D;&#x540C;&#x90E8;&#x5206;&#xFF1B;
+3.&#x5185;&#x8054;&#x56FE;&#x50CF;&#x662F;&#x4F7F;&#x7528; data:URL scheme&#x7684;&#x65B9;&#x6CD5;&#x628A;&#x56FE;&#x50CF;&#x6570;&#x636E;&#x52A0;&#x8F7D;&#x9875;&#x9762;&#x4E2D;&#x3002;&#x8FD9;&#x53EF;&#x80FD;&#x4F1A;&#x589E;&#x52A0;&#x9875;&#x9762;&#x7684;&#x5927; &#x5C0F;&#x3002;&#x628A;&#x5185;&#x8054;&#x56FE;&#x50CF;&#x653E;&#x5230;&#x6837;&#x5F0F;&#x8868;&#xFF08;&#x53EF;&#x7F13;&#x5B58;&#xFF09;&#x4E2D;&#x53EF;&#x4EE5;&#x51CF;&#x5C11; HTTP&#x8BF7;&#x6C42;&#x540C;&#x65F6;&#x53C8;&#x907F;&#x514D;&#x589E;&#x52A0;&#x9875;&#x9762;&#x6587;&#x4EF6;&#x7684;&#x5927;&#x5C0F;&#x3002;&#x4F46;&#x662F;&#x5185;&#x8054;&#x56FE;&#x50CF;&#x73B0;&#x5728;&#x8FD8;&#x6CA1;&#x6709;&#x5F97;&#x5230;&#x4E3B;&#x6D41;&#x6D4F;&#x89C8;&#x5668;&#x7684; &#x652F;&#x6301;&#x3002;
+</pre>						
+						<h3 id="dom4_2">改进对DOM对象的操作方式</h3>
+						<p>ps:循环中多次查找同一个DOM对象，可将DOM对象缓存进一个局部变量</p>
+<pre>
+&#x6848;&#x4F8B;1&#xFF1A;
+for(var i=0;i&lt;data.length;i++){
+    var $option=$(&quot;&lt;option&gt;&lt;/option&gt;&quot;);
+    $option.attr(&quot;value&quot;,data[i].id);
+    $option.text(data[i].name);
+    $(&quot;#cityCode&quot;).append($option);
+}
+&#x6848;&#x4F8B;2:
+var str=&quot;&quot;;
+for(var i=0;i&lt;data.length;i++){
+    str+=&#x27;&lt;option value=&quot;&#x27;+data[i].id+&#x27;&quot;&gt;&#x27;+data[i].name+&#x27;&lt;/option&gt;&#x27;;
+}
+$(&quot;#cityCode&quot;).append(str);
+&#x6BD4;&#x8F83;:&#x4E8C;&#x8005;&#x5728;&#x5DEE;&#x5F02;&#x5728;&#x4E8E;&#x6784;&#x5EFA;&#x987A;&#x5E8F;&#x7684;&#x4E0D;&#x540C;;&#x7B2C;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x5FAA;&#x73AF;&#x91CC;&#x6BCF;&#x6B21;&#x90FD;&#x5BF9;&#x7236;&#x8282;&#x70B9;&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;,&#x5F53;&#x6570;&#x636E;&#x91CF;&#x5927;&#x7684;&#x65F6;&#x5019;,&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6027;&#x80FD;&#x4F4E;&#x4E0B;;&#x7B2C;&#x4E8C;&#x79CD;&#x65B9;&#x5F0F;&#x5148;&#x7531;&#x5185;&#x5411;&#x5916;&#x751F;&#x6210;&#x62FC;&#x63A5;&#x597D;&#x7684;&#x5B57;&#x7B26;&#x4E32;,&#x518D;&#x4E00;&#x6B21;&#x6027;append&#x5230;&#x7236;&#x8282;&#x70B9;&#x5BF9;&#x8C61;;&#x8FD9;&#x6837;&#x505A;&#x7684;&#x76EE;&#x7684;&#x662F;&#x5C3D;&#x53EF;&#x80FD;&#x51CF;&#x5C11;&#x6D4F;&#x89C8;&#x5668;&#x91CD;&#x65B0;&#x8BA1;&#x7B97;&#x9875;&#x9762;&#x5E03;&#x5C40;&#x7684;&#x6B21;&#x6570;,&#x603B;&#x7ED3;&#x4E3A;&#x4E00;&#x53E5;&#x8BDD;&#x5C31;&#x662F;&#x8D8A;&#x665A;&#x6267;&#x884C;appendChild&#x8D8A;&#x597D;;
+</pre>
+							
+							<h2 id="dom5">HTML标签及属性使用总结</h2>
+							<h3 id="dom5_1">HTML meta标签实现页面跳转</h3>
+<pre>
+&lt;html&gt;
+    &lt;head&gt;			
+    &lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;&gt;//&#x7981;&#x6B62;&#x6D4F;&#x89C8;&#x5668;&#x4ECE;&#x672C;&#x5730;&#x8BA1;&#x7B97;&#x673A;&#x4E2D;&#x7684;&#x7F13;&#x5B58;&#x4E2D;&#x8BBF;&#x95EE;&#x9875;&#x9762;&#x5185;&#x5BB9;		
+    &lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0&quot;  URL=&quot;http://chunwan.cntv.cn&quot;&gt;// &quot;Refresh&quot;:&#x8868;&#x793A;&#x5237;&#x65B0;&#x52A8;&#x4F5C;&#xFF1B;&quot;0&quot;&#x8868;&#x793A;&#x5EF6;&#x8FDF;&#x65F6;&#x95F4;&#xFF1B;&quot;URL&quot;&#xFF1A;&#x8868;&#x793A;&#x8DF3;&#x8F6C;&#x5230;&#x7684;&#x5730;&#x5740;	
+    &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+&lt;/html&gt;
+</pre>							
+							<h3 id="dom5_2">禁止ios系统把数字转化为拨号链接</h3>
+<pre>
+&#x5728;iPhone &#x624B;&#x673A;&#x4E0A;&#x9ED8;&#x8BA4;&#x503C;&#x662F;&#xFF08;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x663E;&#x793A;&#x4E3A;&#x62E8;&#x53F7;&#x7684;&#x8D85;&#x94FE;&#x63A5;&#xFF09;&#xFF1A;
+&lt;meta name=&quot;format-detection&quot; content=&quot;telephone=yes&quot;/&gt;
+
+&#x53EF;&#x5C06;telephone=no&#xFF0C;&#x5219;&#x624B;&#x673A;&#x53F7;&#x7801;&#x4E0D;&#x88AB;&#x663E;&#x793A;&#x4E3A;&#x62E8;&#x53F7;&#x94FE;&#x63A5;
+&lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no&quot;/&gt;
+</pre>							
+							<h3 id="dom5_3">如何指定浏览器渲染内核</h3>
+<pre>
+IE&#x6D4F;&#x89C8;&#x5668;&#xFF1A;
+&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;/&gt;
+IE=edge&#xFF1A;&#x4F7F;&#x7528;edge&#xFF08;&#x6700;&#x9AD8;&#xFF09;&#x5185;&#x6838;&#x6E32;&#x67D3;&#xFF1B;
+chrome=1&#xFF1A;&#x8FD9;&#x6837;&#x5199;&#x53EF;&#x4EE5;&#x8FBE;&#x5230;&#x7684;&#x6548;&#x679C;&#x662F;&#x5982;&#x679C;&#x5B89;&#x88C5;&#x4E86;GCF&#xFF08;Google Chrome Frame &#x8C37;&#x6B4C;&#x5185;&#x5D4C;&#x6D4F;&#x89C8;&#x5668;&#x6846;&#x67B6;&#x7684;&#x7B80;&#x79F0;&#xFF09;&#xFF0C;&#x5219;&#x4F7F;&#x7528;GCF&#x6765;&#x6E32;&#x67D3;&#x9875;&#x9762;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x5B89;&#x88C5;GCF&#xFF0C;&#x5219;&#x4F7F;&#x7528;&#x6700;&#x9AD8;&#x7248;&#x672C;&#x7684;IE&#x5185;&#x6838;&#x8FDB;&#x884C;&#x6E32;&#x67D3;&#x3002;&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x53EF;&#x4EE5;&#x8BA9;&#x7528;&#x6237;&#x5728;&#x6D4F;&#x89C8;&#x7F51;&#x9875;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;Google Chrome&#x6D4F;&#x89C8;&#x5668;&#x5185;&#x6838;&#xFF0C;&#x800C;&#x4E14;&#x652F;&#x6301;IE6&#x3001;7&#x3001;8&#x7B49;&#x591A;&#x4E2A;&#x7248;&#x672C;&#x7684;IE&#x6D4F;&#x89C8;&#x5668;&#x3002;
+
+360&#x6D4F;&#x89C8;&#x5668;&#xFF1A;
+&lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt; &#x6307;&#x5B9A;&#x6309;&#x7167;&#x6781;&#x901F;&#x6A21;&#x5F0F;
+&lt;meta name=&quot;renderer&quot; content=&quot;ie-comp&quot;&gt; &#x6307;&#x5B9A;&#x6309;&#x7167;ie&#x517C;&#x5BB9;&#x5185;&#x6838;
+&lt;meta name=&quot;renderer&quot; content=&quot;ie-stand&quot;&gt; &#x6307;&#x5B9A;&#x6309;&#x7167;ie&#x6807;&#x51C6;&#x5185;&#x6838;
+Content&#x7684;&#x53D6;&#x503C;&#x4E3A;webkit/ie-comp/ie-stand&#x4E4B;&#x4E00;,&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;,&#x5206;&#x522B;&#x4EE3;&#x8868;&#x4F7F;&#x7528;webkit&#x5185;&#x6838;&#x3001;IE&#x517C;&#x5BB9;&#x5185;&#x6838;&#x3001;IE&#x6807;&#x51C6;&#x5185;&#x6838;
+</pre>						
+                            <h3 id="dom5_4">id属性值命名规则</h3>
+<pre>
+1、必须以字母 A-Z 或 a-z 开头
+2、其后的字符：字母(A-Za-z)、数字(0-9)、连字符("-")、下划线("_")、冒号(":") 以及点号(".")
+3、值对大小写敏感
+
+备注：点号(".")不能应用于$(selector)
+</pre>
+                            <h3 id="dom5_5">自动获取焦点（部分兼容）</h3>
+<pre>
+部分兼容，适用于大部分最新版PC端浏览器，移动端兼容较差（ios- Safari 不支持）；必须场景下，请使用JS处理；
+添加属性： autofocus="autofocus"
+
+</pre>
+
+<h2 id="dom6" >CSS相关</h2>
+<h3 id="dom6_1" >多种场景下的垂直居中</h3>
+<h4 id="dom6_1_1">绝对居中</h4>
+<p>原文地址：http://blog.csdn.net/freshlover/article/details/11579669</p>
+<pre>
+1.1&#x5BB9;&#x5668;&#x5185;&#x5782;&#x76F4;&#x5C45;&#x4E2D;
+.container{position:relative;}
+.center-child{
+    width:50%;
+    height:50%;
+    overflow:auto;
+    margin:auto;
+    position:absolute;
+    top:0;left:0;bottom:0;right:0;
+}	
+1.2&#x89C6;&#x533A;&#x5185;&#x5782;&#x76F4;&#x5C45;&#x4E2D;
+.container{position:relative;}
+.center-child{
+    width:50%;
+    height:50%;	
+    overflow:auto;
+    margin:auto;
+    position:fixed;
+    top:0;left:0;bottom:0;right:0;
+    z-index:999;
+}
+1.3&#x4FA7;&#x8FB9;&#x680F;&#x5782;&#x76F4;&#x5C45;&#x4E2D;
+.container{position:relative;}
+.center-child{ //&#x5DE6;&#x5C45;&#x4E2D;
+    width:50%;
+    height:50%;
+    overflow:auto;
+    margin:auto;
+    position:absolute;
+    top:0;left:20px;bottom:0;right:auto;
+    text-align:left;
+}
+.center-child{ //&#x53F3;&#x5C45;&#x4E2D;
+    width:50%;
+    height:50%;
+    overflow:auto;
+    margin:auto;
+    position:absolute;
+    top:0;left:auto;bottom:0;right:20px;
+    text-align:right;
+}
+1.4 &#x54CD;&#x5E94;&#x5F0F;&#x5C45;&#x4E2D;
+.container{
+    position:relative;
+    width:100%;
+    height:800px;
+}
+.center-child{
+    width:50%;   
+    height:50%;   //&#x5B50;&#x5143;&#x7D20;&#x8BBE;&#x7F6E;&#x9AD8;&#x5EA6;&#x767E;&#x5206;&#x6BD4; &#x4E5F;&#x8981;&#x8BBE;&#x7F6E;&#x5176;&#x7236;&#x5143;&#x7D20;&#x7684;&#x9AD8;&#x5EA6;
+    min-width:200px;
+    min-height:400px;
+    padding:40px;
+    overflow:auto;
+    margin:auto;
+    position:absolute;
+    top:0;left:0;bottom:0;right:0;
+}
+1.5 &#x6EA2;&#x51FA;&#x5C45;&#x4E2D;
+.container{position:relative;}
+.center-child{
+    width:50%;
+    height:50%;
+    max-height:100%;
+    overflow:auto;
+    margin:auto;
+    position:absolute;
+    top:0;left:0;bottom:0;right:0;
+}
+1.6 &#x91CD;&#x7ED8;&#x5C45;&#x4E2D;
+.container{position:relative;}
+.center-child{
+    min-width:20%;
+    max-width:80%;
+    min-height:20%;
+    max-height:80%;
+    resize:both;
+    overflow:auto;
+    transition:all .2s ease-in-out;
+    margin:auto;
+    position:absolute;
+    top:0;left:0;bottom:0;right:0;
+}
+1.7&#x56FE;&#x7247;&#x5C45;&#x4E2D;
+.container{position:relative;}
+.center-child{
+    width:50%;
+    max-height:100%;
+    overflow:auto;
+    margin:auto;
+    position:absolute;
+    top:0;left:0;bottom:0;right:0;
+}	
+</pre>
+<h4 id="dom6_1_2">负外边距+绝对定位</h4>
+<p>PS:计算方式和box-sizing:border-box有关（不使用box-sizing: border-box时包括padding）；</p>
+<pre>
+.container{position:relative;}
+.center-child{   //box-sizing:content-box;
+    width: 300px;  
+    height: 200px;  
+    padding: 20px;  
+    position: absolute;  
+    top: 50%; left: 50%;  
+    margin-left: -170px; /* (width + padding)/2 */  
+    margin-top: -120px; /* (height + padding)/2 */ 
+}
+.center-child{   //box-sizing:border-box;
+    width: 300px;  
+    height: 200px;  
+    padding: 20px;  
+    position: absolute;  
+    top: 50%; left: 50%;  
+    margin-left: -150px;
+    margin-top: -100px; 
+}
+</pre>
+<h4 id="dom6_1_3">transform+绝对定位</h4>
+<pre>
+.container{position:relative;}
+.center-child{   
+    width: 50%;  
+    margin: auto;  
+    position: absolute;  
+    top: 50%; left: 50%;  
+    -webkit-transform: translate(-50%,-50%);  
+    -ms-transform: translate(-50%,-50%);  
+    transform: translate(-50%,-50%);  
+}  
+</pre>
+<h4 id="dom6_1_4">table-cell</h4>
+<pre>
+.container{display:table;}
+.container .parent{display:table-cell;vertical-align:middle;}
+.container .parent .center-child{width:50%;margin:0 auto;}  
+</pre>
+<h4 id="dom6_1_5">inline-block+伪元素</h4>
+<pre>
+.container { 
+    text-align: center;
+    overflow: auto;
+}  
+.container::after{ 
+    content:&rdquo;&rdquo;;
+    width:0;
+    height:100%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: -0.25em;   //&#x6D88;&#x9664;&#x4E24;&#x4E2A;display:inline-block&#x4E4B;&#x95F4;&#x7684;&#x7A7A;&#x9699;&#xFF0C;&#x8C37;&#x6B4C;&#x6D4F;&#x89C8;&#x5668;&#x4E0B;&#x4E3A;4px;
+} 
+.center-child{  
+    display:inline-block;
+    vertical-align:middle;
+    max-width: 99%; 
+    /* max-width: calc(100% - 0.25em) /* Only for IE9+ */   
+} 	
+</pre>
+<h4 id="dom6_1_6">flexbox</h4>
+<pre>
+container {  
+    width:100%;
+    height:800px; 
+    display:flex; 
+    display:-webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -ms-justify-content: center;
+    align-items: center;
+    -webkit-align-items:center;
+    -ms-align-items:center;
+}  	 
+.center-child{  
+    width:50%;
+    height:50%;
+}
+</pre>
+<h4 id="dom6_1_7">多行文字垂直居中（兼容IE6）</h4>
+<pre>
+例：&lt;a href=&quot;#&quot; class=&quot;zong&quot;&gt;&lt;span&gt;&#x58F0;&#x97F3;&#x4E13;&#x4E1A;&#x59D4;&#x5458;&#x4F1A;&lt;/span&gt;&lt;i&gt;&lt;/i&gt;&lt;/a&gt;
+a{display:inline-block; height:90px; width:90px;}
+span{ display:inline-block; vertical-align:middle;} //必须
+i{ height:100%; display:inline-block; vertical-align:middle;} //必须
+注：该方法同样适用于图片垂直居中，需要在父元素中加text-align:center使其水平居中
+
+</pre>
+<h3 id="dom6_2">修改input-placeholder的样式</h3>
+<pre>
+input::-webkit-input-placeholder{color:#999; opacity: 1;}
+input:-moz-placeholder{color:#999; opacity: 1;}
+input::-moz-placeholder{color:#999; opacity: 1;}
+input:-ms-input-placeholder{color:#999; opacity: 1;}
+/* 注意：火狐下默认含有opacity属性 */
+</pre>
+<h2 id="dom7">自定义动画效果库</h2>
+<p>注:CSS属性值与属性名之间有空格，css动画将不会有效果！！！</p>
+<h3 id="dom7_1">声波动效</h3>
+<pre>
+@keyframes wave{ 
+    0%{
+        -webkit-transform:scale(0.5);
+        transform:scale(0.5);
+        opacity:0;
+        filter:alpha(opacity=0)\9;
+    }
+    50%{
+        opacity:1;
+        filter:alpha(opacity=100)\9;
+    }
+    100%{
+        -webkit-transform:scale(1);
+        transform:scale(1);
+        opacity:0;
+    }
+}
+<img src="../images/wave.png" width="200" height="200" class="example7-1" alt="" />
+</pre>
+<h3 id="dom7_2">闪烁</h3>
+<pre>
+@keyframes twinkle{ 
+    from{
+        opacity:0.5;
+    }
+    20%{
+        opacity:0;
+    }
+    40%{
+        opacity:0.8;
+    }
+    80%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+    }
+}	
+<div class="example7-2">
+	<img src="../images/light.png" alt="" />
+	<img src="../images/light.png" alt="" class="img2"/>
+	<img src="../images/light.png" alt=""  class="img3"/>
+</div>
+</pre>
+					<h2 id="dom8">平台常见错误及优化建议</h2>
+						<h3 id="dom8_1">尽量使用prop替换attr</h3>
+						<p>ps:针对元素的只读、禁用、选中，尽量使用prop 替换 attr(存在已知JQuery版本的兼容问题)</p>
+<pre>
+&#x6CE8;&#x610F;&#xFF1A;1.6&#x7248;&#x672C;&#x4EE5;&#x540E;&#x4F7F;&#x7528;attr()&#x83B7;&#x53D6;&#x8FD9;&#x4E9B;&#x5C5E;&#x6027;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x4E3A;String&#x7C7B;&#x578B;&#xFF0C;&#x5982;&#x679C;&#x88AB;&#x9009;&#x4E2D;(&#x6216;&#x7981;&#x7528;)&#x5C31;&#x8FD4;&#x56DE;checked&#x3001;selected&#x6216;disabled&#xFF0C;&#x5426;&#x5219;(&#x5373;&#x5143;&#x7D20;&#x8282;&#x70B9;&#x6CA1;&#x6709;&#x8BE5;&#x5C5E;&#x6027;)&#x8FD4;&#x56DE;undefined;prop()&#x5219;&#x8FD4;&#x56DE;bool&#x7C7B;&#x578B;&#x7684;true/false;
+&lt;div id=&quot;message&quot; class=&quot;test&quot; data-id=&quot;123&quot;&gt;&lt;/div&gt;
+&lt;input type=&quot;radio&quot; name=&quot;name1&quot; checked/&gt;radio1
+&lt;input type=&quot;radio&quot; name=&quot;name1&quot; /&gt;radio1
+&lt;script&gt;
+    $(&quot;#message&quot;).attr(&quot;data-id&quot;);/*&#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;attr()*/
+    $(&quot;input[name=&#x27;name1&#x27;]&quot;).prop(&quot;checked&quot;);/*&#x8FD4;&#x56DE;bool&#x7C7B;&#x578B;&#x7684;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;prop()*/
+&lt;/script&gt;
+</pre>					<h3 id="dom8_2">建议使用"YYYY/MM/DD"格式转日期对象</h3>	
+<pre>
+&quot;YYYY/MM/DD&quot;&#x6240;&#x6709;&#x6D4F;&#x89C8;&#x5668;&#x517C;&#x5BB9;&#x7684;&#x65E5;&#x671F;&#x683C;&#x5F0F;&#x3002;	
+&quot;YYYY-MM-DD&quot;&#x65E5;&#x671F;&#x683C;&#x5F0F;&#x662F;&#x65E0;&#x6CD5;&#x88AB;&#x5404;&#x4E2A;&#x6D4F;&#x89C8;&#x5668;&#x4F7F;&#x7528;new Date(str)&#x6765;&#x6B63;&#x786E;&#x751F;&#x6210;&#x65E5;&#x671F;&#x5BF9;&#x8C61;&#x7684;&#xFF0C;&#x90E8;&#x5206;&#x6D4F;&#x89C8;&#x5668;&#x4ECD;&#x5B58;&#x5728;&#x517C;&#x5BB9;&#x95EE;&#x9898;&#xFF0C;&#x6545;&#x4E0D;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x3002;
+
+&#x65E5;&#x671F;&#x683C;&#x5F0F;1&#xFF1A;new Date(&quot;2018-3-2&quot;);
+    IE&#x4E0B;&#x5168;&#x90E8;&#x4E0D;&#x517C;&#x5BB9;&#xFF1A;
+        ie9+(Invalid Date);
+        ie678(NaN);
+        ps&#xFF1A;IE&#x652F;&#x6301;&#x7684;&#x65E5;&#x671F;&#x683C;&#x5F0F;&#x4E3A;new Date(yyyy,mm-1,dd);//&#x5747;&#x4E3A;&#x6570;&#x5B57;&#x7C7B;&#x578B;&#xFF0C;&#x4E14;&#x6708;&#x4EFD;&#x51CF;1;
+    chrome &#x517C;&#x5BB9;
+    firefox &#x517C;&#x5BB9;
+    
+&#x65E5;&#x671F;&#x683C;&#x5F0F;2&#xFF1A;new Date(&quot;2018/3/2&quot;);//&#x5168;&#x90E8;&#x6D4F;&#x89C8;&#x5668;&#x517C;&#x5BB9;&#xFF1B;
+
+&#x5EFA;&#x8BAE;&#x5982;&#x4E0B;&#x65E5;&#x671F;&#x683C;&#x5F0F;&#xFF1A;
+new Date(&quot;month dd,yyyy hh:mm:ss&quot;);
+new Date(&quot;month dd,yyyy&quot;);
+new Date(yyyy,mth,dd,hh,mm,ss);
+new Date(yyyy,mth,dd);
+new Date(ms);
+new Date(&quot;yyyy/mm/dd&quot;);
+month:&#x7528;&#x82F1;&#x6587;&#x8868;&#x793A;&#x6708;&#x4EFD;&#x540D;&#x79F0;&#xFF0C;&#x4ECE;January&#x5230;December
+mth:&#x7528;&#x6574;&#x6570;&#x8868;&#x793A;&#x6708;&#x4EFD;&#xFF0C;&#x4ECE;0&#xFF08;1&#x6708;&#x4EFD;&#xFF09;&#x5230;11&#xFF08;12&#x6708;&#x4EFD;&#xFF09;
+dd:&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x6708;&#x4E2D;&#x7684;&#x7B2C;&#x51E0;&#x5929;&#xFF0C;&#x4ECE;1&#x5230;31
+
+&#x5C0F;&#x62D3;&#x5C55;&#xFF1A;&#x5982;&#x4F55;&#x5206;&#x522B;&#x62FF;&#x5230;&quot;YYYY-MM-DD&quot;&#x65E5;&#x671F;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x7684;&#x5E74;&#x6708;&#x65E5;&#xFF1F;
+    var time=&quot;2018-3-6&quot;;
+    var arr=time.split(time.match(/\D+/g)[0]);
+    &#x8F93;&#x51FA;&#xFF1A;[&quot;2018&quot;,&quot;3&quot;,&quot;6&quot;];
+    ps&#xFF1A;&#x6B63;&#x5219;/\D+/g &#x67E5;&#x627E;&#x975E;&#x6570;&#x5B57;&#x5B57;&#x7B26;&#xFF1B;match&#x8FD4;&#x56DE;&#x67E5;&#x627E;&#x5230;&#x7684;&#x503C;&#x800C;&#x975E;&#x4F4D;&#x7F6E;&#xFF1B;
+</pre>
+						<h3 id="dom8_3">cookie的限制</h3>
+<pre>
+&#x5C3D;&#x91CF;&#x4FDD;&#x8BC1;&#x6BCF;&#x4E2A;&#x57DF;&#x4E0B;cookie&#x4E2A;&#x6570;&#x5C0F;&#x4E8E;30&#x4E2A;&#xFF0C;&#x603B;&#x5927;&#x5C0F;&#x4E0D;&#x8D85;&#x8FC7;4KB(&#x5B57;&#x8282;&#xFF0C;&#x591A;&#x5B57;&#x8282;&#x5B57;&#x7B26;&#x8BA1;&#x7B97;&#x4E3A;&#x4E24;&#x4E2A;&#x5B57;&#x8282;)&#xFF1B;&#x6216;&#x4F7F;&#x7528;&quot;localStroage&quot;&#x3001;&quot;sessionStroage&quot;&#x4EE3;&#x66FF;cookie;
+</pre>						
+						<h3 id="dom8_4">优化字符串拼接</h3>
+<pre>
+&#x5927;&#x91CF;&#x5B57;&#x7B26;&#x4E32;&#x62FC;&#x63A5;&#x65F6;&#xFF0C;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x6570;&#x7EC4;&#x5BF9;&#x8C61;(push()),&#x907F;&#x514D;&#x4F7F;&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x62FC;&#x63A5;(+);&#x6700;&#x540E;&#x901A;&#x8FC7;join(&#x27;&#x27;)&#x8F6C;&#x5316;&#x4E3A;&#x5B57;&#x7B26;&#x4E32;;&#x5176;&#x4E2D;html&#x4EE3;&#x7801;&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;&#x5355;&#x5F15;&#x53F7;&#x5305;&#x542B;,&#x907F;&#x514D;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x8F6C;&#x4E49;&#x3002;
+&lt;select name=&quot;&quot; id=&quot;cityCode&quot;&gt;&lt;/select&gt;	
+var arr=[];
+var data=[ //&#x6A21;&#x62DF;&#x6570;&#x636E;
+    {&quot;name&quot;:&quot;&#x5317;&#x4EAC;&quot;,&quot;id&quot;:111},
+    {&quot;name&quot;:&quot;&#x4E0A;&#x6D77;&quot;,&quot;id&quot;:222},
+    {&quot;name&quot;:&quot;&#x5929;&#x6D25;&quot;,&quot;id&quot;:333},
+];
+for(var i=0;i&lt;data.length;i++){
+    arr.push(&#x27;&lt;option value=&quot;&#x27;,data[i].id ,&#x27;&quot;&gt;&#x27;,data[i].name,&#x27;&lt;/option&gt;&#x27;);
+}
+$(&quot;#cityCode&quot;).html(arr.join(&quot;&quot;));	
+</pre>			
+						<h3 id="dom8_5">多次使用的对象建议声明为局部变量</h3>
+						<p>PS：避免过多定义不必要的全局变量，变量名不能过于单一，或使用保留字</p>
+<pre>
+&#x540C;&#x4E00;&#x4F5C;&#x7528;&#x57DF;&#x5185;&#xFF0C;&#x591A;&#x6B21;&#x4F7F;&#x7528;&#x7684;&#x6570;&#x636E;&#x3001;&#x5BF9;&#x8C61;&#x5EFA;&#x8BAE;&#x5B9A;&#x4E49;&#x4E3A;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;
+for(var i=0;i&lt;arr.length;i++)
+
+&#x5EFA;&#x8BAE;&#x4FEE;&#x6539;&#x4E3A;:(&#x4E00;&#x822C;&#x6570;&#x7EC4;&#x957F;&#x5EA6;&#x53EA;&#x83B7;&#x53D6;&#x4E00;&#x6B21;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;,&#x4E0D;&#x5FC5;&#x8981;&#x6BCF;&#x6B21;&#x5FAA;&#x73AF;&#x90FD;&#x83B7;&#x53D6;&#x4E00;&#x904D;)
+for(var i=0,len=arr.length;i&lt;len;i++)
+</pre>					
+						<h3 id="dom8_6">汉字类数据传递，必须进行urlencode编码</h3>
+<pre>
+&#x7F16;&#x7801;&#xFF1A;encodeURIComponent(URIstring)  &#x89E3;&#x7801;decodeURIComponent(URIstring)
+&#x7F16;&#x7801;&#xFF1A;encodeURI(URIstring)  &#x89E3;&#x7801;decodeURI(URIstring)
+&#x5982;&#x679C; URI &#x7EC4;&#x4EF6;&#x4E2D;&#x542B;&#x6709;&#x5206;&#x9694;&#x7B26;&#xFF0C;&#x6BD4;&#x5982; ? &#x548C; #&#xFF0C;&#x5219;&#x5E94;&#x5F53;&#x4F7F;&#x7528; encodeURIComponent() &#x65B9;&#x6CD5;&#x5206;&#x522B;&#x5BF9;&#x5404;&#x7EC4;&#x4EF6;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#x3002;
+
+ps:&#x8BF7;&#x6CE8;&#x610F; encodeURIComponent() &#x51FD;&#x6570; &#x4E0E; encodeURI() &#x51FD;&#x6570;&#x7684;&#x533A;&#x522B;&#x4E4B;&#x5904;&#xFF0C;&#x524D;&#x8005;&#x5047;&#x5B9A;&#x5B83;&#x7684;&#x53C2;&#x6570;&#x662F; URI &#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF08;&#x6BD4;&#x5982;&#x534F;&#x8BAE;&#x3001;&#x4E3B;&#x673A;&#x540D;&#x3001;&#x8DEF;&#x5F84;&#x6216;&#x67E5;&#x8BE2;&#x5B57;&#x7B26;&#x4E32;&#xFF09;,&#x56E0;&#x6B64; encodeURIComponent() &#x51FD;&#x6570;&#x5C06;&#x8F6C;&#x4E49;&#x7528;&#x4E8E;&#x5206;&#x9694; URI &#x5404;&#x4E2A;&#x90E8;&#x5206;&#x7684;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#x3002;
+&lt;script&gt;
+var str=&quot;,/?:@&amp;=+$#&quot;;
+encodeURI(str); &#x8F93;&#x51FA;&#xFF1A;,/?:@&amp;=+$#
+encodeURIComponent(str); &#x8F93;&#x51FA;&#xFF1A;%2C%2F%3F%3A%40%26%3D%2B%24%23
+&lt;/script&gt;
+</pre>						
+						<h3 id="dom8_7">Xdyplayer播放器应用注意事项</h3>
+<pre>
+Webkit&#x5185;&#x6838;&#x6D4F;&#x89C8;&#x5668;video&#x7A97;&#x53E3;&#x4E0D;&#x80FD;&#x5168;&#x5C4F;&#x95EE;&#x9898;?
+
+&#x95EE;&#x9898;&#x539F;&#x56E0;&#xFF1A;&#x64AD;&#x653E;&#x5668;&#x521D;&#x59CB;&#x5316;&#x5C42;&#x9700;&#x8981;xdyplayer&#xFF0C;&#x5E76;&#x4E14;&#x8BE5;&#x6837;&#x5F0F;CSS&#x5C42;&#x7EA7;&#x8FC7;&#x4F4E;&#xFF1B;
+
+&#x89E3;&#x51B3;&#x65B9;&#x6848;1&#xFF1A;&#x4E0D;&#x5BF9;&#x64AD;&#x653E;&#x5668;&#x5BB9;&#x5668;&#x5B9A;&#x4E49;&#x6837;&#x5F0F;
+&lt;div class=&quot;your-class&quot;&gt; /* &#x64AD;&#x653E;&#x5668;&#x5E03;&#x5C40;&#x5BB9;&#x5668;&#xFF0C;&#x5B9A;&#x4E49;&#x5BBD;&#x9AD8;&#x5927;&#x5C0F; */
+    &lt;div class=&quot;xdyplayer&quot; id=&quot;videoDIV&quot; style=&quot;height:100%; width:100%;&quot;&gt;&lt;/div&gt; /* &#x7981;&#x6B62;&#x5B9A;&#x4E49;&#x6837;&#x5F0F; */
+&lt;/div&gt;
+
+&#x89E3;&#x51B3;&#x65B9;&#x6848;2&#xFF1A;
+&#x4FEE;&#x6539;&#x64AD;&#x653E;&#x5668;&#x6837;&#x5F0F;(.xdyplayer:-webkit-full-screen)&#xFF0C;&#x6DFB;&#x52A0;!important&#x5C5E;&#x6027;&#xFF1B;&#x4F8B;&#x5982; width:100% !important;	
+</pre>			
+						<h3 id="dom8_8">Ccplayer播放器应用注意事项</h3>
+<pre>
+无法获取播放器实例对象?
+
+问题原因：
+播放器切换时，每次都是重新生成一个实例，并且把旧的实例对象移动到head中，因此根据官方demo找播放器实例对象，再进行操作时，找不到当前实例，
+
+解决方法：
+根据当前初始化容器，寻找其内部的实例对象；
+</pre>					
+                        <h3 id="dom8_9">Label标签的for属性为空时引发的警告</h3>
+<pre>
+Label标签的for属性为空时引起“getElementById() 被传递了空字符串参数。”警告
+
+解决方法：
+删除for属性，或者维护正确的值；
+</pre>
+                        
+                    <h2 id="dom9">其它&amp;技巧</h2>
+                        <h3 id="dom9_1">快速构建表格（单元格合并）</h3>
+<pre>
+操作地址：<a href="https://lianglei.net.cn/demo-ui/platform-help/htmldemo/ckeditor-demo.html" target="_blank">http://lianglei.net.cn/demo-ui/platform-help/htmldemo/ckeditor-demo.html</a>
+操作步骤：
+点击表格按钮，在表格属性中指定需要的行数、列数、宽度及高度等，鼠标右键点击表格在弹出菜单中选择合并单元格，最后点击“源码”按钮，复制html片段即可
+</pre>
+
+				</div>
+				<div class="col-sm-3 hidden-xs">
+					<div id="navbar-example" data-spy="affix" data-offset-top="100">
+					    <div class="overflow-box">
+    					    <ul class="nav" role="tablist">
+    					        <li>
+    						      	<a href="#dom1">常用jQuery对象方法</a>
+    						      	<ul class="slide-bar">
+    						      		<li><a href="#dom1_1">单选按钮组</a></li>
+    						      		<li><a href="#dom1_2">复选按钮组</a></li>
+    						      		<li><a href="#dom1_3">下拉列表</a></li>
+    						      		<li><a href="#dom1_4">获取表单内容（用于表单提交）</a></li>
+    						      		<li><a href="#dom1_5">iframe操作</a></li>
+    						      	</ul>
+    					        </li>
+    					    	<li>
+    								<a href="#dom2">常用JS方法的封装</a>
+    								<ul class="slide-bar">
+    									<li><a href="#dom2_1">获取地址栏的参数值</a></li>
+    									<li><a href="#dom2_2">判断对象是否含有某个成员</a></li>
+    									<li><a href="#dom2_3">页面底端事件</a></li>
+    									<li><a href="#dom2_4">CreateObjectUrl实现图片上传预览</a></li>
+    									<li><a href="#dom2_5">js控制元素进入全屏和取消全屏</a></li>
+    								</ul>
+    							</li>
+    							<li>
+    								<a href="#dom3">常见form表单问题</a>
+    								<ul class="slide-bar">
+    									<li><a href="#dom3_1">form表单的target标签配合iframe实现不跳转刷新</a></li>
+    									<li><a href="#dom3_2">Js方式提交表单在新窗口打开时会发生拦截</a></li>
+    									<li><a href="#dom3_3">input回车提交表单问题</a></li>
+    								</ul>
+    							</li>
+    							<li>
+    								<a href="#dom4">Web性能优化</a>
+    								<ul class="slide-bar">
+    									<li><a href="#dom4_1">尽量减少HTTP请求</a></li>
+    									<li><a href="#dom4_2">改进对DOM对象的操作方式</a></li>
+    								</ul>
+    							</li>
+    							<li>
+    								<a href="#dom5">HTML标签及属性使用总结</a>
+    								<ul class="slide-bar">
+    									<li><a href="#dom5_1">HTML meta标签实现页面跳转</a></li>
+    									<li><a href="#dom5_2">禁止ios系统把数字转化为拨号链接</a></li>
+    									<li><a href="#dom5_3">如何指定浏览器渲染内核</a></li>
+    									<li><a href="#dom5_4">id属性值命名规则</a></li>
+    									<li><a href="#dom5_5">自动获取焦点（部分兼容）</a></li>
+    								</ul>
+    							</li>
+    							<li>
+    								<a href="#dom6">CSS相关</a>
+    								<ul class="slide-bar">
+									    <li>
+									        <a href="#dom6_1">多种场景下的垂直居中</a>
+        									<ul class="slide-bar">
+        									    <li><a href="#dom6_1_1">绝对居中</a></li>
+                                                <li><a href="#dom6_1_2">负外边距+绝对定位</a></li>
+                                                <li><a href="#dom6_1_3">transform+绝对定位</a></li>
+                                                <li><a href="#dom6_1_4">table-cell</a></li>
+                                                <li><a href="#dom6_1_5">inline-block+伪元素</a></li>
+                                                <li><a href="#dom6_1_6">flexbox</a></li>
+                                                <li><a href="#dom6_1_7">多行文字垂直居中（兼容IE6）</a></li>
+        									</ul>
+									    </li>
+									    <li><a href="#dom6_2">修改input-placeholder的样式</a></li>
+    								</ul>
+    							</li>
+    							<li>
+    								<a href="#dom7">自定义动画效果库</a>
+    								<ul class="slide-bar">
+    									<li><a href="#dom7_1">声波动效</a></li>
+    									<li><a href="#dom7_2">闪烁</a></li>
+    								</ul>
+    							</li>
+    							<li>
+    								<a href="#dom8">平台常见错误及优化建议</a>
+    								<ul class="slide-bar">
+    									<li><a href="#dom8_1">尽量使用prop替换attr</a></li>
+    									<li><a href="#dom8_2">建议使用"YYYY/MM/DD"格式转日期对象</a></li>
+    									<li><a href="#dom8_3">cookie的限制</a></li>
+    									<li><a href="#dom8_4">优化字符串拼接</a></li>
+    									<li><a href="#dom8_5">多次使用的对象建议声明为局部变量</a></li>
+    									<li><a href="#dom8_6">汉字类数据传递，必须进行urlencode编码</a></li>
+    									<li><a href="#dom8_7">Xdyplayer播放器应用注意事项</a></li>
+    									<li><a href="#dom8_8">Ccplayer播放器应用注意事项</a></li>
+    									<li><a href="#dom8_9">Label标签的for属性为空时引发的警告</a></li>
+    								</ul>
+    							</li>
+    							<li>
+                                    <a href="#dom9">其它&amp;技巧</a>
+                                    <ul class="slide-bar">
+                                        <li><a href="#dom9_1">快速构建表格（单元格合并）</a></li>
+                                    </ul>
+                                </li>
+    					    </ul>
+					    </div>
+					    <div class="js-to-top"><a href="#top">返回顶部</a></div>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+		
+		<script src="../js/jquery-2.1.1.js"></script>
+	    <script src="../js/bootstrap.min.js"></script>
+	    <script src="../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	    <script>
+            $(function(){
+                $('#navbar-example').on('activate.bs.scrollspy', function (e) {
+                    $('#navbar-example > ul').mCustomScrollbar('scrollTo',$('#navbar-example li.active').last());
+                });
+                $('#navbar-example > .overflow-box').mCustomScrollbar({theme:'dark-thin'});
+            })
+        </script>
+	    
+	    
+	    <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css"/>
+		<script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+		<script src="https://cdn.bootcss.com/highlight.js/9.9.0/languages/javascript.min.js"></script>
+		<script>
+			$('pre').each(function(i,n){
+				hljs.highlightBlock(n);
+			});
+		</script>
+	</body>
+</html>

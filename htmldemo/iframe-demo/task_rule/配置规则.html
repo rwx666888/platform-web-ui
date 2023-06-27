@@ -1,0 +1,438 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>配置规则</title>
+    <link href="../../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/plugins/x-editable/bootstrap-editable.css">
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/iconfont.css" type="text/css"/>
+    <link href="../../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+    <link href="../../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../../css/animate.css" rel="stylesheet">
+    <link href="../../../css/style.css" rel="stylesheet">
+    <style>
+        body {
+            padding-bottom: 50px;
+            padding-top: 20px;
+        }
+        .textarea {
+            width: 100%;
+            padding: 0 12px;
+            min-height: 80px;
+        }
+
+        .box208061 {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .bianji-btn {
+            color: #1b7e5a;
+            cursor: pointer;
+            padding-left: 30px;
+            width: 70px;
+            display: block;
+        }
+
+        .pt7 {
+            padding-top: 7px;
+        }
+
+        .label-50 {
+            width: 50px;
+        }
+
+        .iradio_square-green {
+            transform: scale(.8);
+            position: relative;
+            bottom: 1px;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+        .cus-mo-btn {
+            cursor: pointer;
+            margin: 0 3px;
+        }
+        .f-3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .f-3 > label {
+            width: 100px;
+        }
+        .ipt-p {
+            flex: 1;
+        }
+        .ipt-p input {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid ">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><span class="text-danger">*</span> 规则名称：</label>
+            <div class="col-sm-7">
+                <input class="form-control" placeholder="规则名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">规则描述：</label>
+            <div class="col-sm-7">
+                <textarea class="textarea form-control" autocomplete="off" placeholder="规则描述"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><span class="text-danger">*</span>匹配规则：</label>
+            <div class="col-sm-7">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="layout-flex bg-warning" style="padding: 15px 15px 15px 0;">
+                            <div class="checkbox" style="width: 140px;">
+                                <label class="js-ruleType i-checks cus-icheck">
+                                    <input class="cus-icheck" type="radio" name="rule_rus" value="0" checked> 按部门与岗位
+                                </label>
+                            </div>
+                            <div class="layout-flex__item">
+                                <div class="layout-flex" style="margin-bottom: 10px;">
+                                    <div class="box208061">
+                                        <div><label class="control-label label-50">部门：</label></div>
+                                        <div class="form-control-static">
+                                            <textarea id="t1" class="hide" autocomplete="off">
+                                                [{
+                                                "code": "code_0_1_2_1_2",
+                                                "type": "0"
+                                            },
+                                            {
+                                                "code": "code_0_1_1",
+                                                "type": "0"
+                                            },
+                                            {
+                                                "code": "code_0_1_2",
+                                                "type": "1"
+                                            },
+                                            {
+                                                "code": "code_0_2_2_1_2",
+                                                "type": "1"
+                                            }]
+                                            </textarea>
+                                        </div>
+                                        <div class="form-control-static"><span id="openM1" class=" btn btn-sm btn-success">编辑</span></div>
+                                    </div>
+                                </div>
+                                <div class="layout-flex">
+                                    <div>
+                                        <!-- <button type="button" class="btn btn-sm btn-success ">请选择岗位</button> -->
+                                        <label class="control-label label-50">岗位：</label>
+                                    </div>
+                                    <div class="layout-flex__item">
+                                        <div>
+                                            <select class="form-control input-sm" id="role" name="role"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label"> </label>
+            <div class="col-sm-7 div1">
+                <div class="bg-warning" style="padding: 15px 15px 15px 0;">
+                    <div class="top-1 clearfix">
+                        <div class="pull-left d-flex">
+                            <div class="checkbox" style="width: 140px;">
+                                <label class="js-ruleType i-checks cus-icheck">
+                                    <input class="cus-icheck" type="radio" name="rule_rus" value="0" checked> 高级配置
+                                </label>
+                            </div>
+                            <button class="btn btn-sm btn-success">编辑</button>
+                        </div>
+                        <div class="pull-right">
+                            <button id="yzgz" class="btn btn-primary btn-sm" type="button"> 验证规则</button>
+                            <button class="btn btn-success btn-sm" type="button"> 函数库</button>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 5px 0 0 15px;">
+                        <div class="col-sm-12">
+                            <textarea class="textarea form-control" autocomplete="off" placeholder="规则"></textarea>
+                            <p style="padding: 15px 0;">
+                                释义：（将上面的规则翻译成汉字) <br>
+                                例如：入职时间等于今天的日期减去1的；
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+            <label class="col-sm-3 control-label">额外包含：</label>
+            <div class="col-sm-7">
+                <div class="layout-flex__item bg-warning" style="padding: 0 15px;">
+                    <div class="layout-flex">
+                        <div class="box208061">
+                            <div class="form-control-static">
+                                            <textarea id="t2" class="hide" autocomplete="off">
+                                                [{
+                                                "code": "code_0_1_2_1_2",
+                                                "type": "0"
+                                            },
+                                            {
+                                                "code": "code_0_1_1",
+                                                "type": "0"
+                                            },
+                                            {
+                                                "code": "code_0_1_2",
+                                                "type": "1"
+                                            }]
+                                            </textarea>
+                            </div>
+                            <div class="form-control-static">
+                                <button id="openM2" class=" btn btn-sm btn-success">编辑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">额外去除：</label>
+            <div class="col-sm-7">
+                <div class="layout-flex__item bg-warning" style="padding: 0 15px;">
+                    <div class="layout-flex">
+                        <div class="box208061">
+                            <div class="form-control-static">
+                                            <textarea id="t3" class="hide" autocomplete="off">
+                                                [{
+                                                "code": "code_0_1_2_1_2",
+                                                "type": "0"
+                                            }]
+                                            </textarea>
+                            </div>
+                            <div class="form-control-static">
+                                <button id="openM3" class=" btn btn-sm btn-success">编辑</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><span class="text-danger">*</span>业务模板：</label>
+            <div class="col-sm-7">
+                <div class="dtop-3 bg-warning" style="padding: 15px;">
+                    <div class="d1">
+                        <div class="pull-right">
+                            <div id="drop-gengduo" class="dropdown" style="position: relative;display: inline-block;">
+                                <button class="btn btn-primary btn-sm" type="button" data-hover="dropdown" id="cumBtn_gengduo"><i class="glyphicon glyphicon-th-list"></i> 绑定新模板
+                                </button>
+                                <div class="dropdown-menu p-sm dropdown-menu-right " role="menu">
+                                    <button id="add_bind_one" class="btn btn-primary btn-sm btn-block" type="button"> BTN</button>
+                                    <button class="btn btn-success btn-sm btn-block" type="button"> BTN</button>
+                                    <button class="btn btn-info btn-sm btn-block" type="button"> BTN</button>
+                                    <button class="btn btn-danger btn-sm btn-block" type="button"> BTN</button>
+                                    <button class="btn btn-warning btn-sm btn-block" type="button"> BTN</button>
+                                </div>
+                            </div>
+                        </div>
+                        <label class="js-ruleType i-checks cus-icheck">
+                            <input class="cus-icheck" type="radio" name="rule_rus11" value="0" checked> 业务模板
+                        </label>
+                    </div>
+                    <table class="table table-bordered table-hover" style="margin-top: 20px;">
+                        <thead>
+                        <tr>
+                            <th>账号&服务商</th>
+                            <th>模板内容</th>
+                            <th>操作
+                                <a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="com.zz.zz.z01"></a>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody id="js_mdata_box" class="md-001">
+                        <tr>
+                            <td>1</td>
+                            <td></td>
+                            <td>
+                                <span class="cus-mo-btn text-success js-btn-open">查看模板</span>
+                                <span class="cus-mo-btn text-danger js-btn-del">删除</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td></td>
+                            <td>
+                                <span class="cus-mo-btn text-success js-btn-open">查看模板</span>
+                                <span class="cus-mo-btn text-danger js-btn-del">删除</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td></td>
+                            <td>
+                                <span class="cus-mo-btn text-success js-btn-open">查看模板</span>
+                                <span class="cus-mo-btn text-danger js-btn-del">删除</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div>
+                        <label class="js-ruleType i-checks cus-icheck">
+                            <input class="cus-icheck" type="radio" name="rule_rus11" value="0"> API模式？（concoler地址）：
+                        </label>
+                        <span id="js_editable07" class="js-item-xe"></span><span style="margin-left: 30px; cursor: pointer;" class="js-open-xe text-info">编辑</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><span class="text-danger">*</span> 推送时间：</label>
+            <div class="col-sm-7" >
+              <div class="bg-warning" style="padding: 15px;">
+                  <div class="f-3">
+                      <label class="js-ruleType i-checks cus-icheck">
+                          <input class="cus-icheck" type="radio" name="rule_rus3" value="0" checked> 每天
+                      </label>
+                      <div class="ipt-p">
+                          <input type="text" class="form-control">
+                      </div>
+                  </div>
+                  <div class="f-3">
+                      <label class="js-ruleType i-checks cus-icheck">
+                          <input class="cus-icheck" type="radio" name="rule_rus3" value="0" checked> 指定日期
+                      </label>
+                      <div class="ipt-p">
+                          <input id="date" type="text" readonly class="form-control date">
+                      </div>
+                  </div>
+                  <div class="f-3">
+                      <label class="js-ruleType i-checks cus-icheck">
+                          <input class="cus-icheck" type="radio" name="rule_rus3" value="0" checked> crontab
+                      </label>
+                      <div class="ipt-p">
+                          <input type="text" class="form-control">
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="../../../js/jquery-2.1.1.js"></script>
+<script src="../../../js/bootstrap.min.js"></script>
+<script src="../../../js/bootstrap-plugins-custom.js"></script>
+<script src="../../../js/plugins/layer/layer.js"></script>
+<script src="../../../i18n/zh-CN.js"></script>
+<script src="../../../js/plugins/iCheck/icheck.min.js"></script>
+<script src="../../../js/plugins/x-editable/bootstrap-editable.min.js"></script>
+<script src="../../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="../../../js/plugins/moment/moment.min.js"></script>
+<script src="../../../js/plugins/jsTree/jstree.min.js"></script>
+<script src="../../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="../../../js/plugins/datatables/datatables.min.js"></script>
+<script src="../../../js/subindex.js"></script>
+
+
+<!-- demo 演示使用 -->
+<script src="../../../js/jquery.mockjax.min.js"></script>
+<script src="../../../demo-data.js"></script>
+<!--正式环境请删掉演示代码-->
+
+<script>
+
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        $("#date").datetimepicker({
+        });
+        $('#js_editable07').editable({
+            mode: 'inline',
+            toggle: 'manual'
+        }).on('hidden', function(e) {
+            console.log(arguments.length);
+            // console.log($(this));
+            if (arguments.length != 2) return
+            $(this).next('.js-open-xe').show()
+        });
+        $(document).on('click.open', '.js-open-xe', function(e) {
+            e.stopPropagation();
+            $(this).hide().prev('.js-item-xe').editable('show');
+        })
+
+        COM_TOOLS._model.orgModel('openM1', 't1', {max_num: 50, only_sel_people: true});
+        COM_TOOLS._model.orgModel('openM2', 't2', {max_num: 5, only_sel_people: false});
+        COM_TOOLS._model.orgModel('openM3', 't3', {max_num: 5, only_sel_people: false});
+
+        var $box_ = $('#js_mdata_box');
+
+        function add_row(data) {
+            if (data) {
+                var $item = $('<tr><td>' + data.pname + '</td><td>' + data.content + '</td>' +
+                    '<td>' +
+                    '<span class="cus-mo-btn text-success js-btn-open">查看模板</span>' +
+                    '<span class="cus-mo-btn  text-danger js-btn-del">删除</span>' +
+                    '</td>' +
+                    '</tr>');
+                $item.data({ //需要哪些数据放哪些；
+                    id: data.id
+                });
+                $box_.append($item);
+            } else {
+                COM_TOOLS.alert('参数异常！');
+            }
+        }
+        $('#add_bind_one').click(function () {
+            cumParentWinModal('新建', '../sms/选择服务商模板.html', {
+                "callback": {
+                    save: add_row
+                }
+            });
+        });
+        $box_.on('click', '.js-btn-del', function () { /* 删除 */
+            var $this_ = $(this);
+            $this_.closest('tr').remove();
+        })
+
+
+
+        $('#yzgz').click(function () {
+
+
+            layer.confirm('验证成功/失败', {
+                btn: ['验证结果集', '关闭'] //按钮
+            }, function () {
+
+            }, function () {
+
+            });
+        })
+    });
+</script>
+</body>
+
+</html>

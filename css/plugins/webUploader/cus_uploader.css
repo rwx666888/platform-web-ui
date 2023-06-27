@@ -1,0 +1,121 @@
+/* webupload 多选上传样式 */
+.webuploader-container {
+    position: relative;
+}
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px,1px,1px,1px);
+}
+.webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #00b7ee;
+    padding: 10px 15px;
+    color: #fff;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.webuploader-pick-hover {
+    background: #00a2d4;
+}
+.webuploader-pick-disable {
+    opacity: 0.6;
+    pointer-events:none;
+}
+/* END */
+.cus-mult-files{
+    display: inline-block;
+    position: relative;
+}
+.cus-mult-files .hide-inp-validate{
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    width: 100%;
+    height: 0;
+    border: none;
+    opacity: 0;
+    padding: 0;
+}
+.cus-uploader-btn-add .webuploader-pick{
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background-color: #21b9bb;
+}
+.cus-multiple-upload{
+    padding: 15px;
+}
+.cus-multiple-upload p{margin: 0;}
+.cus-multiple-upload .file-list{
+    list-style: none;
+    padding: 0;
+    margin-right: -10px;
+    min-height: 128px;
+}
+.cus-multiple-upload .li-file{
+    margin: 0 10px 10px 0;
+    width: 180px;
+    float: left;
+    border-radius: 3px;
+    padding: 8px;
+    color: #999;
+    background-color: #f9f9f9;
+    border: 1px solid #f9f9f9;
+}
+.cus-multiple-upload .li-file:hover{
+    border-color: #e0e0e0;
+}
+.cus-multiple-upload .li-file.success{
+    background-color: #dff3e0;
+    border-color: #dff3e0;
+}
+.cus-multiple-upload .li-file.success:hover{
+    border-color: #b0dcb1;
+}
+.cus-multiple-upload .li-file.error{
+    background-color: #fdc5c5;
+    border-color: #fdc5c5;
+}
+.cus-multiple-upload .li-file.error:hover{
+    border-color: #e69a9a;
+}
+.cus-multiple-upload .li-file .delete{
+    cursor: pointer;
+}
+.cus-multiple-upload .li-file .delete:hover{
+    color: #F44336;
+}
+.cus-multiple-upload .li-file .name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+}
+.cus-multiple-upload .pro{
+    width: 100%;
+    height: 10px;
+    margin-top: 6px;
+    background-color: #eee;
+}
+.cus-multiple-upload .pro-bar{
+    display: block;
+    width: 0%;
+    height: 100%;
+    background-color: #00bcd4;
+}
+.cus-multiple-upload .footer-area{
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+.cus-multiple-upload .info-tip{
+    display: inline-block;
+    line-height: 30px;
+}
+.cus-multiple-upload .js-add-more{
+    margin-right: 10px;
+}

@@ -1,0 +1,114 @@
+<!-- 组件库 start -->
+<script type="text/template" id="plugincode_input-text">
+  <input name="{{column_name}}" class="form-control input-sm" type="text" id="ele_md_{{column_name}}" {{include 'template_form_valid_code' valid_opt_}} value="${boModel.{{column_name}}}"/>
+</script>
+<script type="text/template" id="plugincode_select">
+  <select class="form-control input-sm" name="{{column_name}}" id="ele_md_{{column_name}}" {{include 'template_form_valid_code' valid_opt_}}>
+    <option value="">请选择</option>
+  </select>
+</script>
+<script type="text/template" id="plugincode_select2">
+  <select class="form-control input-sm" name="{{column_name}}" id="ele_md_{{column_name}}" {{include 'template_form_valid_code' valid_opt_}} selectedvalue="${boModel.{{column_name}}}">
+    <option value="">请选择</option>
+  </select>
+</script>
+<script type="text/template" id="plugincode_textarea">
+  <textarea class="form-control" name="{{column_name}}" id="ele_md_{{column_name}}" {{include 'template_form_valid_code' valid_opt_}}>${boModel.{{column_name}}}</textarea>
+</script>
+<script type="text/template" id="plugincode_datatimepicker">
+  <div class="input-group date" id="ele_md_{{column_name}}_wrap"> 
+    <input class="form-control input-sm" type="text" name="{{column_name}}" id="ele_md_{{column_name}}" readonly="readonly" {{include 'template_form_valid_code' valid_opt_}} value="{{if $imports._HASJAVACODE_}}${boModel.{{column_name}}}{{/if}}"/> 
+    <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span> 
+  </div>
+</script>
+<script type="text/template" id="plugincode_daterangepicker">
+  <div class="input-group date" id="ele_md_{{column_name}}_wrap"> 
+    <input class="form-control input-sm" type="text" name="{{column_name}}" id="ele_md_{{column_name}}" readonly="readonly" {{include 'template_form_valid_code' valid_opt_}} value="{{if $imports._HASJAVACODE_}}${boModel.{{column_name}}}{{/if}}"/> 
+    <span class="input-group-addon"><i class="tedufont tedu-icon130"></i></span> 
+  </div>
+</script>
+<script type="text/template" id="plugincode_timepicker">
+  <span>(*^_^*)</span>
+</script>
+<script type="text/template" id="plugincode_input-radio">
+  
+  {{if plugin_ext_opt_.option_str}}
+    {{each plugin_ext_opt_.option_str.split(',')}}
+      <label class="radio-inline">
+        <input type="radio" name="{{column_name}}" value="{{$value.split(':')[0]}}" {{include 'template_form_valid_code' valid_opt_}}/> {{$value.split(':')[1]}}
+      </label>
+    {{/each}}
+  {{else}}
+    <label class="radio-inline">
+      <input type="radio" name="{{column_name}}" value="" {{include 'template_form_valid_code' valid_opt_}}/> demo
+    </label>
+  {{/if}}
+  
+</script>
+<script type="text/template" id="plugincode_input-checkbox">
+  {{if plugin_ext_opt_.option_str}}
+    {{each plugin_ext_opt_.option_str.split(',')}}
+      <label class="checkbox-inline">
+        <input type="checkbox" name="{{column_name}}" value="{{$value.split(':')[0]}}" {{include 'template_form_valid_code' valid_opt_}}/> {{$value.split(':')[1]}}
+      </label>
+    {{/each}}
+  {{else}}
+    <label class="checkbox-inline">
+      <input type="checkbox" name="{{column_name}}" value="" {{include 'template_form_valid_code' valid_opt_}}/> demo
+    </label>
+  {{/if}}
+</script>
+<script type="text/template" id="plugincode_input-radio-i">
+  {{if plugin_ext_opt_.option_str}}
+    {{each plugin_ext_opt_.option_str.split(',')}}
+      <label class="checkbox-inline i-checks"><input type="radio" name="{{column_name}}" value="{{$value.split(':')[0]}}" {{include 'template_form_valid_code' valid_opt_}}/> {{$value.split(':')[1]}}</label>
+    {{/each}}
+  {{else}}
+    <label class="checkbox-inline i-checks"><input type="radio" name="{{column_name}}" value="" {{include 'template_form_valid_code' valid_opt_}}/> demo</label>
+  {{/if}}
+</script>
+
+<script type="text/template" id="plugincode_input-checkbox-i">
+  {{if plugin_ext_opt_.option_str}}
+    {{each plugin_ext_opt_.option_str.split(',')}}
+      <label class="radio-inline i-checks"><input type="checkbox" name="{{column_name}}" value="{{$value.split(':')[0]}}" {{include 'template_form_valid_code' valid_opt_}}/> {{$value.split(':')[1]}}</label>
+    {{/each}}
+  {{else}}
+    <label class="radio-inline i-checks"><input type="checkbox" name="{{column_name}}" value="" {{include 'template_form_valid_code' valid_opt_}}/> demo</label>
+  {{/if}}
+</script>
+<script type="text/template" id="plugincode_platform-dict">
+  {{if plugin_ext_opt_.dict_plugtype == 'select'}}
+    <select class="form-control input-sm" name="{{column_name}}" id="ele_md_{{column_name}}" {{include 'template_form_valid_code' valid_opt_}} selectedvalue="${boModel.{{column_name}}}">
+      <option value="">请选择</option>
+    </select>
+  {{else if plugin_ext_opt_.dict_plugtype == 'select_level2'}}
+    <select class="form-control" name="{{column_name}}" id="ele_md_{{column_name}}" selectedvalue="${boModel.{{column_name}}}">
+      <option value="">请选择</option>
+    </select>
+    <select class="form-control" name="{{plugin_ext_opt_.sel_l2_name ? plugin_ext_opt_.sel_l2_name : column_name+'_2'}}" id="ele_md_{{column_name}}_2" selectedvalue="${boModel.{{plugin_ext_opt_.sel_l2_name ? plugin_ext_opt_.sel_l2_name : column_name+'_2'}}}">
+      <option value="">请选择</option>
+    </select>
+  {{else if plugin_ext_opt_.dict_plugtype == 'select_level3'}}
+    <select class="form-control" name="{{column_name}}" id="ele_md_{{column_name}}" selectedvalue="${boModel.{{column_name}}}">
+      <option value="">请选择</option>
+    </select>
+    <select class="form-control" name="{{plugin_ext_opt_.sel_l2_name ? plugin_ext_opt_.sel_l2_name : column_name+'_2'}}" id="ele_md_{{column_name}}_2" selectedvalue="${boModel.{{plugin_ext_opt_.sel_l2_name ? plugin_ext_opt_.sel_l2_name : column_name+'_2'}}}">
+      <option value="">请选择</option>
+    </select>
+    <select class="form-control" name="{{plugin_ext_opt_.sel_l3_name ? plugin_ext_opt_.sel_l3_name : column_name+'_3'}}" id="ele_md_{{column_name}}_3" selectedvalue="${boModel.{{plugin_ext_opt_.sel_l3_name ? plugin_ext_opt_.sel_l3_name : column_name+'_3'}}}">
+      <option value="">请选择</option>
+    </select>
+  {{else}}
+    <p class="form-control-static text-danger">未配置字典组件</p>
+  {{/if}}
+</script>
+
+<script type="text/template" id="plugincode_win-modal">
+<div class="input-group input-group-sm">
+    <input type="text" name="{{column_name}}_text" class="form-control input-sm" readonly="readonly" id="ele_md_{{column_name}}_text">
+    <span class="input-group-btn"><button class="btn btn-primary" id="ele_md_{{column_name}}_btn" type="button"><i class="glyphicon glyphicon-search"></i></button></span>
+</div>
+<input type="hidden" name="{{column_name}}" id="ele_md_{{column_name}}">
+</script>
+<!-- 组件库 end -->

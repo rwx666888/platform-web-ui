@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户权限设置</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../../css/iconfont.css" rel="stylesheet">
+    <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../../css/plugins/select2/select2.min.css" rel="stylesheet">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <style>
+        .md2018120401lty .font-14{font-size: 14px;}
+        .md2018120401lty .top-nav{margin-top:15px;margin-bottom:15px;}
+        .md2018120401lty .panel-body{padding:0;}
+        .md2018120401lty .item{border-bottom:1px solid #ddd;margin:0;padding:15px 0;}
+        .md2018120401lty .item:last-child{border:0;}
+        .md2018120401lty .item .md-hd{margin-bottom:15px;}
+        .md2018120401lty .item .item-name{margin-right:10px;}
+        .md2018120401lty .item .i-checks{margin:0 15px 15px 0;}
+        .md2018120401lty .item .btn{padding:3px 5px;}
+    </style>
+</head>
+
+<body>
+    <div class="md2018120401lty">
+        <div class="container-fluid">
+            <form>
+                <div class="row top-nav">
+                    <div class="col-sm-10">
+                        <label class="control-label">用户账号：</label>
+                        <span class="input-sm font-14">xxxxxxxx</span>
+                        <label class="control-label">用户姓名：</label>
+                        <span class="input-sm font-14">王小丫</span>
+                        <label class="control-label">用户邮箱：</label>
+                        <span class="input-sm font-14">4723947923@tedu.cn</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-sm btn-primary pull-right save-btn" id="test" type="button">保存</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">内部渠道数据权限设置</div>
+                            <div class="panel-body">
+                                <div class="row item">
+                                    <div class="col-sm-12 md-hd">
+                                        <span class="font-14 item-name">成人TTS-VIP班</span>
+                                        <button class="btn btn-sm btn-primary js-check-all" type="button">全选</button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="1"
+                                                data-name="a" data-code="q">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="2"
+                                                data-name="b" data-code="w">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="3"
+                                                data-name="c" data-code="e">
+                                            demo3 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-sm-12 md-hd">
+                                        <span class="font-14 item-name">成人TTS-VIP班</span>
+                                        <button class="btn btn-sm btn-primary js-check-all" type="button">全选</button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">内部渠道数据权限设置</div>
+                            <div class="panel-body">
+                                <div class="row item">
+                                    <div class="col-sm-12 md-hd">
+                                        <span class="font-14 item-name">成人TTS-VIP班</span>
+                                        <button class="btn btn-sm btn-primary js-check-all" type="button">全选</button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                    </div>
+                                </div>
+                                <div class="row item">
+                                    <div class="col-sm-12 md-hd">
+                                        <span class="font-14 item-name">成人TTS-VIP班</span>
+                                        <button class="btn btn-sm btn-primary js-check-all" type="button">全选</button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option1"
+                                                name="islocal">
+                                            demo1 </label>
+                                        <label class="radio-inline i-checks"> <input type="checkbox" value="option2"
+                                                name="islocal">
+                                            demo2 </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Mainly scripts -->
+    <script src="../../js/jquery-2.1.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/plugins/layer/layer.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../../js/plugins/pace/pace.min.js"></script>
+    <script src="../../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+    <script src="../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../js/plugins/jquery-number/jquery.number.min.js"></script>
+    <script src="../../js/plugins/select2/select2.full.min.js"></script>
+
+    <script src="../../js/subindex.js"></script>
+    <script src="../../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="../../js/jquery.mockjax.min.js"></script>
+    <script src="../../js/plugins/jquery-zoom/jquery.zoom.min.js"></script>
+
+    <script>
+        $(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            }).on('ifChanged', function(){
+                $(this).closest('form').validate().element(this);
+            });
+            //全选与取消全选
+            $('.js-check-all').click(function(){
+                var $checkbox=$(this).closest('.item').find('.i-checks');
+                if( $checkbox.find('input[type="checkbox"]:checked').length===$checkbox.length){
+                    $checkbox.iCheck('uncheck');
+                }else{
+                    $checkbox.iCheck('check');
+                }
+            });
+            $('#test').click(function(){
+                var checkeds = $('input[type="checkbox"]:checked');
+                var list = [];
+                $.each(checkeds,function(index,value){
+                    var obj;
+                    obj.channelId= $(this).val();
+                    obj.fullChannelName = $(this).data('name');
+                    obj.userChannelId = userChannelId;
+                    obj.channelName = $(this).closest('.i-checks').text();
+                    obj.channelCode = $(this).data('code');
+                    list.push(obj);
+                }) 
+            });
+          
+
+        });
+    </script>
+</body>
+
+</html>

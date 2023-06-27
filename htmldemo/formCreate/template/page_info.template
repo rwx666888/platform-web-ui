@@ -1,0 +1,20 @@
+<!-- 详情页模板 -->
+<template id="infopage_codebox">
+  <div class="container-fluid info-body">
+    <div class="row">
+      <div class="col-sm-12 form-horizontal p-sm">
+        {{each list}}
+        {{if $index % columnlen==0}}
+        <div class="form-group">{{/if}}
+          <label class="col-sm-{{columnlen == 3 ? 1 : 2}} control-label">{{if !$value.column_isnull}}<span
+              class="text-danger">*</span>{{/if}}{{$value.label_name}}：</label>
+          <div class="col-sm-{{columnlen == 3 ? 3 : 4}}">
+            <p class="form-control-static">${ {{$value.column_name}}}</p>
+          </div>
+          {{if $index % columnlen==columnlen-1 || $index+1 == list.length}}
+        </div>{{/if}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>表单页（add）</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../../css/iconfont.css" rel="stylesheet">
+
+    <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../../css/plugins/select2/select2.min.css" rel="stylesheet">
+
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="width: 400px;">
+    <div class="row p-xxs">
+        <div class="col-sm-12">
+            <textarea class="form-control" name="" id="edit" cols="50" rows="10"></textarea>
+        </div>
+        <div class="col-sm-12">
+            <button class="btn" onclick="clear1()">清空</button>
+            <button class="btn" onclick="getcode()">解析</button>
+        </div>
+    </div>
+    <div class="row p-xxs">
+        <div class="btns col-sm-6">
+            <button data-code="1" class="btn btn-success btn-block js-btn1">啊速度快较好的</button>
+            <button data-code="user.joinday" class="btn btn-success btn-block js-btn1">入职日期</button>
+            <button data-code="3" class="btn btn-success btn-block js-btn1">阿斯蒂芬开奖号</button>
+            <button data-code="4" class="btn btn-success btn-block js-btn1">啊速度快解放后</button>
+        </div>
+        <div class="btns2 col-sm-6">
+            <button data-formula="dayformat(,'mm-dd')" class="btn btn-block btn-info js-btn2">日期格式化</button>
+            <button data-formula="substr22()" class="btn btn-block btn-info js-btn2">公式222</button>
+            <button data-formula="substr333()" class="btn btn-block btn-info js-btn2">公式333</button>
+        </div>
+    </div>
+</div>
+<!-- Mainly scripts -->
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/plugins/layer/layer.js"></script>
+
+<!-- Custom and plugin javascript -->
+
+
+<script>
+    $.extend($.fn, {
+        //插入字符串
+        insertString: function (str) {
+            var tb = $(this);
+            console.log(tb)
+            tb.focus();
+            var newstart = tb.get(0).selectionStart + str.length;
+            console.log(newstart)
+            tb.val(tb.val().substr(0, tb.get(0).selectionStart) +
+                str + tb.val().substring(tb.get(0).selectionEnd));
+            // tb.get(0).selectionStart = newstart;
+            // tb.get(0).selectionEnd = newstart;
+
+        }
+    });
+    function getcode(){
+        var str = $("#edit").val()
+        $('.js-btn1').each(function(){
+            var s = $(this).text();
+            if (str.indexOf(s)!=-1){
+                var rstr = '\\['+s+'\\]';
+                str = str.replace(new RegExp(rstr,'g'),$(this).data('code'))
+            }
+        })
+        console.log(str)
+    };
+    function clear1() {
+        $("#edit").val("");
+    }
+
+    $('.js-btn1').click(function () {
+        $("#edit").insertString('['+$(this).text()+']');
+    });
+    $('.js-btn2').click(function () {
+        $("#edit").insertString($(this).data('formula'));
+    })
+</script>
+</body>
+</html>

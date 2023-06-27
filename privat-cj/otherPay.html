@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/animate.min.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>其他缴费</title>
+    <style>
+      .cus-inp {
+        width: 100%;
+        height: 24px;
+        padding: 0 5px;
+        border: 1px solid #eee;
+        border-radius: 0;
+        outline: 0;
+      }
+      .cus-inp[readonly] {
+        background-color: #eee;
+      }
+      .goods-table-wrp table {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="col-sm-12">
+      <form id="baseForm" class="form-horizontal">
+        <h4 class="s-title clearfix">
+          <span>出售方信息</span>
+        </h4>
+        <div class="form-group">
+          <label class="col-sm-2 control-label"><span class="text-danger">*</span> 中心</label>
+          <div class="col-sm-2">
+            <div class="input-group input-group-sm">
+              <input
+                type="text"
+                id="orgCore"
+                name="orgCore"
+                class="form-control input-sm"
+                required=""
+                readonly="readonly"
+                value=""
+              />
+              <input type="hidden" id="orgCore_code" name="orgCoreCode" value="1011000340" />
+              <span class="input-group-btn"
+                ><button class="btn btn-primary" type="button" onclick="chooseCenter()">
+                  <i class="fa fa-search"></i></button
+              ></span>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">法律主体</label>
+          <div class="col-sm-2">
+            <div class="input-group input-group-sm">
+              <input
+                type="text"
+                class="form-control input-sm"
+                name="legalSubjectName"
+                id="legalSubjectName"
+                readonly="readOnly"
+                value=""
+              />
+              <span class="input-group-btn"
+                ><button class="btn btn-primary" type="button" onclick="chooseCompany()">
+                  <i class="fa fa-search"></i></button
+              ></span>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">账套</label>
+          <div class="col-sm-2">
+            <input
+              type="text"
+              class="form-control input-sm"
+              name="legalSubjectCode"
+              id="legalSubjectCode"
+              readonly="readOnly"
+              value=""
+            />
+          </div>
+        </div>
+        <h4 class="s-title clearfix">
+          <span>购买方信息</span>
+        </h4>
+        <div class="form-group">
+          <label class="col-sm-3 col-sm-offset-1 checkbox-inline"><input type="radio" name="name26_01" value="1" checked> 达内集团内部法律主体购买</label>
+          <label class="col-sm-2 control-label"><span class="text-danger">*</span> 中心</label>
+          <div class="col-sm-2">
+            <div class="input-group input-group-sm">
+              <input
+                type="text"
+                id="orgCore"
+                name="orgCore"
+                class="form-control input-sm"
+                required=""
+                readonly="readonly"
+                value=""
+              />
+              <input type="hidden" id="orgCore_code" name="orgCoreCode" value="1011000340" />
+              <span class="input-group-btn"
+                ><button class="btn btn-primary" type="button" onclick="chooseCenter()">
+                  <i class="fa fa-search"></i></button
+              ></span>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label">法律主体</label>
+          <div class="col-sm-2">
+            <div class="input-group input-group-sm">
+              <input
+                type="text"
+                class="form-control input-sm"
+                name="legalSubjectName"
+                id="legalSubjectName"
+                readonly="readOnly"
+                value=""
+              />
+              <span class="input-group-btn"
+                ><button class="btn btn-primary" type="button" onclick="chooseCompany()">
+                  <i class="fa fa-search"></i></button
+              ></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 col-sm-offset-1 checkbox-inline"><input type="radio" name="name26_01" value="1" checked> 外部公司购买</label>
+          <label class="col-sm-2 control-label">名称</label>
+          <div class="col-sm-2"><input class="form-control input-sm" type="text" name="name21" id="name21" /></div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-xs-12 p-sm text-center">
+      <button id="formSubmit" class="btn btn-primary btn-sm" type="button">
+        确认
+      </button>
+      <button id="formClose" class="btn btn-success btn-sm" type="button">
+        关闭
+      </button>
+    </div>
+    <form id="stuPayForm" class="form-horizontal">
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="text-danger">*</span> 缴费类型</label>
+        <div class="col-sm-5">
+          <select
+            style="width: 128px; display: inline-block;"
+            class="form-control input-sm"
+            name="paymentType"
+            id="paymentType"
+            required
+          >
+            <!-- el 表达式 -->
+            <option value="">---请选择---</option>
+            <option value="JFLX07">其他缴费</option>
+            <option value="JFLX09">教具缴费</option>
+            <option value="JFLX11">教材缴费</option>
+          </select>
+          <select
+            style="width: 128px; display: inline-block;"
+            class="form-control input-sm"
+            name="paymentSecType"
+            id="paymentSecType"
+            required=""
+            data-original-title=""
+            title=""
+            aria-invalid="false"
+          >
+            <!-- 接口 -->
+            <option value="">---请选择---</option>
+            <option value="JFLX0901">童程教具</option
+            ><option value="JFLX0902">童创教具</option
+            ><option value="JFLX0903">手机</option>
+          </select>
+        </div>
+        <!-- 添加商品 -->
+        <div class="col-sm-4"></div>
+      </div>
+      <!-- 本次缴费 -->
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="text-danger">*</span>本次缴费</label>
+        <div class="col-sm-4">
+          <input
+            class="form-control input-sm js-money js-this-payment"
+            name="thisPaymentAmount"
+            type="text"
+            min="1"
+            number
+            required
+          />
+        </div>
+        <span class="goods-btn-wrp hidden">
+          <label class="col-sm-2 control-label"><span class="text-danger">*</span>添加商品</label>
+          <div class="col-sm-2">
+            <button type="button" class="btn btn-sm btn-primary" id="js_chooseGoods">
+              <i class="glyphicon glyphicon-plus"></i>选择
+            </button>
+          </div>
+        </span>
+      </div>
+      <!-- 商品 list -->
+      <div class="form-group goods-table-wrp hidden">
+        <label class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-8">
+          <table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+            <thead>
+              <th>商品名称</th>
+              <th style="width: 50px;">单位</th>
+              <th style="width: 80px;">商品数量</th>
+              <th style="width: 74px;">建议零售价</th>
+              <th style="width: 120px;">最低售价</th>
+              <th style="width: 140px;">优惠金额</th>
+              <th style="width: 120px;">合计价格</th>
+              <th style="width: 38px;">操作</th>
+            </thead>
+            <tbody id="js_goods_list"></tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../js/plugins/validate/jquery.validate.custom.min.js"></script>
+    <script src="../js/plugins/layer/layer.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+    <script>
+      $.validator.addMethod(
+        'ck-course-price',
+        function (value, element, params) {
+          value = Number(value)
+          // console.log(this.optional(element) || value >= params);
+          if (!(this.optional(element) || value >= params)) {
+            // $(element).val(params)
+            return false
+          } else {
+            return true
+          }
+        },
+        '不得低于最低售价-优惠金额'
+      )
+      $('.js-this-payment').number(true, 2)
+      var valInst = $('#stuPayForm').validate()
+      var goodsList = {}
+      // 构造节点
+      function createGoodsTr(row) {
+        var _html = $(
+          '<tr class="js-tr-item">' +
+            '<td>' +
+            row.goodsName +
+            '</td>' +
+            '<td>' +
+            row.goodsUnitName +
+            '</td>' +
+            '<td><input type="text" class="input-sm cus-inp js-goods-num" name="g_num_' +
+            row.goodsCode +
+            '" min="1" digits="true" value="1"/></td>' +
+            '<td><input type="text" class="input-sm cus-inp js-money js-suggest-price" value="' +
+            row.retailPrice +
+            '" readonly/></td>' +
+            '<td><input type="text" class="input-sm cus-inp js-money js-min-price" value="' +
+            (row.minRetailPrice || row.retailPrice) +
+            '" readonly/></td>' +
+            '<td><button type="button" class="btn btn-xs btn-primary js-btn-discount">优惠</button><input type="text" style="width: 85px"  class="input-sm cus-inp js-money js-discount-price" value="0" readonly/></td>' +
+            '<td><input type="text" class="input-sm cus-inp js-money js-sell-price" name="g_price_' +
+            row.goodsCode +
+            '" ck-course-price="' +
+            (row.minRetailPrice || row.retailPrice) +
+            '" value="' +
+            row.retailPrice +
+            '"/></td>' +
+            '<td><button type="button" class="btn btn-xs btn-warning js-tr-remove"><i class="glyphicon glyphicon-remove"></i></button></td>' +
+            '</tr>'
+        ).data('sdata', row)
+
+        $('#js_goods_list').append(_html)
+        call_thisPayment()
+        $('.js-money').number(true, 2)
+      }
+      // 计算合计
+      var COM_FN = {
+        add: function (arg1, arg2) {
+          ;(arg1 = arg1.toString()), (arg2 = arg2.toString())
+          var arg1Arr = arg1.split('.'),
+            arg2Arr = arg2.split('.'),
+            d1 = arg1Arr.length == 2 ? arg1Arr[1] : '',
+            d2 = arg2Arr.length == 2 ? arg2Arr[1] : ''
+          var maxLen = Math.max(d1.length, d2.length)
+          var m = Math.pow(10, maxLen)
+          var result = Number(((arg1 * m + arg2 * m) / m).toFixed(maxLen))
+          var d = arguments[2]
+          return typeof d === 'number' ? Number(result.toFixed(d)) : result
+        },
+        sub: function (arg1, arg2) {
+          return this.add(arg1, -Number(arg2), arguments[2])
+        },
+        mul: function (arg1, arg2) {
+          var r1 = arg1.toString(),
+            r2 = arg2.toString(),
+            m,
+            resultVal,
+            d = arguments[2]
+          m =
+            (r1.split('.')[1] ? r1.split('.')[1].length : 0) +
+            (r2.split('.')[1] ? r2.split('.')[1].length : 0)
+          resultVal = (Number(r1.replace('.', '')) * Number(r2.replace('.', ''))) / Math.pow(10, m)
+          return typeof d !== 'number' ? Number(resultVal) : Number(resultVal.toFixed(parseInt(d)))
+        },
+        div: function (arg1, arg2) {
+          var r1 = arg1.toString(),
+            r2 = arg2.toString(),
+            m,
+            resultVal,
+            d = arguments[2]
+          m =
+            (r2.split('.')[1] ? r2.split('.')[1].length : 0) -
+            (r1.split('.')[1] ? r1.split('.')[1].length : 0)
+          resultVal = (Number(r1.replace('.', '')) / Number(r2.replace('.', ''))) * Math.pow(10, m)
+          return typeof d !== 'number' ? Number(resultVal) : Number(resultVal.toFixed(parseInt(d)))
+        }
+      }
+      // 计算本次缴费
+      function call_thisPayment() {
+        var sum = 0
+        $('#js_goods_list .js-sell-price').each(function () {
+          var t = $(this)
+          var val = t.val()
+          sum = COM_FN.add(sum, val)
+        })
+        $('.js-this-payment').val(sum).trigger('focusout.validate')
+      }
+      // 商品唯一性判断
+      function checkGoodsSole(item) {
+        if (!goodsList[item.goodsCode]) {
+          goodsList[item.goodsCode] = item
+          return true
+        }
+        return false
+      }
+      // 处理数据
+      function processSubData() {
+        var tmp = []
+        var paymentName = $('#paymentType>option:selected').text()
+        var paymentType = $('#paymentType').val()
+        var paymentSecName = $('#paymentSecType>option:selected').text()
+        var paymentSecType = $('#paymentSecType').val()
+
+        var list = $('#js_goods_list').find('.js-tr-item')
+
+        if (list.length) {
+          list.each(function () {
+            var t = $(this)
+            var t_p = t.closest('.js-tr-item')
+            var sdata = t_p.data('sdata')
+            // 特殊处理
+            sdata.paymentName = paymentName
+            sdata.paymentType = paymentType
+            sdata.paymentSecName = paymentSecName
+            sdata.paymentSecType = paymentSecType
+            sdata.paymentPrice = t_p.find('.js-sell-price').val()
+            sdata.sellGoodsNum = t_p.find('.js-goods-num').val()
+
+            tmp.push(sdata)
+          })
+        } else {
+          tmp.push({
+            paymentName: paymentName,
+            paymentType: paymentType,
+            paymentSecName: paymentSecName,
+            paymentSecType: paymentSecType,
+            goodsName: '',
+            goodsCode: '',
+            hourseCode: '',
+            goodsUnit: '',
+            paymentPrice: $('.js-this-payment').val(),
+            retailPrice: $('.js-this-payment').val(),
+            minRetailPrice: '',
+            sellGoodsNum: 1
+          })
+        }
+
+        return tmp
+      }
+      // 清空 优惠
+      function clearDiscount(dom) {
+        dom.find('.js-discount-price').val(0)
+        dom.find('.js-btn-discount').removeData('sdata')
+      }
+      // 计算对应的优惠(选择后的) 最小为 0
+      function sumDiscountBySelection(num1, num2) {
+        var tmp = COM_FN.sub(num1, num2)
+        return tmp <= 0 ? 0 : tmp
+      }
+
+      $('#paymentType').change(function () {
+        //删除来源渠道下所有下拉选，保留<option value="">请选择.....</option>
+        $("#paymentSecType option[value!='']").remove()
+        $('.js-clear-inp').val('')
+        // $.ajax({
+        //   type: 'post',
+        //   async: false,
+        //   url: '${contextPath}/dictionary/queryForRedis',
+        //   data: {
+        //     typeCode: $('#paymentType').val()
+        //   },
+        //   success: function(data, status) {
+        //     for (var i = 0; i < data.length; i++) {
+        //       if ('JFLX0704' != data[i].hiddenValue) {
+        //         var $option = $('<option></option>')
+        //         $option.attr('value', data[i].hiddenValue)
+        //         $option.text(data[i].viewValue)
+        //         $('#paymentSecType').append($option)
+        //       }
+        //     }
+        //   },
+        //   error: function() {
+        //     COM_TOOLS.alert('系统异常') //系统异常
+        //   }
+        // })
+
+        $('.js-this-payment').val('')
+        if ($('#paymentType').val() == 'JFLX09' || $('#paymentType').val() == 'JFLX11') {
+          $('.goods-table-wrp, .goods-btn-wrp').removeClass('hidden')
+          $('.js-this-payment').prop('readonly', true)
+        } else {
+          $('.goods-table-wrp, .goods-btn-wrp').addClass('hidden')
+          $('.js-this-payment').prop('readonly', false)
+          $('#js_goods_list').html('')
+          goodsList = {}
+        }
+      })
+      // 选择商品
+      $('#js_chooseGoods').click(function () {
+        var orgCoreCode = COM_TOOLS.requestParam('orgCoreCode')
+        if (!orgCoreCode) {
+          COM_TOOLS.alert('请先选择中心')
+          return false
+        }
+        cumParentWinModal(
+          '商品',
+          '${contextPath}/hourseGoods/toChoosePage?index=signup&hourseType=2&orgCoreCode=' +
+            orgCoreCode,
+          {
+            area: ['600px', '480px'],
+            callid: 'company',
+            callback: {
+              fn1: function (params) {
+                console.log('callback-', params)
+                if (checkGoodsSole(params)) {
+                  createGoodsTr(params)
+                } else {
+                  COM_TOOLS.alter('不可重复添加同一件商品')
+                }
+              }
+            }
+          }
+        )
+      })
+      // 商品列表事件
+      $('#js_goods_list')
+        .on('click', '.js-tr-remove', function () {
+          var t_ = $(this)
+          t_.closest('.js-tr-item').remove()
+          call_thisPayment()
+        })
+        .on('blur', '.js-goods-num', function () {
+          // 更改数量计算合计
+          var t_ = $(this)
+          var t_val = t_.val()
+          var t_p = t_.closest('.js-tr-item')
+          var sdata = t_p.data('sdata')
+          clearDiscount(t_p)
+          // 合计价格
+          var t_price = COM_FN.mul(t_val, sdata.retailPrice)
+          t_p.find('.js-sell-price').val(t_price).trigger('focusout.validate')
+          // 最低售价
+          var t_min_price = COM_FN.mul(t_val, sdata.minRetailPrice || 0)
+          t_p.find('.js-min-price').val(t_min_price)
+          t_p.find('.js-sell-price').attr('ck-course-price', t_min_price)
+          // 建议零售价
+          t_p.find('.js-suggest-price').val(t_price)
+          call_thisPayment()
+        })
+        .on('blur', '.js-sell-price', function () {
+          call_thisPayment()
+        })
+        .on('click', '.js-btn-discount', function () {
+          var orgCoreCode = COM_TOOLS.requestParam('orgCoreCode')
+          var t_ = $(this)
+          var t_p = t_.closest('.js-tr-item')
+          var sData = t_p.data('sdata')
+          var goodsNum = t_p.find('.js-goods-num').val()
+          // 添加数量
+          sData.goodsNums = goodsNum * 1
+          // 打开弹窗 '${contextPath}/hourseGoods/toChoosePage?index=signup&hourseType=2&orgCoreCode='
+          cumParentWinModal(
+            '选择商品优惠',
+            './selectiveGoodsDiscount.html?orgCoreCode=' +
+              orgCoreCode +
+              '&goodsCode=' +
+              sData.goodsCode,
+            {
+              area: ['800px', '60%'],
+              callid: sData,
+              callback: {
+                getData: function (params) {
+                  console.log('getData-', params)
+                  t_.data('sdata', params)
+                  var cur_minPrice = t_p.find('.js-min-price').val() * 1
+                  var cur_price = t_p.find('.js-suggest-price').val() * 1
+                  // 优惠金额
+                  t_p.find('.js-discount-price').val(params.resTotal)
+                  // 合计价格
+                  t_p
+                    .find('.js-sell-price ')
+                    .val(sumDiscountBySelection(cur_price, params.resTotal))
+                    .attr('ck-course-price', sumDiscountBySelection(cur_minPrice, params.resTotal))
+                  //  本次缴费
+                  call_thisPayment()
+                }
+              }
+            }
+          )
+        })
+      // 确认表单
+      $('#formSubmit').click(function () {
+        if (valInst.form()) {
+          var subData = processSubData()
+          console.log('subData-', subData)
+
+          COM_TOOLS.callParentWinCacheFn('getData', subData)
+          cumParentCallValue()
+        }
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>组织权限</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--<link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+    <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link href="../../css/iconfont.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/plugins/select2/select2.min.css">
+    <link href="../../css/animate.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <script>
+        var cus_default_ = {
+            "_modelI18nOpt": {
+                "geturl": "/i18n/api-get2", //获取数据接口地址
+                "seturl": "/i18n/api-set" //发送数据接口地址
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" style="min-height: 50px;">
+        <div class="p-xs col-xs-12 text-center" id="demoaffix1" data-spy="affix" data-offset-top="50">
+            <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存并关闭</button>
+            <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row p-xxs">
+        <div class="col-sm-12">
+            <form id="demoform1" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="text-danger">*</span> 所属模块</label>
+                    <div class="col-sm-3"><select style="min-width: 100px" name="sele1" class="form-control input-sm" id="selectxxw1"></select></div>
+                    <div class="col-sm-3"><select style="min-width: 100px" name="sele2" class="form-control input-sm" id="selectxxw2"></select></div>
+                    <div class="col-sm-3"><select style="min-width: 100px" name="sele3" class="form-control input-sm" id="selectxxw3"></select></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="text-danger">*</span> 资源编码</label>
+                    <div class="col-sm-3"><input required="required" style="min-width: 100px" id="ziycode" name="sele4" class="form-control input-sm"/></div>
+                    <div class="col-sm-3 "><input type="checkbox" id="jingtaiid"><label for="jingtaiid"> 需要静态化</label></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="text-danger">*</span> key</label>
+                    <div class="col-sm-9"><input id="allkey" style="min-width: 100px" name="key" readonly class="form-control input-sm" js-i18n-key="{key}" js-i18n-label="xxxx"/></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">备注</label>
+                    <div class="col-sm-9"><textarea name="name26" class="form-control input-sm"></textarea></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container" id="demobox1">
+
+</div>
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+
+<script src="../../js/plugins/layer/layer.js"></script>
+<script src="../../js/plugins/select2/select2.full.js"></script>
+
+<!--表格拖拽-->
+<script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<script src="../../i18n/zh-CN.js"></script>
+<script src="../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+<script src="../../js/subindex.js"></script>
+<!-- 以下js仅用于演示 -->
+<script src="../../js/jquery.mockjax.min.js"></script>
+<script src="../../demo-data.js"></script>
+
+<script type="text/javascript">
+    
+    $('#btn_closewin').click(function () {
+        cumParentCallValue('', true);
+    });//关闭按钮
+    function setSelect2(a, b, c) {
+        $('#selectxxw1').select2({
+            data: a.data_
+        }).val(a.val_).trigger('change.select2').prop('disabled', a.type);
+        $('#selectxxw2').select2({
+            data: b.data_
+        }).val(b.val_).trigger('change.select2').prop('disabled', b.type);
+        $('#selectxxw3').select2({
+            data: c.data_
+        }).val(c.val_).trigger('change.select2').prop('disabled', c.type);
+    }
+
+    function allFun() {
+        var dataAll = cum_ModalValobj.allData;//总数据
+        var statetype = cum_ModalValobj.statetype;
+        var lv_ = cum_ModalValobj.lvobj;
+        console.log(dataAll)
+        // 全量三级数据select2
+        var level1data_ = [];
+        var level2data_ = [];
+        var level3data_ = [];
+
+        // 完整三级数据 备用
+        var l_1 = [];
+        var l_2 = [];
+        var l_3 = [];
+
+        function updataJson() {
+            l_1 = [{id: -1, text: '请选择', li_attr: {level: 1, code: '#'}}];
+            l_2 = [{id: -1, text: '请选择', li_attr: {level: 2, code: '#'}}];
+            l_3 = [{id: -1, text: '请选择', li_attr: {level: 3, code: '#'}}];
+            $.each(dataAll, function (a, b) {
+                switch (b.li_attr.level) {
+                    case 1:
+                        l_1.push(b);
+                        break;
+                    case 2:
+                        l_2.push(b);
+                        break;
+                    case 3:
+                        l_3.push(b);
+                        break;
+                }
+            });
+        }
+        $('#selectxxw1').select2({
+            data: l_1
+        });
+        $('#selectxxw2').select2({
+            data: ""
+        }).prop('disabled', true);
+        $('#selectxxw3').select2({
+            data: ""
+        }).prop('disabled', true);
+        updataJson();
+        if (!cum_ModalValobj.isedit) {
+            if (lv_.lv1 != '-1' && lv_.lv2 != '-1' && lv_.lv3 != '-1') {
+                setSelect2({data_: l_1, val_: lv_.lv1, type: true}, {data_: l_2, val_: lv_.lv2, type: true}, {data_: l_3, val_: lv_.lv3, type: true})
+            } else if (lv_.lv1 != '-1' && lv_.lv2 != '-1' && lv_.lv3 == '-1') {
+                var l3_val = [{id: -1, text: '请选择', li_attr: {level: 3, code: '#'}}];
+                $.each(l_3, function (a, b) {
+                    if (b.parent == lv_.lv2) {
+                        l3_val.push(b);
+                    }
+                });
+                setSelect2({data_: l_1, val_: lv_.lv1, type: true}, {data_: l_2, val_: lv_.lv2, type: true}, {data_: l3_val, val_: '-1', type: false})
+            } else if (lv_.lv1 != '-1' && lv_.lv2 == '-1') {
+                var l2_val = [{id: -1, text: '请选择', li_attr: {level: 2, code: '#'}}];
+//                var l3_val = [{id: -1, text: '请选择', li_attr: {level: 3, code: '#'}}];
+                $.each(l_2, function (a, b) {
+                    if (b.parent == lv_.lv1) {
+                        l2_val.push(b);
+                    }
+                });
+                setSelect2({data_: l_1, val_: lv_.lv1, type: true}, {data_: l2_val, val_: '-1', type: false}, {data_: '', val_: '-1', type: true})
+
+            } else {
+                setSelect2({data_: l_1, val_: '-1', type: false}, {data_: '', val_: '', type: true}, {data_: '', val_: '', type: true})
+
+            }
+        }else {
+            setSelect2({data_: l_1, val_: lv_.lv1, type: true}, {data_: l_2, val_: lv_.lv2, type: true}, {data_: l_3, val_: lv_.lv3, type: true})
+        }
+//        }
+        $('#selectxxw2').on('select2:select', function (e) {
+            var v_ = e.params.data.id;
+            if (v_ != '-1') {
+                var leve3d_ = [{id: -1, text: '请选择', li_attr: {level: 3, code: '#'}}];
+                $.each(l_3, function (i, n) {
+                    if (n.parent == v_) {
+                        leve3d_.push(n);
+                    }
+                });
+                $("#selectxxw3").select2('destroy').html('').select2({data: leve3d_}).prop('disabled', false);
+            } else {
+                var leve3d_ = [{id: -1, text: '请选择', li_attr: {level: 3, code: '#'}}];
+                $("#selectxxw3").select2('destroy').html('').select2({data: leve3d_}).prop('disabled', true);
+            }
+        });
+        $('#selectxxw1').on('select2:select', function (e) {
+            var v_ = e.params.data.id;
+            if (v_ != '-1') {
+                var leve2d_ = [{id: -1, text: '请选择', li_attr: {level: 2, code: '#'}}];
+                var leve3d_ = [{id: -1, text: '请选择', li_attr: {level: 3, code: '#'}}];
+                $.each(l_2, function (i, n) {
+                    if (n.parent == v_) {
+                        leve2d_.push(n);
+                    }
+                });
+                $("#selectxxw2").select2('destroy').html('').select2({data: leve2d_}).prop('disabled', false);
+                $("#selectxxw3").select2('destroy').html('').select2({data: leve3d_}).prop('disabled', true);
+            } else {
+                var leve2d_ = [{id: -1, text: '请选择', li_attr: {level: 2, code: '#'}}];
+                var leve3d_ = [{id: -1, text: '请选择', li_attr: {level: 3, code: '#'}}];
+                $("#selectxxw2").select2('destroy').html('').select2({data: leve2d_}).prop('disabled', true);
+                $("#selectxxw3").select2('destroy').html('').select2({data: leve3d_}).prop('disabled', true);
+            }
+        });
+
+        /*资源编码改变*/
+        function changeCode() {
+            var val_1 = $('#selectxxw1').select2('data')[0]?$('#selectxxw1').select2('data')[0].li_attr.code:'#';
+            var val_2 = $('#selectxxw2').select2('data')[0]?$('#selectxxw2').select2('data')[0].li_attr.code:'#';
+            var val_3 = $('#selectxxw3').select2('data')[0]?$('#selectxxw3').select2('data')[0].li_attr.code:'#';
+            $('#allkey').val(val_1 + '.' + val_2 + '.' + val_3 + '.' + $('#ziycode').val())
+        }
+
+        $('#ziycode').keyup(function () {
+            changeCode();
+        });
+        $('#selectxxw1,#selectxxw2,#selectxxw3').on('select2:select', function (e) {
+            console.log($(this).select2('data'))
+            changeCode()
+        });
+        
+        
+
+    }
+    $(function(){
+        var thisI18n = COM_TOOLS._model.set_i18n_fn2('#demobox1','#demoform1','#btn_save');
+        /*保存*/
+        $('#btn_save').click(function () {
+            $('#demoform1').submit();
+        });
+        $('#demoform1').validate({
+            submitHandler: function (form) { //验证通过
+                //to ajax提交表单 并且 状态为成功 （ajax-success && status == 1）后调用下面的save方法
+                thisI18n.save();
+            }
+        });
+    });
+</script>
+</body>
+</html>

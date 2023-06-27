@@ -1,0 +1,1052 @@
+
+
+
+
+<!doctype html>
+<html>
+<head>
+    <link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <script type="text/javascript">
+
+        //系统配置
+        var cus_default_ = {
+            /* --功能配置start-- */
+            /*是否开启调试模式*/
+            "_debug": false,
+            /*自定义菜单开关级打开个数，_customMenu>0为开起菜单及设置个数，0为关闭自定义菜单功能*/
+            "_customMenus": 6,
+            /*控制主页tab标签打开个数,必须为数字*/
+            "_tabSingle": 3,
+            /* contextPath webxml项目包名、路径 */
+            "_contextPath": "",
+            /* 系统默认404页面地址 */
+            "_404Page": "/common/404",
+            /* 系统默认帮助页面地址 */
+            "_helpPage": "../help.html",
+            /* 是否开启帮助信息 */
+            "_isOpenHelpMsg": {
+                "helpBtn": true, //帮助按钮
+                "helpMsgTips": true, //提示信息tips
+                "helpMsgDefVal": true //提示信息text-placeholder
+            },
+            /* 公告信息 */
+            "_isOpenNotice": {
+                "geturl": "/message/showMessage", //获取数据接口地址
+                "seturl": "/message/messageBack", //发送数据接口地址
+                "isDisplay": true, //控制是否显示公告
+                "delayTime": 5, //控制弹出时长 单位:s
+                "requestTime": 1800, //控制每次请求的时长 单位:s; 不能小于10；
+                "infoPageUrl": "/message/detail", //详情页地址
+                "infoListUrl": "/message/myMessage" //消息列表页地址
+            },
+            /* 自定义模块——国际化模块 */
+            "_modelI18nOpt": {
+                "geturl": "/language/initLanguage", //获取数据接口地址
+                "seturl": "/resource/language" //发送数据接口地址
+            },
+            /*是否启用开关控制tab导航条显隐*/
+            "_isOpenSwitch": true,
+            /* --功能配置end-- */
+            /* --组件配置start（谨慎修改）-- */
+            /* 数据表格默认配置 */
+            "_dataTableOpt": {
+                "scrollX": true, //可选是否显示水平滚动条；默认false;
+                "paging": true, //是否显示分页组件
+                "pageLength": 10, //每页显示条数；
+                "lengthChange": false, //是否允许用户改变表格每页显示的记录数，显示条数组件
+                "ordering": false, //是否启用排序组件，优先级高于columns中的排序控制；
+                "searching": false, //是否启用自带搜索组件;
+                "serverSide": true, //服务器模式，排序、搜索、分页均在服务器端实现
+                "processing": true //显示加载中，serverSide=true时生效
+            },
+            /* 日历默认配置 */
+            "_dateTimePickerOpt": {
+                "minView": 2, //只能选择到天
+                "todayBtn": true, //显示今日按钮
+                "autoclose": true,
+                "pickerPosition": "bottom-left",
+                "clearBtn": true,
+                "forceParse": false //当选择器关闭的时候，是否强制解析输入框中的值
+            },
+            /* 数型组件默认配置 */
+            "_jsTreeOpt": {
+                "root": "0" //树形组件根节点ID，谨慎修改；
+            },
+            /* 文件服务相关配置 */
+            "_fileServeOpt": {
+                "fileUploadUrl": "/fileinfo/fileUpload", //文件上传接口
+                "defaultFileSize": 40 * 1024, // 一般文件允许上传的大小，单位：kb
+                "imgFileSize": 10 * 1024, // 图片文件允许上传的大小，单位：kb
+                "fileType": ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "pdf", "jpg", "jpeg", "png", "gif", "rar", "zip"], // 文件类型
+                "imgType": ["jpg", "jpeg", "png", "gif"] // 支持预览的文件类型
+            },
+            /* 通讯录组件 */
+            "_orgTreeOpt": {
+                "treeUrl": "/tmpOrg/getCommunicationBookInfo", //组织树接口地址
+                "searchUrl": "/tmpOrg/searchCommunicationBook", //搜索接口地址
+                "getDataUrl": "/tmpOrg/getOrgAndUserData" //根据id与id类型获取资源详情
+            },
+            /* 强制退出系统配置 */
+            "_forcedExit": {
+                "time": "-1", //-1：无限制；按本次登录持续时长执行,范围[1-24]，数值型，前后包含；按指定时间执行,格式 (01:05),24小时制字符串，凌晨1点05分；
+                "ajaxForm": false //是否全局监听ajax请求是否会话超时,并强制跳转到登录页面;
+            }
+            /* --组件配置end-- */
+        };
+    </script>
+    <!-- mainly css -->
+    <link href="../../css/animate.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/iconfont.css?v=" rel="stylesheet">
+    <link href="../../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../../css/plugins/daterangepicker/daterangepicker.min.css" rel="stylesheet">
+    <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../../css/plugins/select2/select2.min.css" rel="stylesheet">
+    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+
+    <link href="../../css/style.css?v=" id="cus_app_link" rel="stylesheet">
+
+
+    <title>i18ntree</title>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+        }
+
+        .btn-box {
+            line-height: 45px;
+        }
+
+        .jstree-box {
+            float: left;
+            width: 300px;
+            min-height: 100%;
+            background-color: #efefef;
+        }
+
+        #js_tree_cj {
+            padding-bottom: 10px;
+        }
+
+        .jstree-title {
+            line-height: 45px;
+            font-size: 20px;
+        }
+
+        .dt-box {
+            float: left;
+            margin: 0 15px;
+            width: calc(100% - 330px);
+            width: -webkit-calc(100% - 330px);
+            width: -moz-calc(100% - 330px);
+        }
+
+        .cj-ts-inp {
+            margin-left: 50px;
+        }
+
+        .cj-ts-inp > label {
+            vertical-align: middle;
+            margin-left: 4px;
+            cursor: pointer;
+        }
+
+        .mCSB_container_wrapper {
+            margin-right: 16px;
+            margin-bottom: 16px;
+        }
+
+        .mCSB_container_wrapper > .mCSB_container {
+            padding-right: 16px;
+            padding-bottom: 16px;
+        }
+
+        .mCSB_outside + .mCSB_scrollTools {
+            right: -16px;
+        }
+
+        .mCustomScrollBox + .mCSB_scrollTools + .mCSB_scrollTools.mCSB_scrollTools_horizontal {
+            bottom: -10px;
+        }
+
+        .width-150xxw {
+            width: 150px !important;
+        }
+        .hide-inp2 {display:none !important}
+    </style>
+</head>
+<body>
+<div class="jstree-box container-fluid">
+
+    <div class="clearfix row">
+        <div class="col-sm-12 m-b-sm m-t-sm clearfix">
+            <div class="input-group">
+                <input name="name21" id="treevaluex" type="text" class="form-control input-sm">
+                <span class="input-group-btn"><button id="tree_search_btn" type="button" class="btn btn-primary btn-sm">搜索</button></span>
+            </div>
+        </div>
+    </div>
+    <div class="jstree-box-cont">
+        <div id="js_tree_cj"></div>
+    </div>
+</div>
+<div class="dt-box">
+    <div class="row">
+        <div class="col-sm-12 m-b-sm m-t-sm clearfix">
+            <div class="pull-left">
+                <div class="form-inline">
+                    <div class="form-group form-group-sm ">
+                        <label for="formdemo11">平台</label>
+                        <select style="width: 150px" name="sele2" class="form-control input-sm width-150xxw" id="formdemo1">
+                            <option value="-1">全部</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="formdemo12">模块</label>
+                        <select style="width: 150px" name="sele2" class="form-control input-sm width-150xxw" id="formdemo2">
+                            <option value="-1">全部</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label for="formdemo13">分类</label>
+                        <select style="width: 150px" name="sele2" class="form-control input-sm" id="formdemo3">
+                            <option value="-1">全部</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-sm cj-ts-inp">
+                        <input type="checkbox" id="seleid5"><label for="seleid5"> 解除约束</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 m-b-sm m-t-sm clearfix">
+            <div class="pull-left">
+                <div class="form-inline">
+                    <div class="form-group form-group-sm">
+                        <label for="codeinput">资源编码</label>
+                        <input id="code" type="text" class="form-control input-sm">
+                        <label for="codeinput">名称</label>
+                        <input id="context" type="text" class="form-control input-sm">
+                    </div>
+                    <button type="button" class="btn btn-success btn-sm" id="searchBtn">搜索</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="btn_reset">
+                        重置<!-- 重置 -->
+                    </button>
+                </div>
+            </div>
+            <div class="pull-right">
+
+                <button class="btn btn-primary btn-sm" type="button" id="cumBtn_add"><i class="glyphicon glyphicon-plus"></i> 新建</button>
+
+
+                <button class="btn btn-success btn-sm" type="button" id="cumBtn_edit"><i class="glyphicon glyphicon-pencil"></i> 修改</button>
+
+                <button class="btn btn-success btn-sm" type="button" id="cumBtn_export"><i class="fa fa-pencil"></i> 刷新缓存</button>
+                <div id="drop-gengduo" class="dropdown" style="position: relative;display: inline-block;">
+                    <button class="btn btn-warning btn-sm" type="button" data-hover="dropdown"
+                            id="cumBtn_gengduo"><i class="fa fa-list-ul"></i> 更多
+                    </button>
+                    <div class="dropdown-menu p-sm dropdown-menu-right " role="menu">
+                        <button id="loadMode" type="button" class="btn btn-sm  btn-info btn-block">下载文件模板</button>
+
+                        <button class="btn btn-danger btn-sm btn-block" type="button" id="cumBtn_delete"><i class="glyphicon glyphicon-trash"></i> 删除</button>
+
+                        <button class="btn btn-success btn-sm btn-block" type="button" id="cumBtn_excel"><i class="fa fa-pencil "></i> 导出</button>
+                        <button id="selectBtn2" type="button" class="btn btn-sm btn-info btn-block">选择文件并上传</button>
+                        <input id="inpFile2" class="hide-inp2" type="file"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="js_dt_cj" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/bootstrap-plugins-custom.js?v="></script>
+<script src="../../js/plugins/datatables/datatables.min.js?v="></script>
+<script src="../../i18n/zh-CN.js?v="></script>
+<script src="../../js/plugins/moment/moment.min.js"></script>
+<script src="../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="../../js/plugins/daterangepicker/daterangepicker.min.js"></script>
+<script src="../../js/plugins/iCheck/icheck.min.js"></script>
+<script src="../../js/plugins/select2/select2.full.min.js"></script>
+<script src="../../js/plugins/validate/jquery.validate.custom.min.js?v="></script>
+<script src="../../js/plugins/layer/layer.js?v="></script>
+<script src="../../js/plugins/jsTree/jstree.min.js"></script>
+<script src="../../js/subindex.min.js?v="></script>
+
+
+
+<script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../../js/plugins/webUploader/webuploader.min.js"></script>
+<script type="text/javascript">
+
+    //初始化更多按钮
+    $('[data-hover="dropdown"]').dropdownHover();
+    var jstree_;
+
+    function initselect2Fun(dataarr) {
+        $.each(dataarr,function(i,n){
+            $('#formdemo'+(i+1)).select2('destroy').html('').select2({data: n});
+        })
+    }
+    /*是否禁用select2*/
+    function checkSelect2Fun(flag){
+        $('#formdemo1,#formdemo2,#formdemo3').prop('disabled', flag);
+    }
+    var data_3 = '[{"parent":"100001","li_attr":{"code":"100002","level":2},"id":"100001.100002","text":"100002"},{"parent":"0","li_attr":{"code":" example","level":1},"id":" example","text":" example"},{"parent":"platform.international","li_attr":{"code":"label","level":3},"id":"platform.international.label","text":"label"},{"parent":"clatform","li_attr":{"code":"common","level":2},"id":"clatform.common","text":"common"},{"parent":"clatform.common","li_attr":{"code":"button","level":3},"id":"clatform.common.button","text":"button"},{"parent":"platform.common","li_attr":{"code":"btn","level":3},"id":"platform.common.btn","text":"btn"},{"parent":"platform.job","li_attr":{"code":"label","level":3},"id":"platform.job.label","text":"label"},{"parent":"platform.orgnazation","li_attr":{"code":"name","level":3},"id":"platform.orgnazation.name","text":"name"},{"parent":"platform.system","li_attr":{"code":"btn","level":3},"id":"platform.system.btn","text":"btn"},{"parent":"rs.qq","li_attr":{"code":"te","level":3},"id":"rs.qq.te","text":"te"},{"parent":"platform.role","li_attr":{"code":"name","level":3},"id":"platform.role.name","text":"name"},{"parent":"platform.plugin","li_attr":{"code":"datetimepicker","level":3},"id":"platform.plugin.datetimepicker","text":"datetimepicker"},{"parent":"rs","li_attr":{"code":"qq","level":2},"id":"rs.qq","text":"qq"},{"parent":"example.student","li_attr":{"code":"label","level":3},"id":"example.student.label","text":"label"},{"parent":"blatform","li_attr":{"code":"common","level":2},"id":"blatform.common","text":"common"},{"parent":"0","li_attr":{"code":"plat","level":1},"id":"plat","text":"plat"},{"parent":" example","li_attr":{"code":"student","level":2},"id":" example.student","text":"student"},{"parent":"platform.file","li_attr":{"code":"label","level":3},"id":"platform.file.label","text":"label"},{"parent":"platform.plugin","li_attr":{"code":"com_label","level":3},"id":"platform.plugin.com_label","text":"com_label"},{"parent":"bs","li_attr":{"code":"pl","level":2},"id":"bs.pl","text":"pl"},{"parent":"platform","li_attr":{"code":"plugin","level":2},"id":"platform.plugin","text":"plugin"},{"parent":"platform.common","li_attr":{"code":"label","level":3},"id":"platform.common.label","text":"label"},{"parent":"platform.plugin","li_attr":{"code":"dataTable","level":3},"id":"platform.plugin.dataTable","text":"dataTable"},{"parent":"0","li_attr":{"code":"blatform","level":1},"id":"blatform","text":"blatform"},{"parent":"alatform","li_attr":{"code":"common","level":2},"id":"alatform.common","text":"common"},{"parent":"platform.system","li_attr":{"code":"menu","level":3},"id":"platform.system.menu","text":"menu"},{"parent":"platform.plugin","li_attr":{"code":"jtree","level":3},"id":"platform.plugin.jtree","text":"jtree"},{"parent":"platform.plugin","li_attr":{"code":"msg","level":3},"id":"platform.plugin.msg","text":"msg"},{"parent":"platform.basic","li_attr":{"code":"msg","level":3},"id":"platform.basic.msg","text":"msg"},{"parent":"platform.plugin","li_attr":{"code":"validate","level":3},"id":"platform.plugin.validate","text":"validate"},{"parent":"bs.pl","li_attr":{"code":"ta","level":3},"id":"bs.pl.ta","text":"ta"},{"parent":"platform.plugin","li_attr":{"code":"com_msg","level":3},"id":"platform.plugin.com_msg","text":"com_msg"},{"parent":"platform.common","li_attr":{"code":"menu","level":3},"id":"platform.common.menu","text":"menu"},{"parent":"platform.resource","li_attr":{"code":"msg","level":3},"id":"platform.resource.msg","text":"msg"},{"parent":"0","li_attr":{"code":"rs","level":1},"id":"rs","text":"rs"},{"parent":"platform.international","li_attr":{"code":"menu","level":3},"id":"platform.international.menu","text":"menu"},{"parent":"platform.common","li_attr":{"code":"button","level":3},"id":"platform.common.button","text":"button"},{"parent":"platform.i18n","li_attr":{"code":"label","level":3},"id":"platform.i18n.label","text":"label"},{"parent":"platform.system","li_attr":{"code":"label","level":3},"id":"platform.system.label","text":"label"},{"parent":"alatform.common","li_attr":{"code":"button","level":3},"id":"alatform.common.button","text":"button"},{"parent":"platform.plugin","li_attr":{"code":"tour","level":3},"id":"platform.plugin.tour","text":"tour"},{"parent":"0","li_attr":{"code":"platform","level":1},"id":"platform","text":"platform"},{"parent":"platform","li_attr":{"code":"file","level":2},"id":"platform.file","text":"file"},{"parent":"platform.plugin","li_attr":{"code":"help","level":3},"id":"platform.plugin.help","text":"help"},{"parent":"0","li_attr":{"code":"example","level":1},"id":"example","text":"example"},{"parent":"platform","li_attr":{"code":"role","level":2},"id":"platform.role","text":"role"},{"parent":"0","li_attr":{"code":"bs","level":1},"id":"bs","text":"bs"},{"parent":"platform.organization","li_attr":{"code":"name","level":3},"id":"platform.organization.name","text":"name"},{"parent":"platform.basic","li_attr":{"code":"help","level":3},"id":"platform.basic.help","text":"help"},{"parent":"plat","li_attr":{"code":"a","level":2},"id":"plat.a","text":"a"},{"parent":"plat","li_attr":{"code":"b","level":2},"id":"plat.b","text":"b"},{"parent":"platform","li_attr":{"code":"orgnazation","level":2},"id":"platform.orgnazation","text":"orgnazation"},{"parent":"platform.international","li_attr":{"code":"msg","level":3},"id":"platform.international.msg","text":"msg"},{"parent":"platform","li_attr":{"code":"i18n","level":2},"id":"platform.i18n","text":"i18n"},{"parent":"platform","li_attr":{"code":"common","level":2},"id":"platform.common","text":"common"},{"parent":"platform","li_attr":{"code":"resource","level":2},"id":"platform.resource","text":"resource"},{"parent":"platform.common","li_attr":{"code":"msg","level":3},"id":"platform.common.msg","text":"msg"},{"parent":"platform.common","li_attr":{"code":"project","level":3},"id":"platform.common.project","text":"project"},{"parent":"platform.plugin","li_attr":{"code":"com_btn","level":3},"id":"platform.plugin.com_btn","text":"com_btn"},{"parent":"0","li_attr":{"code":"alatform","level":1},"id":"alatform","text":"alatform"},{"parent":"platform.system","li_attr":{"code":"msg","level":3},"id":"platform.system.msg","text":"msg"},{"parent":"0","li_attr":{"code":"clatform","level":1},"id":"clatform","text":"clatform"},{"parent":"blatform.common","li_attr":{"code":"button","level":3},"id":"blatform.common.button","text":"button"},{"parent":"platform.basic","li_attr":{"code":"label","level":3},"id":"platform.basic.label","text":"label"},{"parent":"0","li_attr":{"code":"cs","level":1},"id":"cs","text":"cs"},{"parent":"100001.100002","li_attr":{"code":"10001","level":3},"id":"100001.100002.10001","text":"10001"},{"parent":"cs.bnm","li_attr":{"code":"kk","level":3},"id":"cs.bnm.kk","text":"kk"},{"parent":"platform","li_attr":{"code":"organization","level":2},"id":"platform.organization","text":"organization"},{"parent":"platform","li_attr":{"code":"system","level":2},"id":"platform.system","text":"system"},{"parent":"platform","li_attr":{"code":"job","level":2},"id":"platform.job","text":"job"},{"parent":"rs","li_attr":{"code":"bb","level":2},"id":"rs.bb","text":"bb"},{"parent":"platform","li_attr":{"code":"international","level":2},"id":"platform.international","text":"international"},{"parent":"platform.plugin","li_attr":{"code":"select2","level":3},"id":"platform.plugin.select2","text":"select2"},{"parent":"0","li_attr":{"code":"100001","level":1},"id":"100001","text":"100001"},{"parent":"example","li_attr":{"code":"student","level":2},"id":"example.student","text":"student"},{"parent":"cs","li_attr":{"code":"bnm","level":2},"id":"cs.bnm","text":"bnm"},{"parent":" example.student","li_attr":{"code":"label","level":3},"id":" example.student.label","text":"label"},{"parent":"platform","li_attr":{"code":"basic","level":2},"id":"platform.basic","text":"basic"}]';
+    data_3= JSON.parse(data_3);
+    if(!data_3.length>0){
+        data_3.push({id: -1,parent:0, text: '虚拟数据', li_attr: {level: 1, code: '#'}})
+    }
+/*构造sellect2数据*/
+    function getlvData(o,lv){
+        return [{id: o.a, text: o.b, li_attr: {level: o.c||lv, code: o.d}}];
+    }
+    function getdataOvj (o){
+        return {
+            a:o.id,
+            b:o.text,
+            c:o.li_attr.level||lv,
+            d:o.li_attr.code
+        }
+    }
+    var obj11 = {a:-1,b:'全部',c:"",d:'#'};//select2空数据是构造使用
+    $(function () {
+        /* 滚动条 */
+        var bodyH_ = $('body').height();
+        $(".jstree-box-cont").mCustomScrollbar({setWidth: '270', setHeight: bodyH_ - 65, axis: 'yx', scrollbarPosition: 'outside', theme: "dark-3"});
+        var deptArr = {}, old_id;
+        var treeObjList = {
+            editFunc: function (tit, url_, node_, ref) {//重命名节点  tit:弹框标题,url,弹框路径.此处需要url透传数据
+                cumParentWinModal(tit, url_, {
+                    'area': ['800px', '800px'],
+                    'callid': {'node': node_, 'ref': ref},
+                    'callback': {fn2: 'fn1'}
+                });
+                COM_TOOLS.setCacheFnForChildWin({fn1: saveFun});
+            },
+            create: function (node_, ref,type_,p_id) {
+                if (!node_.length) {
+                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]);//请选择节点
+                    return false;
+                }
+                if (type_) {  //添加同级节点
+                    treeObjList.editFunc(TEDU_MESSAGE.get('platform.plugin.jtree.JTmo_tit'), ['/i18ntree/toSaveOrEditPage?new_or_edit=create&pid='+node_],node_,ref);
+                }else{ //增加子节点
+                    treeObjList.editFunc(TEDU_MESSAGE.get('platform.plugin.jtree.JTmo_tit'), ['/i18ntree/toSaveOrEditPage?new_or_edit=create&pid='+node_],node_,ref);
+                }
+            },
+            /*        rename: function (node_, ref) {
+                        if (!node_['id'].length) {
+                            COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]);//请选择节点
+                            return false;
+                        }
+                        treeObjList.editFunc(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_tit"], ['/i18ntree/toSaveOrEditPage?new_or_edit=edit&id='+node_['id']+'&pid='+node_['parent']], node_, ref);
+                    },*/
+            del: function (node_, ref) {
+                if (!node_.id.length) {
+                    COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTsel_node"]);
+                    return false;
+                }
+                /*'delConfirm':确认删除吗?*/
+                COM_TOOLS.confirm(TEDU_MESSAGE.get('platform.common.msg.delete_confirm'), function (index) {
+                    cumCloseWin(index);
+                    var n1_ = node_;
+                    $.ajax({
+                        url:'/i18ntree/delete',
+                        type:'post',
+                        data:{
+                            'id':node_['id'],
+                            'code':node_.li_attr.code
+                        },
+                        success:function (data) {
+                            console.log(data)
+                            if(data >= 1){
+                                COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.success'));
+                                var i_;
+                                $.each(data_3,function(i,n){
+                                    if(node_['id']==n.id){
+                                        i_=i
+                                    }
+                                })
+                                ref.delete_node(node_);
+                                data_3.splice(i_, 1);
+                                updataJson();
+                                var l_ = n1_.li_attr.level;
+                                switch(l_){
+                                    case 1:
+                                        initselect2Fun([level1data_, level2data_, level3data_]);
+                                        checkSelect2Fun(true)
+                                        break;
+                                    case 2:
+                                        len1Fun(ref_.get_node(n1_.parent));
+                                        ref.select_node(n1_.parent)
+                                        break;
+                                    case 3:
+                                        len2Fun(ref_.get_node(n1_.parent));
+                                        ref.select_node(n1_.parent)
+                                }
+                                ref_.deselect_all();
+                            }else{
+                                COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.'+data));
+                            }
+                        }
+                    });
+                });
+            }
+        };
+        function updatanode(obj){
+            var n1_ = ref_.get_node(obj.obj.id);
+            var l_ = obj.obj.li_attr.level;
+            switch(l_){
+                case 1:
+                    len1Fun(n1_);
+                    break;
+                case 2:
+                    len2Fun(n1_);
+                    break;
+                case 3:
+                    len3Fun(n1_);
+            }
+        }
+        function saveFun(obj) {
+            if (obj.editNum == 'create') {
+                obj['ref'].create_node(obj['node'],obj.obj);
+                obj['ref'].open_node(obj['node']);
+                data_3.push(obj.obj);
+                updataJson();
+                updatanode(obj)
+                ref_.deselect_all();
+                ref_.select_node(obj.obj.id);
+
+
+                searchParemOBj_ = {'code': getCode()};
+                DT_.setAjaxData(searchParemOBj_);
+            } else if (obj.editNum == 'edit') {
+                var node_2 = ref_.get_node(obj['node'])
+                obj['ref'].set_text(node_2, obj['obj'].text);//更改节点内容
+
+                $.each(data_3,function(i,n){
+                    if(obj.obj.id==n.id){
+                        n.text=obj.obj.text;
+                    }
+                })
+                updataJson();
+                updatanode(obj)
+                //ref_.deselect_all();
+                //ref_.select_node(obj.obj.id);
+            }
+        };
+
+        var ref_;
+        /*全量分级级数据 循环用*/
+        var l_1 = [],
+            l_2 = [],
+            l_3 = [];
+        var level1data_ = [], //全量 带全部 解除约束状态下使用
+            level2data_ = [],
+            level3data_ = [];
+        /*去重数据*/
+        var dell_1 = [],
+            dell_2 = [],
+            dell_3 = [];
+
+        /*更新数据*/
+        function updataJson() {
+            l_1 = [],
+                l_2 = [],
+                l_3 = [],
+                dell_1 = [],
+                dell_2 = [],
+                dell_3 = [];
+            var level1data_ = getlvData(obj11,1);
+            var level2data_ =  getlvData(obj11,2);
+            var level3data_ =  getlvData(obj11,3);
+            function fenFun(l_arr,level_arr,del_arr,b){
+                l_arr.push(b);
+                var k_ = true;
+                $.each(level_arr, function (i, n) {
+                    if (n.li_attr.code == b.li_attr.code) {
+                        k_ = false;
+                        return k_;
+                    }
+                });
+                if (k_) {
+                    del_arr.push(b);
+                    level_arr.push(b);
+                }
+            }
+            $.each(data_3, function (a, b) {
+                switch (b.li_attr.level) {
+                    case 1:
+                        fenFun(l_1,level1data_,dell_1,b);
+                        break;
+                    case 2:
+                        fenFun(l_2,level2data_,dell_3,b);
+                        break;
+                    case 3:
+                        fenFun(l_3,level3data_,dell_3,b);
+                        break;
+                }
+            });
+
+        }
+
+        updataJson();
+
+        $('#formdemo1').select2({
+            data: level1data_
+        });
+        $('#formdemo2').select2({
+            data: level2data_
+        });
+        $('#formdemo3').select2({
+            data: level3data_
+        });
+        $('#seleid5').change(function () {
+
+            initselect2Fun([level1data_, level2data_, level3data_]);
+            jstree_.jstree(true).deselect_all();
+            if ($(this).is(':checked')) {
+                checkSelect2Fun(false);
+            } else {
+                checkSelect2Fun(true)
+            }
+        });
+        function setdataFun(eacharr1,eacharr2,levearr1,levearr2,id_){
+            $.each(eacharr1, function (i, n) {
+                if (n.parent == id_) {
+                    levearr1.push(n);
+                    $.each(eacharr2, function (a, b) {
+                        if (b.parent == n.id) {
+                            var k_ = true;
+                            $.each(levearr2, function (j, m) {
+                                if (b.li_attr.code == m.li_attr.code) {
+                                    k_ = false;
+                                    return k_
+                                }
+                            });
+                            if (k_) {
+                                levearr2.push(b)
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        $('#formdemo1').on('select2:select', function (e) {
+            //拿到选中项的value值
+            var v_ = e.params.data.id;
+            if (v_ != '-1') {//判断是否选中的是全部
+                var leve2d_ =  getlvData(obj11,2);
+                var leve3d_ =  getlvData(obj11,3);
+                setdataFun(l_2,l_3,leve2d_,leve3d_,v_);
+                $("#formdemo2").select2('destroy').html('').select2({data: leve2d_});
+                $("#formdemo3").select2('destroy').html('').select2({data: leve3d_});
+                ref_.deselect_all();
+                ref_.select_node(v_, false);
+            } else {
+                ref_.deselect_all();
+                $("#formdemo2").select2('destroy').html('').select2({data: level2data_});
+                $("#formdemo3").select2('destroy').html('').select2({data: level3data_});
+            }
+        });
+        $('#formdemo2').on('select2:select', function (e) {
+            //var v_ = e.params.data.id;
+            var v_=$(this).val();
+            if (!$('#seleid5').is(':checked')) {//未解除束状态
+                if (v_ != '-1') {
+                    var leve3d_ =  getlvData(obj11,3);
+                    $.each(l_3, function (i, n) {
+                        if (n.parent == v_) {
+                            leve3d_.push(n);
+                        }
+                    });
+                    ref_.deselect_all();
+                    ref_.select_node(v_, false);
+                    $("#formdemo3").select2('destroy').html('').select2({data: leve3d_});
+                } else {
+                    var leve3d_ =  getlvData(obj11,3);
+                    var v2_ = $('#formdemo1').val();
+                    $.each(l_2, function (i, n) {
+                        if (n.parent == v2_) {
+                            $.each(l_3, function (a, b) {
+                                if (b.parent == n.id) {
+                                    leve3d_.push(b)
+                                }
+                            });
+                        }
+                    });
+                    ref_.deselect_all();
+                    ref_.select_node(v2_, false);
+                    $("#formdemo3").select2('destroy').html('').select2({data: leve3d_});
+                }
+            } else {
+                /*解除约束状态*/
+                if (v_ != '-1') {
+                    if ($("#formdemo1").val() != '-1') {
+                        var leve3d_ =  getlvData(obj11,3);
+                        $.each(l_3, function (i, n) {
+                            if (n.parent == v_) {
+                                leve3d_.push(n);
+                            }
+                        });
+                        ref_.deselect_all();
+                        ref_.select_node(v_, false);
+                        $("#formdemo3").select2('destroy').html('').select2({data: leve3d_});
+                    }
+                } else {
+                    if ($("#formdemo1").val() != '-1') {
+                        // alert(1)
+                        var leve3d_ =  getlvData(obj11,3);
+                        $.each(l_2, function (i, n) {
+                            if (n.parent == $("#formdemo1").val()) {
+                                $.each(l_3, function (a, b) {
+                                    if (b.parent == n.id) {
+                                        leve3d_.push(b)
+                                    }
+                                });
+                            }
+                        });
+                        ref_.deselect_all();
+                        ref_.select_node(v_, false);
+                        $("#formdemo3").select2('destroy').html('').select2({data: leve3d_});
+                    }
+                }
+            }
+        });
+        $('#formdemo3').on('select2:select', function (e) {
+            var v_ = e.params.data.id;
+            if (!$('#seleid5').is(':checked')) {
+                if (v_ != '-1') {
+                    if ($('#formdemo2').val() != '-1') {
+                        ref_.deselect_all();
+                        ref_.select_node(v_, false);
+                    }
+                } else {
+                    var val_ = $('#formdemo2').val() == '-1' ? $('#formdemo1').val() : $('#formdemo2').val()
+                    ref_.deselect_all();
+                    ref_.select_node(val_, false);
+                }
+            }
+        });
+
+        function len1Fun(n_){
+            var leve1d_ = getlvData(obj11,1);
+            var leve2d_ =  getlvData(obj11,2);
+            var leve3d_ =  getlvData(obj11,3);
+            leve1d_.push({id: n_.id, text: n_.text, li_attr: {level: n_.li_attr.level, code: n_.li_attr.code}});
+            setdataFun(l_2,l_3,leve2d_,leve3d_,n_.id);
+            initselect2Fun([leve1d_, leve2d_, leve3d_]);
+            $('#formdemo1').val(n_.id).trigger('change.select2');
+            $('#formdemo1').prop('disabled', true);
+            $('#formdemo2,#formdemo3').prop('disabled', false);
+        }
+
+        function len2Fun(n_){
+            var p_ = ref_.get_node(n_.parent);
+            var leve1d_ = getlvData(getdataOvj(p_)),
+                leve2d_ = getlvData(getdataOvj(n_)),
+                leve3d_ = getlvData({a:-1,b:'全部',c:"",d:'#'},3);
+            $.each(l_3, function (i, n) {
+                if (n.parent == n_.id) {
+                    leve3d_.push(n);
+                }
+            });
+            initselect2Fun([leve1d_, leve2d_, leve3d_]);
+            $('#formdemo1,#formdemo2').prop('disabled', true);
+            $('#formdemo3').prop('disabled', false);
+            $('#formdemo1').val(p_.id).trigger('change.select2');
+            $('#formdemo2').val(n_.id).trigger('change.select2');
+        }
+        function len3Fun(n_){
+            var p_ = ref_.get_node(n_.parent),
+                p_p = jstree_.jstree(true).get_node(p_.parent);
+            var leve1d_ = getlvData(getdataOvj(p_p)),
+                leve2d_ = getlvData(getdataOvj(p_)),
+                leve3d_ = getlvData(getdataOvj(n_));
+            initselect2Fun([leve1d_, leve2d_, leve3d_]);
+            checkSelect2Fun(true);
+            $('#formdemo1').val(p_p.id).trigger('change.select2');
+            $('#formdemo2').val(p_.id).trigger('change.select2');
+            $('#formdemo3').val(n_.id).trigger('change.select2');
+        }
+        var to_ = false;
+        $('#tree_search_btn').click(function () {
+            if (to_) {
+                clearTimeout(to_);
+            }
+            to_ = setTimeout(function () {
+                var v = $('#treevaluex').val();
+                ref_.search(v); //搜索
+            }, 250);
+        });
+        $('#treevaluex').keypress(function(e){
+            if(e.keyCode===13){
+                $('#tree_search_btn').trigger('click');
+            }
+        })
+        function getSelectVal(i){
+            return $('#formdemo'+i).select2('data')[0].li_attr.code=='#'?'': $('#formdemo'+i).select2('data')[0].li_attr.code;
+        }
+        function getCode(){
+            var val_2 = getSelectVal(2);
+            var val_3 = getSelectVal(3);
+            var val_str = getSelectVal(1)+'.';
+            if(val_2){
+                val_str+=getSelectVal(2)+'.'
+            }
+            if(val_3){
+                val_str+=getSelectVal(3)+'.'
+            }
+            return val_str;
+        }
+        COM_TOOLS.requireJsFn(['jstree'],[],function(){
+            jstree_ = $('#js_tree_cj').jstree({
+                'core': {
+                    "check_callback": true,
+                    'data': data_3
+                }, 'contextmenu': {
+                    show_at_node: false,
+                    items: function (node) {
+                        var temp = {
+                            "add_c": {
+                                "icon": 'glyphicon glyphicon-asterisk',
+                                "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTaddn_node"],
+                                "separator_after": true,//表示在此项之后是否应该有分隔符
+                                "_disabled": function () {  //菜单禁止操作
+                                    return node.parents.length > 2||node.id==-1;
+                                },
+                                "action": function (data) {
+                                    treeObjList.create(node.id, $('#js_tree_cj').jstree(true),false,node.parent);
+                                }
+                            },
+                            "add_b": {
+                                "icon": 'glyphicon glyphicon-asterisk',
+                                "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTaddb_node"],
+                                "separator_after": true,
+                                "action": function (data) {
+                                    treeObjList.create(node.parent, $('#js_tree_cj').jstree(true),true);
+                                },
+                                /* "_disabled": function () {  //菜单禁止操作
+                                    return node.parent == 0;
+                                } */
+                            },
+                            /*                    "rename": {
+                                                    "icon": 'glyphicon glyphicon-pencil',
+                                                    "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTrename_node"],
+                                                    "separator_after": true,
+                                                    "action": function (data) {
+                                                        treeObjList.rename(node, $('#js_tree_cj').jstree(true));
+                                                    }
+                                                },*/
+                            "del": {
+                                "icon": 'glyphicon glyphicon-remove',
+                                "label": LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTdel_node"],
+                                "separator_after": true,
+                                "action": function (data) {
+                                    var childL_ = node.children.length;
+                                    if (childL_ > 0) {
+                                        COM_TOOLS.alert(LOCAL_MESSAGE_DATA["platform.plugin.jtree.JTr_notdel"]);
+                                        return false;
+                                    }
+                                    treeObjList.del(node, $('#js_tree_cj').jstree(true));
+                                }
+                            }
+                        }
+                        return temp;
+                    }
+                },
+                "search": {
+                    show_only_matches: true,//只显示搜索到的数据
+                    show_only_matches_children: true, //是否可显示搜索到节点的子节点,默认为false不可显示
+                },
+                'types': {  //可自定义树的图标
+                    'default': {
+                        'icon': 'text-info tedufont tedu-icon43'
+                    },
+                    'root': {
+                        'icon': 'text-danger tedufont tedu-icon6'
+                    }
+                },
+                'plugins': ['types', 'contextmenu', "search"]   //dnd开启拖拽功能
+            }).on('ready.jstree', function (e, n) {     /* jstree-绑定 */
+                ref_ = jstree_.jstree(true);
+                var str_id = l_1[0].id;
+                ref_.select_node([str_id], false, false);//tree加载完之后让a1,b2 节点选中
+                old_id = str_id;
+                var leve1d_ = getlvData(obj11,1),
+                    leve2d_ =  getlvData(obj11,2),
+                     leve3d_ =  getlvData(obj11,3);
+                var node1 = ref_.get_node(str_id);
+                leve1d_.push({id: node1.id, text: node1.text, li_attr: {level: node1.li_attr.level, code: node1.li_attr.code}});
+                setdataFun(l_2,l_3,leve2d_,leve3d_,str_id);
+                initselect2Fun([leve1d_, leve2d_, leve3d_]);
+                $('#formdemo1').prop('disabled', true);
+                $('#formdemo1').val(str_id).trigger('change.select2');
+
+                refreshDT({'code': getCode()});  //第一次时需要启用
+            }).on('activate_node.jstree', function (e, data) {  //用 select_node.jstree 时,通过 select_node() 方法调用时会报错 data.event 未定义
+                var n_ = data.node;
+
+                //if (data.event.which == 1) {
+                if ($('#seleid5').is(':checked')) {
+                    $('#seleid5').prop('checked', false);
+                }
+                var len_ = n_.parents.length;
+                if (len_ == 1) {
+                    len1Fun(n_)
+                } else if (len_ == 2) {
+                    len2Fun(n_)
+                } else {
+                    len3Fun(n_)
+                }
+
+                var id_ = data.node.id;
+
+                if (old_id != id_) {
+                    old_id = id_;
+                    searchParemOBj_ = {'code': getCode()};
+                    DT_.setAjaxData(searchParemOBj_);
+                }
+                //}
+            }).on('move_node.jstree', function (e, data) {
+                var id_ = data.node.id;
+                deptArr['cj_' + id_] = {'tar_id': id_, 'parent': data['parent'], 'old_parent': data['old_parent']};
+            });
+        });
+        /*datatable*/
+        var DT_ = {}, searchParemOBj_ = {};
+
+        function refreshDT(obj) {
+            var dt_data = [
+                {"data":null,
+                    "title": '序号',
+                    "className": "text-center",
+                    "width" : "30px",
+                    "render" : function (data, type, row, meta) {
+                        var startIndex = meta.settings._iDisplayStart;
+                        return startIndex + meta.row + 1;
+                    }
+                },
+                {"data": "code",
+                    "title":'资源编码' ,
+                    "width" : "500px",
+                }
+            ];
+            $.get('/countryResource/dycimoList',function(d){
+                if(d){
+                    DT_ = COM_TOOLS.DT_init('js_dt_cj',
+                        dt_data.concat(d),
+                        '/countryResource/list',
+                        'post',
+                        obj,
+                        {
+                            selectStyle: "os",
+                            other:{
+                                fixedColumns: {//锁定左侧1列
+                                    leftColumns: 2,
+                                },
+                                pagingType : "simple_inputAndPages"
+                            }
+                        });
+                }
+            })
+
+        };
+
+        $('#includsub').click(function () {
+            if ($(this).prop('checked')) {
+                searchParemOBj_ = {'xxx': 'xxx'};
+                DT_.setAjaxData(searchParemOBj_);
+            } else {
+                searchParemOBj_ = {'id': old_id};
+                DT_.setAjaxData(searchParemOBj_);
+            }
+        });
+
+        $('#cumBtn_add').click(function () {    //添加
+            var statetype = $('#seleid5').is(':checked') ? true : false;
+            var lvobj = {
+                lv1: $('#formdemo1').val(),
+                lv2: $('#formdemo2').val(),
+                lv3: $('#formdemo3').val()
+            };
+            cumParentWinModal('新建', '/countryResource/toSaveOrEditPage?id=0&new_or_edit=create', {
+                "scrollbar": true, 'area': ['80%', '80%'], callid: {isedit: false, allData: data_3, statetype: statetype, lvobj: lvobj}, "success": function (layero, ind_) {
+                    var iWin_ = parent[layero.find('iframe')[0]['name']];
+                    iWin_.allFun();
+                },end:function(){COM_TOOLS.DT_ajaxReload(DT_.table);},
+                other:{"noTriEnd":true}
+            }); //在父窗口中打开弹窗并显示最大化按钮
+        });
+        $('#cumBtn_edit').click(function () {   //修改
+            var ids =  DT_.getSelectRowsData('id');
+            if(ids.length != 1){
+                COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.choose_data'));
+                return false;
+            }
+            id = ids.join(",");
+            cumParentWinModal('修改', '/countryResource/toSaveOrEditPage?id='+id+'&new_or_edit=edit', {
+                "scrollbar": true, 'area': ['80%', '80%'], "callid": {isedit: true, allData: data_3, statetype: true, lvobj:"",editid:DT_.getSelectRowsData('DT_RowId')[0]}, "success": function (layero, ind_) {
+                    var iWin_ = parent[layero.find('iframe')[0]['name']];
+                    iWin_.allFun();
+                },end:function(){COM_TOOLS.DT_ajaxReload(DT_.table);},
+                other:{"noTriEnd":true}
+            }); //在父窗口中打开弹窗并显示最大化按钮
+        });
+        //删除
+        $('#cumBtn_delete').click(function(){
+            var ids =  DT_.getSelectRowsData('id');
+            if(ids.length != 1){
+                COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.choose_data'));
+                return false;
+            }
+            id = ids.join(",");
+            COM_TOOLS.confirm(TEDU_MESSAGE.get('platform.common.msg.delete_confirm'),function(){
+                $.ajax({
+                    type: "post",
+                    url: "/countryResource/delete",
+                    data: {
+                        'id' : id
+                    },
+                    success: function (data) {
+                        if (data == 1) {
+                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.success'));
+                            COM_TOOLS.DT_ajaxReload(DT_.table);  //加载列表
+                        }else{
+                            COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.'+data), {time: 5000});
+                        }
+                    },
+                    error: function () {
+                        COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.exception'));
+                    }
+                });
+            });
+        });
+
+        //搜索
+        $('#searchBtn').click(function(){
+            searchParemOBj_['code']=$.trim($('#code').val());
+            searchParemOBj_['context']=$.trim($('#context').val());
+            searchParemOBj_['selectCode']=getCode();
+            DT_.setAjaxData(searchParemOBj_);
+        });
+        $('#code,#context').keypress(function(e){
+            if(e.keyCode===13){
+                $('#searchBtn').trigger('click');
+            }
+        });
+        // 重置按钮
+        $('#btn_reset').click(function() {
+            $('#code').val("");
+            $('#context').val("");
+        });
+
+        //刷新缓存导出js
+        $('#cumBtn_export').click(function(){
+            $.ajax({
+                type: "post",
+                url: "/language/export",
+                success: function (data) {
+                    COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.success'));
+                },
+                error: function () {
+                    COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.exception'));
+                }
+            })
+        });
+        //下载文件模板
+        $("#loadMode").click (function(){
+            window.location.href = "/countryResource/loadMode";
+        });
+
+        var uploader2 = WebUploader.create({
+            //swf文件路径
+            swf: '../../js/plugins/webUploader/Uploader.swf',
+            //文件接收服务端。
+            server: '/language/up',
+            //设置文件上传域的name
+            fileVal:'mFile',
+            //验证文件总数量, 超出则不允许加入队列
+            fileNumLimit:1,
+            accept:{
+                extensions: 'xlsx,xls',
+            }
+        });
+        uploader2.on('uploadSuccess', function(file,re) {
+            console.log(re);
+            if(re['code']>0){
+                COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.success'));
+                COM_TOOLS.DT_ajaxReload(DT_.table);
+            }else{
+                COM_TOOLS.alert(TEDU_MESSAGE.get('platform.common.msg.defeated'));
+            }
+            $('#selectBtn2').removeAttr('disabled');
+        }).on('error',function(type){
+            if (type == 'Q_EXCEED_NUM_LIMIT') {
+                top.COM_TOOLS.alert("文件数量超出限制");
+            }
+            if (type == 'Q_EXCEED_SIZE_LIMIT') {
+                top.COM_TOOLS.alert("文件大小超出限制");
+            }
+            if (type == 'Q_TYPE_DENIED') {
+                top.COM_TOOLS.alert("文件类型错误");
+            }
+            $('#selectBtn2').removeAttr('disabled');
+        });
+        /*选择与上传*/
+        $('#selectBtn2').on('click',function(){
+            return $('#inpFile2').click();
+        });
+        $('#inpFile2').on('change',function(evt){
+            uploader2.reset();
+            var files_ = evt.target.files[0];
+            if(files_){
+                COM_TOOLS.confirm(TEDU_MESSAGE.get('platform.common.msg.file_confirm',[files_['name']]),function(i){
+                    $('#selectBtn2').attr('disabled','disabled');
+                    uploader2.addFiles(files_);
+                    if(uploader2.getFiles().length>0){
+                        uploader2.upload();
+                    }
+                    $('#inpFile2').val('');
+                    layer.close(i);
+                }, function(){
+                    $('#inpFile2').val('');
+                });
+
+            }
+        });
+
+        //导出excel;
+        $('#cumBtn_excel').click(function(){
+            window.location.href = "/language/exportExcel";
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>平台前端框架使用手册</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link href="css/iconfont.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  </head>
+  <body>
+
+    <script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/plugins/layer/layer3.1.1.js"></script>
+
+    <script src="i18n/zh-CN.js"></script>
+    <script src="js/subindex.js" type="text/javascript" charset="utf-8"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css" />
+    <script src="http://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    
+    <pre>
+  cloneTeachingProgram.largeStageList.forEach((cv1, ck1) => { // 遍历大阶段
+    const flag1_ = newData_.largeStageList.some((v1, k1) => { // 预查询 大阶段是否存在，不存在则创建
+      if (v1.largeStageId === cv1.largeStageId) { index1_ = k1; return true }
+    })
+    if (!flag1_) {
+      newData_.largeStageList.push(JSON.parse(JSON.stringify(cv1))) // 大阶段不存在，则子节点一定不存在，所以直接插入整个对象
+      index1_ = newData_.largeStageList.length - 1
+    }
+    var curLargeStage = newData_.largeStageList[index1_]
+    cv1.smallStageList.forEach((cv2, ck2) => { // 遍历小阶段
+      var index2_ = 0
+      const flag2_ = curLargeStage.smallStageList.some((v2, k2) => { // 预查询 小阶段是否存在，不存在则创建
+        if (v2.smallStageId === cv2.smallStageId) { index2_ = k2; return true }
+      })
+      if (!flag2_) {
+        curLargeStage.smallStageList.push(JSON.parse(JSON.stringify(cv2))) // 小阶段不存在，则子节点一定不存在，所以直接插入整个对象
+        index2_ = curLargeStage.smallStageList.length - 1
+      }
+      var curSmallStage = newData_.largeStageList[index1_].smallStageList[index2_]
+      cv2.lessonList.forEach((cv3, ck3) => { // 遍历课次
+        var index3_ = 0
+        const flag3_ = curSmallStage.lessonList.some((v3, k3) => {// 预查询 课次是否存在，不存在则创建
+          if (v3.lessonId === cv3.lessonId) { index3_ = k3; return true }
+        })
+        if (!flag3_) {
+          curSmallStage.lessonList.push(JSON.parse(JSON.stringify(cv3))) // 课次不存在，则子节点一定不存在，所以直接插入整个对象
+          index3_ = curSmallStage.lessonList.length - 1
+        }
+        var curLecture = newData_.largeStageList[index1_].smallStageList[index2_].lessonList[index3_]
+        cv3.lectureList.forEach((cv4, ck4) => { // 遍历 讲次
+          const flag4_ = curLecture.lectureList.some((v4, k4) => {
+            if (v4.lectureId === cv4.lectureId) { return true }
+          })
+          if (!flag4_) { //参与排课的大纲是完整的大纲，所以讲次不存在一定是被删除的
+            cv4.delFlag = 1 && cv4.delFrom = 1
+            curLecture.lectureList.push(JSON.parse(JSON.stringify(cv4))) // 讲次不存在
+          }
+        })
+      })
+    })
+  })
+  delete newData_.coursePlanInitStatus
+  // TODO 修正讲次已排课状态等
+  return newData_
+    </pre>
+    <script>
+
+
+
+      $('pre').each(function(i, n) {
+        hljs.highlightBlock(n);
+      });
+    </script>
+  </body>
+</html>

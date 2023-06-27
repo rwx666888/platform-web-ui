@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../css/animate.min.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/plugins/iCheck/custom.css" />
+    <link rel="stylesheet" href="../css/plugins/dataTables/datatables.min.css" />
+    <link rel="stylesheet" href="../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="../css/plugins/select2/select2.min.css" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>报名模版</title>
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+      }
+      .dt-wrp {
+        margin-top: 5px;
+        min-height: 200px;
+        overflow: hidden;
+        background-color: #f9f9f9;
+      }
+
+      .dt-wrp .dataTables_wrapper {
+        padding-bottom: 0;
+        background-color: #fff;
+      }
+
+      .sign-class-wrp {
+        position: relative;
+        min-height: 100px;
+      }
+
+      .sign-class-wrp .direction-item {
+        margin-bottom: 15px;
+        border: 1px solid #1ab394;
+      }
+
+      .sign-class-wrp .class-item {
+        margin: 10px;
+      }
+
+      .sign-class-wrp .direction-item .dir-name,
+      .sign-class-wrp .class-item .class-name {
+        margin-bottom: -1px;
+        padding: 6px;
+        color: #fff;
+        background-color: #1ab394a8;
+      }
+
+      .sign-class-wrp .direction-item .dir-name {
+        text-align: center;
+      }
+
+      .sign-class-wrp .direction-item .lian-wrp {
+        padding: 6px;
+        border-top: 1px solid #1ab394;
+      }
+
+      .sign-class-wrp .direction-item .lian-wrp .form-group:first-child {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+
+      .sign-class-wrp .direction-item .lian-wrp .total {
+        line-height: 30px;
+        margin-right: 20px;
+      }
+
+      .sign-class-wrp .direction-item .lian-wrp .total span {
+        color: #1ab394;
+        margin-right: 5px;
+      }
+
+      .sign-class-wrp .class-item .class-name {
+        border: 1px solid #dddddd;
+        background-color: #e6e6e6;
+        color: #4b9ff6;
+      }
+
+      .sign-class-wrp .choice-class .table {
+        margin-bottom: 0;
+      }
+
+      .sign-class-wrp .table .cus-inp {
+        width: 100%;
+        height: 24px;
+        padding: 0 5px;
+        border: 1px solid #eee;
+        border-radius: 0;
+        outline: 0;
+      }
+
+      .sign-class-wrp .table .cus-inp[readonly] {
+        background-color: #eee;
+      }
+
+      .sign-class-wrp .choice-class .table .cus-sel {
+        width: 100%;
+        height: 24px;
+        border-radius: 0;
+        border: 1px solid #eee;
+      }
+
+      .sign-class-wrp .choice-class .table .btn-inp {
+        width: calc(100% - 40px);
+      }
+
+      .sign-class-wrp .choice-class .table .btn-inp[disabled] {
+        cursor: not-allowed;
+      }
+
+      .transfer-wrp {
+        position: relative;
+        width: 500px;
+        margin: 15px 0;
+        padding: 10px;
+        border: 1px solid #dddddd;
+      }
+
+      .transfer-wrp:before {
+        content: ' ';
+        position: absolute;
+        top: -8px;
+        right: 120px;
+        transform: rotate(45deg);
+        width: 15px;
+        height: 15px;
+        background-color: #fff;
+        border: 1px solid #dddddd;
+        border-bottom-color: transparent;
+        border-right-color: transparent;
+      }
+
+      .transfer-wrp.disabled:after {
+        content: ' ';
+        position: absolute;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(220, 220, 220, 0.5);
+      }
+
+      .cus-inp-h0,
+      .cus-inp-h1 {
+        float: left;
+        margin-top: -1px;
+        padding: 0;
+        height: 0px;
+        border: none;
+      }
+
+      .cus-inp-h1 {
+        width: 100%;
+      }
+      input[readonly].js-money {
+        user-select: none;
+        pointer-events: none;
+      }
+      /* 200318 新增 */
+      .sign-class-wrp:empty::before {
+        content: '--暂无内容--';
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translate3d(-50%, 0, 0);
+        font-size: 12px;
+      }
+      .hanle-btn-wrp .btn {
+        padding: 3px;
+        line-height: 1;
+        margin-left: 5px;
+      }
+      .m-title {
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #23c6c8;
+        color: #fff;
+        line-height: 22px;
+        font-size: 14px;
+      }
+      .s-title {
+        width: 200px;
+        padding: 4px 6px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #999999;
+        background-color: #ccc;
+        color: #fff;
+        font-weight: normal;
+      }
+      .m-title > span,
+      .s-title > span {
+        display: inline-block;
+        margin-top: 2px;
+      }
+      .s-title .hanle-btn-wrp .btn {
+        font-size: 12px;
+      }
+      .lock-box-wrp {
+        position: relative;
+        padding: 15px 0;
+      }
+      .lock-box-wrp.disabled::after {
+        content: '';
+        position: absolute;
+        z-index: 66;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #eee;
+        border-radius: 5px;
+        opacity: 0.5;
+      }
+      .ts-input-group .input-sm,
+      .ts-input-group .input-group-btn .btn {
+        height: 24px;
+        padding: 0 5px;
+      }
+      #demoaffix1.affix {
+        color: #fff;
+      }
+      .step-txt .step-show {
+        font-weight: 600;
+        margin: 0 15px;
+        font-size: 16px;
+      }
+      .step-txt .step-show.active {
+        color: #f8ac59;
+      }
+      .js-step-btn-group {
+        position: absolute;
+        z-index: 10;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+      }
+      .js-step-btn-group .js-btn-step {
+        padding: 5px 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- content -->
+    <div id="eventMain" class="container-fluid">
+      <!-- 基本信息 -->
+      <form id="baseInfo" class="form-horizontal form-label-sm">
+        <h3 class="m-title clearfix js-step-wrp">
+          <span>基本信息</span>
+        </h3>
+        <!-- lock box -->
+        <div class="lock-box-wrp">
+          <!-- group -->
+          <div class="form-group">
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>套餐类型</label>
+            <div class="col-sm-3">
+              <select class="form-control input-sm" id="packageType" name="packageType" required>
+                <option value="">---请选择---</option>
+                <option value="1">套餐1</option>
+                <option value="2">套餐2</option>
+              </select>
+            </div>
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>套餐名称</label>
+            <div class="col-sm-3">
+              <input
+                type="text"
+                class="form-control input-sm"
+                id="packageName"
+                name="packageName"
+                required
+              />
+            </div>
+            <label class="col-sm-1 control-label"><span class="text-danger">*</span>中心名称</label>
+            <div class="col-sm-3">
+              <div class="input-group input-group-sm">
+                <!-- 缴费主体 -->
+                <input type="hidden" id="payLegalSubjectName" name="payLegalSubjectName" />
+                <input
+                  type="hidden"
+                  id="payLegalSubjectCode"
+                  name="payLegalSubjectCode"
+                  value="0273"
+                />
+                <!-- 中心 -->
+                <input type="hidden" id="orgCore_code" name="orgCoreCode" value="500007" />
+                <input
+                  type="text"
+                  class="form-control input-sm"
+                  id="orgCore"
+                  name="orgCore"
+                  value="达内重庆童程童美中心"
+                  readonly
+                  required
+                />
+                <span class="input-group-btn">
+                  <button id="btnCenter" class="btn btn-primary" type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <hr />
+      <!-- 报名信息 -->
+      <h3 class="m-title clearfix js-step-wrp">
+        <span>购买信息</span>
+      </h3>
+      <!-- lock box -->
+      <div class="lock-box-wrp">
+        <!-- 选课 -->
+        <h4 class="s-title clearfix">
+          <span>报名课程</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addClass" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signClassHTML" class="sign-class-wrp"></form>
+        <!-- 证书 -->
+        <h4 class="s-title clearfix">
+          <span>证书申请</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addCertificate" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signCertificateHTML" class="sign-class-wrp"></form>
+        <!-- 教具 -->
+        <h4 class="s-title clearfix">
+          <span>购买教具</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addTeaching" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signTeachingAidHTML" class="sign-class-wrp"></form>
+        <!-- 其他缴费 -->
+        <h4 class="s-title clearfix">
+          <span>其他缴费</span>
+          <div class="hanle-btn-wrp pull-right">
+            <button id="js_addOther" class="btn btn-sm btn-warning" type="button">
+              添加信息
+            </button>
+          </div>
+        </h4>
+        <form id="signOtherPayHTML" class="sign-class-wrp"></form>
+      </div>
+      <!-- btnwrp -->
+      <div class="p-sm text-center">
+        <button id="formSubmit" class="btn btn-success btn-sm" type="button">
+          确定
+        </button>
+        <button class="btn btn-primary btn-sm" type="button">
+          取消
+        </button>
+      </div>
+    </div>
+    <!-- 选择弹窗 -->
+    <div id="selctClassWrp" style="display: none;">
+      <div id="eventMain_xc" class="choice-class-wrp p-sm">
+        <div class="form-inline">
+          <div class="form-group form-group-sm">
+            <label>课程方向</label>
+            <input type="text" id="courseDirection" class="form-control input-sm" />
+          </div>
+          <div class="form-group form-group-sm">
+            <label>课程名称</label>
+            <input id="courseName" type="text" class="form-control input-sm" />
+          </div>
+          <button type="button" id="choiceClassSearch" class="btn btn-sm btn-success">
+            <i class="fa fa-search"></i>搜索
+          </button>
+          <button type="button" id="choiceClassAdd" class="btn btn-sm btn-primary">
+            <i class="glyphicon glyphicon-plus"></i>添加
+          </button>
+        </div>
+        <!-- datatable -->
+        <div class="dt-wrp">
+          <table
+            id="tdChoiceClass"
+            class="table table-striped table-bordered nowrap"
+            cellspacing="0"
+            width="100%"
+          >
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- 选择弹窗 end -->
+
+    <!-- script -->
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../i18n/zh-CN.js"></script>
+
+    <script src="../js/plugins/validate/jquery.validate.custom.min.js"></script>
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../js/plugins/select2/select2.full.min.js"></script>
+    <script src="../js/plugins/layer/layer.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js"></script>
+
+    <script src="../js/subindex.js"></script>
+
+    <script src="../js/jquery.mockjax.min.js"></script>
+    <script>
+      $.mockjax({
+        url: '/city/queryForRedis',
+        responseText: [
+          {
+            id: 11,
+            name: '太原市'
+          },
+          {
+            id: 12,
+            name: '大同市'
+          },
+          {
+            id: 13,
+            name: '阳泉市'
+          },
+          {
+            id: 14,
+            name: '长治市'
+          }
+        ]
+      })
+
+      $.mockjax({
+        url: '/school/getSchoolListByCity',
+        responseText: [
+          {
+            id: 11,
+            schoolName: '学校1'
+          },
+          {
+            id: 12,
+            schoolName: '学校2'
+          },
+          {
+            id: 13,
+            schoolName: '学校3'
+          },
+          {
+            id: 14,
+            schoolName: '学校4'
+          }
+        ]
+      })
+
+      $.mockjax({
+        url: '/chooseCourse/list',
+        responseText: {
+          draw: 1,
+          recordsTotal: 30,
+          recordsFiltered: 30,
+          data: [
+            {
+              classificationCode: 1,
+              classificationName: '童程',
+              courseCode: '11',
+              courseName: '少儿趣味编程',
+              courseStageCode: '111',
+              courseStageName: 'Level1',
+              totalClassHour: 120,
+              classHourPrice: 100,
+              companyCode: 123,
+              companyName: '重庆市江北区达内会计培训有限公司2'
+            },
+            {
+              classificationCode: 1,
+              classificationName: '童程',
+              courseCode: '11',
+              courseName: '少儿趣味编程',
+              courseStageCode: '112',
+              courseStageName: 'Level2',
+              totalClassHour: 120,
+              classHourPrice: 120,
+              companyCode: 111,
+              companyName: '重庆市江北区达内会计培训有限'
+            },
+            {
+              classificationCode: 1,
+              classificationName: '童程',
+              courseCode: '12',
+              courseName: 'Scratch课程',
+              courseStageCode: '121',
+              courseStageName: 'Level1',
+              totalClassHour: 120,
+              classHourPrice: 150,
+              companyCode: -1,
+              companyName: null
+            },
+            {
+              classificationCode: 2,
+              classificationName: '童创',
+              courseCode: '21',
+              courseName: 'WEDO编程',
+              courseStageCode: '211',
+              courseStageName: 'Level3',
+              totalClassHour: 120,
+              classHourPrice: 100,
+              companyCode: -1,
+              companyName: null
+            }
+          ]
+        }
+      })
+
+      $.mockjax({
+        url: '/dictionary/queryForRedis',
+        responseText: [
+          {
+            hiddenValue: 'JFLX0901',
+            viewValue: '童程教具'
+          },
+          {
+            hiddenValue: 'JFLX0902',
+            viewValue: '童创教具'
+          },
+          {
+            hiddenValue: 'JFLX0903',
+            viewValue: '手机'
+          }
+        ]
+      })
+
+      $.mockjax({
+        url: '/packageManager/queryDetail',
+        responseText: {
+          courseList: [
+            {
+              mulDiscountData: {
+                code: '455',
+                name: '两年连报95折',
+                discount: '0.95',
+                money: '0',
+                preferentialWay: 'YHFS01',
+                preferentialWayName: '折扣',
+                discountAmount: '1750'
+              },
+              id: 123,
+              classificationAmount: '33110',
+              classificationCode: 'CT201704010011',
+              classificationName: '童程',
+              packageCode: '',
+              dirList: [
+                {
+                  packageCode: '',
+                  companyCode: '0217',
+                  companyName: '郑州达内科技有限公司第二分公司',
+                  classificationCode: 'CT201704010011',
+                  classificationName: '童程',
+                  courseCode: 'CO201704010013',
+                  courseName: '少儿趣味编程课程',
+                  courseStageCode: 'CE201704010017',
+                  courseStageName: 'Level 2（上）',
+                  classHour: 100,
+                  classHour_hidden: 3,
+                  classHourPrice: 150,
+                  classHourPrice_hidden: 110,
+                  coursePattern: 'BJXSXXLX001',
+                  ifWeek: '1',
+                  courseWeek: 'weekdays',
+                  actualTotalAmount: 14250,
+                  totalAmount: 14250,
+                  discountList: [],
+                  discountAmount: 750,
+                  classCode: 35735,
+                  className: null,
+                  classLxName: '常规班',
+                  teach: '候冠军',
+                  fullNumber: '10',
+                  actualNumber: '2',
+                  ifBindGood: false,
+                  sellGoodsNum: 1
+                },
+                {
+                  packageCode: '',
+                  companyCode: '0368',
+                  companyName: '北京童程童美科技有限公司第一分公司',
+                  classificationCode: 'CT201704010011',
+                  classificationName: '童程',
+                  courseCode: 'CO201704010012',
+                  courseName: 'Scratch课程',
+                  courseStageCode: 'CE201704010015',
+                  courseStageName: 'Scratch课程',
+                  classHour: 100,
+                  classHour_hidden: 2,
+                  classHourPrice: 200,
+                  classHourPrice_hidden: 110,
+                  coursePattern: 'BJXSXXLX001',
+                  ifWeek: '1',
+                  courseWeek: 'weekdays',
+                  actualTotalAmount: 18860,
+                  totalAmount: 18860,
+                  discountList: [
+                    {
+                      courseStageCode: 'CE201704010015',
+                      price: 140,
+                      code: '1120',
+                      name: 'wyy',
+                      typeCode: 'QWERTY111',
+                      preferentialWay: 'YHFS02',
+                      preferentialWayName: '直减',
+                      packageCode: ''
+                    }
+                  ],
+                  discountAmount: 1140,
+                  classCode: 39487,
+                  className: '非特殊班级',
+                  classLxName: '常规班',
+                  teach: '小灰灰',
+                  fullNumber: '0',
+                  actualNumber: '3',
+                  ifBindGood: true,
+                  goodsCode: 'JXCGD20200330000087',
+                  goodsName: 'NC同步test商品1',
+                  goodsUnitCode: 'SPDW001',
+                  goodsUnitName: '套',
+                  hourseCode: 'JXCHE20200217000042',
+                  teachingMaterialCost: 200,
+                  sellGoodsNum: 1
+                }
+              ]
+            }
+          ],
+          certList: [
+            {
+              certificateClassification: 'ZSWHLB002',
+              certificateClassificationName: '工信部证书',
+              certificateCode: 'CR201803260076',
+              certificateLevel: 'ZSWHJB002',
+              certificateLevelName: '中级',
+              certificateName: '证书管理',
+              certificatePrice: 200,
+              courseCode: 'CO201704010012',
+              courseName: 'Scratch课程',
+              id: 153
+            },
+            {
+              certificateClassification: 'ZSWHLB002',
+              certificateClassificationName: '工信部证书',
+              certificateCode: 'CR201803210069',
+              certificateLevel: 'ZSWHJB001',
+              certificateLevelName: '初级',
+              certificateName: '阿斯頓',
+              certificatePrice: 123,
+              courseCode: 'CO201704010013',
+              courseName: '少儿趣味编程课程',
+              itemid: 150
+            }
+          ],
+          otherPayList: [
+            {
+              goodsCode: '',
+              goodsName: '',
+              goodsUnit: '',
+              goodsUnitName: null,
+              paymentName: '其他缴费',
+              paymentType: 'JFLX07',
+              paymentSecName: '大赛费用',
+              paymentSecType: 'JFLX0701',
+              thisPaymentAmount: '123',
+              sellGoodsNum: 1
+            },
+            {
+              goodsCode: '',
+              goodsName: '',
+              goodsUnit: '',
+              goodsUnitName: null,
+              paymentName: '增值收入',
+              paymentSecName: '加盟收入',
+              paymentSecType: 'JFLX1301',
+              paymentType: 'JFLX13',
+              thisPaymentAmount: '222',
+              sellGoodsNum: 1
+            }
+          ],
+          teachAidsList: [
+            {
+              paymentType: 'JFLX09',
+              paymentSecType: 'JFLX0901',
+              goodsCode: 'JXCGD20200521000006',
+              goodsName: 'NC进销存同步数据2',
+              sellGoodsNum: 2,
+              goodsUnit: 'SPDW003',
+              goodsUnitName: '个',
+              hourseCode: 'JXCHE20200423000162',
+              minRetailPrice: 1500,
+              retailPrice: 2000,
+              thisPaymentAmount: 2717,
+              ifFullDis: 1,
+              specialsDis: 100,
+              fullEveryDis: 1183,
+              fullAllDis: 1212,
+              discountCode: 'SPYH20200615000281',
+              discountName: '21饿'
+            },
+            {
+              paymentType: 'JFLX09',
+              paymentSecType: 'JFLX0902',
+              goodsCode: 'JXCGD20200608000222',
+              goodsName: 'NC进销存同步数据2',
+              sellGoodsNum: 2,
+              goodsUnit: 'SPDW001',
+              goodsUnitName: '套',
+              hourseCode: 'JXCHE20200423000162',
+              minRetailPrice: 0,
+              retailPrice: 50,
+              thisPaymentAmount: 61,
+              ifFullDis: 1,
+              specialsDis: 10,
+              fullEveryDis: 29,
+              fullAllDis: 1212,
+              discountCode: 'SPYH20200615000281',
+              discountName: '21饿'
+            }
+          ]
+        }
+      })
+    </script>
+    <script>
+      var CONTEXT_PATH = ''
+      var TotalClassHourRatio = 1.5
+      //
+      var classClassifyList = [
+        {
+          viewValue: '线上',
+          hiddenValue: 'BJXSXXLX002'
+        },
+        {
+          viewValue: '线下',
+          hiddenValue: 'BJXSXXLX001'
+        }
+      ]
+      // 教具二级类型
+      var teachingSecTypeList = []
+      ;(function() {
+        $.post(CONTEXT_PATH + '/dictionary/queryForRedis', { typeCode: 'JFLX09' }).then(function(
+          res
+        ) {
+          teachingSecTypeList = res
+        })
+      })()
+      // 数据回显
+      ;(function() {
+        $.post(CONTEXT_PATH + '/packageManager/queryDetail', {}).then(function(res) {
+          console.log('callback-', res)
+          templateDataToHTML(res)
+        })
+      })()
+    </script>
+    <script src="./cus-signup-base.js"></script>
+    <script src="./cus-signup-tmp.js"></script>
+  </body>
+</html>

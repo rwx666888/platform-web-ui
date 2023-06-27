@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <title>概述 1.1</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .row {
+            margin: 0 -10px
+        }
+
+        .col-sm-4,
+        .col-sm-6,
+        .col-sm-12 {
+            padding: 0 10px;
+        }
+
+        .tab-content {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        .tab-content .panel {
+            margin-bottom: 0;
+        }
+
+        .table {
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+
+        .dataTables_wrapper {
+            padding-bottom: 0;
+        }
+
+        .panel-heading,
+        .panel-body {
+            padding: 10px;
+        }
+
+        .cus-group-area {
+            margin-top: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1c84c6;
+        }
+
+        .cus-group-area.right-area {
+            border-color: #1ab394;
+        }
+
+        .cus-group-area:first-child {
+            margin-top: 0;
+        }
+
+        .cus-group-area:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .cus-echarts {
+            width: 100%;
+            height: 350px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #337ab7;
+            padding-bottom: 10px;
+        }
+
+        .cus-echarts:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .container-fluid {
+            min-width: 1200px;
+        }
+
+        /* xxw */
+
+        .dataTables_wrapper {
+            padding-bottom: 0;
+        }
+
+        .table.dataTable {
+            margin-top: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid m-t-md">
+        <div class="row">
+            <div class="col-sm-12 m-b-sm">
+                <div class="form-inline">
+                    <!-- 搜索 -->
+                    <div class="form-group form-group-sm">
+                        <label>年份：</label>
+                        <select id="js_year" class="form-control input-sm">
+                            <option value="2018">2018</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <label>月份：</label>
+                        <select id="js_month" class="form-control input-sm">
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <button id="js_btn_sreach" class="btn btn-sm btn-success" type="button">搜索</button>
+                    <button id="js_btn_download" class="btn btn-sm btn-success" type="button">导出</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">概述（累计）</div>
+                    <div class="panel-body">
+                        <!-- 成人合并 -->
+                        <div class="cus-group-area clearfix">
+                            <div class="table-left-xxw pull-left" style="width: 25%; margin-top: 1px; margin-right: -1px;">
+                                <table class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">业务类型</th>
+                                        </tr>
+                                        <tr style="height: 31px;line-height: 31px;">
+                                            <th colspan="2" class="text-center">指标</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">收入</td>
+                                            <td>学员数</td>
+                                        </tr>
+                                        <tr>
+                                            <td>权责销售总值</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">成本</td>
+                                            <td>运营成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td>生均成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3" style="text-align:center;padding-top:35px">利润</td>
+                                            <td>集团销售利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团现金利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团销售利润率</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-left-xxw pull-left" style="width: 75%;">
+                                <table id="dt_report_l_1" class="js-getApi table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="5">成人合并</th>
+                                        </tr>
+                                        <tr>
+                                            <th>实际</th>
+                                            <th>预算</th>
+                                            <th>完成率</th>
+                                            <th>同期</th>
+                                            <th>增长率</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 社招业务 -->
+                        <div class="cus-group-area clearfix">
+                            <div class="table-left-xxw pull-left" style="width: 25%; margin-top: 1px; margin-right: -1px;">
+                                <table class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">业务类型</th>
+                                        </tr>
+                                        <tr style="height: 31px;line-height: 31px;">
+                                            <th colspan="2" class="text-center">指标</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">收入</td>
+                                            <td>学员数</td>
+                                        </tr>
+                                        <tr>
+                                            <td>权责销售总值</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">成本</td>
+                                            <td>运营成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td>生均成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3" style="text-align:center;padding-top:35px">利润</td>
+                                            <td>集团销售利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团现金利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团销售利润率</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-left-xxw pull-left" style="width: 75%;">
+                                <table id="dt_report_l_2" class="js-getApi table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="5">社招业务</th>
+                                        </tr>
+                                        <tr>
+                                            <th>实际</th>
+                                            <th>预算</th>
+                                            <th>完成率</th>
+                                            <th>同期</th>
+                                            <th>增长率</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 社招-中心 -->
+                        <div class="cus-group-area clearfix" style="overflow: auto;">
+                            <div class="ts-scroll-area" style="width: 150%">
+                                <div class="table-left-xxw pull-left" style="width: 18%; margin-top: 1px; margin-right: -1px;">
+                                    <table class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" colspan="2">业务类型</th>
+                                            </tr>
+                                            <tr style="height: 31px;line-height: 31px;">
+                                                <th colspan="2" class="text-center">指标</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="2" style="text-align:center;padding-top:25px">收入</td>
+                                                <td>学员数</td>
+                                            </tr>
+                                            <tr>
+                                                <td>权责销售总值</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2" style="text-align:center;padding-top:25px">成本</td>
+                                                <td>运营成本</td>
+                                            </tr>
+                                            <tr>
+                                                <td>生均成本</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="3" style="text-align:center;padding-top:35px">利润</td>
+                                                <td>集团销售利润</td>
+                                            </tr>
+                                            <tr>
+                                                <td>集团现金利润</td>
+                                            </tr>
+                                            <tr>
+                                                <td>集团销售利润率</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-left-xxw pull-left" style="width: 35%;">
+                                    <table id="dt_report_l_3_01" class="js-getApi table table-striped table-bordered nowrap pull-left" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" colspan="5">社招业务-老中心</th>
+                                            </tr>
+                                            <tr>
+                                                <th>实际</th>
+                                                <th>同期</th>
+                                                <th>增长率</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="table-left-xxw pull-left" style="width: 35%;">
+                                    <table id="dt_report_l_3_02" class="js-getApi table table-striped table-bordered nowrap pull-left" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" colspan="5">社招业务-次新中心</th>
+                                            </tr>
+                                            <tr>
+                                                <th>实际</th>
+                                                <th>同期</th>
+                                                <th>增长率</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="table-left-xxw pull-left" style="width: 12%;">
+                                    <table id="dt_report_l_3_03" class="js-getApi table table-striped table-bordered nowrap pull-left" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" colspan="5">社招业务-新中心</th>
+                                            </tr>
+                                            <tr>
+                                                <th>实际</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 社招-中心 end -->
+                        <!-- 渠道业务 -->
+                        <div class="cus-group-area clearfix">
+                            <div class="table-left-xxw pull-left" style="width: 25%; margin-top: 1px; margin-right: -1px;">
+                                <table class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">业务类型</th>
+                                        </tr>
+                                        <tr style="height: 31px;line-height: 31px;">
+                                            <th colspan="2" class="text-center">指标</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">收入</td>
+                                            <td>学员数</td>
+                                        </tr>
+                                        <tr>
+                                            <td>权责销售总值</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">成本</td>
+                                            <td>运营成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td>生均成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3" style="text-align:center;padding-top:35px">利润</td>
+                                            <td>集团销售利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团现金利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团销售利润率</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-left-xxw pull-left" style="width: 75%;">
+                                <table id="dt_report_l_4" class="js-getApi table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="5">渠道业务</th>
+                                        </tr>
+                                        <tr>
+                                            <th>实际</th>
+                                            <th>预算</th>
+                                            <th>完成率</th>
+                                            <th>同期</th>
+                                            <th>增长率</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">概述（当月）</div>
+                    <div class="panel-body">
+                        <!-- 成人合并 -->
+                        <div class="cus-group-area right-area clearfix">
+                            <div class="table-left-xxw pull-left" style="width: 25%; margin-top: 1px; margin-right: -1px;">
+                                <table class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">业务类型</th>
+                                        </tr>
+                                        <tr style="height: 31px;line-height: 31px;">
+                                            <th colspan="2" class="text-center">指标</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">收入</td>
+                                            <td>学员数</td>
+                                        </tr>
+                                        <tr>
+                                            <td>权责销售总值</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">成本</td>
+                                            <td>运营成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td>生均成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3" style="text-align:center;padding-top:35px">利润</td>
+                                            <td>集团销售利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团现金利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团销售利润率</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-left-xxw pull-left" style="width: 75%;">
+                                <table id="dt_report_r_1" class="js-getApi table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="5">成人合并</th>
+                                        </tr>
+                                        <tr>
+                                            <th>实际</th>
+                                            <th>预算</th>
+                                            <th>完成率</th>
+                                            <th>同期</th>
+                                            <th>增长率</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 社招业务 -->
+                        <div class="cus-group-area right-area clearfix">
+                            <div class="table-left-xxw pull-left" style="width: 25%; margin-top: 1px; margin-right: -1px;">
+                                <table class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">业务类型</th>
+                                        </tr>
+                                        <tr style="height: 31px;line-height: 31px;">
+                                            <th colspan="2" class="text-center">指标</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">收入</td>
+                                            <td>学员数</td>
+                                        </tr>
+                                        <tr>
+                                            <td>权责销售总值</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">成本</td>
+                                            <td>运营成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td>生均成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3" style="text-align:center;padding-top:35px">利润</td>
+                                            <td>集团销售利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团现金利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团销售利润率</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-left-xxw pull-left" style="width: 75%;">
+                                <table id="dt_report_r_2" class="js-getApi table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="5">社招业务</th>
+                                        </tr>
+                                        <tr>
+                                            <th>实际</th>
+                                            <th>预算</th>
+                                            <th>完成率</th>
+                                            <th>同期</th>
+                                            <th>增长率</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- 社招-中心 -->
+                        <div class="cus-group-area right-area clearfix" style="overflow: auto;">
+                            <div class="ts-scroll-area" style="width: 150%">
+                                <div class="table-left-xxw pull-left" style="width: 18%; margin-top: 1px; margin-right: -1px;">
+                                    <table class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" colspan="2">业务类型</th>
+                                            </tr>
+                                            <tr style="height: 31px;line-height: 31px;">
+                                                <th colspan="2" class="text-center">指标</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="2" style="text-align:center;padding-top:25px">收入</td>
+                                                <td>学员数</td>
+                                            </tr>
+                                            <tr>
+                                                <td>权责销售总值</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2" style="text-align:center;padding-top:25px">成本</td>
+                                                <td>运营成本</td>
+                                            </tr>
+                                            <tr>
+                                                <td>生均成本</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="3" style="text-align:center;padding-top:35px">利润</td>
+                                                <td>集团销售利润</td>
+                                            </tr>
+                                            <tr>
+                                                <td>集团现金利润</td>
+                                            </tr>
+                                            <tr>
+                                                <td>集团销售利润率</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="table-left-xxw pull-left" style="width: 35%;">
+                                    <table id="dt_report_r_3_01" class="js-getApi table table-striped table-bordered nowrap pull-left" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" colspan="5">社招业务-老中心</th>
+                                            </tr>
+                                            <tr>
+                                                <th>实际</th>
+                                                <th>同期</th>
+                                                <th>增长率</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="table-left-xxw pull-left" style="width: 35%;">
+                                    <table id="dt_report_r_3_02" class="js-getApi table table-striped table-bordered nowrap pull-left" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" colspan="5">社招业务-次新中心</th>
+                                            </tr>
+                                            <tr>
+                                                <th>实际</th>
+                                                <th>同期</th>
+                                                <th>增长率</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="table-left-xxw pull-left" style="width: 12%;">
+                                    <table id="dt_report_r_3_03" class="js-getApi table table-striped table-bordered nowrap pull-left" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" colspan="5">社招业务-新中心</th>
+                                            </tr>
+                                            <tr>
+                                                <th>实际</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 社招-中心 end -->
+                        <!-- 渠道业务 -->
+                        <div class="cus-group-area right-area clearfix">
+                            <div class="table-left-xxw pull-left" style="width: 25%; margin-top: 1px; margin-right: -1px;">
+                                <table class="table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">业务类型</th>
+                                        </tr>
+                                        <tr style="height: 31px;line-height: 31px;">
+                                            <th colspan="2" class="text-center">指标</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">收入</td>
+                                            <td>学员数</td>
+                                        </tr>
+                                        <tr>
+                                            <td>权责销售总值</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2" style="text-align:center;padding-top:25px">成本</td>
+                                            <td>运营成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td>生均成本</td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3" style="text-align:center;padding-top:35px">利润</td>
+                                            <td>集团销售利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团现金利润</td>
+                                        </tr>
+                                        <tr>
+                                            <td>集团销售利润率</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table-left-xxw pull-left" style="width: 75%;">
+                                <table id="dt_report_r_4" class="js-getApi table table-striped table-bordered nowrap " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="5">渠道业务</th>
+                                        </tr>
+                                        <tr>
+                                            <th>实际</th>
+                                            <th>预算</th>
+                                            <th>完成率</th>
+                                            <th>同期</th>
+                                            <th>增长率</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../js/plugins/jquery-number/jquery.number.min.js" type="text/javascript"></script>
+    <script src="../i18n/zh-CN.js" type="text/javascript"></script>
+    <script src="../js/subindex.js" type="text/javascript"></script>
+
+    <script src="../js/jquery.mockjax.min.js" type="text/javascript"></script>
+    <script>
+        var t_data_1 = { "draw": 0, "recordsTotal": 7, "recordsFiltered": 7, "data": [{ "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "jyyb_jt_month_total", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 33355.0, "ysData": null, "grownData": 0.08946, "completeData": 1.09074, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "41361.5", "year1Data01": "37965", "ysData01": "37920.5" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "jyyb_jt_month_total", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 5.4209444534E8, "ysData": null, "grownData": 0.10976, "completeData": 1.08934, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "718164627.47", "year1Data01": "647135573.84", "ysData01": "659265030.64211" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "jyyb_jt_month_total", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 2.9956464784E8, "ysData": null, "grownData": 0.29534, "completeData": 1.04204, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "501806389.5105", "year1Data01": "387393069.24", "ysData01": "481562628.64652" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "jyyb_jt_month_total", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 8981.10172, "ysData": null, "grownData": 0.18897, "completeData": 0.95535, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "12132.20965", "year1Data01": "10203.95283", "ysData01": "12699.26896" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "jyyb_jt_month_total", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 1.0626053597217E8, "ysData": null, "grownData": -0.4921, "completeData": 1.74418, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "51569560.28712", "year1Data01": "101535786.40656", "ysData01": "29566648.1174" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "jyyb_jt_month_total", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 9.866960900634E7, "ysData": null, "grownData": -0.53261, "completeData": 11.3676, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "34778910.65166", "year1Data01": "74411387.44491", "ysData01": "-3712679.03362" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "jyyb_jt_month_total", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 0.19602, "ysData": null, "grownData": -0.54232, "completeData": 1.60111, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "7.181%", "year1Data01": "15.69%", "ysData01": "4.485%" }] }
+
+        var t_data_2 = { "draw": 0, "recordsTotal": 7, "recordsFiltered": 7, "data": [{ "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "sxlcx_jt_month_total_1", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 29137.5, "ysData": null, "grownData": -0.11167, "completeData": 0.0, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "28420.17", "year1Data01": "31992.75", "ysData01": "0" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "sxlcx_jt_month_total_1", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 4.8116263248E8, "ysData": null, "grownData": -0.11056, "completeData": 0.0, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "490385502.72", "year1Data01": "551339470.04088", "ysData01": "0" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "sxlcx_jt_month_total_1", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 2.5984223762E8, "ysData": null, "grownData": -4.9E-4, "completeData": 0.0, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "304703833.66668", "year1Data01": "304853099.83", "ysData01": "0" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "sxlcx_jt_month_total_1", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 8917.79451, "ysData": null, "grownData": 0.12515, "completeData": 0.0, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "10721.39377", "year1Data01": "9528.81824", "ysData01": "0" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "sxlcx_jt_month_total_1", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 9.946022952935E7, "ysData": null, "grownData": -0.37484, "completeData": 0.0, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "67467847.49683", "year1Data01": "107920075.3569", "ysData01": "0" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "sxlcx_jt_month_total_1", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 1.006505619736E8, "ysData": null, "grownData": -0.01473, "completeData": 0.0, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "102461644.83238", "year1Data01": "103993498.18031", "ysData01": "0" }, { "id": null, "companyCode": null, "orgCode": null, "orgName": null, "twoName": null, "twoCode": null, "districtCode": null, "districtName": null, "year": null, "month": 4, "dataType": "sxlcx_jt_month_total_1", "dataCode": null, "dataValue": null, "version": null, "year1Data": null, "year2Data": 0.20671, "ysData": null, "grownData": -0.29713, "completeData": 0.0, "dataAuth": null, "monthTotal": null, "createId": null, "createName": null, "createDate": null, "extendsData1": null, "extendsYear1Data1": null, "rn": null, "rownumLastYear": null, "dataValue01": "13.758%", "year1Data01": "19.574%", "ysData01": "0%" }] }
+
+        $.mockjax({
+            url: "/dt/api1",
+            dataType: "json",
+            response: function (settings) {
+                t_data_1['draw'] = settings.data['draw'];
+                this.responseText = t_data_1;
+            }
+        });
+        $.mockjax({
+            url: "/dt/api2",
+            dataType: "json",
+            response: function (settings) {
+                t_data_2['draw'] = settings.data['draw'];
+                this.responseText = t_data_2;
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            var PRO_TOOLS = {
+                //减    
+                floatSub: function (arg1, arg2) {
+                    if (arg1 != null && arg2 != null) {
+                        var r1, r2, m, n;
+                        try { r1 = arg1.toString().split(".")[1].length; } catch (e) { r1 = 0; }
+                        try { r2 = arg2.toString().split(".")[1].length; } catch (e) { r2 = 0; }
+                        m = Math.pow(10, Math.max(r1, r2));
+                        //动态控制精度长度    
+                        n = (r1 >= r2) ? r1 : r2;
+                        return ((arg1 * m - arg2 * m) / m).toFixed(n);
+                    } else {
+                        return '-';
+                    }
+                },
+                // 除法
+                floatDiv: function (arg1, arg2) {
+                    if (arg1 != null && arg2 != null) {
+                        var t1 = 0,
+                            t2 = 0,
+                            r1, r2;
+                        try { t1 = arg1.toString().split(".")[1].length; } catch (e) { }
+                        try { t2 = arg2.toString().split(".")[1].length; } catch (e) { }
+                        r1 = Number(arg1.toString().replace(".", ""));
+                        r2 = Number(arg2.toString().replace(".", ""));
+                        return (r1 / r2) * Math.pow(10, t2 - t1);
+                    } else {
+                        return '-';
+                    }
+                },
+                // 乘    
+                floatMul: function (arg1, arg2) {
+                    if (arg1 != null && arg2 != null) {
+                        var m = 0,
+                            s1 = arg1.toString(),
+                            s2 = arg2.toString();
+                        try { m += s1.split(".")[1].length; } catch (e) { }
+                        try { m += s2.split(".")[1].length; } catch (e) { }
+                        return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+                    } else {
+                        return '-';
+                    }
+                },
+                // type 显示类型 0-默认，整数， 1-百分比 
+                // cut_type ture-颜色取反
+                changeNum: function (row, name1, name2, type, dec, cut_type) {
+                    var res_ = '', num_, html_, p_class;
+                    if (row.type != 2) {
+                        res_ = this.floatSub(row[name1], row[name2]);
+                        if (res_ != 0 && res_ != '-') {
+                            var c_res = Math.abs(res_);
+                            num_ = type ? (this.dataProcess(this.floatMul(c_res, 100), dec) + '%') : this.cusNumber(c_res, dec);
+                            p_class = (cut_type ? res_ < 0 : res_ > 0) ? 'text-info' : 'text-danger';
+                            html_ = '<span class="' + p_class + '">' + (res_ > 0 ? '+' : '-') + num_ + '</span>';
+                        } else {
+                            html_ = '-';
+                        }
+                    }
+                    return html_;
+                },
+                changeNum2: function (data, type, dec, cut_type) {
+                    var res_ = '', num_, html_, p_class;
+                    res_ = data;
+                    if (res_ != 0 && res_ != '-' && res_ != null) {
+                        var c_res = Math.abs(res_);
+                        num_ = type ? (this.dataProcess(this.floatMul(c_res, 100), dec) + '%') : this.cusNumber(c_res, dec);
+                        p_class = (cut_type ? res_ < 0 : res_ > 0) ? 'text-info' : 'text-danger';
+                        html_ = '<span class="' + p_class + '">' + (res_ > 0 ? '+' : '-') + num_ + '</span>';
+                    } else {
+                        html_ = '-';
+                    }
+                    return html_;
+                },
+                dataFilter: function (data, row) {
+                    var res_ = data;
+                    if (row.type == 2) {
+                        res_ = '';
+                    }
+                    return res_;
+                },
+                dataProcess: function (s_data, dec) {
+                    var num = Number(s_data);
+                    if (num) {
+                        if (Math.abs(num) > 1) {
+                            num = dec >= 0 ? num.toFixed(dec) : num;
+                        } else {
+                            num = num;
+                        }
+                    } else {
+                        num = s_data;
+                    }
+                    return (num != null ? num : '-');
+                },
+                cusNumber: function (s_data, dec) {
+                    if ($.number && s_data != null) {
+                        s_data = $.number(s_data, dec || 0);
+                    } else {
+                        s_data = '-';
+                    }
+                    return s_data;
+                },
+                cusFloor: function (data, floor_num) {
+                    return this.cusNumber(this.floatDiv(data, floor_num))
+                },
+                sp_dataShow: function (ele, s_arr) {
+                    var $ele = $('#' + ele).closest('.js-data-show');
+                    var t_data = $.grep(s_arr, function (n, i) {
+                        return n.type == 3;
+                    })[0];
+                    if (!$.isEmptyObject(t_data)) {
+                        $ele.find('.js-money').text($.number(t_data.number));
+                        $ele.find('.js-complete-rate').text(PRO_TOOLS.floatMul(t_data.t_rate, 100) + '%');
+                        $ele.find('.js-increase-rate').text(PRO_TOOLS.floatMul(t_data.n_increaserate, 100) + '%');
+                    }
+                }
+            };
+
+            /**
+             * [cusDTinit description]
+             * @param  {[type]} ele    [表格对象]
+             * @param  {[type]} cols   [表格列对象]
+             * @param  {[type]} a_url  [接口]
+             * @param  {[type]} a_data [请求参数]
+             * @param  {[type]} opt    [表格配置项]
+             */
+            function cusDTinit(ele, cols, a_url, a_data, opt) {
+                var searchParemOBj_ = (a_data || {}),
+                    baseOpt = $.extend(true, {
+                        account_type: 1,
+                        other: {
+                            select: false,
+                            paging: false,
+                            info: false
+                        }
+                    }, (opt || {}));
+
+                var base_cols = [{
+                    "data": "dataValue01",
+                    "render": function (data, type, row) {
+                        return PRO_TOOLS.cusNumber(data);
+                    }
+                }, {
+                    "data": "ysData01",
+                    "render": function (data, type, row) {
+                        return PRO_TOOLS.cusNumber(data);
+                    }
+                }, {
+                    "data": "completeData",
+                    "render": function (data, type, row, meta) {
+                        return PRO_TOOLS.changeNum2(data, 1, 0);
+                    }
+                }, {
+                    "data": "year1Data01",
+                    "render": function (data, type, row) {
+                        return PRO_TOOLS.cusNumber(data);
+                    }
+                }, {
+                    "data": "grownData",
+                    "render": function (data, type, row, meta) {
+                        return PRO_TOOLS.changeNum2(data, 1, 0);
+                    }
+                }];
+                // 用户配置的cols
+                var dy_cols = $.extend(true, base_cols, cols);
+                dy_cols = $.grep(dy_cols, function (el, idx) {
+                    return !el.ts_delete
+                });
+
+                // return COM_TOOLS.DT_init(ele, dy_cols, a_url, 'get', searchParemOBj_, baseOpt);
+                // 存储 api
+                var plugin_api = COM_TOOLS.DT_init(ele, dy_cols, a_url, 'get', searchParemOBj_, baseOpt);
+                $('#' + ele).data({ 'plugin_api': plugin_api, 'ajax_data': searchParemOBj_ });
+                return plugin_api;
+            }
+
+            // 导出
+            $('#js_btn_download').click(function () {
+                var tData = [];
+                // 遍历 api
+                $('.js-getApi').each(function (idx, val) {
+                    var t_ = $(val);
+                    if (t_.is('[id]') && t_.data('ajax_data')) {
+                        var t_data = t_.data('ajax_data');
+                        delete t_data['year'];
+                        delete t_data['month'];
+                        delete t_data['version'];
+                        delete t_data['orgCode'];
+                        tData.push(t_data)
+                    }
+                });
+                var form_ = $('<form style="display:none" action="_url_" target="ifarme_download_cj" method="post">' +
+                    '<input type="hidden" name="year" value="' + $('#year').val() + '"/>' +
+                    '<input type="hidden" name="month" value="' + $('#month').val() + '"/>' +
+                    '<input type="hidden" name="line" value="' + $('#line').val() + '"/>' +
+                    '<input type="hidden" name="list">' +
+                    '</form>');
+                form_.find('[name=list]').val(JSON.stringify(tData));
+                $('body').find('#ifarme_download_cj').remove().end().append('<iframe style="display:none" name="ifarme_download_cj" id="ifarme_download_cj"></iframe>').append(form_);
+                form_.submit();
+            });
+            // return false;
+            // 成人、社招、渠道
+            // 左边
+            cusDTinit('dt_report_l_1', [], '/dt/api1', { dt_item: '1', year: 1, month: 2, version: 3, orgCode: 4 });
+            cusDTinit('dt_report_l_2', [], '/dt/api1', { dt_item: '2' });
+            cusDTinit('dt_report_l_4', [], '/dt/api1', { dt_item: '3' });
+
+            cusDTinit('dt_report_l_3_01', [{
+                "data": "dataValue01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, {
+                "data": "year1Data01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, {
+                "data": "grownData",
+                "render": function (data, type, row, meta) {
+                    return PRO_TOOLS.changeNum2(data, 1, 0);
+                }
+            }, { "ts_delete": true }, { "ts_delete": true }], '/dt/api2', { dt_item: '4' });
+            cusDTinit('dt_report_l_3_02', [{
+                "data": "dataValue01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, {
+                "data": "year1Data01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, {
+                "data": "grownData",
+                "render": function (data, type, row, meta) {
+                    return PRO_TOOLS.changeNum2(data, 1, 0);
+                }
+            }, { "ts_delete": true }, { "ts_delete": true }], '/dt/api2', { dt_item: '5' });
+            cusDTinit('dt_report_l_3_03', [{
+                "data": "dataValue01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, { "ts_delete": true }, { "ts_delete": true }, { "ts_delete": true }, { "ts_delete": true }], '/dt/api2', { dt_item: '6' });
+
+            // 右边
+            cusDTinit('dt_report_r_1', [], '/dt/api1', { dt_item: '7' });
+            cusDTinit('dt_report_r_2', [], '/dt/api1', { dt_item: '8' });
+            cusDTinit('dt_report_r_4', [], '/dt/api1', { dt_item: '9' });
+
+            cusDTinit('dt_report_r_3_01', [{
+                "data": "dataValue01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, {
+                "data": "year1Data01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, {
+                "data": "grownData",
+                "render": function (data, type, row, meta) {
+                    return PRO_TOOLS.changeNum2(data, 1, 0);
+                }
+            }, { "ts_delete": true }, { "ts_delete": true }], '/dt/api2', { dt_item: '10' });
+            cusDTinit('dt_report_r_3_02', [{
+                "data": "dataValue01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, {
+                "data": "year1Data01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, {
+                "data": "grownData",
+                "render": function (data, type, row, meta) {
+                    return PRO_TOOLS.changeNum2(data, 1, 0);
+                }
+            }, { "ts_delete": true }, { "ts_delete": true }], '/dt/api2', { dt_item: '11' });
+            cusDTinit('dt_report_r_3_03', [{
+                "data": "dataValue01",
+                "render": function (data, type, row) {
+                    return PRO_TOOLS.cusNumber(data);
+                }
+            }, { "ts_delete": true }, { "ts_delete": true }, { "ts_delete": true }, { "ts_delete": true }], '/dt/api2', { dt_item: '12' });
+
+            // 搜索按钮
+            $('#js_btn_sreach').click(function () {
+                var searchObj = {
+                    "d_year": $('#js_year').val(),
+                    "d_month": $('#js_month').val()
+                }
+
+
+            });
+        });
+    </script>
+</body>
+
+</html>

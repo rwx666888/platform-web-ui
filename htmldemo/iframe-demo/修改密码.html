@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>修改密码</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/iconfont.css" rel="stylesheet">
+
+    <link href="../../css/animate.min.css" rel="stylesheet">
+    <link href="../../css/style.css" rel="stylesheet">
+    <style>
+        .container-fluid {
+            max-width: 450px;
+            padding-top: 20px;
+            font-size: 14px;
+        }
+        input[type=text]::-ms-clear { display: none; }
+        input[type=password]::-ms-reveal { display: none; }
+        .pwd-box .form-group {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .pwd-box .err-p {
+            /* position: absolute;
+             right: 0;
+             top: 0px;*/
+            margin: 0;
+            opacity: 0;
+            color: #ed5565;
+            font-size: 12px;
+
+        }
+
+        .tooltip .tooltip-inner {
+            background-color: #ed5565;
+        }
+
+        .tooltip.top .tooltip-arrow {
+            border-top-color: #ed5565;
+        }
+
+        .form-group label span {
+            font-size: 12px;
+            font-weight: normal;
+            color: #ccc;
+        }
+
+        .input-group-addon {
+            background: #ccc;
+        }
+
+        .has-error .err-p {
+            display: block;
+            opacity: 1;
+        }
+
+        .pw-strength {
+            clear: both;
+            position: relative;
+            top: 8px;
+            width: 180px;
+            margin: -10px auto 15px;
+        }
+
+        .pw-bar {
+            background: url(../../css/pwdimg/pwd-1.png) no-repeat;
+            height: 14px;
+            overflow: hidden;
+            width: 179px;
+        }
+
+        .pw-bar-on {
+            background: url(../../css/pwdimg/pwd-2.png) no-repeat;
+            width: 0px;
+            height: 14px;
+            position: absolute;
+            top: 0px;
+            left: 2px;
+            transition: width .5s ease-in;
+            -moz-transition: width .5s ease-in;
+            -webkit-transition: width .5s ease-in;
+            -o-transition: width .5s ease-in;
+        }
+
+        .pw-weak .pw-defule {
+            width: 0px;
+        }
+
+        .pw-weak .pw-bar-on {
+            width: 60px;
+        }
+
+        .pw-medium .pw-bar-on {
+            width: 120px;
+        }
+
+        .pw-strong .pw-bar-on {
+            width: 179px;
+        }
+
+        .pw-txt {
+            padding-top: 2px;
+            width: 180px;
+            overflow: hidden;
+        }
+
+        .pw-txt span {
+            color: #707070;
+            float: left;
+            font-size: 12px;
+            text-align: center;
+            width: 58px;
+        }
+        .check-pwd {
+            position: absolute;
+            top: 34px;
+            right: 7px;
+            color: #ddd;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="text-center font-bold m-b-lg">修改密码</div>
+    <div class="pwd-box" id="form">
+        <div class="form-group">
+            <label>邮箱 <span>（输入正确格式的邮箱）</span></label>
+            <div class="input-group">
+                <input checktype="email" type="email" class="form-control err-class" id="exampleInputEmail1" placeholder="请输入注册时邮箱"><span class="input-group-addon">@tedu.cn</span>
+            </div>
+            <p class="err-p">邮箱格式不正确</p>
+        </div>
+        <div class="form-group">
+            <label for="old_pwd">旧密码<span>（密码格式）</span></label>
+            <input type="password" class="form-control" id="old_pwd" placeholder="请输入旧密码">
+            <i class="check-pwd glyphicon glyphicon-eye-open"></i>
+            <p class="err-p">请填写正确格式的密码</p>
+        </div>
+        <div class="form-group">
+            <label for="new_pwd">新密码<span>（密码格式）</span></label>
+            <input checktype="pwd" type="password" class="form-control" id="new_pwd" placeholder="请输入新密码">
+            <i class="check-pwd glyphicon glyphicon-eye-open"></i>
+            <p class="err-p">请填写正确格式的密码</p>
+        </div>
+        <div id="level" class="pw-strength">
+            <div class="pw-bar"></div>
+            <div class="pw-bar-on"></div>
+            <div class="pw-txt">
+                <span>弱</span>
+                <span>中</span>
+                <span>强</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="new_pwd2">确认密码<span>（密码格式）</span></label>
+            <input checktype="pwd2" type="password" class="form-control" id="new_pwd2" placeholder="请确认密码">
+            <i class="check-pwd glyphicon glyphicon-eye-open"></i>
+            <p class="err-p">两次密码不一致</p>
+        </div>
+
+        <div class="form-group form-inline">
+            <label>验证码</label>
+            <input checktype="code" style="width: 120px;margin-right: 20px;display: inline-block;" type="text" class="form-control" id="" placeholder="请输入验证码">
+            <img class="" style="width: 70px;height: 34px;" src="../../css/plugins/jsTree/icon_success_xxw.png">
+            <p class="err-p">填写正确的验证码</p>
+        </div>
+        <button id="submit" type="button" class="btn btn-success btn-block">提交</button>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="../../js/jquery-2.1.1.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('.check-pwd').click(function(){
+           if ($(this).hasClass('glyphicon-eye-open')){
+               $(this).attr('class','check-pwd glyphicon glyphicon-eye-close').prev().attr('type','text');
+           }else {
+               $(this).attr('class','check-pwd glyphicon glyphicon-eye-open').prev().attr('type','password');
+           }
+        });
+        $('#new_pwd').keyup(function () {
+            var strongRegex = new RegExp("^(?=.{6,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+            var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+            var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+
+            if (false == enoughRegex.test($(this).val())) {
+                $('#level').removeClass('pw-weak pw-medium pw-strong').addClass('pw-defule');
+                //密码小于六位的时候，密码强度图片都为灰色
+            }
+            else if (strongRegex.test($(this).val())) {
+                $('#level').removeClass('pw-weak pw-medium pw-strong').addClass('pw-strong');
+                //密码为八位及以上并且字母数字特殊字符三项都包括,强度最强
+            }
+            else if (mediumRegex.test($(this).val())) {
+                $('#level').removeClass('pw-weak pw-medium pw-strong').addClass('pw-medium');
+                //密码为七位及以上并且字母、数字、特殊字符三项中有两项，强度是中等
+            }
+            else {
+                $('#level').removeClass('pw-weak pw-medium pw-strong').addClass('pw-weak');
+                //如果密码为6为及以下，就算字母、数字、特殊字符三项都包括，强度也是弱的
+            }
+            return true;
+        });
+
+
+        function chcktype(type_, val) {
+            switch (type_) {
+                case  'email':
+                    return val != '';
+                case 'pwd':
+                    return /^[0-9a-zA-Z_]{6,18}$/.test(val);
+                case 'pwd2':
+                    return $.trim($('#new_pwd').val()) == val;
+                case 'code':
+                    return /^[0-9]{4}$/.test(val);
+            }
+        }
+
+        $('#submit').click(function () {
+            var all = true;
+            $('#form .form-control').each(function (i, n) {
+                n = $(n);
+                var type_ = n.attr('checktype'),
+                    val = $.trim(n.val());
+                var flag = chcktype(type_, val);
+                if (!flag) {
+                    if (!n.closest('.form-group').hasClass('has-error')) {
+                        n.closest('.form-group').addClass('has-error')
+                    }
+                }
+                all = (all && flag);
+                console.log('===', all)
+            }).focus(function () {
+                $(this).closest('.form-group').removeClass('has-error')
+            })
+        })
+    });
+
+</script>
+</body>
+
+</html>

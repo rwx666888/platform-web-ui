@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>手工组卷</title>
+    <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+    <link href="../../../css/iconfont.css" rel="stylesheet">
+    <link href="../../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+    <link href="../../../css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../css/plugins/jQueryUI/jquery-ui.css">
+    <link rel="stylesheet" href="../../../css/plugins/select2/select2.min.css">
+    <link href="../../../css/style.css" rel="stylesheet">
+    <style>
+        html,body {height: 100%;}
+        .hide-x{display:none;}
+        .flex-box-ltr-2col .flex-box-left{width:350px;}
+        .flex-box-ltr-2col .flex-box-content{margin-left:350px;}
+        .flex-box-ltr-2col .flex-box-content .flex-box-overflow{padding-top:15px;overflow-x: hidden;}
+        .mCSB_inside>.mCSB_container{margin-right:0;}
+        .mCSB_scrollTools{width:10px;}
+        .md2018120501lty .paper-content .md-hd{line-height:60px;background: #ddd;font-size: 18px;color: #000;}
+        .md2018120501lty .paper-content .item-box{padding:10px 15px;}
+        .md2018120501lty .paper-content  .item-box .item-tit{margin-bottom:20px;font-weight:bold;}
+        .md2018120501lty .paper-content  .item{margin-bottom:15px;}
+        .md2018120501lty .paper-content  .item .score{width:60px}
+        .md2018120501lty .paper-content  .item .score>input{display:inline-block;width:35px;margin-right:5px;}
+        .md2018120501lty .paper-content  .item .test-con{line-height: 30px;width:200px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;} 
+        .md2018120501lty .paper-content  .md-ft{padding:15px 0;border-top:1px dashed #aaa;}
+        .md2018120501lty .paper-content  .md-ft >div{font-size: 16px;}
+        /* 试卷列表 */
+        .md2018120501lty .test-group{margin-top:20px;}
+        .md2018120501lty .test-group  .panel-heading{line-height: 30px;}
+        .md2018120501lty .test-group .m-r-15{margin-right:15px;}
+        .md2018120501lty .test-group .panel-footer{font-size: 12px;}
+        .md2018120501lty .test-group .panel-body ul{list-style: none;margin-bottom:0;padding:0;line-height:1.8;}
+        .md2018120501lty .test-group .panel-body ul li{margin-bottom:10px;padding-left:14px;}
+        .md2018120501lty .test-group .panel-body ul .active{background:#d9edf7; }
+        .panel .js-remove-test{display:none;}
+        .panel.choosed .js-add-test{display:none;}
+        .panel.choosed .js-remove-test{display:inline-block;}
+   </style>
+</head>
+
+<body class="flex-box-ltr-2col md2018120501lty">
+    <div class="flex-box-left" id="js_init_scrollbar">
+        <div class="paper-content" >
+            <div class="md-hd text-center">已选<span class="all-test-num">0</span>道题，总计<span class="all-test-score">0</span>分</div>
+            <div class="md-bd">
+                <!-- 考题类型 start -->
+                <div class="item-box">
+                    <div class="item-tit clearfix">
+                        <div class="pull-left">
+                            <span class="test-type">单选题</span>
+                            <span class="test-num">2</span>道
+                        </div>
+                        <div class="pull-right">共计<span class="total-score">0</span>分</div>
+                    </div>
+                    <!-- 题干 -->
+                    <div class="test-area">
+                        <div class="item clearfix" data-test-id="10000">
+                            <div class="score pull-left"><input type="text" class="form-control input-sm inp-score" maxlength="2">分</div>
+                            <div class="test-con pull-left"> <span class="order-id">1</span>.单选单选单选单选测试测试测试测试测试吗？</div>
+                            <button class="btn btn-sm btn-danger pull-right js-remove-test">删除</button>
+                        </div>
+                        <div class="item clearfix" data-test-id="">
+                            <div class="score pull-left"><input type="text" class="form-control input-sm inp-score" maxlength="2">分</div>
+                            <div class="test-con pull-left"><span class="order-id">2</span>.测试测试测试测试测试测试测试测试测试测试测试测试测试测试</div>
+                            <button class="btn btn-sm btn-danger pull-right js-remove-test">删除</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 考题类型 end -->
+                     <!-- 考题类型 start -->
+                    <div class="item-box">
+                        <div class="item-tit clearfix">
+                            <div class="pull-left">
+                                <span class="test-type">简答题</span>
+                                <span class="test-num">2</span>道
+                            </div>
+                            <div class="pull-right">共计<span class="total-score">0</span>分</div>
+                        </div>
+                        <!-- 题干 -->
+                        <div class="test-area">
+                            <div class="item clearfix" data-test-id="10002">
+                                <div class="score pull-left"><input type="text" class="form-control input-sm inp-score" maxlength="2" >分</div>
+                                <div class="test-con pull-left"><span class="order-id">1</span>.简答简答简答测试测试测试测试测试吗？</div>
+                                <button class="btn btn-sm btn-danger pull-right js-remove-test">删除</button>
+                            </div>
+                            <div class="item clearfix">
+                                <div class="score pull-left"><input type="text" class="form-control input-sm inp-score" maxlength="2" >分</div>
+                                <div class="test-con pull-left"><span class="order-id">2</span>.测试测试测试测试测试测试测试测试测试测试测试测试测试测试</div>
+                                <button class="btn btn-sm btn-danger pull-right js-remove-test">删除</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 考题类型 end -->
+               <!-- 考题类型 start -->
+               <div class="item-box">
+                    <div class="item-tit clearfix">
+                        <div class="pull-left">
+                            <span class="test-type">多选题</span>
+                            <span class="test-num">2</span>道
+                        </div>
+                        <div class="pull-right">共计<span class="total-score">0</span>分</div>
+                    </div>
+                    <!-- 题干 -->
+                    <div class="test-area">
+                        <div class="item clearfix" data-test-id="10001">
+                            <div class="score pull-left"><input type="text" class="form-control input-sm inp-score" >分</div>
+                            <div class="test-con pull-left"><span class="order-id">1</span>.多选多选多选测试测试测试测试测试吗？</div>
+                            <button class="btn btn-sm btn-danger pull-right js-remove-test">删除</button>
+                        </div>
+                        <div class="item clearfix">
+                            <div class="score pull-left"><input type="text" class="form-control input-sm inp-score" >分</div>
+                            <div class="test-con pull-left"><span class="order-id">2</span>.测试测试测试测试测试测试测试测试测试测试测试测试测试测试</div>
+                            <button class="btn btn-sm btn-danger pull-right js-remove-test">删除</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 考题类型 end -->
+            </div>
+            <div class="md-ft text-center">
+                <div>总计<span class="all-test-num">0</span>题，共计<span class="all-test-score">0</span>分</div>
+                <button class="btn btn-sm btn-success" type="button" style="margin:15px 0;">完成创建</button>
+            </div>
+        </div>
+    </div>
+    <div class="flex-box-content">
+        <div class="container-fluid flex-box-overflow">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="text-danger">*</span>试卷名称</label>
+                    <div class="col-sm-4"><input class="form-control input-sm" type="text" name="" readonly /></div>
+                    <label class="col-sm-2 control-label"><span class="text-danger">*</span>所属渠道</label>
+                    <div class="col-sm-4">
+                        <select class="form-control input-sm" name="" id="js_channel" disabled>
+                            <option value="">- 请选择 -</option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">题型</label>
+                    <div class="col-sm-4">
+                        <select class="form-control input-sm" name="" >
+                            <option value="">- 请选择 -</option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-2 control-label">难度</label>
+                    <div class="col-sm-4"><input class="form-control input-sm" type="text" name=""  /></div>
+                </div>   
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">关键字</label>
+                    <div class="col-sm-4"><input class="form-control input-sm" type="text" name=""  /></div>
+                    <label class="col-sm-2 control-label">课程标签</label>
+                    <div class="col-sm-4">
+                        <select class="form-control input-sm" name="" >
+                            <option value="">- 请选择 -</option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">知识点标签</label>
+                    <div class="col-sm-4">
+                        <select class="form-control input-sm" name="" >
+                            <option value="">- 请选择 -</option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-sm btn-success pull-right" type="button">搜索</button>
+                    </div>
+                </div>
+                <!-- 试卷列表 start-->
+                <div class="form-group test-group" id="js_test_group">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default choosed" data-test-id="10000"><!--choosed 表示该试题已经添加到列表中-->
+                            <div class="panel-heading clearfix">
+                                <div class="pull-left">
+                                    <span class="test-type m-r-15">单选题</span>
+                                    <span class="test-con">单选单选单选单选测试测试测试测试测试吗？</span>
+                                </div>
+                                <button class="btn btn-sm btn-danger pull-right js-remove-test" type="button">从试卷中移除</button>
+                                <button class="btn btn-sm btn-primary pull-right m-r-15 js-add-test" type="button">添加到试卷</button>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li class="active">A.fjksdfa</li>
+                                    <li>B.fjksdfa</li>
+                                    <li>C.fjksdfa</li>
+                                    <li>D.fjksdfa</li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer clearfix">
+                                <div class="pull-left">
+                                    知识点标签：<span class="know-points">JAVA，开发语言，编程基础</span>
+                                </div>
+                                <div class="pull-right">试题编号：<span class="test-id">1000000</span></div>
+                                <div class="pull-right m-r-15">试题难度：<span class="test-level">中等</span></div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default" data-test-id="10003">
+                            <div class="panel-heading clearfix">
+                                <div class="pull-left">
+                                    <span class="test-type m-r-15">多选题</span>
+                                    <span class="test-con">&lt;span&gt;我是准备添加的试题？&lt;/span&gt;</span>
+                                </div>
+                                <button class="btn btn-sm btn-danger pull-right  js-remove-test" type="button">从试卷中移除</button>
+                                <button class="btn btn-sm btn-primary pull-right m-r-15 js-add-test" type="button">添加到试卷</button>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li class="active">A.fjksdfa</li>
+                                    <li class="active">B.fjksdfa</li>
+                                    <li>C.fjksdfa</li>
+                                    <li>D.fjksdfa</li>
+                                </ul>
+                            </div>
+                            <div class="panel-footer clearfix">
+                                <div class="pull-left">
+                                    知识点标签：<span class="know-points">JAVA，开发语言，编程基础</span>
+                                </div>
+                                <div class="pull-right">试题编号：<span class="test-id">1000000</span></div>
+                                <div class="pull-right m-r-15">试题难度：<span class="test-level">中等</span></div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default choosed" data-test-id="10002">
+                            <div class="panel-heading clearfix">
+                                <div class="pull-left">
+                                    <span class="test-type m-r-15">简答题</span>
+                                    <span class="test-con">简答简答简答测试测试测试测试测试吗？</span>
+                                </div>
+                                <button class="btn btn-sm btn-danger pull-right js-remove-test" type="button">从试卷中移除</button>
+                                <button class="btn btn-sm btn-primary pull-right m-r-15 js-add-test" type="button">添加到试卷</button>
+                            </div>
+                            <div class="panel-body">
+                                <div>答案我也不知道</div>
+                            </div>
+                            <div class="panel-footer clearfix">
+                                <div class="pull-left">
+                                    知识点标签：<span class="know-points">JAVA，开发语言，编程基础</span>
+                                </div>
+                                <div class="pull-right">试题编号：<span class="test-id">1000000</span></div>
+                                <div class="pull-right m-r-15">试题难度：<span class="test-level">中等</span></div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="panel panel-default" data-test-id="10004">
+                            <div class="panel-heading clearfix">
+                                <div class="pull-left">
+                                    <span class="test-type m-r-15">简答题</span>
+                                    <span class="test-con">马上就要年终总结啦啊啊啊啊啊</span>
+                                </div>
+                                <button class="btn btn-sm btn-danger pull-right hide-x js-remove-test" type="button">从试卷中移除</button>
+                                <button class="btn btn-sm btn-primary pull-right m-r-15 js-add-test" type="button">添加到试卷</button>
+                            </div>
+                            <div class="panel-body">
+                                <div>一点都不想去</div>
+                            </div>
+                            <div class="panel-footer clearfix">
+                                <div class="pull-left">
+                                    知识点标签：<span class="know-points">JAVA，开发语言，编程基础</span>
+                                </div>
+                                <div class="pull-right">试题编号：<span class="test-id">1000000</span></div>
+                                <div class="pull-right m-r-15">试题难度：<span class="test-level">中等</span></div>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../../js/jquery-2.1.1.js"></script>
+    <script src="../../../js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../../../js/bootstrap.min.js"></script>
+    <script src="../../../js/plugins/layer/layer.js"></script>
+    <script src="../../../js/plugins/jsTree/jstree.min.js"></script>
+    <script src="../../../js/plugins/datatables/datatables.min.js"></script>
+    <script src="../../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../../../js/plugins/select2/select2.full.min.js"></script>
+
+    <script src="../../../i18n/zh-CN.js"></script>
+    <script src="../../../js/plugins/ckeditor/ckeditor.js"></script>
+    <script src="../../../js/subindex.js"></script>
+
+    <!--jquery.mockjax.min.js仅限于demo演示模拟数据使用-->
+    <script src="../../../js/jquery.mockjax.min.js"></script>
+    <script type="text/javascript" src="../../../demo-data.js"></script>
+    <script>
+        $(function () {
+            // 自定义滚动条
+            $("#js_init_scrollbar").mCustomScrollbar({
+                theme: 'dark'
+            });
+            //更新序号
+            function sortOrderId(obj){
+                $(obj).find('.order-id').each(function(i,v){
+                    $(v).text(i+1);
+                });
+            }
+            // 拖拽排序
+            $( ".test-area").sortable({
+                update:function(e,ui){
+                    sortOrderId(e.target);
+                }
+            });
+            //初始化select2
+            COM_TOOLS.select2_init('js_channel');
+            
+            // 从试卷中移除
+            $('#js_init_scrollbar').on('click','.js-remove-test',function(){
+                var parent_=$(this).closest('.item');
+                var id_=parent_.data('test-id'),
+                    $test_area=parent_.closest('.test-area');//排序
+                $('#js_test_group').find('.panel[data-test-id="'+id_+'"]').removeClass('choosed').find('.js-add-test').show().prev('.js-remove-test').hide();//1.更新试卷状态；2.控制按钮显隐
+                parent_.remove();//移除
+                //更新题目数量
+                updateTestNum();
+                //更新序号
+                sortOrderId($test_area);
+                //更新分数
+                $('.inp-score').trigger('change');
+            });
+            
+            $('#js_test_group').on('click','.js-remove-test',function(){
+                var id_=$(this).closest('.panel').data('test-id');
+                $(this).closest('.panel').removeClass('choosed');//更新试卷状态
+                var item_=$('#js_init_scrollbar').find('.item[data-test-id="'+id_+'"]'),    
+                    $test_area=item_.closest('.test-area');//排序
+                item_.remove();//移除
+                $(this).hide().next('.js-add-test').show();//控制显隐
+                 //更新题目数量
+                 updateTestNum();
+                 //更新序号
+                sortOrderId($test_area);
+                //更新分数
+                $('.inp-score').trigger('change');
+                  
+            });
+            // 添加到试卷
+            $('#js_test_group').on('click','.js-add-test',function(){
+                var parent_=$(this).closest('.panel'),
+                    test_con=parent_.find('.test-con').html(),//题干
+                    id_=parent_.data('test-id'),//试题id-用于删除的时候定位
+                    test_type=parent_.find('.test-type').html(),//题型-添加到指定的题型中
+                    html_='<div class="item clearfix" data-test-id="'+id_+'">'+
+                        '<div class="score pull-left"><input type="text" class="form-control input-sm inp-score" >分</div>'+
+                        '<div class="test-con pull-left"><span class="order-id"></span>.'+test_con+'</div>'+
+                        '<button class="btn btn-sm btn-danger pull-right js-remove-test">删除</button>'+
+                    '</div>';
+                   var $test_area=$('#js_init_scrollbar').find('.test-type').filter(function(){
+                        return $(this).text()===test_type;//根据题型添加进列表
+                    }).closest('.item-box').find('.test-area');
+                    $test_area.append(html_);
+
+                    parent_.addClass('choosed');//改变试卷状态
+                    $(this).hide().prev('.js-remove-test').show();//控制按钮显隐
+                    updateTestNum();//更新题目数量
+                     //更新序号
+                     sortOrderId($test_area);
+                      //更新分数
+                    $('.inp-score').trigger('change');
+
+            });
+
+            //更新试卷分数
+            $('#js_init_scrollbar').on('change','.inp-score',function(){
+                var num=0;
+                $('.inp-score').each(function(){
+                    num+=Number($(this).val());
+                });
+                $('.all-test-score').text(num);//试卷总分数
+                $('.total-score').each(function(){
+                    var test_num=0;
+                    $(this).closest('.item-box').find(".inp-score").each(function(){
+                        test_num+=Number($(this).val());
+                    });
+                    $(this).text(test_num);
+                });
+            });
+            //更新题目数量
+            function updateTestNum(){
+                $('.all-test-num').text($('#js_init_scrollbar').find('.item').length);
+                $('.test-num').each(function(){
+                    $(this).text($(this).closest('.item-box').find('.item').length);
+                });
+            }
+            // 加载完更新题目数量 和分数
+            updateTestNum();
+            $('.inp-score').trigger('change');
+
+        });
+    </script>
+</body>
+
+</html>
