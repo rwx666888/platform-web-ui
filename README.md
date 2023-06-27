@@ -1,6 +1,7 @@
 # platform-web-ui (平台前端框架)
-[演示DEMO](htmldemo/iframe-demo/){:target="_blank"}  
-[使用手册](htmldemo/){:target="_blank"}
+<a href="https://lianglei.net.cn/demo-ui/platform-help/htmldemo/iframe-demo/" target="_blank">演示DEMO</a>  
+<br/>
+<a href="https://lianglei.net.cn/demo-ui/platform-help/htmldemo/" target="_blank">使用手册</a>
 
 ## 更新日志
 
@@ -68,7 +69,7 @@
   - 【BUG】修复IE浏览器下部分因为ajax缓存造成的BUG，改为不使用缓存；涉及ajaxFn, select2, jstree, echart(@LL)
 - [3.8.6] 2018-8-29
   - 【组件】新增jQuery插件cuspanel，使用方法：$(selector).cuspanel();使用说明,还没写呢，详见源码("comTools-公共方法库" => _CUSPANEL_)(@LL)
-  - 【模块】新增首页定制化功能(@LL) ==> 查看 [demo](htmldemo/iframe-demo/index_make.html)
+  - 【模块】新增首页定制化功能(@LL) ==> <a href="https://lianglei.net.cn/demo-ui/platform-help/htmldemo/iframe-demo/index_make.html" target="_blank">查看DEMO</a> 
   - 【更新】全新改版系统消息功能；(@LL)
   - 【BUG】优化平台首页标签页相关方法并修正已知BUG；(@XXW)
 - [3.8.5] 2018-8-8
