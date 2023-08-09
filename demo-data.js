@@ -1411,7 +1411,7 @@ function TEXT_get_jsDoc(name, cb) {
         async: false,
         dataType: 'text',
         success: function (d) {
-            var t = d.match(/\/\*\*((.|\s)+?)\*\/\r\n.+?(?={\r\n)/gi);
+            var t = d.match(/(?<=,\s+?)\/\*(?:[\s\S]*?)\*\/\s+\w+:\s+function\([^\(\)]*?\)/gi);
             $.each(t, function (i, n) {
                 if (n.indexOf(name) !== -1) {
                     cb && cb(n.replace(/ {4}/g, ''));
