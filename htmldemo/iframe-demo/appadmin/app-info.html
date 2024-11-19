@@ -1,516 +1,551 @@
 <!doctype html>
 <html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>应用基本信息页</title>
+  <title>应用基本信息页</title>
 
-        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <!--<link href="../../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
-        <link href="../../../css/iconfont.css" rel="stylesheet">
+  <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+  <!--<link href="../../../font-awesome/css/font-awesome.css" rel="stylesheet">-->
+  <link href="../../../css/iconfont.css" rel="stylesheet">
 
-        <link href="../../../css/plugins/iCheck/custom.css" rel="stylesheet">
-        <link href="../../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
-        <link href="../../../css/plugins/select2/select2.min.css" rel="stylesheet">
+  <link href="../../../css/plugins/iCheck/custom.css" rel="stylesheet">
+  <link href="../../../css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <link href="../../../css/plugins/select2/select2.min.css" rel="stylesheet">
 
-        <link href="../../../css/animate.css" rel="stylesheet">
-        <link href="../../../css/style.css" rel="stylesheet">
-        <style>
-            .application-info-lty .app-name {
-                font-size: 24px;
-                font-weight: bold;
-                color: #000;
-                margin-right: 10px;
-            }
-            .application-info-lty .edit-info {
-                color: #299be4;
-                cursor: pointer;
-            }
-            .application-info-lty .app-intro {
-                color: #000;
-                font-size: 16px;
-                margin: 0;
-            }
-            .application-info-lty .js-edit-area {
-                display: none;
-            }
-            .apply-content {
-                color: #000;
-            }
-            .apply-content .label-txt {
-                font-size: 14px;
-                color: #999;
-            }
-            .apply-content .app-word {
-                margin-top: 30px;
-            }
-            .apply-content .card-person {
-                margin-right: 20px;
-                height: 26px;
-                border: 1px solid #ddd;
-                text-align: center;
-                line-height: 24px;
-                cursor: pointer;
-                border-radius: 3px;
-                padding: 0 8px;
-            }
-            .apply-content .card-person .tedufont {
-                color: #94cdf1;
-            }
-            .apply-content .panel-heading {
-                background: #fff;
-                font-weight: bold;
-                color: #000;
-            }
-            .apply-content .panel-heading>span {
-                color: #acafb4;
-                font-size: 12px;
-                font-weight: normal;
-            }
-            .apply-content .panel-footer {
-                background: #fff;
-                border-top: 0;
-            }
-            .apply-content .panel-footer>a {
-                color: #299be4;
-                margin-right: 30px;
-            }
-            .apply-content .panel-body .uses-num {
-                color: #acafb4;
-                margin-left: 10px;
-            }
-            .apply-content .panel-body .order-id {
-                margin-right: 10px;
-                text-align: center;
-                line-height: 15px;
-                font-style: normal;
-                width: 15px;
-                height: 15px;
-                background: #94cdf1;
-                border-radius: 50%;
-                display: inline-block;
-                color: #fff;
-            }
-            .apply-content .panel-body .item-box {
-                margin-bottom: 20px;
-            }
-            .apply-content .panel-body .item-box>p {
-                padding: 0 15px;
-            }
-            .apply-content .panel-body .item-box .apply-state {
-                margin-right: 54px;
-            }
-            .apply-content .panel-body .item {
-                line-height: 30px;
-                padding: 5px 15px;
-            }
-            .apply-content .panel-body .item:hover {
-                background: rgba(245, 245, 245, .5)
-            }
-            .apply-content .panel-body .item .glyphicon {
-                cursor: pointer;
-                margin-left: 5px;
-            }
-            .apply-content .panel-body .item .glyphicon:hover {
-                opacity: .6;
-            }
-            .apply-content .panel-body .item.js-add-item {
-                display: none;
-            }
-            .p-15 {
-                padding: 15px 0;
-            }
-            .white-list .c-cancel-btn {
-                display: none;
-            }
-            .white-list .white-list-editing .c-cancel-btn {
-                display: inline;
-            }
-            .white-list .white-list-editing .c-add-btn {
-                display: none;
-            }
-        </style>
-    </head>
+  <link href="../../../css/animate.css" rel="stylesheet">
+  <link href="../../../css/style.css" rel="stylesheet">
+  <style>
+    .application-info-lty .app-name {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+      margin-right: 10px;
+    }
 
-    <body>
-        <div class="application-info-lty">
-            <div class="container">
-                <div class="row p-15">
-                    <div class="col-sm-6">
-                        <div class="js-save-area">
-                            <span class="app-name">应用名称</span>
-                            <i class="tedufont tedu-icon102 edit-info" id="js_edit_info"></i>
-                            <p class="app-intro">文昌附近ask的风景ask地方</p>
-                        </div>
-                        <!-- 编辑区域 -->
-                        <form class="js-edit-area" id="js_edit_form">
-                            <div class="form-group">
-                                <input class="form-control input-sm app-name-inp" checked type="text" name="">
-                            </div>
-                            <div class="form-group">
-                                <textarea class="form-control app-intro-inp" style="resize:none;" name="" rows="5"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-sm" type="button" id="js_save_app_info">保存</button>
-                                <button class="btn btn-sm btn-success" type="button" id="js_cancel_save_app">取消</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-sm-3 col-sm-offset-3">
-                        <div class="switch-on-off pull-right switch-tigger-name">
-                            <input type="checkbox" id="switch-checkbox">
-                            <label class="switch-box" for="switch-checkbox">
-                            <div class="track">
-                                <div class="knob"></div>
-                            </div>
-                        </label>
-                        </div>
-                    </div>
-                </div>
+    .application-info-lty .edit-info {
+      color: #299be4;
+      cursor: pointer;
+    }
+
+    .application-info-lty .app-intro {
+      color: #000;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .application-info-lty .js-edit-area {
+      display: none;
+    }
+
+    .apply-content {
+      color: #000;
+    }
+
+    .apply-content .label-txt {
+      font-size: 14px;
+      color: #999;
+    }
+
+    .apply-content .app-word {
+      margin-top: 30px;
+    }
+
+    .apply-content .card-person {
+      margin-right: 20px;
+      height: 26px;
+      border: 1px solid #ddd;
+      text-align: center;
+      line-height: 24px;
+      cursor: pointer;
+      border-radius: 3px;
+      padding: 0 8px;
+    }
+
+    .apply-content .card-person .tedufont {
+      color: #94cdf1;
+    }
+
+    .apply-content .panel-heading {
+      background: #fff;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .apply-content .panel-heading>span {
+      color: #acafb4;
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    .apply-content .panel-footer {
+      background: #fff;
+      border-top: 0;
+    }
+
+    .apply-content .panel-footer>a {
+      color: #299be4;
+      margin-right: 30px;
+    }
+
+    .apply-content .panel-body .uses-num {
+      color: #acafb4;
+      margin-left: 10px;
+    }
+
+    .apply-content .panel-body .order-id {
+      margin-right: 10px;
+      text-align: center;
+      line-height: 15px;
+      font-style: normal;
+      width: 15px;
+      height: 15px;
+      background: #94cdf1;
+      border-radius: 50%;
+      display: inline-block;
+      color: #fff;
+    }
+
+    .apply-content .panel-body .item-box {
+      margin-bottom: 20px;
+    }
+
+    .apply-content .panel-body .item-box>p {
+      padding: 0 15px;
+    }
+
+    .apply-content .panel-body .item-box .apply-state {
+      margin-right: 54px;
+    }
+
+    .apply-content .panel-body .item {
+      line-height: 30px;
+      padding: 5px 15px;
+    }
+
+    .apply-content .panel-body .item:hover {
+      background: rgba(245, 245, 245, .5)
+    }
+
+    .apply-content .panel-body .item .glyphicon {
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    .apply-content .panel-body .item .glyphicon:hover {
+      opacity: .6;
+    }
+
+    .apply-content .panel-body .item.js-add-item {
+      display: none;
+    }
+
+    .p-15 {
+      padding: 15px 0;
+    }
+
+    .white-list .c-cancel-btn {
+      display: none;
+    }
+
+    .white-list .white-list-editing .c-cancel-btn {
+      display: inline;
+    }
+
+    .white-list .white-list-editing .c-add-btn {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="application-info-lty">
+    <div class="container">
+      <div class="row p-15">
+        <div class="col-sm-6">
+          <div class="js-save-area">
+            <span class="app-name">应用名称</span>
+            <i class="tedufont tedu-icon102 edit-info" id="js_edit_info"></i>
+            <p class="app-intro">文昌附近ask的风景ask地方</p>
+          </div>
+          <!-- 编辑区域 -->
+          <form class="js-edit-area" id="js_edit_form">
+            <div class="form-group">
+              <input class="form-control input-sm app-name-inp" checked type="text" name="">
             </div>
-        </div>
-        <div class="apply-content">
-            <div class="container" style="border-bottom:1px solid #ddd; border-top:1px solid #ddd;">
-                <div class="row app-word">
-                    <div class="col-sm-2"><span class="label-txt">应用ID：</span></div>
-                    <div class="col-sm-10"><span>12345678</span></div>
-                </div>
-                <div class="row app-word">
-                    <div class="col-sm-2"><span class="label-txt">密钥：</span></div>
-                    <div class="col-sm-10">
-                        <span>发撒法大撒旦发射点发射点发</span>
-                        <a href="javascript:;" class="text-success" style="margin-left:40px;" id="js_get_key">重新获取</a>
-                    </div>
-                </div>
-                <div class="row app-word">
-                    <div class="col-sm-2"><span class="label-txt">应用ID：</span></div>
-                    <div class="col-sm-10 " id="admin_list">
-                        <label class="card-person"><i class="tedufont tedu-icon50"></i> 张三</label>
-                        <label class="card-person"><i class="tedufont tedu-icon50"></i> 张三</label>
-                        <label class="card-person"><i class="tedufont tedu-icon50"></i> 张三</label>
-                    </div>
-                </div>
-                <div class="row" style="margin-top:30px;">
-                    <div class="col-md-6">
-                        <div class="panel panel-default white-list" id="white_list">
-                            <div class="panel-heading">应用白名单<span>（为空则不限制）</span> </div>
-                            <div class="panel-body p-15">
-                                <div class="item clearfix">
-                                    <div class="pull-left">123.123.12.12</div>
-                                    <div class="pull-right text-danger" title="删除"><i class="glyphicon glyphicon-trash js-remove-item"></i></div>
-                                </div>
-                                <div class="item clearfix">
-                                    <div class="pull-left">123.123.12.12</div>
-                                    <div class="pull-right text-danger" title="删除"><i class="glyphicon glyphicon-trash js-remove-item"></i></div>
-                                </div>
-                                <div class="item clearfix js-add-item">
-                                    <form id="upForm5" autocomplete="off" onsubmit="return false;">
-                                        <div class="pull-left" style="width:85%;"><input class="form-control input-sm" id="add_white_item" required type="text" name="name1"></div>
-                                        <div class="pull-right text-success" title="保存"><i id="js_save_white_list" class="glyphicon glyphicon-floppy-saved"></i></div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <a href="javascript:;" class="c-add-btn" id="js_add_white_list">新增</a>
-                                <a href="javascript:;" class="c-cancel-btn" id="js_cancel_white_list">取消</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">已注册接口</div>
-                            <div class="panel-body reg-list p-15">
-                                <div class="item clearfix" data-id="12345a">
-                                    <div class="pull-left">测试测试测试测试</div>
-                                    <div class="pull-left uses-num">已被<span>3</span>个应用使用</div>
-                                    <div class="pull-right">
-                                        <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
-                                        <i class="glyphicon glyphicon-wrench text-success update-reg-app" title="修改"></i>
-                                    </div>
-                                </div>
-                                <div class="item clearfix" data-id="12345b">
-                                    <div class="pull-left">测试测试测试测试</div>
-                                    <div class="pull-left uses-num">已被<span>3</span>个应用使用</div>
-                                    <div class="pull-right">
-                                        <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
-                                        <i class="glyphicon glyphicon-wrench text-success update-reg-app" title="修改"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <a href="javascript:;" id="js_add_reg_app">新增</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">已消费接口<span>（已授权使用的接口）</span></div>
-                            <div class="panel-body consume-list p-15">
-                                <div class="item-box">
-                                    <p><i class="order-id">1</i><span>应用A</span></p>
-                                    <div class="item clearfix" data-id="12345c">
-                                        <div class="pull-left">测试测试测试测试</div>
-                                        <div class="pull-right">
-                                            <span class="text-info apply-state">状态正常</span>
-                                            <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
-                                            <i class="glyphicon glyphicon-wrench text-success update-consume-app" title="修改"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item clearfix" data-id="78902312d">
-                                        <div class="pull-left">测试测试测试测试</div>
-                                        <div class="pull-right">
-                                            <span class="text-info apply-state">状态正常</span>
-                                            <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
-                                            <i class="glyphicon glyphicon-wrench text-success update-consume-app" title="修改"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item-box">
-                                    <p><i class="order-id">1</i><span>应用A</span></p>
-                                    <div class="item clearfix" data-id="12345e">
-                                        <div class="pull-left">测试测试测试测试</div>
-                                        <div class="pull-right">
-                                            <span class="text-info apply-state">状态正常</span>
-                                            <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
-                                            <i class="glyphicon glyphicon-wrench text-success update-consume-app" title="修改"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item clearfix" data-id="12345f">
-                                        <div class="pull-left">测试测试测试测试</div>
-                                        <div class="pull-right">
-                                            <span class="text-danger apply-state">已被禁用</span>
-                                            <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
-                                            <i class="glyphicon glyphicon-wrench text-success update-consume-app" title="修改"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <a href="javascript:;" id="js_add_consume_app">新增</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default white-list" id="callback_list">
-                            <div class="panel-heading">授权回调地址 </div>
-                            <div class="panel-body p-15">
-                                <div class="item clearfix">
-                                    <div class="pull-left">PC ：http://www.abc.com/aaa</div>
-                                    <div class="pull-right text-danger" title="删除"><i class="glyphicon glyphicon-trash js-remove-item"></i></div>
-                                </div>
-                                <div class="item clearfix">
-                                    <div class="pull-left">M ：http://www.abc.com/aaa</div>
-                                    <div class="pull-right text-danger" title="删除"><i class="glyphicon glyphicon-trash js-remove-item"></i></div>
-                                </div>
-                                <div class="item clearfix js-add-item">
-                                    <form id="callback_upForm" autocomplete="off" onsubmit="return false;">
-                                        <div class="pull-left" style="width:85%;">
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <input type="text" class="form-control" style="width: 100px;" placeholder="站点code">
-                                                </span>
-                                                <span class="input-group-addon">=></span>
-                                                <input type="text" class="form-control" placeholder="回调地址">
-                                            </div>
-                                        </div>
-                                        <div class="pull-right text-success" title="保存"><i id="js_save_callback_list" class="glyphicon glyphicon-floppy-saved"></i></div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <a href="javascript:;" class="c-add-btn" id="js_add_callback_list">新增</a>
-                                <a href="javascript:;" class="c-cancel-btn" id="js_cancel_callback_list">取消</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="form-group">
+              <textarea class="form-control app-intro-inp" style="resize:none;" name="" rows="5"></textarea>
             </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-md btn-danger" style="margin:15px 0;" id="js_delete_app">删除应用</button>
-                </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-sm" type="button" id="js_save_app_info">保存</button>
+              <button class="btn btn-sm btn-success" type="button" id="js_cancel_save_app">取消</button>
             </div>
+          </form>
+        </div>
+        <div class="col-sm-3 col-sm-offset-3">
+          <div class="switch-on-off pull-right switch-tigger-name">
+            <input type="checkbox" id="switch-checkbox">
+            <label class="switch-box" for="switch-checkbox">
+              <div class="track">
+                <div class="knob"></div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="apply-content">
+    <div class="container" style="border-bottom:1px solid #ddd; border-top:1px solid #ddd;">
+      <div class="row app-word">
+        <div class="col-sm-2"><span class="label-txt">应用ID：</span></div>
+        <div class="col-sm-10"><span>12345678</span></div>
+      </div>
+      <div class="row app-word">
+        <div class="col-sm-2"><span class="label-txt">密钥：</span></div>
+        <div class="col-sm-10">
+          <span>发撒法大撒旦发射点发射点发</span>
+          <a href="javascript:;" class="text-success" style="margin-left:40px;" id="js_get_key">重新获取</a>
+        </div>
+      </div>
+      <div class="row app-word">
+        <div class="col-sm-2"><span class="label-txt">应用ID：</span></div>
+        <div class="col-sm-10 " id="admin_list">
+          <label class="card-person"><i class="tedufont tedu-icon50"></i> 张三</label>
+          <label class="card-person"><i class="tedufont tedu-icon50"></i> 张三</label>
+          <label class="card-person"><i class="tedufont tedu-icon50"></i> 张三</label>
+        </div>
+      </div>
+      <div class="row" style="margin-top:30px;">
+        <div class="col-md-6">
+          <div class="panel panel-default white-list" id="white_list">
+            <div class="panel-heading">应用白名单<span>（为空则不限制）</span> </div>
+            <div class="panel-body p-15">
+              <div class="item clearfix">
+                <div class="pull-left">123.123.12.12</div>
+                <div class="pull-right text-danger" title="删除"><i class="glyphicon glyphicon-trash js-remove-item"></i>
+                </div>
+              </div>
+              <div class="item clearfix">
+                <div class="pull-left">123.123.12.12</div>
+                <div class="pull-right text-danger" title="删除"><i class="glyphicon glyphicon-trash js-remove-item"></i>
+                </div>
+              </div>
+              <div class="item clearfix js-add-item">
+                <form id="upForm5" autocomplete="off" onsubmit="return false;">
+                  <div class="pull-left" style="width:85%;"><input class="form-control input-sm" id="add_white_item"
+                      required type="text" name="name1"></div>
+                  <div class="pull-right text-success" title="保存"><i id="js_save_white_list"
+                      class="glyphicon glyphicon-floppy-saved"></i></div>
+                </form>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <a href="javascript:;" class="c-add-btn" id="js_add_white_list">新增</a>
+              <a href="javascript:;" class="c-cancel-btn" id="js_cancel_white_list">取消</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">已注册接口</div>
+            <div class="panel-body reg-list p-15">
+              <div class="item clearfix" data-id="12345a">
+                <div class="pull-left">测试测试测试测试</div>
+                <div class="pull-left uses-num">已被<span>3</span>个应用使用</div>
+                <div class="pull-right">
+                  <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
+                  <i class="glyphicon glyphicon-wrench text-success update-reg-app" title="修改"></i>
+                </div>
+              </div>
+              <div class="item clearfix" data-id="12345b">
+                <div class="pull-left">测试测试测试测试</div>
+                <div class="pull-left uses-num">已被<span>3</span>个应用使用</div>
+                <div class="pull-right">
+                  <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
+                  <i class="glyphicon glyphicon-wrench text-success update-reg-app" title="修改"></i>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <a href="javascript:;" id="js_add_reg_app">新增</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">已消费接口<span>（已授权使用的接口）</span></div>
+            <div class="panel-body consume-list p-15">
+              <div class="item-box">
+                <p><i class="order-id">1</i><span>应用A</span></p>
+                <div class="item clearfix" data-id="12345c">
+                  <div class="pull-left">测试测试测试测试</div>
+                  <div class="pull-right">
+                    <span class="text-info apply-state">状态正常</span>
+                    <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
+                    <i class="glyphicon glyphicon-wrench text-success update-consume-app" title="修改"></i>
+                  </div>
+                </div>
+                <div class="item clearfix" data-id="78902312d">
+                  <div class="pull-left">测试测试测试测试</div>
+                  <div class="pull-right">
+                    <span class="text-info apply-state">状态正常</span>
+                    <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
+                    <i class="glyphicon glyphicon-wrench text-success update-consume-app" title="修改"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="item-box">
+                <p><i class="order-id">1</i><span>应用A</span></p>
+                <div class="item clearfix" data-id="12345e">
+                  <div class="pull-left">测试测试测试测试</div>
+                  <div class="pull-right">
+                    <span class="text-info apply-state">状态正常</span>
+                    <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
+                    <i class="glyphicon glyphicon-wrench text-success update-consume-app" title="修改"></i>
+                  </div>
+                </div>
+                <div class="item clearfix" data-id="12345f">
+                  <div class="pull-left">测试测试测试测试</div>
+                  <div class="pull-right">
+                    <span class="text-danger apply-state">已被禁用</span>
+                    <i class="glyphicon glyphicon-file text-info check-log" title="日志"></i>
+                    <i class="glyphicon glyphicon-wrench text-success update-consume-app" title="修改"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <a href="javascript:;" id="js_add_consume_app">新增</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default white-list" id="callback_list">
+            <div class="panel-heading">授权回调地址 </div>
+            <div class="panel-body p-15">
+              <div class="item clearfix">
+                <div class="pull-left">PC ：http://www.abc.com/aaa</div>
+                <div class="pull-right text-danger" title="删除"><i class="glyphicon glyphicon-trash js-remove-item"></i>
+                </div>
+              </div>
+              <div class="item clearfix">
+                <div class="pull-left">M ：http://www.abc.com/aaa</div>
+                <div class="pull-right text-danger" title="删除"><i class="glyphicon glyphicon-trash js-remove-item"></i>
+                </div>
+              </div>
+              <div class="item clearfix js-add-item">
+                <form id="callback_upForm" autocomplete="off" onsubmit="return false;">
+                  <div class="pull-left" style="width:85%;">
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <input type="text" class="form-control" style="width: 100px;" placeholder="站点code">
+                      </span>
+                      <span class="input-group-addon">=></span>
+                      <input type="text" class="form-control" placeholder="回调地址">
+                    </div>
+                  </div>
+                  <div class="pull-right text-success" title="保存"><i id="js_save_callback_list"
+                      class="glyphicon glyphicon-floppy-saved"></i></div>
+                </form>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <a href="javascript:;" class="c-add-btn" id="js_add_callback_list">新增</a>
+              <a href="javascript:;" class="c-cancel-btn" id="js_cancel_callback_list">取消</a>
+            </div>
+          </div>
         </div>
 
-        <!-- Mainly scripts -->
-        <script src="../../../js/jquery-2.1.1.js"></script>
-        <script src="../../../js/bootstrap.min.js"></script>
-        <script src="../../../js/plugins/layer/layer.js"></script>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <button type="button" class="btn btn-md btn-danger" style="margin:15px 0;" id="js_delete_app">删除应用</button>
+      </div>
+    </div>
+  </div>
 
-        <!-- Custom and plugin javascript -->
-        <script src="../../../js/plugins/pace/pace.min.js"></script>
-        <script src="../../../i18n/zh-CN.js" type="text/javascript"></script>
-        <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
-        <script src="../../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
-        <script src="../../../js/plugins/jquery-number/jquery.number.min.js"></script>
-        <script src="../../../js/plugins/select2/select2.full.min.js"></script>
+  <!-- Mainly scripts -->
+  <script src="../../../js/jquery-2.1.1.js"></script>
+  <script src="../../../js/bootstrap.min.js"></script>
+  <script src="../../../js/plugins/layer/layer.js"></script>
 
-        <script src="../../../js/subindex.js"></script>
-        <script src="../../../js/plugins/iCheck/icheck.min.js"></script>
+  <!-- Custom and plugin javascript -->
+  <script src="../../../js/plugins/pace/pace.min.js"></script>
+  <script src="../../../i18n/zh-CN.js" type="text/javascript"></script>
+  <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+  <script src="../../../js/plugins/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+  <script src="../../../js/plugins/jquery-number/jquery.number.min.js"></script>
+  <script src="../../../js/plugins/select2/select2.full.min.js"></script>
 
-        <script>
-            $(function () {
+  <script src="../../../js/subindex.js"></script>
+  <script src="../../../js/plugins/iCheck/icheck.min.js"></script>
 
-                //修改注册接口 打开弹框
-                $('.reg-list').on('click', '.update-reg-app', function () {
-                    var id_ = $(this).closest('.item').data('id'); //获取id 
-                    cumParentWinModal('修改注册接口', 'yingyong-api-edit.html?id=' + id_);
-                }).on('click', '.check-log', function () {
-                    var id_ = $(this).closest('.item').data('id');
-                    cumParentWinModal('查看日志', 'add.html?id=' + id_, {
-                        area: ['700px', '600px']
-                    });
-                });
-                //新增注册接口 打开弹框
-                $('#js_add_reg_app').on('click', function () {
-                    cumParentWinModal('新增注册接口', 'yingyong-api-admin.html');
-                });
-                //修改消费接口 打开弹框
-                $('.consume-list').on('click', '.update-consume-app', function () {
-                    var id_ = $(this).closest('.item').data('id');
-                    cumParentWinModal('修改消费接口', 'edit-consume.html?id=' + id_);
-                }).on('click', '.check-log', function () {
-                    var id_ = $(this).closest('.item').data('id');
-                    cumParentWinModal('查看日志', 'add.html?id=' + id_, {
-                        area: ['700px', '600px']
-                    });
-                });
-                //新增消费接口 打开弹框
-                $('#js_add_consume_app').on('click', function () {
-                    cumParentWinModal('新增消费接口', 'add-consume.html', {
-                        area: ['700px', '600px']
-                    });
-                });
-                //控制应用状态
-                $('.switch-on-off').click(function () {
-                    var $checkbox = $('#switch-checkbox');
-                    if ($checkbox.is(':checked')) {
-                        $checkbox.prop('disabled', true);
-                        COM_TOOLS.confirm('确认关闭应用吗？', {
-                            title: '提示'
-                        }, function () {
-                            COM_TOOLS.confirm('真的确定关闭吗？', {
-                                title: '提示'
-                            }, function (index) {
-                                layer.close(index);
-                                $checkbox.prop({
-                                    'disabled': false,
-                                    'checked': false
-                                });
-                            });
-                        });
-                    } else {
-                        $checkbox.prop('checked', true);
-                    }
-                });
-                //确认是否重新获取密钥
-                $('#js_get_key').click(function () {
-                    COM_TOOLS.confirm('确认重新获取密钥吗？', {
-                        title: '提示'
-                    }, function () {
-                        COM_TOOLS.confirm('真的确定重新获取密钥吗？', {
-                            title: '提示'
-                        }, function (index) {
-                            layer.close(index);
-                            // ajax code
-                        });
-                    });
-                });
-                //确认是否删除应用
-                $('#js_delete_app').click(function () {
-                    COM_TOOLS.confirm('确认删除应用吗？', {
-                        title: '提示'
-                    }, function () {
-                        COM_TOOLS.confirm('真的确定删除应用吗？', {
-                            title: '提示'
-                        }, function (index) {
-                            layer.close(index);
-                            // ajax code
-                        });
-                    });
-                });
+  <script>
+    $(function () {
 
-                // 编辑应用名称及简介
-                var $editArea = $('.js-edit-area'),
-                    $saveArea = $('.js-save-area');
-                $('#js_edit_info').click(function () {
-                    if (!$editArea.data('isOpen')) {
-                        $saveArea.hide();
-                        $editArea.find('.app-name-inp').val($saveArea.find('.app-name').text());
-                        $editArea.find('.app-intro-inp').val($saveArea.find('.app-intro').text());
-                        $editArea.show().data('isOpen', true);
-                    }
-                });
-                //保存应用名称及简介
-                $('#js_save_app_info').click(function () {
-                    if (!$('#js_edit_form').validate().form()) {
-                        return false;
-                    }
-                    $saveArea.find('.app-name').text($.trim($editArea.find('.app-name-inp').val()));
-                    $saveArea.find('.app-intro').text($.trim($editArea.find('.app-intro-inp').val()));
-                    $('#js_cancel_save_app').trigger('click');
-                });
-                //取消编辑应用名称及简介
-                $('#js_cancel_save_app').click(function () {
-                    $saveArea.show();
-                    $editArea.hide().data('isOpen', false);
-                });
+      /* 注意 cumParentWinModal 中的 new URL 均是demo中为了获取绝对地址使用的，产线直接写入绝对地址即可，不要使用 new URL() */
 
-                // 管理员悬浮框
-                COM_TOOLS.infoTipsFn('#admin_list', '.card-person',
-                    function () {
-                        return '<p>文字内容文字内容文字内容文字内容</p>' +
-                            '<p>文字内容文字内容文字内容文字内容</p>' +
-                            '<p>文字内容文字内容文字内容文字内容</p>' +
-                            '<p>文字内容文字内容文字内容文字内容</p>' +
-                            '<p>文字内容文字内容文字内容文字内容</p>';
-                    }, {
-                        placement: 'bottom',
-                        maxHeight: '300px'
-                    }
-                );
-                // 新增白名单
-                $('#js_add_white_list').click(function () {
-                    $('#white_list .js-add-item').show();
-                    $('#white_list .panel-footer').addClass('white-list-editing');
-                });
-                //白名单退出编辑状态
-                $('#js_cancel_white_list').click(function () {
-                    $('#upForm5').validate().resetForm();
-                    $('#add_white_item').tooltip('destroy');
-                    $('#white_list .js-add-item').hide();
-                });
-                // 保存白名单
-                $('#js_save_white_list').click(function () {
-
-                    if (!$('#upForm5').validate().form()) {
-                        return false;
-                    }
-                    var val_ = $.trim($('#add_white_item').val());
-                    $('#white_list .js-add-item').before(
-                        '<div class="item clearfix">' +
-                        '<div class="pull-left">' + val_ + '</div>' +
-                        '<div class="pull-right text-danger js-remove-item" title="删除"><i class="glyphicon glyphicon-trash"></i></div>' +
-                        '</div>'
-                    );
-                    $('#add_white_item').val('');
-                    $('#white_list .js-add-item').hide();
-                    $('#white_list .panel-footer').removeClass('white-list-editing');
-                });
-                // 删除白名单
-                $('#white_list').on('click', '.js-remove-item', function () {
-                    $(this).closest('.item').remove();
-                });
+      //修改注册接口 打开弹框
+      $('.reg-list').on('click', '.update-reg-app', function () {
+        var id_ = $(this).closest('.item').data('id'); //获取id 
+        cumParentWinModal('修改注册接口', new URL('yingyong-api-edit.html?id=' + id_, window.location).href);
+      }).on('click', '.check-log', function () {
+        var id_ = $(this).closest('.item').data('id');
+        cumParentWinModal('查看日志', new URL('../add.html?id=' + id_, window.location).href, {
+          area: ['700px', '600px']
+        });
+      });
+      //新增注册接口 打开弹框
+      $('#js_add_reg_app').on('click', function () {
+        cumParentWinModal('新增注册接口', new URL('yingyong-api-admin.html', window.location).href);
+      });
+      //修改消费接口 打开弹框
+      $('.consume-list').on('click', '.update-consume-app', function () {
+        var id_ = $(this).closest('.item').data('id');
+        cumParentWinModal('修改消费接口', new URL('edit-consume.html?id=' + id_, window.location).href);
+      }).on('click', '.check-log', function () {
+        var id_ = $(this).closest('.item').data('id');
+        cumParentWinModal('查看日志', new URL('../add.html?id=' + id_, window.location).href, {
+          area: ['700px', '600px']
+        });
+      });
+      //新增消费接口 打开弹框
+      $('#js_add_consume_app').on('click', function () {
+        cumParentWinModal('新增消费接口', new URL('add-consume.html', window.location).href, {
+          area: ['700px', '600px']
+        });
+      });
+      //控制应用状态
+      $('.switch-on-off').click(function () {
+        var $checkbox = $('#switch-checkbox');
+        if ($checkbox.is(':checked')) {
+          $checkbox.prop('disabled', true);
+          COM_TOOLS.confirm('确认关闭应用吗？', {
+            title: '提示'
+          }, function () {
+            COM_TOOLS.confirm('真的确定关闭吗？', {
+              title: '提示'
+            }, function (index) {
+              layer.close(index);
+              $checkbox.prop({
+                'disabled': false,
+                'checked': false
+              });
             });
-        </script>
-    </body>
+          });
+        } else {
+          $checkbox.prop('checked', true);
+        }
+      });
+      //确认是否重新获取密钥
+      $('#js_get_key').click(function () {
+        COM_TOOLS.confirm('确认重新获取密钥吗？', {
+          title: '提示'
+        }, function () {
+          COM_TOOLS.confirm('真的确定重新获取密钥吗？', {
+            title: '提示'
+          }, function (index) {
+            layer.close(index);
+            // ajax code
+          });
+        });
+      });
+      //确认是否删除应用
+      $('#js_delete_app').click(function () {
+        COM_TOOLS.confirm('确认删除应用吗？', {
+          title: '提示'
+        }, function () {
+          COM_TOOLS.confirm('真的确定删除应用吗？', {
+            title: '提示'
+          }, function (index) {
+            layer.close(index);
+            // ajax code
+          });
+        });
+      });
+
+      // 编辑应用名称及简介
+      var $editArea = $('.js-edit-area'),
+        $saveArea = $('.js-save-area');
+      $('#js_edit_info').click(function () {
+        if (!$editArea.data('isOpen')) {
+          $saveArea.hide();
+          $editArea.find('.app-name-inp').val($saveArea.find('.app-name').text());
+          $editArea.find('.app-intro-inp').val($saveArea.find('.app-intro').text());
+          $editArea.show().data('isOpen', true);
+        }
+      });
+      //保存应用名称及简介
+      $('#js_save_app_info').click(function () {
+        if (!$('#js_edit_form').validate().form()) {
+          return false;
+        }
+        $saveArea.find('.app-name').text($.trim($editArea.find('.app-name-inp').val()));
+        $saveArea.find('.app-intro').text($.trim($editArea.find('.app-intro-inp').val()));
+        $('#js_cancel_save_app').trigger('click');
+      });
+      //取消编辑应用名称及简介
+      $('#js_cancel_save_app').click(function () {
+        $saveArea.show();
+        $editArea.hide().data('isOpen', false);
+      });
+
+      // 管理员悬浮框
+      COM_TOOLS.infoTipsFn('#admin_list', '.card-person',
+        function () {
+          return '<p>文字内容文字内容文字内容文字内容</p>' +
+            '<p>文字内容文字内容文字内容文字内容</p>' +
+            '<p>文字内容文字内容文字内容文字内容</p>' +
+            '<p>文字内容文字内容文字内容文字内容</p>' +
+            '<p>文字内容文字内容文字内容文字内容</p>';
+        }, {
+        placement: 'bottom',
+        maxHeight: '300px'
+      }
+      );
+      // 新增白名单
+      $('#js_add_white_list').click(function () {
+        $('#white_list .js-add-item').show();
+        $('#white_list .panel-footer').addClass('white-list-editing');
+      });
+      //白名单退出编辑状态
+      $('#js_cancel_white_list').click(function () {
+        $('#upForm5').validate().resetForm();
+        $('#add_white_item').tooltip('destroy');
+        $('#white_list .js-add-item').hide();
+      });
+      // 保存白名单
+      $('#js_save_white_list').click(function () {
+
+        if (!$('#upForm5').validate().form()) {
+          return false;
+        }
+        var val_ = $.trim($('#add_white_item').val());
+        $('#white_list .js-add-item').before(
+          '<div class="item clearfix">' +
+          '<div class="pull-left">' + val_ + '</div>' +
+          '<div class="pull-right text-danger js-remove-item" title="删除"><i class="glyphicon glyphicon-trash"></i></div>' +
+          '</div>'
+        );
+        $('#add_white_item').val('');
+        $('#white_list .js-add-item').hide();
+        $('#white_list .panel-footer').removeClass('white-list-editing');
+      });
+      // 删除白名单
+      $('#white_list').on('click', '.js-remove-item', function () {
+        $(this).closest('.item').remove();
+      });
+    });
+  </script>
+</body>
 
 </html>

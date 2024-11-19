@@ -1,180 +1,182 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>平台短信模板管理</title>
+  <title>平台短信模板管理</title>
 
-        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/iconfont.css" rel="stylesheet">
+  <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../css/iconfont.css" rel="stylesheet">
 
-        <link href="../../../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-        <link href="../../../css/animate.css" rel="stylesheet">
-        <link href="../../../css/style.css" rel="stylesheet">
-        <style>
-            .cus-mo-btn {
-                cursor: pointer;
-                margin: 0 3px;
-            }
-            .md-001 tr:first-child .js-btn-up {
-                display: none;
-            }
-            .md-001 tr:last-child .js-btn-down {
-                display: none;
-            }
-        </style>
-    </head>
+  <link href="../../../css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+  <link href="../../../css/animate.css" rel="stylesheet">
+  <link href="../../../css/style.css" rel="stylesheet">
+  <style>
+    .cus-mo-btn {
+      cursor: pointer;
+      margin: 0 3px;
+    }
 
-    <body>
-        <div class="container-fluid">
-            <div class="row" style="min-height: 50px;">
-                <div class="p-xs col-xs-12 text-center" id="demoaffix1" data-spy="affix" data-offset-top="50">
-                    <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
-                    <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
-                </div>
-            </div>
+    .md-001 tr:first-child .js-btn-up {
+      display: none;
+    }
+
+    .md-001 tr:last-child .js-btn-down {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row" style="min-height: 50px;">
+      <div class="p-xs col-xs-12 text-center" id="demoaffix1" data-spy="affix" data-offset-top="50">
+        <button class="btn btn-primary btn-sm" type="button" id="btn_save">保存</button>
+        <button class="btn btn-success btn-sm" type="button" id="btn_closewin">关闭</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="text-danger">*</span> 模板名称：</label>
+        <div class="col-sm-3"><input name="name1" class="form-control input-sm" type="text"></div>
+        <span class="col-sm-6 help-block">（！不可修改）</span>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="text-danger">*</span> 模板类型：</label>
+        <div class="col-sm-3">
+          <section class="form-control input-sm">
+            <option value="">-请选择-</option>
+          </section>
         </div>
-        <div class="container">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><span class="text-danger">*</span> 模板名称：</label>
-                    <div class="col-sm-3"><input name="name1" class="form-control input-sm" type="text"></div>
-                    <span class="col-sm-6 help-block">（！不可修改）</span>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><span class="text-danger">*</span> 模板类型：</label>
-                    <div class="col-sm-3">
-                        <section class="form-control input-sm">
-                            <option value="">-请选择-</option>
-                        </section>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label"><span class="text-danger">*</span> 签名：</label>
-                    <div class="col-sm-3">
-                        <section class="form-control input-sm">
-                            <option value="">-请选择-</option>
-                        </section>
-                    </div>
-                    <span class="col-sm-6 help-block">（！不可修改，新建时，如修改则绑定的模板清空）</span>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">模板样例：</label>
-                    <div class="col-sm-7">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">模板样例：</label>
-                    <div class="col-sm-9">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>账号&服务商</th>
-                                    <th>模板内容</th>
-                                    <th>操作
-                                        <a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="com.zz.zz.z01"></a>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="js_mdata_box" class="md-001">
-                                <tr>
-                                    <td>1</td>
-                                    <td></td>
-                                    <td>
-                                        <span class="cus-mo-btn text-danger js-btn-del">删除</span>
-                                        <span class="cus-mo-btn text-success js-btn-up">上移</span>
-                                        <span class="cus-mo-btn text-success js-btn-down">下移</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td></td>
-                                    <td>
-                                        <span class="cus-mo-btn text-danger js-btn-del">删除</span>
-                                        <span class="cus-mo-btn text-success js-btn-up">上移</span>
-                                        <span class="cus-mo-btn text-success js-btn-down">下移</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td></td>
-                                    <td>
-                                        <span class="cus-mo-btn text-danger js-btn-del">删除</span>
-                                        <span class="cus-mo-btn text-success js-btn-up">上移</span>
-                                        <span class="cus-mo-btn text-success js-btn-down">下移</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button type="button" class="btn btn-sm btn-primary" id="add_bind_one">新增绑定</button>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="text-danger">*</span> 签名：</label>
+        <div class="col-sm-3">
+          <section class="form-control input-sm">
+            <option value="">-请选择-</option>
+          </section>
         </div>
+        <span class="col-sm-6 help-block">（！不可修改，新建时，如修改则绑定的模板清空）</span>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">模板样例：</label>
+        <div class="col-sm-7">
+          <textarea class="form-control" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">模板样例：</label>
+        <div class="col-sm-9">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>账号&服务商</th>
+                <th>模板内容</th>
+                <th>操作
+                  <a class="tedufont tedu-icon133 cushelpbtn js-helpmsg" data-helpmsg="com.zz.zz.z01"></a>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="js_mdata_box" class="md-001">
+              <tr>
+                <td>1</td>
+                <td></td>
+                <td>
+                  <span class="cus-mo-btn text-danger js-btn-del">删除</span>
+                  <span class="cus-mo-btn text-success js-btn-up">上移</span>
+                  <span class="cus-mo-btn text-success js-btn-down">下移</span>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td></td>
+                <td>
+                  <span class="cus-mo-btn text-danger js-btn-del">删除</span>
+                  <span class="cus-mo-btn text-success js-btn-up">上移</span>
+                  <span class="cus-mo-btn text-success js-btn-down">下移</span>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td></td>
+                <td>
+                  <span class="cus-mo-btn text-danger js-btn-del">删除</span>
+                  <span class="cus-mo-btn text-success js-btn-up">上移</span>
+                  <span class="cus-mo-btn text-success js-btn-down">下移</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-sm btn-primary" id="add_bind_one">新增绑定</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Mainly scripts -->
-        <script src="../../../js/jquery-2.1.1.js"></script>
-        <script src="../../../js/bootstrap.min.js"></script>
-        <script src="../../../js/plugins/layer/layer.js"></script>
+  <!-- Mainly scripts -->
+  <script src="../../../js/jquery-2.1.1.js"></script>
+  <script src="../../../js/bootstrap.min.js"></script>
+  <script src="../../../js/plugins/layer/layer.js"></script>
 
-        <!-- Custom and plugin javascript -->
-        <script src="../../../i18n/zh-CN.js" type="text/javascript"></script>
-        <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
-        <script src="../../../js/plugins/datatables/datatables.min.js"></script>
-        <script src="../../../js/subindex.js"></script>
+  <!-- Custom and plugin javascript -->
+  <script src="../../../i18n/zh-CN.js" type="text/javascript"></script>
+  <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+  <script src="../../../js/plugins/datatables/datatables.min.js"></script>
+  <script src="../../../js/subindex.js"></script>
 
-        <!-- demo演示数据 -->
-        <script src="../../../js/jquery.mockjax.min.js"></script>
-        <script src="../../../demo-data.js"></script>
+  <!-- demo演示数据 -->
+  <script src="../../../js/jquery.mockjax.min.js"></script>
+  <script src="../../../demo-data.js"></script>
 
-        <script>
-            LOCAL_MESSAGE_DATA['com.zz.zz.z01'] = '优先按照这里的绑定顺利（由上到下）进行发送；（特殊情况如，含有域名、邮箱阿里不支持的，自动使用序列中的下一个，，没有或均不支持则不发送）';
+  <script>
+    LOCAL_MESSAGE_DATA['com.zz.zz.z01'] = '优先按照这里的绑定顺利（由上到下）进行发送；（特殊情况如，含有域名、邮箱阿里不支持的，自动使用序列中的下一个，，没有或均不支持则不发送）';
 
-            $(function () {
-                var $box_ = $('#js_mdata_box');
+    $(function () {
+      var $box_ = $('#js_mdata_box');
 
-                function add_row(data) {
-                    if (data) {
-                        var $item = $('<tr><td>' + data.pname + '</td><td>' + data.content + '</td>' +
-                            '<td>' +
-                            '<span class="cus-mo-btn text-danger js-btn-del">删除</span>' +
-                            '<span class="cus-mo-btn text-success js-btn-up">上移</span>' +
-                            '<span class="cus-mo-btn text-success js-btn-down">下移</span>' +
-                            '</td>' +
-                            '</tr>');
-                        $item.data({ //需要哪些数据放哪些；
-                            id: data.id
-                        });
-                        $box_.append($item);
-                    } else {
-                        COM_TOOLS.alert('参数异常！');
-                    }
-                }
-                $('#add_bind_one').click(function () {
-                    cumParentWinModal('新建', '选择服务商模板.html', {
-                        "callback": {
-                            save: add_row
-                        }
-                    });
-                });
-                $box_.on('click', '.js-btn-del', function () { /* 删除 */
-                    var $this_ = $(this);
-                    $this_.closest('tr').remove();
-                }).on('click', '.js-btn-up', function () { /* 上 */
-                    var $tr = $(this).closest('tr');
-                    var $trBefore = $tr.prev('tr');
-                    $trBefore.length && $tr.insertBefore($trBefore);
-                }).on('click', '.js-btn-down', function () { /* 下 */
-                    var $tr = $(this).closest('tr');
-                    var $trNext = $tr.next('tr');
-                    $trNext.length && $tr.insertAfter($trNext);
-                });
-            });
-        </script>
-    </body>
+      function add_row(data) {
+        if (data) {
+          var $item = $('<tr><td>' + data.pname + '</td><td>' + data.content + '</td>' +
+            '<td>' +
+            '<span class="cus-mo-btn text-danger js-btn-del">删除</span>' +
+            '<span class="cus-mo-btn text-success js-btn-up">上移</span>' +
+            '<span class="cus-mo-btn text-success js-btn-down">下移</span>' +
+            '</td>' +
+            '</tr>');
+          $item.data({ //需要哪些数据放哪些；
+            id: data.id
+          });
+          $box_.append($item);
+        } else {
+          COM_TOOLS.alert('参数异常！');
+        }
+      }
+      $('#add_bind_one').click(function () {
+        cumParentWinModal('新建', new URL('选择服务商模板.html', window.location).href, {
+          "callback": {
+            save: add_row
+          }
+        });
+      });
+      $box_.on('click', '.js-btn-del', function () { /* 删除 */
+        var $this_ = $(this);
+        $this_.closest('tr').remove();
+      }).on('click', '.js-btn-up', function () { /* 上 */
+        var $tr = $(this).closest('tr');
+        var $trBefore = $tr.prev('tr');
+        $trBefore.length && $tr.insertBefore($trBefore);
+      }).on('click', '.js-btn-down', function () { /* 下 */
+        var $tr = $(this).closest('tr');
+        var $trNext = $tr.next('tr');
+        $trNext.length && $tr.insertAfter($trNext);
+      });
+    });
+  </script>
+</body>
 
 </html>

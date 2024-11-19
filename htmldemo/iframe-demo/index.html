@@ -1,676 +1,770 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="renderer" content="webkit">
-    <title>index</title>
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <title>index</title>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
+  <link href="../../css/plugins/customScrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet">
 
-    <link href="../../css/animate.css" rel="stylesheet">
-    <link href="../../css/iconfont.css" rel="stylesheet">
-    <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
-    <link href="../../css/style.css" rel="stylesheet">
-    <style>
-      body {
-                background-color: #2f4050;
-                overflow-x: hidden;
-            }
-            html,
-            body {
-                height: 100%;
-            }
-            /*tab标签新增样式*/
-            
-            .navbar-top-links .dropdown-menu .link-block a:hover {
-                color: #299BE4;
-            }
-            .logo_box {
-                background: #299be4;
-                height: 60px;
-            }
-            .nav-third-level li.active {
-                border: none;
-            }
-            .navbar-default .nav>li>a:focus {
-                /*background-color: #293846;*/
-                color: #a7b1c2;
-            }
-            .navbar-default .nav>li>a.x-highlight {
-                /*background-color: #293846;*/
-                color: white !important;
-            }
-            .navbar-default .nav>li.active>a {
-                color: #a7b1c2;
-            }
-            #cumBopbarMenu>li>a {
-                width: 35px;
-                padding: 5px 0;
-                height: 35px;
-                font-size: 16px;
-                text-align: center;
-                border-radius: 10px;
-            }
-            .menu-search-box {
-                position: absolute;
-                top: 60px;
-                left: 0;
-                overflow: hidden;
-                z-index: 10;
-                right: 0;
-                height: 42px;
-                padding: 6px 8px 0 8px;
-                background: #299be4;
-            }
-        </style>
-    <script type="text/javascript">
-      //自定义菜单初始化数据
-      var cusMenu_initData = [1, 2] || [];
-      //系统配置  注意演示demo中需要与demo-data.js 中同步；
-      var cus_default_ = {
-        /*自定义菜单开关级打开个数，_customMenu>0为开起菜单及设置个数，0为关闭自定义菜单功能*/
-        "_customMenus": 8,
-        /*控制主页tab标签打开个数,必须为数字*/
-        "_tabSingle": 5,
-        /*是否启用开关控制tab导航条显隐*/
-        "_isOpenSwitch": true,
-        /* 系统默认帮助页面地址 */
-        "_helpPage": "../index.html",
-        "_isOpenNotice": {
-          "geturl": "/message/showMessage", //获取数据接口地址
-          "seturl": "/message/messageBack", //发送数据接口地址
-          "infoPageUrl": "help.html", //详情页地址
-          "infoListUrl": "", //消息列表页地址
-          "isDisplay": true, //控制是否显示公告
-          "delayTime": 5, //控制弹出时长 单位:s
-          "requestTime": 300, //控制每次请求的时长 单位:s; 不能小于10；
-          "isNew": true, //是否采用新版系统消息 【A: 3.9.3,兼容旧版本】
-          "version":'1.0',
-          "showMsg":1,//控制顶部消息轮播是否显示
-          "showWait":1,//控制顶部待办事项是否显示
-          "showNotice":1,//控制系统通知是否显示,
-          "showRbnotice":1,//控制右下角弹框是否启用
-          "appKey":'',
-          "getNewurl":'/m/m'//接口地址
-        },
-        "_dataTableOpt": {
-          "pageLength": 7, //每页显示条数；
-        },
-        /* 文件服务相关配置 */
-        "_fileServeOpt": {
-          "fileUploadUrl": "https://lianglei.net.cn/demo-ui/platform-help/htmldemo/php-api/file-upload-api.php", //文件上传接口
-          "defaultFileSize": 40 * 1024, // 一般文件允许上传的大小，单位：kb
-          "imgFileSize": 10 * 1024, // 图片文件允许上传的大小，单位：kb
-          "fileType": ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "pdf", "jpg", "jpeg", "png", "gif", "rar",
-            "zip"
-          ], // 文件类型
-          "imgType": ["jpg", "jpeg", "png", "gif"] // 支持预览的文件类型
-        },
-        /* 通讯录组件 */
-        "_orgTreeOpt": {
-          "treeUrl": "/jstree6/api", //组织树接口地址
-          "searchUrl": "/jstree6/searchapi1127", //搜索接口地址
-          "getDataUrl": "/jstree6/org_getinfo" //根据id与id类型获取资源信息
-        },
-        /* 强制退出系统配置 */
-        "_forcedExit": {
-          "time": "-1", // -1：无限制；按本次登录持续时长执行,范围[1-24]，数值型，前后包含；按指定时间执行,格式 (01:05),24小时制字符串，凌晨1点05分；
-          "ajaxForm": false //是否全局监听ajax请求是否会话超时,并强制跳转到登录页面;
-        }
-      };
-    </script>
-  </head>
+  <link href="../../css/animate.css" rel="stylesheet">
+  <link href="../../css/iconfont.css" rel="stylesheet">
+  <link href="../../css/plugins/jsTree/style.min.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #2f4050;
+      overflow-x: hidden;
+    }
 
-  <body class="height-100-x has-menu-sear-box">
-    <div id="wrapper">
-      <div class="page-left-box">
+    html,
+    body {
+      height: 100%;
+    }
 
-        <div class="logo_box">
-          <div class="profile-element text-center p-xs"><img alt="image" src="../../images/logo-demo.png" height="46" /></div>
-          <div class="logo-element">DEMO</div>
+    /*tab标签新增样式*/
+
+    .navbar-top-links .dropdown-menu .link-block a:hover {
+      color: #299BE4;
+    }
+
+    .logo_box {
+      background: #299be4;
+      height: 60px;
+    }
+
+    .nav-third-level li.active {
+      border: none;
+    }
+
+    .navbar-default .nav>li>a:focus {
+      /*background-color: #293846;*/
+      color: #a7b1c2;
+    }
+
+    .navbar-default .nav>li>a.x-highlight {
+      /*background-color: #293846;*/
+      color: white !important;
+    }
+
+    .navbar-default .nav>li.active>a {
+      color: #a7b1c2;
+    }
+
+    #cumBopbarMenu>li>a {
+      width: 35px;
+      padding: 5px 0;
+      height: 35px;
+      font-size: 16px;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    .menu-search-box {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      overflow: hidden;
+      z-index: 10;
+      right: 0;
+      height: 42px;
+      padding: 6px 8px 0 8px;
+      background: #299be4;
+    }
+  </style>
+  <script type="text/javascript">
+    //自定义菜单初始化数据
+    var cusMenu_initData = [1, 2] || [];
+    //系统配置  注意演示demo中需要与demo-data.js 中同步；
+    var cus_default_ = {
+      /*自定义菜单开关级打开个数，_customMenu>0为开起菜单及设置个数，0为关闭自定义菜单功能*/
+      "_customMenus": 8,
+      /*控制主页tab标签打开个数,必须为数字*/
+      "_tabSingle": 5,
+      /*是否启用开关控制tab导航条显隐*/
+      "_isOpenSwitch": true,
+      /* 系统默认帮助页面地址 */
+      "_helpPage": "../index.html",
+      "_isOpenNotice": {
+        "geturl": "/message/showMessage", //获取数据接口地址
+        "seturl": "/message/messageBack", //发送数据接口地址
+        "infoPageUrl": "help.html", //详情页地址
+        "infoListUrl": "", //消息列表页地址
+        "isDisplay": true, //控制是否显示公告
+        "delayTime": 5, //控制弹出时长 单位:s
+        "requestTime": 300, //控制每次请求的时长 单位:s; 不能小于10；
+        "isNew": true, //是否采用新版系统消息 【A: 3.9.3,兼容旧版本】
+        "version": '1.0',
+        "showMsg": 1,//控制顶部消息轮播是否显示
+        "showWait": 1,//控制顶部待办事项是否显示
+        "showNotice": 1,//控制系统通知是否显示,
+        "showRbnotice": 1,//控制右下角弹框是否启用
+        "appKey": '',
+        "getNewurl": '/m/m'//接口地址
+      },
+      "_dataTableOpt": {
+        "pageLength": 7, //每页显示条数；
+      },
+      /* 文件服务相关配置 */
+      "_fileServeOpt": {
+        "fileUploadUrl": "https://lianglei.net.cn/demo-ui/platform-help/htmldemo/php-api/file-upload-api.php", //文件上传接口
+        "defaultFileSize": 40 * 1024, // 一般文件允许上传的大小，单位：kb
+        "imgFileSize": 10 * 1024, // 图片文件允许上传的大小，单位：kb
+        "fileType": ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "pdf", "jpg", "jpeg", "png", "gif", "rar",
+          "zip"
+        ], // 文件类型
+        "imgType": ["jpg", "jpeg", "png", "gif"] // 支持预览的文件类型
+      },
+      /* 通讯录组件 */
+      "_orgTreeOpt": {
+        "treeUrl": "/jstree6/api", //组织树接口地址
+        "searchUrl": "/jstree6/searchapi1127", //搜索接口地址
+        "getDataUrl": "/jstree6/org_getinfo" //根据id与id类型获取资源信息
+      },
+      /* 强制退出系统配置 */
+      "_forcedExit": {
+        "time": "-1", // -1：无限制；按本次登录持续时长执行,范围[1-24]，数值型，前后包含；按指定时间执行,格式 (01:05),24小时制字符串，凌晨1点05分；
+        "ajaxForm": false //是否全局监听ajax请求是否会话超时,并强制跳转到登录页面;
+      }
+    };
+  </script>
+</head>
+
+<body class="height-100-x has-menu-sear-box">
+  <div id="wrapper">
+    <div class="page-left-box">
+
+      <div class="logo_box">
+        <div class="profile-element text-center p-xs"><img alt="image" src="../../images/logo-demo.png" height="46" />
         </div>
-        <div class="menu-search-box">
-          <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="搜索菜单" id="menu_search_b_inp" autocomplete="off">
-            <span class="input-group-addon" id="menu_search_b_cbtn" style="cursor: pointer;"><i class="glyphicon glyphicon-remove"></i></span>
+        <div class="logo-element">DEMO</div>
+      </div>
+      <div class="menu-search-box">
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" placeholder="搜索菜单" id="menu_search_b_inp" autocomplete="off">
+          <span class="input-group-addon" id="menu_search_b_cbtn" style="cursor: pointer;"><i
+              class="glyphicon glyphicon-remove"></i></span>
+        </div>
+      </div>
+      <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="navbar-static-side-cb" style="height: 100%; position: relative;">
+
+          <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+              <li class="active item" data-itemid="666">
+                <a href="#"><span class="fa arrow"></span><i class="tedufont tedu-icon14"></i><span
+                    class="nav-label">一般页面</span></a>
+                <ul class="nav nav-second-level">
+                  <li data-itemid="1">
+                    <a href="list.html"><i class="tedufont tedu-icon6"></i><span class="nav-label">数据表格</span></a>
+                  </li>
+                  <li data-itemid="2">
+                    <a href="organization.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">组织权限</span></a>
+                  </li>
+                  <li data-itemid="a2-2">
+                    <a href="org-WEWORK.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">组织人员(通讯录)</span></a>
+                  </li>
+                  <li data-itemid="3">
+                    <a href="info.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">详情页(标签)</span></a>
+                  </li>
+                  <li data-itemid="3_1">
+                    <a href="info-flex.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">详情页(iframe标签)</span></a>
+                  </li>
+                  <li data-itemid="a9">
+                    <a href="配置管理V2.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">配置管理</span></a>
+                  </li>
+                  <li data-itemid="a10">
+                    <a href="通讯录插件.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">通讯录组件</span></a>
+                  </li>
+                  <li data-itemid="a11">
+                    <a href="数据字典/数据字典管理.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">数据字典管理</span></a>
+                  </li>
+                  <li data-itemid="a12">
+                    <a href="数据字典/数据字典-组件.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">数据字典组件</span></a>
+                  </li>
+                  <li data-itemid="a13">
+                    <a href="index_make.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">配置首页布局</span></a>
+                  </li>
+                  <li data-itemid="a14">
+                    <a href="set_i18n_forinput.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">国际化信息组件</span></a>
+                  </li>
+                  <li data-itemid="a15">
+                    <a href="info2.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">分步提交(标签)</span></a>
+                  </li>
+                  <li data-itemid="a16">
+                    <a href="up-img-cut.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">上传头像</span></a>
+                  </li>
+                  <li data-itemid="a17">
+                    <a href="help-admin.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">文档在线编辑</span></a>
+                  </li>
+                  <li data-itemid="a18">
+                    <a href="other20180719.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">课程大纲</span></a>
+                  </li>
+                  <li data-itemid="a19">
+                    <a href="../formCreate/createpage.html"><i class="tedufont tedu-icon5"></i><span
+                        class="nav-label">代码生成</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="b2">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-envelope"></i><span
+                    class="nav-label">应用管理</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="b2_1">
+                    <a href="appadmin/yingyong-admin.html"><i class="tedufont tedu-icon7"></i><span
+                        class="nav-label">应用列表</span></a>
+                  </li>
+                  <li data-itemid="b2_2">
+                    <a href="appadmin/app-info.html"><i class="tedufont tedu-icon8"></i><span
+                        class="nav-label">应用详情</span></a>
+                  </li>
+                  <li data-itemid="b2_3">
+                    <a href="appadmin/yingyong-api-admin.html"><i class="tedufont tedu-icon8"></i><span
+                        class="nav-label">注册新接口</span></a>
+                  </li>
+                  <li data-itemid="b2_4">
+                    <a href="appadmin/yingyong-api-edit.html"><i class="tedufont tedu-icon8"></i><span
+                        class="nav-label">编辑注册接口</span></a>
+                  </li>
+                  <li data-itemid="b2_5">
+                    <a href="appadmin/add-consume.html"><i class="tedufont tedu-icon8"></i><span
+                        class="nav-label">授权消费接口</span></a>
+                  </li>
+                  <li data-itemid="b2_6">
+                    <a href="appadmin/edit-consume.html"><i class="tedufont tedu-icon8"></i><span
+                        class="nav-label">编辑消费接口授权</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="777">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-envelope"></i><span
+                    class="nav-label">表单</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="11">
+                    <a href="add.html"><i class="tedufont tedu-icon7"></i><span class="nav-label">一般表单页</span></a>
+                  </li>
+                  <li data-itemid="12">
+                    <a href="add-3col.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">3列表单页</span></a>
+                  </li>
+                  <li data-itemid="c_3">
+                    <a href="修改密码2.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">修改密码</span></a>
+                  </li>
+                  <li data-itemid="13">
+                    <a href="add_form_tree.html"><i class="tedufont tedu-icon8"></i><span
+                        class="nav-label">表单组1</span></a>
+                  </li>
+                  <li data-itemid="14">
+                    <a href="add_mul_form.html"><i class="tedufont tedu-icon8"></i><span
+                        class="nav-label">表单组2</span></a>
+                  </li>
+                  <li data-itemid="c_2">
+                    <a href="../ckeditor-demo.html"><i class="fa fa-envelope"></i><span
+                        class="nav-label">富文本ckeditor</span></a>
+                  </li>
+                  <li data-itemid="c_3">
+                    <a href="../ueditor-demo.html"><i class="fa fa-envelope"></i><span
+                        class="nav-label">富文本ueditor(不建议)</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="888">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i><span
+                    class="nav-label">其它页面</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="21">
+                    <a href="404.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">404页面</span></a>
+                  </li>
+                  <li data-itemid="22">
+                    <a href="500.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">500页面</span></a>
+                  </li>
+                  <li data-itemid="23">
+                    <a href="nopms.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">无权限页面</span></a>
+                  </li>
+                  <li data-itemid="d_26">
+                    <a href="tts/question-details2.html"><i class="tedufont tedu-icon1"></i><span
+                        class="nav-label">FAQ</span></a>
+                  </li>
+
+                  <li data-itemid="d_28">
+                    <a href="tts/manual-test-paper.html"><i class="tedufont tedu-icon1"></i> <span
+                        class="nav-label">手工组卷</span></a>
+                  </li>
+
+                </ul>
+              </li>
+              <li class="item" data-itemid="e0">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i><span
+                    class="nav-label">sms</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="e_1">
+                    <a href="sms/tongji.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">统计</span></a>
+                  </li>
+                  <li data-itemid="e_2">
+                    <a href="sms/平台短信模板管理.html"><i class="tedufont tedu-icon1"></i><span
+                        class="nav-label">平台短信模板管理</span></a>
+                  </li>
+                  <li data-itemid="e_3">
+                    <a href="sms/选择服务商模板.html"><i class="tedufont tedu-icon1"></i><span
+                        class="nav-label">选择服务商模板</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="e2">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i><span
+                    class="nav-label">定制化任务</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="e2_1">
+                    <a href="task_rule/配置规则列表.html"><i class="tedufont tedu-icon1"></i><span
+                        class="nav-label">配置规则列表</span></a>
+                  </li>
+                  <li data-itemid="e2_2">
+                    <a href="task_rule/配置规则.html"><i class="tedufont tedu-icon1"></i><span
+                        class="nav-label">配置规则</span></a>
+                  </li>
+                  <li data-itemid="e2_3">
+                    <a href="task_rule/编辑任务.html"><i class="tedufont tedu-icon1"></i><span
+                        class="nav-label">编辑任务</span></a>
+                  </li>
+                  <li data-itemid="e2_4">
+                    <a href="task_rule/rule-edit.html"><i class="tedufont tedu-icon1"></i><span
+                        class="nav-label">编辑规则</span></a>
+                  </li>
+                  <li data-itemid="e2_5">
+                    <a href="定制化任务/新建规则.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">新建规则</span></a>
+                  </li>
+                  <li data-itemid="e2_6">
+                    <a href="定制化任务/规则弹窗.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">规则弹窗</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="999">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i><span
+                    class="nav-label">其它</span></a>
+                <ul class="nav nav-second-level collapse">
+
+                  <li data-itemid="33">
+                    <a href="multi-select.html"><i class="fa fa-th-large"></i><span
+                        class="nav-label">穿梭框multi-select</span></a>
+                  </li>
+                  <li data-itemid="34">
+                    <a href="../font-class.html"><i class="fa fa-camera"></i><span class="nav-label">平台自定义图标</span></a>
+                  </li>
+                  <li data-itemid="36">
+                    <a href="https://v3.bootcss.com/components/" target="_blank"><i class="fa fa-camera"></i><span
+                        class="nav-label">bootstrap图标</span></a>
+                  </li>
+                  <li data-itemid="35">
+                    <a href="organization.html"><span class="fa arrow"></span><i class="fa fa-camera"></i><span
+                        class="nav-label">三级菜单示例</span></a>
+                    <ul class="col-p nav nav-second-level collapse">
+                      <li data-itemid="311">
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">三级菜单</span></a>
+                      </li>
+                      <li data-itemid="312">
+                        <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">2222</span></a>
+                      </li>
+                      <li data-itemid="313">
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">3333</span></a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="1800">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i> <span
+                    class="nav-label">课程管理系统</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="1801">
+                    <a href="tmooc/course_details.html"><i class="tedufont tedu-icon1"></i> <span
+                        class="nav-label">课程管理</span></a>
+                  </li>
+                  <li data-itemid="1802">
+                    <a href="tmooc/course_list.html"><i class="fa fa-envelope"></i> <span
+                        class="nav-label">阶段管理</span></a>
+                  </li>
+                  <li data-itemid="1803">
+                    <a href="tmooc/video_list.html"><i class="fa fa-th-large"></i> <span
+                        class="nav-label">视频管理</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="1900">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i> <span
+                    class="nav-label">企业微信</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="1801">
+                    <a href="企业微信消息/编辑模板.html"><i class="tedufont tedu-icon1"></i> <span
+                        class="nav-label">编辑模板</span></a>
+                  </li>
+                  <li data-itemid="1802">
+                    <a href="企业微信消息/发消息.html"><i class="fa fa-envelope"></i> <span class="nav-label">发消息</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="h0">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i> <span
+                    class="nav-label">排课</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="1727">
+                    <a href="toSchedulePage_1026.html"><i class="tedufont tedu-icon1"></i> <span
+                        class="nav-label">排课1（少儿）</span></a>
+                  </li>
+                  <li data-itemid="1728">
+                    <a href="toSchedulePage_1027.html"><i class="fa fa-envelope"></i> <span
+                        class="nav-label">排课2（少儿）</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li class="item" data-itemid="2020112601">
+                <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i> <span
+                    class="nav-label">帮助中心</span></a>
+                <ul class="nav nav-second-level collapse">
+                  <li data-itemid="2020112601_1">
+                    <a href="帮助中心/分类权限配置.html"><i class="tedufont tedu-icon1"></i> <span
+                        class="nav-label">分类权限配置</span></a>
+                  </li>
+                  <li data-itemid="2020112601_2">
+                    <a href="帮助中心/问题库管理.html"><i class="fa fa-envelope"></i> <span class="nav-label">问题库管理</span></a>
+                  </li>
+                  <li data-itemid="2020112601_3">
+                    <a href="帮助中心/新建与编辑.html"><i class="tedufont tedu-icon1"></i> <span
+                        class="nav-label">新建与编辑</span></a>
+                  </li>
+                  <li data-itemid="2020112601_4">
+                    <a href="帮助中心/业务线管理.html"><i class="fa fa-envelope"></i> <span class="nav-label">业务线管理</span></a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
           </div>
+          <!-- searche-box -->
+          <div class="menu-search-rbox" id="menu_search_rbox"></div>
+          <!-- searche-box -->
         </div>
-        <nav class="navbar-default navbar-static-side" role="navigation">
-          <div class="navbar-static-side-cb" style="height: 100%; position: relative;">
+      </nav>
+      <div class="cus-online-box">
+        <i class="t-icon"></i><span id="online_unum">0</span>人
+      </div>
+    </div>
 
-            <div class="sidebar-collapse">
-              <ul class="nav metismenu" id="side-menu">
-                <li class="active item" data-itemid="666">
-                  <a href="#"><span class="fa arrow"></span><i class="tedufont tedu-icon14"></i><span class="nav-label">一般页面</span></a>
-                  <ul class="nav nav-second-level">
-                    <li data-itemid="1">
-                      <a href="list.html"><i class="tedufont tedu-icon6"></i><span class="nav-label">数据表格</span></a>
-                    </li>
-                    <li data-itemid="2">
-                      <a href="organization.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">组织权限</span></a>
-                    </li>
-                    <li data-itemid="a2-2">
-                      <a href="org-WEWORK.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">组织人员(通讯录)</span></a>
-                    </li>
-                    <li data-itemid="3">
-                      <a href="info.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">详情页(标签)</span></a>
-                    </li>
-                    <li data-itemid="3_1">
-                      <a href="info-flex.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">详情页(iframe标签)</span></a>
-                    </li>
-                    <li data-itemid="a8">
-                      <a href="task_rule/rule-edit.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">定制化任务（TMP）</span></a>
-                    </li>
-                    <li data-itemid="a9">
-                      <a href="配置管理.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">配置管理</span></a>
-                    </li>
-                    <li data-itemid="a10">
-                      <a href="通讯录插件.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">通讯录组件</span></a>
-                    </li>
-                    <li data-itemid="a11">
-                      <a href="数据字典/数据字典管理.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">数据字典管理</span></a>
-                    </li>
-                    <li data-itemid="a12">
-                      <a href="数据字典/数据字典-组件.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">数据字典组件</span></a>
-                    </li>
-                    <li data-itemid="a13">
-                      <a href="index_make.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">配置首页布局</span></a>
-                    </li>
-                    <li data-itemid="a14">
-                      <a href="set_i18n_forinput.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">国际化信息组件</span></a>
-                    </li>
-                    <li data-itemid="a15">
-                      <a href="info2.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">分步提交(标签)</span></a>
-                    </li>
-                    <li data-itemid="a16">
-                      <a href="up-img-cut.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">上传头像</span></a>
-                    </li>
-                    <li data-itemid="a17">
-                      <a href="help-admin.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">文档在线编辑</span></a>
-                    </li>
-                    <li data-itemid="a18">
-                      <a href="other20180719.html"><i class="tedufont tedu-icon5"></i><span class="nav-label">课程大纲</span></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="item" data-itemid="b2">
-                  <a href=""><span class="fa arrow"></span><i class="fa fa-envelope"></i><span class="nav-label">应用管理</span></a>
-                  <ul class="nav nav-second-level collapse">
-                    <li data-itemid="b2_1">
-                      <a href="appadmin/yingyong-admin.html"><i class="tedufont tedu-icon7"></i><span class="nav-label">应用列表</span></a>
-                    </li>
-                    <li data-itemid="b2_2">
-                      <a href="appadmin/app-info.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">应用详情</span></a>
-                    </li>
-                    <li data-itemid="b2_3">
-                      <a href="appadmin/yingyong-api-admin.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">注册新接口</span></a>
-                    </li>
-                    <li data-itemid="b2_4">
-                      <a href="appadmin/yingyong-api-edit.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">编辑注册接口</span></a>
-                    </li>
-                    <li data-itemid="b2_5">
-                      <a href="appadmin/add-consume.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">授权消费接口</span></a>
-                    </li>
-                    <li data-itemid="b2_6">
-                      <a href="appadmin/edit-consume.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">编辑消费接口授权</span></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="item" data-itemid="777">
-                  <a href=""><span class="fa arrow"></span><i class="fa fa-envelope"></i><span class="nav-label">表单</span></a>
-                  <ul class="nav nav-second-level collapse">
-                    <li data-itemid="11">
-                      <a href="add.html"><i class="tedufont tedu-icon7"></i><span class="nav-label">一般表单页</span></a>
-                    </li>
-                    <li data-itemid="12">
-                      <a href="add-3col.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">3列表单页</span></a>
-                    </li>
-                    <li data-itemid="c_3">
-                      <a href="修改密码2.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">修改密码</span></a>
-                    </li>
-                    <li data-itemid="13">
-                      <a href="add_form_tree.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">表单组1</span></a>
-                    </li>
-                    <li data-itemid="14">
-                      <a href="add_mul_form.html"><i class="tedufont tedu-icon8"></i><span class="nav-label">表单组2</span></a>
-                    </li>
-                    <li data-itemid="c_2">
-                      <a href="../ckeditor-demo.html"><i class="fa fa-envelope"></i><span class="nav-label">富文本ckeditor</span></a>
-                    </li>
-                    <li data-itemid="c_3">
-                      <a href="../ueditor-demo.html"><i class="fa fa-envelope"></i><span class="nav-label">富文本ueditor(不建议)</span></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="item" data-itemid="888">
-                  <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i><span class="nav-label">其它页面</span></a>
-                  <ul class="nav nav-second-level collapse">
-                    <li data-itemid="21">
-                      <a href="404.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">404页面</span></a>
-                    </li>
-                    <li data-itemid="22">
-                      <a href="500.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">500页面</span></a>
-                    </li>
-                    <li data-itemid="23">
-                      <a href="nopms.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">无权限页面</span></a>
-                    </li>
-                    <li data-itemid="d_26">
-                      <a href="tts/question-details2.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">FAQ</span></a>
-                    </li>
-                    <li data-itemid="d_27">
-                      <a href="tts/demo-xinggeceping.html"><i class="tedufont tedu-icon1"></i> <span class="nav-label">性格测评</span></a>
-                    </li>
-                    <li data-itemid="d_28">
-                      <a href="tts/manual-test-paper.html"><i class="tedufont tedu-icon1"></i> <span class="nav-label">手工组卷</span></a>
-                    </li>
-                    <li data-itemid="d_29">
-                      <a href="login/login4.html" target="_blank"><i class="tedufont tedu-icon1"></i><span class="nav-label">登录页1</span></a>
-                    </li>
-                    <li data-itemid="d_30">
-                      <a href="login/login8-2.html" target="_blank"><i class="tedufont tedu-icon1"></i><span class="nav-label">登录页2</span></a>
-                    </li>
-                    <li data-itemid="d_31">
-                      <a href="login/login9-2.html" target="_blank"><i class="tedufont tedu-icon1"></i><span class="nav-label">登录页3</span></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="item" data-itemid="e0">
-                  <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i><span class="nav-label">sms</span></a>
-                  <ul class="nav nav-second-level collapse">
-                    <li data-itemid="e_1">
-                      <a href="sms/tongji.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">统计</span></a>
-                    </li>
-                    <li data-itemid="e_2">
-                      <a href="sms/平台短信模板管理.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">平台短信模板管理</span></a>
-                    </li>
-                    <li data-itemid="e_3">
-                      <a href="sms/选择服务商模板.html"><i class="tedufont tedu-icon1"></i><span class="nav-label">选择服务商模板</span></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="item" data-itemid="999">
-                  <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i><span class="nav-label">其它</span></a>
-                  <ul class="nav nav-second-level collapse">
-
-                    <li data-itemid="33">
-                      <a href="multi-select.html"><i class="fa fa-th-large"></i><span class="nav-label">穿梭框multi-select</span></a>
-                    </li>
-                    <li data-itemid="34">
-                      <a href="../font-class.html"><i class="fa fa-camera"></i><span class="nav-label">平台自定义图标</span></a>
-                    </li>
-                    <li data-itemid="36">
-                      <a href="https://v3.bootcss.com/components/" target="_blank"><i class="fa fa-camera"></i><span
-                          class="nav-label">bootstrap图标</span></a>
-                    </li>
-                    <li data-itemid="35">
-                      <a href="organization.html"><span class="fa arrow"></span><i class="fa fa-camera"></i><span class="nav-label">三级菜单示例</span></a>
-                      <ul class="col-p nav nav-second-level collapse">
-                        <li data-itemid="311">
-                          <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">三级菜单</span></a>
-                        </li>
-                        <li data-itemid="312">
-                          <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">2222</span></a>
-                        </li>
-                        <li data-itemid="313">
-                          <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">3333</span></a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="item" data-itemid="1800">
-                  <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i> <span class="nav-label">课程管理系统</span></a>
-                  <ul class="nav nav-second-level collapse">
-                    <li data-itemid="1727">
-                      <a href="tmooc/course_details.html"><i class="tedufont tedu-icon1"></i> <span class="nav-label">课程管理</span></a>
-                    </li>
-                    <li data-itemid="1728">
-                      <a href="tmooc/course_list.html"><i class="fa fa-envelope"></i> <span class="nav-label">阶段管理</span></a>
-                    </li>
-                    <li data-itemid="1729">
-                      <a href="tmooc/video_list.html"><i class="fa fa-th-large"></i> <span class="nav-label">视频管理</span></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="item" data-itemid="h0">
-                  <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i> <span class="nav-label">排课</span></a>
-                  <ul class="nav nav-second-level collapse">
-                    <li data-itemid="1727">
-                      <a href="toSchedulePage_1026.html"><i class="tedufont tedu-icon1"></i> <span class="nav-label">排课1（少儿）</span></a>
-                    </li>
-                    <li data-itemid="1728">
-                      <a href="toSchedulePage_1027.html"><i class="fa fa-envelope"></i> <span class="nav-label">排课2（少儿）</span></a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="item" data-itemid="2020112601">
-                  <a href=""><span class="fa arrow"></span><i class="fa fa-line-chart"></i> <span class="nav-label">帮助中心</span></a>
-                  <ul class="nav nav-second-level collapse">
-                    <li data-itemid="2020112601_1">
-                      <a href="帮助中心/分类权限配置.html"><i class="tedufont tedu-icon1"></i> <span class="nav-label">分类权限配置</span></a>
-                    </li>
-                    <li data-itemid="2020112601_2">
-                      <a href="帮助中心/问题库管理.html"><i class="fa fa-envelope"></i> <span class="nav-label">问题库管理</span></a>
-                    </li>
-                    <li data-itemid="2020112601_3">
-                      <a href="帮助中心/新建与编辑.html"><i class="tedufont tedu-icon1"></i> <span class="nav-label">新建与编辑</span></a>
-                    </li>
-                    <li data-itemid="2020112601_4">
-                      <a href="帮助中心/业务线管理.html"><i class="fa fa-envelope"></i> <span class="nav-label">业务线管理</span></a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+      <!--topbar start -->
+      <div class="row border-bottom nav-top-x">
+        <nav class="navbar navbar-static-top layout-flex" role="navigation" style="margin-bottom: 0">
+          <div class="topbar-leftbox clearfix">
+            <a title="收缩导航" class="navbar-minimalize minimalize-styl-2 btn btn-warning " href="#"><i
+                class="tedufont icon-minimalize tedu-icon38"></i><i
+                class="tedufont icon-minimalize tedu-icon39"></i></a>
+            <div class="navbar-form-custom">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-btn custem_select_mod">
+                    <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown"><span
+                        id="demo_index_search" class="cus_selval"></span> <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a href="#" data-itemval="1" data-itemurl="list.html">信息量</a>
+                      </li>
+                      <li>
+                        <a href="#" data-itemval="学员1">学员</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <input type="text" placeholder="请输入姓名/手机号/证件号" class="form-control" style="min-width: 200px;">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" style="border-left: none;" onclick="sc_search()"><i
+                        class="fa fa-search"></i></button>
+                  </span>
+                </div>
+              </div>
             </div>
-            <!-- searche-box -->
-            <div class="menu-search-rbox" id="menu_search_rbox"></div>
-            <!-- searche-box -->
+          </div>
+          <div class="topbar-centerbox layout-flex">
+            <!-- 消息容器 -->
+            <div class="md-2020111101 layout-flex__item layout-flex hidden-xs hidden-sm" id="topbar_msg_box"></div>
+          </div>
+          <div class="topbar-rightbox layout-flex">
+            <div class="clearfix visible-lg-block" style="margin-top:12.5px;">
+              <div class="pull-right visible-md-block visible-lg-block shortcut-menu-open">
+                <ul class="cumtopbarmenu pull-left" id="cumBopbarMenu"></ul>
+                <button id="customMenu_btn" style="margin-top:2.5px;" class="btn btn-circle btn-success pull-left"><i
+                    class="fa fa-plus" style="font-size: 20px;"></i></button>
+              </div>
+              <!--switch开关-->
+              <div class="switch-on-off pull-right hidden visible-md-block visible-lg-block"
+                style="margin:2.5px 15px 0 0;">
+                <input type="checkbox" id="switch-checkbox" checked />
+                <label class="switch-box" for="switch-checkbox">
+                  <div class="track">
+                    <div class="knob"></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+              <li id="dropdown_indexmenux" class="dropdown">
+                <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-submenu href="#">
+                  <img src="../../images/default_userimg.jpg" height="32" class="img-circle" alt="image">
+                </a>
+                <ul class="dropdown-menu dropdown-messages animated fadeInRight" style="left: auto; right: 0;">
+                  <li>
+                    <a>admin</a>
+                  </li>
+                  <li>
+                    <a id="showMyInfo">我的资料</a>
+                  </li>
+                  <li>
+                    <a>意见反馈</a>
+                  </li>
+                  <li class="dropdown-submenu">
+                    <a href="javascript:void(0)">内容2</a>
+                    <ul class="dropdown-menu">
+                      <li class="js-indexmenu-tips" title="asdfasdfasdfas啊尚德会计法蓝思科技和阿里斯顿积分好使">
+                        <a href="javascript:void(0)">内容21</a>
+                      </li>
+                      <li class="dropdown-submenu">
+                        <a href="javascript:void(0)">内容22</a>
+                        <ul class="dropdown-menu">
+                          <li class="js-indexmenu-tips" title="888888">
+                            <a href="javascript:void(0)">内容221</a>
+                          </li>
+                          <li>
+                            <a href="javascript:void(0)">内容222</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">内容22</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a>修改密码</a>
+                  </li>
+                  <li>
+                    <a id="js_login_out" href="login/login6.html">退出系统</a>
+                  </li>
+                </ul>
+              </li>
+              <li style="margin-right: 0; padding-right: 10px;">
+                <a id="js_cushelpbtn"
+                  style="margin: 1px 7px 0 10px; padding: 0; min-height: auto; color: #f8ac59; font-size: 32px !important; font-weight:400;"
+                  class="glyphicon glyphicon-question-sign cushelpbtn js-helpbtn js-helpmsg"
+                  data-helpmsg="noGetPermission"></a>
+              </li>
+            </ul>
+
           </div>
         </nav>
-        <div class="cus-online-box">
-          <i class="t-icon"></i><span id="online_unum">0</span>人
-        </div>
       </div>
-
-      <div id="page-wrapper" class="gray-bg dashbard-1">
-        <!--topbar start -->
-        <div class="row border-bottom nav-top-x">
-          <nav class="navbar navbar-static-top layout-flex" role="navigation" style="margin-bottom: 0">
-            <div class="topbar-leftbox clearfix">
-              <a title="收缩导航" class="navbar-minimalize minimalize-styl-2 btn btn-warning " href="#"><i class="tedufont icon-minimalize tedu-icon38"></i><i
-                  class="tedufont icon-minimalize tedu-icon39"></i></a>
-              <div class="navbar-form-custom">
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-btn custem_select_mod">
-                      <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown"><span id="demo_index_search"
-                          class="cus_selval"></span> <span class="caret"></span></button>
-                      <ul class="dropdown-menu">
-                        <li>
-                          <a href="#" data-itemval="1" data-itemurl="list.html">信息量</a>
-                        </li>
-                        <li>
-                          <a href="#" data-itemval="学员1">学员</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <input type="text" placeholder="请输入姓名/手机号/证件号" class="form-control" style="min-width: 200px;">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button" style="border-left: none;" onclick="sc_search()"><i
-                          class="fa fa-search"></i></button>
-                    </span>
-                  </div>
-                </div>
+      <!--topbar end -->
+      <!--页面主体内容开始-->
+      <div class="row  border-bottom gray-bg dashboard-header" id="tab_pannel_box">
+        <div class="tab-header-x" id="tab_header_x">
+          <div class="tab-list-box">
+            <button class="roll-nav roll-left tab-roll-btn tab-left-btn"><i
+                class="glyphicon glyphicon-backward"></i></button>
+            <div class="tab-list-overflow">
+              <div class="tab-list-bar">
+                <ul class="nav nav-tabs tab-list-ul" role="tablist" id="t_tabBox" style="float: left;">
+                  <li role="presentation" class="active">
+                    <a href="#t_home" aria-controls="t_home" role="tab" data-toggle="tab"
+                      data-itemid="index-default">首页</a>
+                  </li>
+                  <!--<li role="presentation" class="hidden"><a href="#t_subpage" aria-controls="t_subpage" role="tab" data-toggle="tab" data-itemid=""></a></li>-->
+                </ul>
               </div>
             </div>
-            <div class="topbar-centerbox layout-flex">
-              <!-- 消息容器 -->
-              <div class="md-2020111101 layout-flex__item layout-flex hidden-xs hidden-sm" id="topbar_msg_box"></div>
-            </div>
-            <div class="topbar-rightbox layout-flex">
-              <div class="clearfix visible-lg-block" style="margin-top:12.5px;">
-                <div class="pull-right visible-md-block visible-lg-block shortcut-menu-open">
-                  <ul class="cumtopbarmenu pull-left" id="cumBopbarMenu"></ul>
-                  <button id="customMenu_btn" style="margin-top:2.5px;" class="btn btn-circle btn-success pull-left"><i
-                      class="fa fa-plus" style="font-size: 20px;"></i></button>
-                </div>
-                <!--switch开关-->
-                <div class="switch-on-off pull-right hidden visible-md-block visible-lg-block" style="margin:2.5px 15px 0 0;">
-                  <input type="checkbox" id="switch-checkbox" checked />
-                  <label class="switch-box" for="switch-checkbox">
-                    <div class="track">
-                      <div class="knob"></div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-              <ul class="nav navbar-top-links navbar-right">
-                <li id="dropdown_indexmenux" class="dropdown">
-                  <a class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" data-submenu href="#">
-                    <img src="../../images/default_userimg.jpg" height="32" class="img-circle" alt="image">
-                  </a>
-                  <ul class="dropdown-menu dropdown-messages animated fadeInRight" style="left: auto; right: 0;">
-                    <li>
-                      <a>admin</a>
-                    </li>
-                    <li>
-                      <a id="showMyInfo">我的资料</a>
-                    </li>
-                    <li>
-                      <a>意见反馈</a>
-                    </li>
-                    <li class="dropdown-submenu">
-                      <a href="javascript:void(0)">内容2</a>
-                      <ul class="dropdown-menu">
-                        <li class="js-indexmenu-tips" title="asdfasdfasdfas啊尚德会计法蓝思科技和阿里斯顿积分好使">
-                          <a href="javascript:void(0)">内容21</a>
-                        </li>
-                        <li class="dropdown-submenu">
-                          <a href="javascript:void(0)">内容22</a>
-                          <ul class="dropdown-menu">
-                            <li class="js-indexmenu-tips" title="888888">
-                              <a href="javascript:void(0)">内容221</a>
-                            </li>
-                            <li>
-                              <a href="javascript:void(0)">内容222</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          <a href="javascript:void(0)">内容22</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a>修改密码</a>
-                    </li>
-                    <li>
-                      <a id="js_login_out" href="login/login6.html">退出系统</a>
-                    </li>
-                  </ul>
-                </li>
-                <li style="margin-right: 0; padding-right: 10px;">
-                  <a id="js_cushelpbtn" style="margin: 1px 7px 0 10px; padding: 0; min-height: auto; color: #f8ac59; font-size: 32px !important; font-weight:400;"
-                    class="glyphicon glyphicon-question-sign cushelpbtn js-helpbtn js-helpmsg" data-helpmsg="noGetPermission"></a>
-                </li>
-              </ul>
-              
-            </div>
-          </nav>
-        </div>
-        <!--topbar end -->
-        <!--页面主体内容开始-->
-        <div class="row  border-bottom gray-bg dashboard-header" id="tab_pannel_box">
-          <div class="tab-header-x" id="tab_header_x">
-            <div class="tab-list-box">
-              <button class="roll-nav roll-left tab-roll-btn tab-left-btn"><i class="glyphicon glyphicon-backward"></i></button>
-              <div class="tab-list-overflow">
-                <div class="tab-list-bar">
-                  <ul class="nav nav-tabs tab-list-ul" role="tablist" id="t_tabBox" style="float: left;">
-                    <li role="presentation" class="active">
-                      <a href="#t_home" aria-controls="t_home" role="tab" data-toggle="tab" data-itemid="index-default">首页</a>
-                    </li>
-                    <!--<li role="presentation" class="hidden"><a href="#t_subpage" aria-controls="t_subpage" role="tab" data-toggle="tab" data-itemid=""></a></li>-->
-                  </ul>
-                </div>
-              </div>
-              <button class="roll-nav roll-right tab-roll-btn tab-right-btn"><i class="glyphicon glyphicon-forward"></i></button>
-            </div>
-            <div class="tab-btns">
-              <span class="tabs-close-all-btn">关闭全部</span>
-            </div>
+            <button class="roll-nav roll-right tab-roll-btn tab-right-btn"><i
+                class="glyphicon glyphicon-forward"></i></button>
           </div>
-          <!-- Tab panes -->
-          <div id="tab_contBox" class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="t_home">
-              <iframe class="js-iframe-comwin" width="100%" height="100%" frameborder="0" src="index_default.html" name="welPiframe"
-                id="welPiframe" allowtransparency="yes"></iframe>
-            </div>
+          <div class="tab-btns">
+            <span class="tabs-close-all-btn">关闭全部</span>
           </div>
         </div>
-
-        <!--页面主体内容结束-->
-      </div>
-    </div>
-
-    <!-- tools弹窗开始 -->
-    <div id="index_cus_menus" class="carousel slide index-cus-menus" data-wrap="false" data-pause="true" style="height: 400px;min-height:400px; width: 770px;overflow: auto; display: none;">
-      <div class="menu-left pull-left">
-        <div class="tree-box-search">
-          <div class="input-group input-group-sm">
-            <input id="menu_search_input" type="text" class="form-control input-sm">
-            <span id="menu_search_btn" class="input-group-btn"><button class="btn btn-primary" type="button"><i class="glyphicon glyphicon-search"></i></button></span>
+        <!-- Tab panes -->
+        <div id="tab_contBox" class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="t_home">
+            <iframe class="js-iframe-comwin" width="100%" height="100%" frameborder="0" src="index_default.html"
+              name="welPiframe" id="welPiframe" allowtransparency="yes"></iframe>
           </div>
         </div>
-        <div class="tree-menu-box">
-          <div id="tree_box_menu"></div>
+      </div>
+
+      <!--页面主体内容结束-->
+    </div>
+  </div>
+
+  <!-- tools弹窗开始 -->
+  <div id="index_cus_menus" class="carousel slide index-cus-menus" data-wrap="false" data-pause="true"
+    style="height: 400px;min-height:400px; width: 770px;overflow: auto; display: none;">
+    <div class="menu-left pull-left">
+      <div class="tree-box-search">
+        <div class="input-group input-group-sm">
+          <input id="menu_search_input" type="text" class="form-control input-sm">
+          <span id="menu_search_btn" class="input-group-btn"><button class="btn btn-primary" type="button"><i
+                class="glyphicon glyphicon-search"></i></button></span>
         </div>
       </div>
-      <div class="menu-right pull-right carousel-bianji" id="carousel-bianji">
-        <div class="btn-box-header">
-          <button id="save_shortcut_menu" class="btn btn-sm btn-success">保存 <i class="glyphicon glyphicon-floppy-disk"></i></button>
-          <button id="r_shortcut_menu" class="btn btn-sm btn-danger">清空 <i class="glyphicon glyphicon-trash"></i></button>
-        </div>
-        <div class="btn-box-shortcut"></div>
+      <div class="tree-menu-box">
+        <div id="tree_box_menu"></div>
       </div>
     </div>
-    <div class="minibar-menu">
-      <div id="minibar_menu"></div>
+    <div class="menu-right pull-right carousel-bianji" id="carousel-bianji">
+      <div class="btn-box-header">
+        <button id="save_shortcut_menu" class="btn btn-sm btn-success">保存 <i
+            class="glyphicon glyphicon-floppy-disk"></i></button>
+        <button id="r_shortcut_menu" class="btn btn-sm btn-danger">清空 <i class="glyphicon glyphicon-trash"></i></button>
+      </div>
+      <div class="btn-box-shortcut"></div>
     </div>
+  </div>
+  <div class="minibar-menu">
+    <div id="minibar_menu"></div>
+  </div>
 
-    <!-- tools弹窗结束 -->
-    <!-- Mainly scripts -->
-    <script src="../../js/jquery-2.1.1.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
+  <!-- tools弹窗结束 -->
+  <!-- Mainly scripts -->
+  <script src="../../js/jquery-2.1.1.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
 
-    <script src="../../js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../../js/plugins/layer/layer.js"></script>
-    <script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="../../js/bootstrap-plugins-custom.js"></script>
+  <script src="../../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+  <script src="../../js/plugins/layer/layer.js"></script>
+  <script src="../../js/plugins/customScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="../../js/bootstrap-plugins-custom.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="../../i18n/zh-CN.js"></script>
-    <script src="../../js/plugins/jsTree/jstree.min.js"></script>
-    <script src="../../js/subindex.js"></script>
-    <script src="../../js/inspinia.js"></script>
-    <script src="../../js/pinyin.js"></script>
-    <script src="../../js/private/private-plugin-kcrm.js"></script>
+  <!-- Custom and plugin javascript -->
+  <script src="../../i18n/zh-CN.js"></script>
+  <script src="../../js/plugins/jsTree/jstree.min.js"></script>
+  <script src="../../js/subindex.js"></script>
+  <script src="../../js/inspinia.js"></script>
+  <script src="../../js/pinyin.js"></script>
+  <script src="../../js/private/private-plugin-kcrm.js"></script>
 
-    <!--测试用-->
-    <script src="../../js/jquery.mockjax.min.js"></script>
-    <script src="../../demo-data.js"></script>
-    <script type="text/javascript">
-      //自定义菜单保存方法
-      function saveCusMenuData(arr, sucfn) {
-        $.post('/cusmenu/api', {
-          menudata: JSON.stringify(arr)
-        }, function(res) {
-          if (res) {
-            sucfn && sucfn();
-          } else {
-            COM_TOOLS.alert('提交失败');
-          }
-        });
-      }
-
-      // 左侧快捷搜索
-      $('.custem_select_mod').data('callback', function(t_, parent, target) {
-        target.removeData().data('itemurl', t_.data('itemurl'))
-          .data('itemval', t_.data('itemval'))
-          .data('itemtext', t_.text())
+  <!--测试用-->
+  <script src="../../js/jquery.mockjax.min.js"></script>
+  <script src="../../demo-data.js"></script>
+  <script type="text/javascript">
+    //自定义菜单保存方法
+    function saveCusMenuData(arr, sucfn) {
+      $.post('/cusmenu/api', {
+        menudata: JSON.stringify(arr)
+      }, function (res) {
+        if (res) {
+          sucfn && sucfn();
+        } else {
+          COM_TOOLS.alert('提交失败');
+        }
       });
+    }
 
-      function sc_search() {
-        var tar = $('#demo_index_search');
-        var t_data = {};
-        t_data.itemid = tar.data('itemval') || '';
-        t_data.itemtext = tar.data('itemtext');
-        t_data.itemurl = tar.data('itemurl');
-        if (t_data.itemid) { //有资源ID则认为是系统内资源链
-          if (COM_DEFAULT._tabSingle > 0) {
-            setTimeout(function() {
-              jumpFactive(t_data, true);
-            }, 300);
-          }
+    // 左侧快捷搜索
+    $('.custem_select_mod').data('callback', function (t_, parent, target) {
+      target.removeData().data('itemurl', t_.data('itemurl'))
+        .data('itemval', t_.data('itemval'))
+        .data('itemtext', t_.text())
+    });
+
+    function sc_search() {
+      var tar = $('#demo_index_search');
+      var t_data = {};
+      t_data.itemid = tar.data('itemval') || '';
+      t_data.itemtext = tar.data('itemtext');
+      t_data.itemurl = tar.data('itemurl');
+      if (t_data.itemid) { //有资源ID则认为是系统内资源链
+        if (COM_DEFAULT._tabSingle > 0) {
+          setTimeout(function () {
+            jumpFactive(t_data, true);
+          }, 300);
         }
       }
+    }
 
-      $(function() {
-        //初始化 tab 滚动
-        COM_TOOLS._view.tabScrollFn.init('#tab_header_x');
+    $(function () {
+      //初始化 tab 滚动
+      COM_TOOLS._view.tabScrollFn.init('#tab_header_x');
 
-        $('#switch-checkbox').change(function() {
-          if ($('#switch-checkbox').is(':checked')) {
-            $('#tab_pannel_box').removeClass('hide-cus-tab-header');
-          } else {
-            $('#tab_pannel_box').addClass('hide-cus-tab-header');
-          }
-        })
+      $('#switch-checkbox').change(function () {
+        if ($('#switch-checkbox').is(':checked')) {
+          $('#tab_pannel_box').removeClass('hide-cus-tab-header');
+        } else {
+          $('#tab_pannel_box').addClass('hide-cus-tab-header');
+        }
+      })
 
-        $('#showMyInfo').click(function() {
-          cumParentWinModal('我的资料', 'user_info.html', {
-            "scrollbar": true,
-            "area": ["600px", "360px"]
-          });
-        });
-        /* 搜索框 */
-        var $menu_search_rbox_ = $('#menu_search_rbox');
-        var side_menu_Arr = [];
-        /* 这里延时，防止阻塞 */
-        window.setTimeout(function() {
-          /* 构造菜单数组，防止每次查询都对dom进行操作 */
-          $('#side-menu li > a').each(function() {
-            var $t_ = $(this);
-            var tit_ = $t_.children('.nav-label').text();
-            side_menu_Arr.push({
-              title: tit_,
-              itemid: String($t_.parent('li').data('itemid')),
-              titleCode: tit_.toPinYin()
-            });
-          });
-        }, 1000);
-        /* 菜单搜索框事件处理 */
-        $('#menu_search_b_inp').on('input', function() {
-          var $val = $.trim($(this).val());
-          if ($val.length > 0) {
-            var res = $.map(side_menu_Arr, function(n) {
-              return (n.titleCode.indexOf($val.toUpperCase()) >= 0) ||
-                (n.title.toUpperCase().indexOf($val.toUpperCase()) >= 0) ? n : null;
-            });
-            var html_ = [];
-            html_.push('<ul class="t-ser-list">');
-            $.each(res, function(i, n) {
-              html_.push('<li data-itemid="', n.itemid, '">', n.title, '</li>');
-            });
-            html_.push('</ul>');
-            $menu_search_rbox_.show();
-            $menu_search_rbox_.html(html_.join(''));
-          } else {
-            $menu_search_rbox_.hide();
-            $menu_search_rbox_.html('');
-          }
-        });
-        $menu_search_rbox_.on('click', 'li', function() {
-          $('#side-menu li[data-itemid=' + $(this).data('itemid') + ']>a').trigger('click');
-          $('#menu_search_b_inp').val('').trigger('input');
-        });
-        $('#menu_search_b_cbtn').click(function() {
-          $('#menu_search_b_inp').val('').trigger('input');
+      $('#showMyInfo').click(function () {
+        cumParentWinModal('我的资料', 'user_info.html', {
+          "scrollbar": true,
+          "area": ["600px", "360px"]
         });
       });
-      console.log(0)
-      COM_TOOLS.save_toLocal('a', {
-        "sss": "fff"
+      /* 搜索框 */
+      var $menu_search_rbox_ = $('#menu_search_rbox');
+      var side_menu_Arr = [];
+      /* 这里延时，防止阻塞 */
+      window.setTimeout(function () {
+        /* 构造菜单数组，防止每次查询都对dom进行操作 */
+        $('#side-menu li > a').each(function () {
+          var $t_ = $(this);
+          var tit_ = $t_.children('.nav-label').text();
+          side_menu_Arr.push({
+            title: tit_,
+            itemid: String($t_.parent('li').data('itemid')),
+            titleCode: tit_.toPinYin()
+          });
+        });
+      }, 1000);
+      /* 菜单搜索框事件处理 */
+      $('#menu_search_b_inp').on('input', function () {
+        var $val = $.trim($(this).val());
+        if ($val.length > 0) {
+          var res = $.map(side_menu_Arr, function (n) {
+            return (n.titleCode.indexOf($val.toUpperCase()) >= 0) ||
+              (n.title.toUpperCase().indexOf($val.toUpperCase()) >= 0) ? n : null;
+          });
+          var html_ = [];
+          html_.push('<ul class="t-ser-list">');
+          $.each(res, function (i, n) {
+            html_.push('<li data-itemid="', n.itemid, '">', n.title, '</li>');
+          });
+          html_.push('</ul>');
+          $menu_search_rbox_.show();
+          $menu_search_rbox_.html(html_.join(''));
+        } else {
+          $menu_search_rbox_.hide();
+          $menu_search_rbox_.html('');
+        }
       });
-      console.log('#', COM_TOOLS.get_fromLocal('a'));
-    </script>
-  </body>
+      $menu_search_rbox_.on('click', 'li', function () {
+        $('#side-menu li[data-itemid=' + $(this).data('itemid') + ']>a').trigger('click');
+        $('#menu_search_b_inp').val('').trigger('input');
+      });
+      $('#menu_search_b_cbtn').click(function () {
+        $('#menu_search_b_inp').val('').trigger('input');
+      });
+    });
+    console.log(0)
+    COM_TOOLS.save_toLocal('a', {
+      "sss": "fff"
+    });
+    console.log('#', COM_TOOLS.get_fromLocal('a'));
+  </script>
+</body>
 
 </html>

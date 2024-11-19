@@ -1,461 +1,477 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
-    />
-    <link rel="stylesheet" href="../../../css/animate.min.css" />
-    <link rel="stylesheet" href="../../../css/iconfont.css" />
-    <link rel="stylesheet" href="../../../font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../../css/style.css" />
-    <title>新建规则</title>
-    <style>
-      .show-wrp {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        background-color: #f8f8f8;
-      }
-      .show-wrp .date-rules-wrp {
-        padding: 15px;
-        padding-bottom: 10px;
-        border: 1px solid #ddd;
-        background-color: #fff;
-      }
-      .show-wrp .date-rules-wrp .date-rule-item {
-        display: inline-block;
-        background-color: #f8f8f8;
-        margin-right: 6px;
-        margin-bottom: 6px;
-        padding: 5px 10px;
-        border-radius: 5px;
-      }
-      .show-wrp .date-rules-wrp .date-rule-item .checkbox-inline {
-        padding-left: 0;
-      }
-      .show-wrp .rules-list:empty {
-        text-align: center;
-      }
-      .show-wrp .rules-list:empty::after {
-        content: '请添加规则内容';
-      }
-      .rule-item {
-        position: relative;
-        border: 1px solid #ddd;
-        padding: 15px 0;
-        background-color: #fff;
-        margin-top: 15px;
-      }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <link rel="stylesheet" href="../../../css/animate.min.css" />
+  <link rel="stylesheet" href="../../../css/iconfont.css" />
+  <link rel="stylesheet" href="../../../font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="../../../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <title>新建规则</title>
+  <style>
+    .show-wrp {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      background-color: #f8f8f8;
+    }
+
+    .show-wrp .date-rules-wrp {
+      padding: 15px;
+      padding-bottom: 10px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+    }
+
+    .show-wrp .date-rules-wrp .date-rule-item {
+      display: inline-block;
+      background-color: #f8f8f8;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .show-wrp .date-rules-wrp .date-rule-item .checkbox-inline {
+      padding-left: 0;
+    }
+
+    .show-wrp .rules-list:empty {
+      text-align: center;
+    }
+
+    .show-wrp .rules-list:empty::after {
+      content: '请添加规则内容';
+    }
+
+    .rule-item {
+      position: relative;
+      border: 1px solid #ddd;
+      padding: 15px 0;
+      background-color: #fff;
+      margin-top: 15px;
+    }
+
+    .rule-item::before {
+      position: absolute;
+      left: 66.66666667%;
+      height: 85%;
+      width: 1px;
+      background-color: #dddddd;
+    }
+
+    .rule-item:empty::before {
+      display: none;
+    }
+
+    .rule-item>.btn-wrp {
+      display: none;
+      position: absolute;
+      z-index: 10;
+      top: 5px;
+      right: 5px;
+    }
+
+    .rule-item>.btn-wrp .btn-item {
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: red;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .rule-item>.btn-wrp .btn-item:first-child {
+      background-color: #1c84c6;
+    }
+
+    .rule-item:hover>.btn-wrp {
+      display: block;
+    }
+
+    .rule-item-sub .r-sub-item {
+      position: relative;
+      display: inline-block;
+      padding: 5px;
+      margin-bottom: 6px;
+      margin-right: 6px;
+      border-radius: 5px;
+      background-color: #eee;
+    }
+
+    .rule-item-main {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+    }
+
+    .rule-item-main:empty {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border: none;
+    }
+
+    .rule-item-main .js-modify {
+      float: left;
+      margin-top: 5px;
+      margin-right: 6px;
+    }
+
+    .rule-item-sub {
+      min-height: 60px;
+    }
+
+    .rule-item-sub .r-sub-item .r-s-clear {
+      position: absolute;
+      z-index: 10;
+      top: -9px;
+      right: -9px;
+      padding: 3px;
+      border-radius: 50%;
+      background-color: red;
+      color: #fff;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .rule-desc .form-group {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .rule-desc .input-group-c {
+      overflow: hidden;
+    }
+
+    .rule-desc .js-insert {
+      user-select: none;
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+
+    @media screen and (max-width: 767px) {
       .rule-item::before {
-        position: absolute;
-        left: 66.66666667%;
-        height: 85%;
-        width: 1px;
-        background-color: #dddddd;
-      }
-      .rule-item:empty::before {
         display: none;
       }
-      .rule-item > .btn-wrp {
-        display: none;
-        position: absolute;
-        z-index: 10;
-        top: 5px;
-        right: 5px;
-      }
-      .rule-item > .btn-wrp .btn-item {
-        padding: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: red;
-        color: #fff;
-        font-size: 12px;
-      }
-      .rule-item > .btn-wrp .btn-item:first-child {
-        background-color: #1c84c6;
-      }
-      .rule-item:hover > .btn-wrp {
-        display: block;
-      }
-      .rule-item-sub .r-sub-item {
-        position: relative;
-        display: inline-block;
-        padding: 5px;
-        margin-bottom: 6px;
-        margin-right: 6px;
-        border-radius: 5px;
-        background-color: #eee;
-      }
-      .rule-item-main {
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-      }
-      .rule-item-main:empty {
-        padding-bottom: 0;
-        margin-bottom: 0;
-        border: none;
-      }
-      .rule-item-main .js-modify {
-        float: left;
-        margin-top: 5px;
-        margin-right: 6px;
-      }
-      .rule-item-sub {
-        min-height: 60px;
-      }
-      .rule-item-sub .r-sub-item .r-s-clear {
-        position: absolute;
-        z-index: 10;
-        top: -9px;
-        right: -9px;
-        padding: 3px;
-        border-radius: 50%;
-        background-color: red;
-        color: #fff;
-        font-size: 12px;
-        cursor: pointer;
-      }
-      .rule-desc .form-group {
-        margin-left: 0;
-        margin-right: 0;
-      }
-      .rule-desc .input-group-c {
-        overflow: hidden;
-      }
-      .rule-desc .js-insert {
-        user-select: none;
-        margin-top: 5px;
-        margin-left: 5px;
-      }
-      @media screen and (max-width: 767px) {
-        .rule-item::before {
-          display: none;
-        }
-      }
-      .rule-item .rule-item-ccline{
-        position: absolute;
-        left: 66.67%;
-        top: 32px;
-        width: 26px;
-        border: 1px solid #ddd;
-        margin-left: -13px;
-        background: #fff;
-        padding: 3px 1px;
-        text-align: center;
-        font-size: 13px;
-        line-height: 1.3;
-      }
-      .rule-item .rule-item-ccbox1{
-        display: none;
-      }
-      .rule-item.is-not-union .rule-item-ccbox1{
-        display: block;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        border: 1px solid #DDDDDD;
-        border-width: 1px 1px 0 0;
-        border-radius: 0 6px 0 0;
-        padding: 3px 15px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-      .rule-item.is-not-union .rule-item-sub{
-        margin-bottom: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <!-- base -->
-      <form id="base_form" class="form-horizontal m-t-md">
-        <div class="form-group">
-          <label class="col-sm-2 control-label"><span class="text-danger">*</span>规则名称</label>
-          <div class="col-sm-8">
-            <input class="form-control input-sm" type="text" required />
-          </div>
+    }
+
+    .rule-item .rule-item-ccline {
+      position: absolute;
+      left: 66.67%;
+      top: 32px;
+      width: 26px;
+      border: 1px solid #ddd;
+      margin-left: -13px;
+      background: #fff;
+      padding: 3px 1px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .rule-item .rule-item-ccbox1 {
+      display: none;
+    }
+
+    .rule-item.is-not-union .rule-item-ccbox1 {
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      border: 1px solid #DDDDDD;
+      border-width: 1px 1px 0 0;
+      border-radius: 0 6px 0 0;
+      padding: 3px 15px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    .rule-item.is-not-union .rule-item-sub {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <!-- base -->
+    <form id="base_form" class="form-horizontal m-t-md">
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><span class="text-danger">*</span>规则名称</label>
+        <div class="col-sm-8">
+          <input class="form-control input-sm" type="text" required />
         </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">规则描述</label>
-          <div class="col-sm-8">
-            <textarea class="form-control" rows="2"></textarea>
-          </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">规则描述</label>
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="2"></textarea>
         </div>
-      </form>
+      </div>
+    </form>
 
-      <!-- default -->
-      <form class="m-t-md clearfix">
-        <div class="show-wrp col-sm-8 col-sm-offset-2">
-          <div class="header-wrp m-b-md clearfix">
-            <button class="btn btn-sm btn-primary pull-right" type="button" id="btn_add_rule">
-              <i class="glyphicon glyphicon-plus"></i>添加规则
-            </button>
-            <label class="checkbox-inline"><input type="radio" value="1" checked /> 一般模式</label>
-          </div>
+    <!-- default -->
+    <form class="m-t-md clearfix">
+      <div class="show-wrp col-sm-8 col-sm-offset-2">
+        <div class="header-wrp m-b-md clearfix">
+          <button class="btn btn-sm btn-primary pull-right" type="button" id="btn_add_rule">
+            <i class="glyphicon glyphicon-plus"></i>添加规则
+          </button>
+          <label class="checkbox-inline"><input type="radio" value="1" checked /> 一般模式</label>
+        </div>
 
-          <div class="body-wrp">
-            <!-- rule list -->
-            <div id="rules_list" class="rules-list"></div>
+        <div class="body-wrp">
+          <!-- rule list -->
+          <div id="rules_list" class="rules-list"></div>
 
-            <!-- date -->
-            <div class="rules-date">
-              <h4 class="m-t-md">时间约束</h4>
-              <div class="date-rules-wrp">
-                <div class="date-rule-item">
-                  <label class="checkbox-inline"
-                    ><input type="radio" value="1" name="date-rule" checked /> 无限制</label
-                  >
-                </div>
-                <div class="date-rule-item">
-                  <label class="checkbox-inline"
-                    ><input type="radio" value="2" name="date-rule" /> 今天过生日</label
-                  >
-                </div>
-                <div class="date-rule-item">
-                  <label class="checkbox-inline"
-                    ><input type="radio" value="3" name="date-rule" />
-                    入职周年(历史上今日入职的老员工)</label
-                  >
-                </div>
-                <div class="date-rule-item">
-                  <label class="checkbox-inline"
-                    ><input type="radio" value="4" name="date-rule" /> 生日前
-                    <select class="js-birthday-num" style="display: inline-block;">
-                      <option value="1">1天</option>
-                      <option value="2">2天</option>
-                    </select>
-                  </label>
-                </div>
-                <div class="date-rule-item">
-                  <label class="checkbox-inline"
-                    ><input type="radio" value="5" name="date-rule" />
-                    新入职(昨天签署合同的人员)</label
-                  >
-                </div>
+          <!-- date -->
+          <div class="rules-date">
+            <h4 class="m-t-md">时间约束</h4>
+            <div class="date-rules-wrp">
+              <div class="date-rule-item">
+                <label class="checkbox-inline"><input type="radio" value="1" name="date-rule" checked /> 无限制</label>
+              </div>
+              <div class="date-rule-item">
+                <label class="checkbox-inline"><input type="radio" value="2" name="date-rule" /> 今天过生日</label>
+              </div>
+              <div class="date-rule-item">
+                <label class="checkbox-inline"><input type="radio" value="3" name="date-rule" />
+                  入职周年(历史上今日入职的老员工)</label>
+              </div>
+              <div class="date-rule-item">
+                <label class="checkbox-inline"><input type="radio" value="4" name="date-rule" /> 生日前
+                  <select class="js-birthday-num" style="display: inline-block;">
+                    <option value="1">1天</option>
+                    <option value="2">2天</option>
+                  </select>
+                </label>
+              </div>
+              <div class="date-rule-item">
+                <label class="checkbox-inline"><input type="radio" value="5" name="date-rule" />
+                  新入职(昨天签署合同的人员)</label>
               </div>
             </div>
           </div>
         </div>
-      </form>
+      </div>
+    </form>
 
-      <!-- advanced 暂无-->
-      <form class="m-t-md clearfix">
-        <div class="show-wrp col-sm-8 col-sm-offset-2">
-          <div class="header-wrp clearfix">
-            <label class="checkbox-inline"
-              ><input type="radio" value="2" disabled /> 高级配置</label
-            >
-          </div>
+    <!-- advanced 暂无-->
+    <form class="m-t-md clearfix">
+      <div class="show-wrp col-sm-8 col-sm-offset-2">
+        <div class="header-wrp clearfix">
+          <label class="checkbox-inline"><input type="radio" value="2" disabled /> 高级配置</label>
+        </div>
 
-          <div class="body-wrp">
-            <div class="rule-item-adv m-t-sm">
-              <textarea class="form-control input-sm" rows="3" disabled></textarea>
-            </div>
+        <div class="body-wrp">
+          <div class="rule-item-adv m-t-sm">
+            <textarea class="form-control input-sm" rows="3" disabled></textarea>
           </div>
         </div>
-      </form>
-
-      <!-- btn -->
-      <div class="btn-wrp m-t-md text-center">
-        <button class="btn btn-sm" type="button" id="btn_preview">预览最终结果</button>
-        <button class="btn btn-sm btn-success" type="button" id="btn_save">保存</button>
       </div>
+    </form>
+
+    <!-- btn -->
+    <div class="btn-wrp m-t-md text-center">
+      <button class="btn btn-sm" type="button" id="btn_preview">预览最终结果</button>
+      <button class="btn btn-sm btn-success" type="button" id="btn_save">保存</button>
     </div>
+  </div>
 
-    <!-- script -->
-    <script src="../../../js/jquery-2.1.1.js"></script>
-    <script src="../../../js/bootstrap.min.js"></script>
-    <script src="../../../i18n/zh-CN.js"></script>
-    <script src="../../../js/plugins/layer/layer.js"></script>
-    <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
-    <script src="../../../js/subindex.js"></script>
+  <!-- script -->
+  <script src="../../../js/jquery-2.1.1.js"></script>
+  <script src="../../../js/bootstrap.min.js"></script>
+  <script src="../../../i18n/zh-CN.js"></script>
+  <script src="../../../js/plugins/layer/layer.js"></script>
+  <script src="../../../js/plugins/validate/jquery.validate.custom.min.js"></script>
+  <script src="../../../js/subindex.js"></script>
 
-    <!-- mock -->
-    <script src="../../../js/jquery.mockjax.min.js"></script>
-    <script type="text/javascript" src="../../../demo-data.js"></script>
-    <!-- mock end -->
+  <!-- mock -->
+  <script src="../../../js/jquery.mockjax.min.js"></script>
+  <script type="text/javascript" src="../../../demo-data.js"></script>
+  <!-- mock end -->
 
-    <script>
-      var DATA_STORE = [];
-      // var DATA_STORE = [
-      //   {
-      //     include: {
-      //       main: [
-      //         { code: 'code_0_1_1', type: '1' },
-      //         { code: 'code_0_1_3', type: '0' }
-      //       ],
-      //       sub: [
-      //         { type: 'postNameRight', text: 'a' },
-      //         { type: 'depName', text: 'a1' }
-      //       ]
-      //     },
-      //     exclude: {
-      //       main: [{ code: 'code_0_1_3', type: '0' }],
-      //       sub: [{ type: 'postNameRight', text: 'b' }]
-      //     }
-      //   },
-      //   {
-      //     include: {
-      //       main: [{ code: 'code_0_1_1', type: '1' }],
-      //       sub: [{ type: 'depName', text: 'a1' }]
-      //     },
-      //     exclude: {
-      //       main: [{ code: 'code_0_1_3', type: '0' }],
-      //       sub: [{ type: 'depName', text: 'a1' }]
-      //     }
-      //   }
-      // ];
+  <script>
+    var DATA_STORE = [];
+    // var DATA_STORE = [
+    //   {
+    //     include: {
+    //       main: [
+    //         { code: 'code_0_1_1', type: '1' },
+    //         { code: 'code_0_1_3', type: '0' }
+    //       ],
+    //       sub: [
+    //         { type: 'postNameRight', text: 'a' },
+    //         { type: 'depName', text: 'a1' }
+    //       ]
+    //     },
+    //     exclude: {
+    //       main: [{ code: 'code_0_1_3', type: '0' }],
+    //       sub: [{ type: 'postNameRight', text: 'b' }]
+    //     }
+    //   },
+    //   {
+    //     include: {
+    //       main: [{ code: 'code_0_1_1', type: '1' }],
+    //       sub: [{ type: 'depName', text: 'a1' }]
+    //     },
+    //     exclude: {
+    //       main: [{ code: 'code_0_1_3', type: '0' }],
+    //       sub: [{ type: 'depName', text: 'a1' }]
+    //     }
+    //   }
+    // ];
 
-      function initDataAndHtml(list) {
-        var createSubHtml = function (list) {
-          var template_data = {
-            postNameRight: '岗位名称为“(xx){text}”',
-            postNameLeft: '岗位名称为“{text}(xx)”',
-            postName: '岗位名称为“{text}”',
-            depName: '末级部门名称为“{text}”',
-            depNameLike: '末级部门名称包含“(xx){text}(xx)”',
-            depFullNameLike: '从属部门名称包含“(xx){text}(xx)”'
-          };
-          var tmp = [];
-
-          $.each(list, function (index, value) {
-            if (!template_data[value.type]) {
-              COM_TOOLS.alert('无数据替换模版');
-              return false;
-            }
-            var text = template_data[value.type].replace(/\{text\}/, value.text);
-            tmp.push('<span class="r-sub-item">' + text + '</span>');
-          });
-
-          return tmp.join('');
+    function initDataAndHtml(list) {
+      var createSubHtml = function (list) {
+        var template_data = {
+          postNameRight: '岗位名称为“(xx){text}”',
+          postNameLeft: '岗位名称为“{text}(xx)”',
+          postName: '岗位名称为“{text}”',
+          depName: '末级部门名称为“{text}”',
+          depNameLike: '末级部门名称包含“(xx){text}(xx)”',
+          depFullNameLike: '从属部门名称包含“(xx){text}(xx)”'
         };
         var tmp = [];
 
         $.each(list, function (index, value) {
-          var $main = $(
-            '<div class="rule-item clearfix">'+
-            '<div class="btn-wrp"><span class="btn-item js-edit"><i class="glyphicon glyphicon-pencil"></i></span> <span class="btn-item js-remove"><i class="glyphicon glyphicon-trash"></i></span></div>'+
-            '<div class="col-sm-8 js-include"><div class="rule-item-main"></div><div class="rule-item-sub"></div></div><div class="col-sm-4 js-exclude"><div class="rule-item-main"></div><div class="rule-item-sub"></div></div>'+
-            '<div class="rule-item-ccline">额外去除<i style="font-size: 21px;" class="glyphicon glyphicon-circle-arrow-right"></i></div>'+
-            '<div class="rule-item-ccbox1 bg-danger">交集模式</div>'+
-            '</div>'
-          );
-
-          var include = value['include'];
-          var exclude = value['exclude'];
-
-          insModel._getFormatData(include['main'], function (data) {
-            var $ul = insModel._makeSelWrap();
-            insModel._updateSelItem(data, $ul);
-            $main.find('.js-include').find('.rule-item-main').html($ul);
-          });
-
-          insModel._getFormatData(exclude['main'], function (data) {
-            var $ul = insModel._makeSelWrap();
-            insModel._updateSelItem(data, $ul);
-            $main.find('.js-exclude').find('.rule-item-main').html($ul);
-          });
-
-          $main.find('.js-include').find('.rule-item-sub').html(createSubHtml(include['sub']));
-          $main.find('.js-exclude').find('.rule-item-sub').html(createSubHtml(exclude['sub']));
-          
-          //是否交集
-          if(include['type'] == 'isNotUnion'){
-            $main.addClass('is-not-union');
+          if (!template_data[value.type]) {
+            COM_TOOLS.alert('无数据替换模版');
+            return false;
           }
-
-          tmp.push($main);
+          var text = template_data[value.type].replace(/\{text\}/, value.text);
+          tmp.push('<span class="r-sub-item">' + text + '</span>');
         });
 
-        $('#rules_list').html(tmp);
-      }
+        return tmp.join('');
+      };
+      var tmp = [];
 
-      function openRuleModel(data, cb) {
-        var _data = $.extend({}, data);
+      $.each(list, function (index, value) {
+        var $main = $(
+          '<div class="rule-item clearfix">' +
+          '<div class="btn-wrp"><span class="btn-item js-edit"><i class="glyphicon glyphicon-pencil"></i></span> <span class="btn-item js-remove"><i class="glyphicon glyphicon-trash"></i></span></div>' +
+          '<div class="col-sm-8 js-include"><div class="rule-item-main"></div><div class="rule-item-sub"></div></div><div class="col-sm-4 js-exclude"><div class="rule-item-main"></div><div class="rule-item-sub"></div></div>' +
+          '<div class="rule-item-ccline">额外去除<i style="font-size: 21px;" class="glyphicon glyphicon-circle-arrow-right"></i></div>' +
+          '<div class="rule-item-ccbox1 bg-danger">交集模式</div>' +
+          '</div>'
+        );
 
-        cumParentWinModal('规则弹窗', './规则弹窗.html', {
-          callid: _data,
-          callback: {
-            cbRuleData: function (data) {
-              console.log('cbRuleData', data);
-              cb && cb(data);
-            }
-          }
+        var include = value['include'];
+        var exclude = value['exclude'];
+
+        insModel._getFormatData(include['main'], function (data) {
+          var $ul = insModel._makeSelWrap();
+          insModel._updateSelItem(data, $ul);
+          $main.find('.js-include').find('.rule-item-main').html($ul);
         });
-      }
 
-      // init
-      var insModel = COM_TOOLS._model._orgModel_();
-
-      // 回显数据 ajax
-      // initDataAndHtml(DATA_STORE);
-
-      // event bind
-      $(document)
-        .on('click', '#btn_save', function () {
-          if (!$('#base_form').validate().form()) {
-            return;
-          }
-          if (!DATA_STORE.length) {
-            COM_TOOLS.alert('请添加规则内容');
-            return;
-          }
-
-          var dateType = $('.date-rules-wrp').find('[name=date-rule]:checked').val();
-          var dateValue = '';
-          if (dateType == '4') {
-            dateValue = $('.js-birthday-num').val();
-          }
-
-          var subData = {
-            rules: DATA_STORE,
-            date: {
-              type: dateType,
-              value: dateValue
-            }
-          };
-
-          // 提交 ajax
-          console.log('subData', subData);
-        })
-        // 新增规则
-        .on('click', '#btn_add_rule', function () {
-          openRuleModel(null, function (data) {
-            DATA_STORE.push(data);
-            initDataAndHtml(DATA_STORE);
-          });
-        })
-        // 编辑
-        .on('click', '.js-edit', function () {
-          var $t = $(this);
-          var $p = $t.closest('.rule-item');
-          var index = $p.index();
-
-          console.log('edit', index);
-
-          openRuleModel(DATA_STORE[index], function (data) {
-            DATA_STORE[index] = data;
-            initDataAndHtml(DATA_STORE);
-          });
-        })
-        // 删除
-        .on('click', '.js-remove', function () {
-          var $t = $(this);
-          var $p = $t.closest('.rule-item');
-          var index = $p.index();
-
-          console.log('del', index);
-          COM_TOOLS.confirm('确定要删除该规则吗？', function (i) {
-            DATA_STORE.splice(index, 1);
-            $p.remove();
-
-            cumCloseWin(i);
-          });
+        insModel._getFormatData(exclude['main'], function (data) {
+          var $ul = insModel._makeSelWrap();
+          insModel._updateSelItem(data, $ul);
+          $main.find('.js-exclude').find('.rule-item-main').html($ul);
         });
-    </script>
-  </body>
+
+        $main.find('.js-include').find('.rule-item-sub').html(createSubHtml(include['sub']));
+        $main.find('.js-exclude').find('.rule-item-sub').html(createSubHtml(exclude['sub']));
+
+        //是否交集
+        if (include['type'] == 'isNotUnion') {
+          $main.addClass('is-not-union');
+        }
+
+        tmp.push($main);
+      });
+
+      $('#rules_list').html(tmp);
+    }
+
+    function openRuleModel(data, cb) {
+      var _data = $.extend({}, data);
+
+      cumParentWinModal('规则弹窗', new URL('./规则弹窗.html', window.location).href, {
+        callid: _data,
+        callback: {
+          cbRuleData: function (data) {
+            console.log('cbRuleData', data);
+            cb && cb(data);
+          }
+        }
+      });
+    }
+
+    // init
+    var insModel = COM_TOOLS._model._orgModel_();
+
+    // 回显数据 ajax
+    // initDataAndHtml(DATA_STORE);
+
+    // event bind
+    $(document)
+      .on('click', '#btn_save', function () {
+        if (!$('#base_form').validate().form()) {
+          return;
+        }
+        if (!DATA_STORE.length) {
+          COM_TOOLS.alert('请添加规则内容');
+          return;
+        }
+
+        var dateType = $('.date-rules-wrp').find('[name=date-rule]:checked').val();
+        var dateValue = '';
+        if (dateType == '4') {
+          dateValue = $('.js-birthday-num').val();
+        }
+
+        var subData = {
+          rules: DATA_STORE,
+          date: {
+            type: dateType,
+            value: dateValue
+          }
+        };
+
+        // 提交 ajax
+        console.log('subData', subData);
+      })
+      // 新增规则
+      .on('click', '#btn_add_rule', function () {
+        openRuleModel(null, function (data) {
+          DATA_STORE.push(data);
+          initDataAndHtml(DATA_STORE);
+        });
+      })
+      // 编辑
+      .on('click', '.js-edit', function () {
+        var $t = $(this);
+        var $p = $t.closest('.rule-item');
+        var index = $p.index();
+
+        console.log('edit', index);
+
+        openRuleModel(DATA_STORE[index], function (data) {
+          DATA_STORE[index] = data;
+          initDataAndHtml(DATA_STORE);
+        });
+      })
+      // 删除
+      .on('click', '.js-remove', function () {
+        var $t = $(this);
+        var $p = $t.closest('.rule-item');
+        var index = $p.index();
+
+        console.log('del', index);
+        COM_TOOLS.confirm('确定要删除该规则吗？', function (i) {
+          DATA_STORE.splice(index, 1);
+          $p.remove();
+
+          cumCloseWin(i);
+        });
+      });
+  </script>
+</body>
+
 </html>
