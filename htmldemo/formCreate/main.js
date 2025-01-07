@@ -236,7 +236,7 @@ $(function () {
         _HASJAVACODE_ = false;
         var html_ = get_sfpage_htmlStr();
         console.log('预览', html_);
-        html_ && cumParentWinModal('预览', 'scanfpage.html', {
+        html_ && cumParentWinModal('预览', new URL('scanfpage.html', window.location).href , {
             success: function (a, b, c) {
                 c.init_pageFn({
                     htmlcode: html_
